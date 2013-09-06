@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
@@ -41,6 +41,8 @@
 <script type="text/javascript">payment.init();</script>
 
 <?php else:?>
+
+<?php echo $this->getChildHtml('gomage.reward.points') ?>
 
 <dl class="sp-methods" id="checkout-payment-method-load">
 <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>

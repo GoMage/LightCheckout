@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 2.0
  */
 ?>
@@ -22,7 +22,7 @@
                 <input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" />
             </div>
 			
-			<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('Please enter coupon code.')}else{checkout.applyDisocunt(false);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
+			<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('<?php echo $this->__('Please enter coupon code.') ?>')}else{checkout.applyDisocunt(false);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
 			<?php if(strlen($this->getCouponCode())): ?>
 				&nbsp; <button type="button" title="<?php echo $this->__('Cancel Coupon') ?>" class="button" onclick="checkout.applyDisocunt(true)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><span><?php echo $this->__('Cancel Coupon') ?></span></span></button>
 			<?php endif;?>

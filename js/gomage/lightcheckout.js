@@ -68,6 +68,12 @@ Lightcheckout = Class.create({
     		}
     		
     	});
+    	
+    	if ($('use_reward_points')) {
+    		$('use_reward_points').observe('click', function(e){
+        		this.submit(this.getFormData(), 'get_totals');
+        	}.bind(this));
+    	}	
 		
 		this.observeMethods();
 		this.observeAddresses();
@@ -77,6 +83,7 @@ Lightcheckout = Class.create({
 	observeMethods:function(){
 		$$('#gcheckout-shipping-method-available input').each(function(e){
 			e.onchange = null;
+			Event.stopObserving(e, 'click');
 			e.observe('click', function(e){
 				if(this.elem.checked){
 					this.obj.submit(this.obj.getFormData(), 'get_totals');
@@ -125,6 +132,11 @@ Lightcheckout = Class.create({
         
         }
 		
+		this.observePaymentMethods();
+		
+	},
+	
+	observePaymentMethods:function(){
 		$$('#checkout-payment-method-load input[name="payment[method]"]').each(function(e){
 			e.observe('click', function(e){
 				if(this.elem.checked){
@@ -134,9 +146,11 @@ Lightcheckout = Class.create({
 				}
 			}.bind({elem:e,obj:this}));
 		}.bind(this));
-
-		
-	},
+		$$('.cvv-what-is-this').each(function(element){
+            Event.observe(element, 'click', toggleToolTip);
+        });
+	},	
+	
 	getFormData:function(){
 		
 		var elements = $('gcheckout-onepage-form').getElements('input, select, textarea');
@@ -144,7 +158,7 @@ Lightcheckout = Class.create({
 		var query = '';
 		
 		for(var i = 0;i < elements.length;i++){
-			if((elements[i].type == 'checkbox' || elements[i].type == 'radio') && !elements[i].checked){
+			if(((elements[i].type == 'checkbox') || elements[i].type == 'radio') && !elements[i].checked){
 				continue;
 			}	
 			
@@ -153,11 +167,11 @@ Lightcheckout = Class.create({
 				continue;
 			}	
 			
-			query = query+elements[i].name + '=' + elements[i].value;
-			
-			if(i+1 < elements.length){
+			if(query != ''){
 				query = query + '&';
 			}
+			
+			query = query+elements[i].name + '=' + elements[i].value;						
 			
 		}				
 		return query;
@@ -187,8 +201,20 @@ Lightcheckout = Class.create({
 		}
 		else
 		{
-			checkoutForm.submit();
+			if (checkoutForm.validator.validate()){
+				this.submit(this.getFormData(), 'save_payment_methods');				
+			}
 		}	
+	},
+		
+	innerHTMLwithScripts: function(element, content){
+		var js_scripts = content.extractScripts();										
+		element.innerHTML = content.stripScripts();
+		for (var i=0; i< js_scripts.length; i++){																
+	        if (typeof(js_scripts[i]) != 'undefined'){        	        	
+	        	LightcheckoutglobalEval(js_scripts[i]);                	
+	        }
+	    }			
 	},
 	
 	submit:function(params, action){
@@ -233,82 +259,112 @@ Lightcheckout = Class.create({
 				this.hideLoadinfo();
 				
 			}else{
-				
-				
-				
+												
 				if(response.section == 'methods'){
 					
 					if(response.rates){
 						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-							shipping_rates_block.innerHTML = response.rates;
+							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
 						}
 					}
 					if(response.payments){
-						$('gcheckout-payment-methods-available').innerHTML = response.payments;
+						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);						
 						payment.init();
+						this.observePaymentMethods();
 					}
-					$$('#gcheckout-onepage-review div.totals')[0].innerHTML = response.totals;
 					
-					decorateTable('checkout-review-table');
+					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);									
+					
+					if (response.gift_message){
+						if(giftmessage_block = $('gomage-lightcheckout-giftmessage')){
+							
+							this.innerHTMLwithScripts(giftmessage_block, response.gift_message);
+							
+						}
+					}
+					
+					if(response.toplinks){
+						var link = $$('ul.links a.top-link-cart')[0];		
+						if (link && response.toplinks){				
+							
+							var content = response.toplinks;			
+							if (content && content.toElement){
+						    	content = content.toElement();			    	
+						    }else if (!Object.isElement(content)){			    	
+							    content = Object.toHTML(content);
+							    var tempElement = document.createElement('div');			    
+							    tempElement.innerHTML = content;
+							    el =  this.getElementsByClassName('top-link-cart', tempElement);
+							    if (el.length > 0){
+							        content = el[0];
+							    }
+							    else{
+							       return;
+							    }
+						    }								
+							link.parentNode.replaceChild(content, link);							
+						}
+					}
+
 					
 					this.observeMethods();
 					
 				}else if(response.section == 'payment_methods'){
 					
-					if(response.payments){
-						$('gcheckout-payment-methods-available').innerHTML = response.payments;
+					if(response.payments){						
+						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
 						payment.init();
+						this.observePaymentMethods();
 					}
-					$$('#gcheckout-onepage-review div.totals')[0].innerHTML = response.totals;
+										
+					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
 					
-					decorateTable('checkout-review-table');
 					
 				}else if(response.section == 'shiping_rates'){
 					
 					if(response.rates){
-						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-						$('gcheckout-shipping-method-available').innerHTML = response.rates;
+						if(shipping_rates_block = $('gcheckout-shipping-method-available')){						
+							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
 						}
 					}
-					$$('#gcheckout-onepage-review div.totals')[0].innerHTML = response.totals;
 					
-					decorateTable('checkout-review-table');
+					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
 					
 					this.observeMethods();
 					
 				}else if(response.section == 'totals'){
 					
-					$$('#gcheckout-onepage-review div.totals')[0].innerHTML = response.totals;
-					
-					decorateTable('checkout-review-table');
+					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
 					
 					if(response.rates){
 						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-							shipping_rates_block.innerHTML = response.rates;
+							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
 						}
 						this.observeMethods();
-					}					
+					}	
+					
+					if(response.payments){
+						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
+						payment.init();
+						this.observePaymentMethods();
+					}
 					
 				}else if(response.section == 'varify_taxvat'){
 					
 					if(response.rates){
 						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-						$('gcheckout-shipping-method-available').innerHTML = response.rates;
+							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
 						}
 					}
 					if(response.payments){
-						$('gcheckout-payment-methods-available').innerHTML = response.payments;
-						payment.init();
+						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
+						payment.init();						
 					}
-					
-					
-					
-					$$('#gcheckout-onepage-review div.totals')[0].innerHTML = response.totals;
-					
-					decorateTable('checkout-review-table');
+															
+					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
 					
 					if($('billing_taxvat_verified')){
-					$('billing_taxvat_verified').remove();
+						$('billing_taxvat_verified').remove();
 					}
 					
 					checkout.billing_taxvat_verified_flag = response.verify_result;
@@ -332,6 +388,19 @@ Lightcheckout = Class.create({
 					
 					this.observeMethods();
 					
+				} else if (response.section == 'centinel'){
+					
+					if (response.centinel){
+						if(centinel_block = $('gcheckout-payment-centinel')){
+							this.innerHTMLwithScripts(centinel_block, response.centinel);							
+						}
+					}else{
+						if((payment.currentMethod == 'authorizenet_directpost') && ((typeof directPostModel != 'undefined'))){
+							directPostModel.saveOnepageOrder();
+						}else{
+							checkoutForm.submit();
+						}								
+					}					
 				}
 				
 				if (this.existsreview)
@@ -354,6 +423,17 @@ Lightcheckout = Class.create({
 		    }
 		  });
 	},
+	
+	getElementsByClassName:function(classname, node){
+	    var a = [];
+	    var re = new RegExp('\\b' + classname + '\\b');
+	    var els = node.getElementsByTagName("*");
+	    for(var i=0,j=els.length; i<j; i++){
+	           if(re.test(els[i].className))a.push(els[i]);
+	    } 
+	    return a;
+	},
+	
 	showLoadinfo:function(){
 		
 		$('submit-btn').disabled = 'disabled';
@@ -385,6 +465,9 @@ Lightcheckout = Class.create({
 		$('submit-btn').removeClassName('disabled');
 		
 	},
+	ajaxFailure: function(){
+        location.href = this.failureUrl;
+    }, 
 	showOverlay:function(){
 		var overlay = $('gomage-checkout-main-overlay');
 		
@@ -522,11 +605,13 @@ Lightcheckout = Class.create({
 				}else{
 					
 					if(response.rates){
-						$('gcheckout-shipping-method-available').innerHTML = response.rates;
+						if ($('gcheckout-shipping-method-available')){
+							this.innerHTMLwithScripts($('gcheckout-shipping-method-available'), response.rates);
+						}	
 					}
 					if(response.payments){
-						$('gcheckout-payment-methods-available').innerHTML = response.payments;
-						payment.init();
+						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);						
+						payment.init();						
 					}
 					
 					if (response.content_billing){
@@ -542,7 +627,7 @@ Lightcheckout = Class.create({
 					}	
 					
 					if(response.totals){
-						$$('#gcheckout-onepage-review div.totals')[0].innerHTML = response.totals;
+						this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
 					}
 					
 					initAddresses();
@@ -764,6 +849,8 @@ paymentForm.prototype = {
     	});
         
         if (method) this.switchMethod(method);
+        
+        this.afterInit(); 
     },
     
     switchMethod: function(method){
@@ -805,7 +892,16 @@ paymentForm.prototype = {
             for (var i=0; i<elements.length; i++) elements[i].disabled = false;
             this.currentMethod = method;
         }
-    }
+    },
+    addAfterInitFunction : function(code, func) {
+        this.afterInitFunc.set(code, func);
+    },
+
+    afterInit : function() {
+        (this.afterInitFunc).each(function(init){
+            (init.value)();
+        });
+    } 
 }
 
 
@@ -889,3 +985,13 @@ LightcheckoutReview.prototype = {
     isSuccess: false
 };
 
+var LightcheckoutglobalEval = function LightcheckoutglobalEval(src){
+    if (window.execScript) {
+        window.execScript(src);
+        return;
+    }
+    var fn = function() {
+        window.eval.call(window,src);
+    };
+    fn();
+};

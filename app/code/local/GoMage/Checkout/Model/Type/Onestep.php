@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
@@ -151,7 +151,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
         
         $address->implodeStreetAddress();
         
-        if ($this->getCheckoutMode() != 2 && intval(Mage::getSingleton('customer/session')->getId()) == 0 && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
+        if ($this->getCheckoutMode() == 1 && intval(Mage::getSingleton('customer/session')->getId()) == 0 && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
             return array('error' => 1, 'message' => $this->helper->__('There is already a customer registered using this email address. Please login using this email address or enter a different email address.'));
         }
 		
@@ -166,10 +166,10 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
         
         if(method_exists($this, '_validateCustomerData')){ 
         	
-        	$result = $this->_validateCustomerData($data);
+        	$_result = $this->_validateCustomerData($data);
         	
-        	if( $result !== true ) {
-            	return  array('error' => 1, 'message' => array_merge($result['message'], (array)$result));
+        	if( $_result !== true ) {
+            	return  array('error' => 1, 'message' => $_result['message']);
 	        }
 	        
         	
@@ -508,6 +508,16 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
     		
     	}
     	
+    	$paymentMethod = $this->getQuote()->getPayment()->getMethod();
+        try {
+        	if ($paymentMethod){        			
+        	    $this->getQuote()->getPayment()->importData(array('method' =>	$paymentMethod));
+        	}
+    	}
+    	catch (Exception $_e)
+    	{
+    	}
+    	
     	$this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
 	    $this->getQuote()->getShippingAddress()->collectShippingRates();
 	    $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
@@ -551,7 +561,10 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
     	
     	
     	$country = $this->getQuote()->getBillingAddress()->getCountry();
-    	     	
+        if ($country == "GR"){
+            $country = "EL";
+   	    }
+
     	if(in_array($country, array("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","GB","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK"))){
 	    	try{
 	    		$ch = curl_init();

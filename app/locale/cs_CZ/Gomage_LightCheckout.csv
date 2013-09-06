@@ -32,7 +32,7 @@
 "Comments","Komentář"
 "Already registered? Please log in here","Již máte účet? Prosím, přihlašte se zde"
 "Customer Login","Přihlášení uživatele or zákazníka"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","Souhlasím s <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Podmínkami</a>"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","Souhlasím s <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Podmínkami</a>"
 "Login","Přihlášení  "
 "Forgot Your Password?","Zapomněli jste heslo?"
 "Place Order","Potvrďte objednávku"

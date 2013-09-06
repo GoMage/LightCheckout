@@ -7,30 +7,40 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
  
-	$checkout_skin	= 'gomage-checkout-skin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
+	$checkout_skin	= 'glc-skin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
 	
 	if($this->helper('gomage_checkout')->getConfigData('general/skin') == 'default'){
 	
-		$buttons_skin = 'gomage-checkout-button-skin-'.$this->helper('gomage_checkout')->getConfigData('general/button_skin');
+		$buttons_skin = 'glc-bskin-'.$this->helper('gomage_checkout')->getConfigData('general/button_skin');
 		
-		$checkout_popup_skin = 'gomage-checkout-popup-skin-default';
+		$checkout_popup_skin = 'glc-pskin-default';
 	
 	}else{
 		
 		$buttons_skin = '';
 		
-		$checkout_popup_skin = 'gomage-checkout-popup-skin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
+		$checkout_popup_skin = 'glc-pskin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
 		
 	}
+	$buttons="";
+	$round="";
 	
+	if ($checkout_skin=='glc-skin-black' or $checkout_skin=='glc-skin-blue' or $checkout_skin=='glc-skin-brown' or $checkout_skin=='glc-skin-gray' or $checkout_skin=='glc-skin-green' or $checkout_skin=='glc-skin-light-blue' or $checkout_skin=='glc-skin-light-green' or $checkout_skin=='glc-skin-orange' or $checkout_skin=='glc-skin-red' or $checkout_skin=='glc-skin-pink' or $checkout_skin=='glc-skin-violet' or $checkout_skin=='glc-skin-yellow' or $buttons_skin=='glc-bskin-square-black' or $buttons_skin=='glc-bskin-square-blue' or $buttons_skin=='glc-bskin-square-brown' or $buttons_skin=='glc-bskin-square-grey' or $buttons_skin=='glc-bskin-square-green' or $buttons_skin=='glc-bskin-square-light-blue' or $buttons_skin=='glc-bskin-square-light-green' or $buttons_skin=='glc-bskin-square-orange' or $buttons_skin=='glc-bskin-square-red' or $buttons_skin=='glc-bskin-square-pink' or $buttons_skin=='glc-bskin-square-violet' or $buttons_skin=='glc-bskin-square-yellow' or $checkout_popup_skin=='glc-pskin-black' or $checkout_popup_skin=='glc-pskin-blue' or $checkout_popup_skin=='glc-pskin-brown' or $checkout_popup_skin=='glc-pskin-gray' or $checkout_popup_skin=='glc-pskin-green' or $checkout_popup_skin=='glc-pskin-light-blue' or $checkout_popup_skin=='glc-pskin-light-green' or $checkout_popup_skin=='glc-pskin-orange' or $checkout_popup_skin=='glc-pskin-red' or $checkout_popup_skin=='glc-pskin-pink' or $checkout_popup_skin=='glc-pskin-violet' or $checkout_popup_skin=='glc-pskin-yellow')
+	$buttons="glc-nbutton";
 	
+	if($buttons_skin=='glc-bskin-round-black' or $buttons_skin=='glc-bskin-round-blue' or $buttons_skin=='glc-bskin-round-green' or $buttons_skin=='glc-bskin-round-orange' or $buttons_skin=='glc-bskin-round-red' or $buttons_skin=='glc-bskin-round-gray')
+	$round="glc-bskin-round";
  
 ?>
-<?php echo $this->getContent();?>
+<?php if($this->getContent()):?>
+<div class="glc-content">
+	<?php echo $this->getContent();?>
+</div>
+<?php endif ?>
 
 <script type="text/javascript">
 	//<![CDATA[
@@ -38,20 +48,22 @@
 	
 	Validation.addAllThese([
 	    ['validate-taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', function(v) {
-	    
-	    if(vat_required_countries.indexOf($('billing_country_id').value) !== -1){
-	    	
-	    	if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.billing_taxvat_verified_flag){
-	    		
-	    		return false;
-	    	
-	    	}else if(v && !checkout.billing_taxvat_verified_flag){
-	    		
-	    		return false;
-	    		
-	    	}
-	    	
-	    }
+
+		if ($('billing_country_id')){    
+    	    if(vat_required_countries.indexOf($('billing_country_id').value) !== -1){
+    	    	
+    	    	if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.billing_taxvat_verified_flag){
+    	    		
+    	    		return false;
+    	    	
+    	    	}else if(v && !checkout.billing_taxvat_verified_flag){
+    	    		
+    	    		return false;
+    	    		
+    	    	}
+    	    	
+    	    }
+		}
 	    
 	    return true;
 	}]]);
@@ -99,9 +111,9 @@
 	
 	
 	
-	var loginFormHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin;?>" id="login-form" style="display:none;">'+
-		'<div class="light-checkout-popup-head-bg"><div class="light-checkout-popup-head-bg-in"></div></div>'+
-		'<div class="light-checkout-popup-content-bg"><div class="light-checkout-popup-content-bg-in">'+
+	var loginFormHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="login-form" style="display:none;">'+
+		'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
+		'<div class="glc-popup-content"><div class="glc-popup-content-in">'+
 		'<a class="close" onclick="checkout.hideLoginForm();"></a>'+
 		'<div class="details">'+
 			'<h2><?php echo $this->__("Customer Login")?></h2>'+
@@ -129,14 +141,14 @@
 		'</div>'+
 		'</div>'+
 		'</div>'+
-		'<div class="light-checkout-popup-bottom-bg"><div class="light-checkout-popup-bottom-bg-in"></div></div>'+
+		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+
 	'</div>';
 	
 	<?php if($this->getConfigData('termsandconditions/enabled')):?>
 	
-	var termsHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin;?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
-	'<div class="light-checkout-popup-head-bg"><div class="light-checkout-popup-head-bg-in"></div></div>'+
-	'<div class="light-checkout-popup-content-bg"><div class="light-checkout-popup-content-bg-in" style="width:<?php $tacwidth=intval($this->getConfigData('termsandconditions/width'))-48; echo $tacwidth; ?>px;height:<?php intval($tacheight=$this->getConfigData('termsandconditions/height'))-25; echo $tacheight; ?>px;">'+
+	var termsHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
+	'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
+	'<div class="glc-popup-content"><div class="glc-popup-content-in" style="width:<?php $tacwidth=intval($this->getConfigData('termsandconditions/width'))-48; echo $tacwidth; ?>px;height:<?php intval($tacheight=$this->getConfigData('termsandconditions/height'))-25; echo $tacheight; ?>px;">'+
 		'<a class="close" onclick="checkout.hideTerms();return false;"></a>'+
 		'<div class="details">'+
 			'<div class="popup-content">'+
@@ -145,7 +157,7 @@
 		'</div>'+
 		'</div>'+
 		'</div>'+
-		'<div class="light-checkout-popup-bottom-bg"><div class="light-checkout-popup-bottom-bg-in"></div></div>'+		
+		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+		
 	'</div>';
 	
 	<?php endif;?>
@@ -155,14 +167,31 @@
 </script>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
+<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2 && Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?>
+<div class="glc-login-and-paypal">
+<?php endif; ?>
+
 	<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
-	
-	<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?>">
-		<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
-	</div>
-	
-	<?php endif;?>
-	
+		
+		<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?>">
+			<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
+			<?php if(Mage::getStoreConfig('customer/facebook/enabled')): ?>
+		    		<span><?php echo $this->__('or');?></span>
+		    		<a rel="facebook-connect" title="<?php echo $this->__('Login with Facebook');?>" href="<?php echo $this->helper('facebook')->getConnectUrl() ?>"><?php echo $this->__('Login with Facebook');?></a>
+			<?php endif; ?>
+		</div>
+		
+		<?php endif;?>
+		
+		<?php if(Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?> 
+		    	<div class="glc-paypal-express">
+		    	    <?php echo $this->getChildHtml('gomage.methods.paypal_express'); ?>
+		    	</div>
+		<?php endif; ?>
+
+<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2 && Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?>
+</div>
+<?php endif; ?>
 <?php
 	
 	$class_mode = '';
@@ -178,17 +207,23 @@
 		$class_mode .= ' not_deliverydate_mode ';
 		
 	}
-	
-	
+
+
 	if(!Mage::getSingleton('checkout/session')->getShippingSameAsBilling()){
-		
-		$class_mode .= ' diferent_shipping_address ';
+ 
+    if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')) 
+      {
+      $class_mode .= ' notddate_diferent_shipping_address ';
+      }
+    else
+      {
+      $class_mode .= ' diferent_shipping_address ';
+      }
 		
 	}
 	
 ?>
-
-<div class="gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin;?>">
+<div class="glc gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin, ' ', $buttons, ' ', $round;?>">
 	
 	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">
 	
@@ -227,7 +262,6 @@
 				<?php endif;?>
 				
 			}else{
-				
 				$('gcheckout-shipping-address').style.display = 'block';
 				
 				<?php if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')):?>

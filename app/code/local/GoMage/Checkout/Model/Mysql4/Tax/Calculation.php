@@ -21,11 +21,11 @@ class GoMage_Checkout_Model_Mysql4_Tax_Calculation extends Mage_Tax_Model_Mysql4
             $select->where('product_tax_class_id IN (?)', $request->getProductClassId());
         }
 		
-		if($ruleId = $request->getDisableByRule()){
+		if($ruleIds = $request->getDisableByRule()){
 		
         $select->join(
             array('rule'=>$this->getTable('tax/tax_calculation_rule')),
-            sprintf('rule.tax_calculation_rule_id = main_table.tax_calculation_rule_id AND rule.tax_calculation_rule_id != %d', $ruleId),
+            sprintf('rule.tax_calculation_rule_id = main_table.tax_calculation_rule_id AND rule.tax_calculation_rule_id not in (%s)', $ruleIds),
             array('rule.priority', 'rule.position')
         );
 		
@@ -72,9 +72,7 @@ class GoMage_Checkout_Model_Mysql4_Tax_Calculation extends Mage_Tax_Model_Mysql4
         $select = $this->_getReadAdapter()->select()->union(array('(' . $select . ')', '(' . $selectClone . ')'));
         $order = array('priority ASC', 'tax_calculation_rule_id ASC', 'tax_country_id DESC', 'tax_region_id DESC', 'tax_postcode DESC', 'value DESC');
         $select->order($order);
-		
-		//file_put_contents(Mage::getBaseDir('var').'/response.txt', print_r($this->_getReadAdapter()->fetchAll($select), true));
-		
+				
         return $this->_getReadAdapter()->fetchAll($select);
 
     }

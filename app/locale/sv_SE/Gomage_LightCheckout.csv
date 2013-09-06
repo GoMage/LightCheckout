@@ -32,7 +32,7 @@
 "Comments","Kommentarer"
 "Already registered? Please log in here","Redan registrerad? Klicka här för att logga in"
 "Customer Login","Kund Logga in"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","Jag accepterar <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Allmänna villkor</a>"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","Jag accepterar <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Allmänna villkor</a>"
 "Login","Logga in"
 "Forgot Your Password?","Glömt ditt lösenord?"
 "Place Order","Placera Order"

@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 2.0
  */
 ?>
@@ -30,5 +30,16 @@
 	<span><?php echo Mage::helper('gomage_checkout')->__(Mage::helper('gomage_checkout')->getConfigData('vat/text_under'));?></span>
 </label>
 <?php endif;?>
-<input id="buy_without_vat_value" type="hidden" value="<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox')==2 ? 0 : 1?>" name="billing[buy_without_vat]"/> 
-<input id="buy_without_vat_value2" type="hidden" value="<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox')==2 ? 0 : 1?>" name="shipping[buy_without_vat]"/> 
+<?php
+    if (Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox')==3){ 
+        $without_vat_value = 1;        
+    }else{
+        if($this->getCheckedWithoutVat()){
+            $without_vat_value = 1;
+        }else{
+            $without_vat_value = 0;
+        }
+    }
+?>
+<input id="buy_without_vat_value" type="hidden" value="<?php echo $without_vat_value; ?>" name="billing[buy_without_vat]"/> 
+<input id="buy_without_vat_value2" type="hidden" value="<?php echo $without_vat_value; ?>" name="shipping[buy_without_vat]"/> 

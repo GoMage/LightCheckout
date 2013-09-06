@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 	
@@ -92,10 +92,11 @@
 						}
 						
 						$value = date('YmdHis', (strtotime($mysql_date.$mysql_time)+intval(@$deliverydate['customer_offset'])));
+						$timestamp = strtotime($mysql_date.$mysql_time)+intval(@$deliverydate['customer_offset']);
 						
 						if($value){
 							
-							$quote->setData('gomage_deliverydate', $value);
+							$quote->setData('gomage_deliverydate', date('Y-m-d H:i:s', $timestamp));
 							
 							$formated_value = Mage::app()->getLocale()->date($value, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
 							

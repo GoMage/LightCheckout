@@ -1,0 +1,26 @@
+.lc-calendar{font-family:Arial,Helvetica,sans-serif;font-size:12px;cursor:default;}
+.lc-calendar .lc-calendar-ctrl{border:1px solid #435;background:#ccc;width:173px;height:39px;position:relative;color:#0A263C;font-weight:700;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-but{position:absolute;width:16px;height:16px;z-index:10;top:2px;float:left;cursor:pointer;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-but div{background-image:url(../../images/gomage/lightcheckout/lc-nav.png);background-repeat:no-repeat;margin-left:3px;margin-top:3px;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-y-prev{left:4px;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-y-prev div{height:9px;width:8px;background-position:-8px 0;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-m-prev{left:24px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-m-prev div{height:9px;width:8px;background-position:0 0;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-m-next{left:100%;margin-left:-42px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-m-next div{height:9px;width:8px;background-position:-16px 0;margin-left:4px !important;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-y-next{left:100%;margin-left:-22px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-y-next div{height:9px;width:8px;background-position:-24px 0;margin-left:4px !important;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-but-title{height:20px;}
+.lc-calendar .lc-calendar-week-header table{font-weight:700;background:#AAA;border-top:1px solid #000;font-size:10px;border-collapse:separate;width:100%;border-spacing:2px;}
+.lc-calendar .lc-calendar-pane table{background:#aaa;border:1px solid #000;width:100%;border-spacing:2px;}
+.lc-calendar .lc-calendar-week-header td{font-size:10px;text-align:center;line-height:12px;padding:3px 5px;}
+.lc-calendar .lc-calendar-pane td div{font-size:10px;background:#bbb;line-height:12px;text-align:center;padding:2px 5px;}
+.lc-calendar .lc-calendar-pane td.lc-enabled-day div:hover{background:#fff;color:#000;}
+.lc-calendar .lc-calendar-pane td.lc-enabled-day div.lc-selected-day:hover{background:#f33;color:#fff;}
+.lc-calendar .lc-selected-day{background:#AAA;color:#fff !important;}
+.lc-calendar .lc-calendar-pane td .lc-today{background:#666;color:#FFF;}
+.lc-calendar .lc-calendar-pane td .lc-selected-day{background:#F66;color:#FFF;}
+.lc-calendar-week-header td,.lc-calendar-week-header td.lc-weekend{color:#FFF;background:#333;padding:3px 5px;}
+.lc-calendar .lc-calendar-week-header td div{width:12px;padding:0;}
+.lc-calendar .lc-disabled-day,.lc-calendar .lc-out-of-month{color:#888;}
+.ls-popup-container{position:absolute;z-index:100;width:175px;height:200px;}

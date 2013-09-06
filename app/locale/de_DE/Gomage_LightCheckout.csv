@@ -32,7 +32,7 @@
 "Comments","Kommentare"
 "Already registered? Please log in here","Bereits registriert? Hier klicken, um einzuloggen"
 "Customer Login","Kundenlogin"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","Ich stimme den <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Allgemeinen Geschäftsbedingungen</a> zu"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","Ich stimme den <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Allgemeinen Geschäftsbedingungen</a> zu"
 "Login","Anmelden"
 "Forgot Your Password?","Passwort vergessen?"
 "Place Order","Bestellung abschließen"

@@ -32,7 +32,7 @@
 "Comments","Комментарии"
 "Already registered? Please log in here","Зарегистрированы? Нажмите здесь, чтобы Войти"
 "Customer Login","Вход Пользователя"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","Я принимаю <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Условия и положения</a>"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","Я принимаю <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Условия и положения</a>"
 "Login","Войти"
 "Forgot Your Password?","Забыли пароль?"
 "Place Order","Разместить заказ"

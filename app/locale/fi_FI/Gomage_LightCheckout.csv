@@ -32,7 +32,7 @@
 "Comments","Huomautuksia"
 "Already registered? Please log in here","Rekisteröitynyt? Kirjaudu tästä"
 "Customer Login","Asiakas Kirjaudu"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","Hyväksyn  <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Yleiset ehdot</a>"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","Hyväksyn  <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Yleiset ehdot</a>"
 "Login","Kirjaudu"
 "Forgot Your Password?","Salasana unohtunut?"
 "Place Order","Tee tilaus"

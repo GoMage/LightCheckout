@@ -57,6 +57,13 @@
         </dl>
         <?php endif;?>
     </td>
+    <?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>
+    <td class="a-center light-chechout-gift-wrap-td">
+        <?php if (!$_item->getProduct()->isVirtual()): ?>
+    		<input value="1" type="checkbox" class="glc-gift-wrap" onclick="checkout.submit({id:<?php echo $_item->getId();?>, gomage_gift_wrap: (this.checked ? 1 : 0)}, 'giftwrap');return false;" <?php if ($_item->getData('gomage_gift_wrap')): ?>checked="checked"<?php endif; ?> />
+    	<?php endif; ?>    	
+    </td>
+    <?php endif; ?>
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
@@ -152,9 +159,9 @@
     <?php endif; ?>
     <?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_change_qty')>0):?>
     <td class="a-center light-chechout-remove-td" style="white-space:nowrap;">
-    	<strong class="gcheckout-cahngeqtybtn gcheckout-minus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartminus');return false;"><span><span>-</span></span></strong>
+    	<strong class="glc-qtybtn glc-minus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartminus');return false;"><span><span>-</span></span></strong>
     	<span class="gcheckout-qty"><?php echo $_item->getQty() ?></span>
-		<strong class="gcheckout-cahngeqtybtn gcheckout-plus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartplus');return false;"><span><span>+</span></span></strong>
+		<strong class="glc-qtybtn glc-plus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartplus');return false;"><span><span>+</span></span></strong>
     </td>
     <?php else:?>
     <td class="a-center">

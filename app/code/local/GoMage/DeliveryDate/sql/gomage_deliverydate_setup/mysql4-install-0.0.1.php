@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
@@ -42,7 +42,7 @@ if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 1)){
 	
 	try{
 	
-		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order_grid')}` ADD `gomage_deliverydate` DATETIME;");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order_grid')}` ADD `gomage_deliverydate` DATETIME COMMENT 'Delivery Date';");
 		
 	}catch(Exception $e){
 		if(strpos($e, 'Column already exists') === false){
@@ -53,8 +53,8 @@ if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 1)){
 }
 try{
 
-	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_deliverydate` DATETIME;");
-	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_deliverydate_formated` VARCHAR(128);");
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_deliverydate` DATETIME COMMENT 'Delivery Date';");
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_deliverydate_formated` VARCHAR(128) COMMENT 'Delivery Date Formated';");
 	
 }catch(Exception $e){
 	if(strpos($e, 'Column already exists') === false){
@@ -64,11 +64,11 @@ try{
 
 try{
 	if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 1)){
-		$installer->run("ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_deliverydate` DATETIME;");
-		$installer->run("ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_deliverydate_formated` VARCHAR(128);");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_deliverydate` DATETIME COMMENT 'Delivery Date';");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_deliverydate_formated` VARCHAR(128) COMMENT 'Delivery Date Formated';");
 	}else{
-		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_deliverydate` DATETIME;");
-		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_deliverydate_formated` VARCHAR(128);");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_deliverydate` DATETIME COMMENT 'Delivery Date';");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_deliverydate_formated` VARCHAR(128) COMMENT 'Delivery Date Formated';");
 	}
 
 }catch(Exception $e){

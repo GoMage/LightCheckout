@@ -1,0 +1,30 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.4
+ * @since        Class available since Release 2.4
+ */
+?>
+
+<?php if ($poll): ?>
+    <div class="block-content">
+        <p class="block-subtitle"><?php echo $this->htmlEscape($poll->getPollTitle()); ?></p>
+        <input type="hidden" name="poll_id" value="<?php echo $poll->getId() ?>" />
+        <?php if($poll_answers): ?>
+        <select name="poll_vote">
+        	<option value=""><?php echo $this->__('Please select') ?></option>
+            <?php foreach($poll_answers as $answer): ?>            
+                <option value="<?php echo $answer->getAnswerId() ?>">
+                	<?php echo $this->htmlEscape($answer->getAnswerTitle()); ?>                
+                </option>
+            <?php endforeach; ?>
+        </select>    
+        <?php endif; ?>    
+    </div> 
+<?php endif; ?>

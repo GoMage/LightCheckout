@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
@@ -41,9 +41,9 @@ if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 1)){
 //$installer->addAttribute('quote', 'gomage_checkout_customer_comment', $attribute_data);
 
 try{
-	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_checkout_customer_comment` TEXT");
-	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote_address')}` ADD `is_valid_vat` SMALLINT(1) DEFAULT NULL");
-	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote_address')}` ADD `buy_without_vat` SMALLINT(1) DEFAULT NULL");
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_checkout_customer_comment` TEXT COMMENT 'Customer Comment'");
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote_address')}` ADD `is_valid_vat` SMALLINT(1) DEFAULT NULL COMMENT 'Is valid vat number'");
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote_address')}` ADD `buy_without_vat` SMALLINT(1) DEFAULT NULL COMMENT 'Without vat'");
 }catch(Exception $e){
 	if(strpos($e, 'Column already exists') === false){
 		throw $e;
@@ -53,11 +53,11 @@ try{
 try{
 	if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 1)){
 		$installer->run("
-		ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_checkout_customer_comment` TEXT ;
+		ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_checkout_customer_comment` TEXT COMMENT 'Customer Comment';
 		");
 	}else{
 		$installer->run("
-		ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_checkout_customer_comment` TEXT ;
+		ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_checkout_customer_comment` TEXT COMMENT 'Customer Comment';
 		
 		");
 		

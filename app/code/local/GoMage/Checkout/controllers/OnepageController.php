@@ -9,7 +9,7 @@
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
@@ -148,6 +148,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			    
 			    	$result->section = 'totals';
 			    	$result->totals = $this->_getReviewHtml();
+			    	$result->payments	= $this->_getPaymentMethodsHtml();
 			    
 		        }catch (Exception $e) {
 					$result->error	= true;
@@ -168,35 +169,38 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 					
 					$qty = intval($item->getQty()+1);
 					
-					$maximumQty = intval(Mage::getModel('catalog/product')->load($item->getProductId())->getStockItem()->getMaxSaleQty());
-					if($qty > $maximumQty){
-		            	
-		            	throw new Mage_Core_Exception($this->__('Maximum Allowed Qty: %s', $maximumQty));
-		            	
-		            }
-		            		            		            
-		            if ($item->getHasChildren())
-		            {
-		                foreach ($item->getChildren() as $child) {
-		                    $_product_id = $child->getProductId();
-		                    $maximumQty = Mage::getModel('catalog/product')->load($_product_id)->getStockItem()->getQty();
+					$_product = Mage::getModel('catalog/product')->load($item->getProductId()); 
+					
+					if ($_product->getStockItem()->getManageStock()){ 					
+    					$maximumQty = intval($_product->getStockItem()->getMaxSaleQty());
+    					if($qty > $maximumQty){
+    		            	
+    		            	throw new Mage_Core_Exception($this->__('Maximum Allowed Qty: %s', $maximumQty));
+    		            	
+    		            }
+    		            		            		            
+    		            if ($item->getHasChildren())
+    		            {
+    		                foreach ($item->getChildren() as $child) {
+    		                    $_product_id = $child->getProductId();
+    		                    $maximumQty = Mage::getModel('catalog/product')->load($_product_id)->getStockItem()->getQty();
+            				    if($qty > $maximumQty){
+            		            	
+            		            	throw new Mage_Core_Exception($this->__('Maximum Allowed Qty: %s', round($maximumQty)));
+            		            	
+            		            }           
+    		                }
+    		            }
+    		            else
+    		            {    		                
+        		            $maximumQty = $_product->getStockItem()->getQty();
         				    if($qty > $maximumQty){
         		            	
         		            	throw new Mage_Core_Exception($this->__('Maximum Allowed Qty: %s', round($maximumQty)));
         		            	
-        		            }           
-		                }
-		            }
-		            else
-		            {
-		                $_product_id = $item->getProductId();
-    		            $maximumQty = Mage::getModel('catalog/product')->load($_product_id)->getStockItem()->getQty();
-    				    if($qty > $maximumQty){
-    		            	
-    		            	throw new Mage_Core_Exception($this->__('Maximum Allowed Qty: %s', round($maximumQty)));
-    		            	
-    		            }   
-		            }
+        		            }   
+    		            }
+					}
 		             					
 					$item->setQty($qty);
 					$address = $this->getOnepage()->getQuote()->getShippingAddress();
@@ -230,7 +234,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 						$result->rates		= $layout->getOutput();
 					}
 					
-					$result->payments	= $this->_getPaymentMethodsHtml();
+					$result->payments	= $this->_getPaymentMethodsHtml();					
+					$result->toplinks = $this->_getTopLinksHtml();
 				}
 				
 			break;
@@ -247,13 +252,18 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 					
 					$qty = intval($item->getQty()-1);
 					
-					$minimumQty = intval(Mage::getModel('catalog/product')->load($item->getProductId())->getStockItem()->getMinSaleQty());
+					$_product = Mage::getModel('catalog/product')->load($item->getProductId()); 
 					
-		            if($qty < $minimumQty){
-		            	
-		            	throw new Mage_Core_Exception($this->__('Minimal Allowed Qty: %s', $minimumQty));
-		            	
-		            }
+					if ($_product->getStockItem()->getManageStock()){
+					
+    					$minimumQty = intval($_product->getStockItem()->getMinSaleQty());
+    					
+    		            if($qty < $minimumQty){
+    		            	
+    		            	throw new Mage_Core_Exception($this->__('Minimal Allowed Qty: %s', $minimumQty));
+    		            	
+    		            }
+					}
 					
 					
 					if($qty > 0){
@@ -268,6 +278,12 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 						
 					}
 					
+				    if (!$quote->hasItems()) {
+						
+			            $result->url = Mage::app()->getStore()->getUrl('checkout/cart');
+			            
+			            
+			        }
 					
 					$result->section = 'methods';
 					
@@ -298,6 +314,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 					}
 					
 					$result->payments	= $this->_getPaymentMethodsHtml();
+					$result->toplinks = $this->_getTopLinksHtml();
 				}
 				
 			break;
@@ -344,14 +361,59 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 					if(!$this->getOnepage()->getQuote()->isVirtual()){
 						$layout = $this->_getShippingMethodsHtml();
 						$result->rates		= $layout->getOutput();
+						if (!$quote->isVirtual()) {
+		                    $result->gift_message = Mage::helper('gomage_checkout/giftMessage')->getInline('onepage_checkout', $quote);
+						}
+						
 					}
 					
 					
 					$result->totals = $this->_getReviewHtml();
+					$result->toplinks = $this->_getTopLinksHtml();
 				}
 				
 			break;
 			
+			case('giftwrap'):
+			    if($itemId = $this->getRequest()->getParam('id')){
+			        
+			        $quote = $this->getOnepage()->getQuote();
+					$item = $quote->getItemById($itemId);
+					
+					$shippingMethod = $this->getOnepage()->getQuote()->getShippingAddress()->getShippingMethod();
+					$paymentMethod = $this->getOnepage()->getQuote()->getPayment()->getMethod();
+					
+					$item->setData('gomage_gift_wrap', intval($this->getRequest()->getParam('gomage_gift_wrap')));
+					$address = $this->getOnepage()->getQuote()->getShippingAddress();
+					
+					$result->section = 'methods';
+					
+					$address->setCollectShippingRates(true);
+        			$address->collectShippingRates();
+        			$address->setCollectShippingRates(true);
+				    if($shippingMethod){                			
+                		$this->getOnepage()->getQuote()->getShippingAddress()->setShippingMethod($shippingMethod);                			
+                	}
+				    try {
+                    	if ($paymentMethod){        			
+                    	    $this->getOnepage()->getQuote()->getPayment()->importData(array('method' =>	$paymentMethod));
+                    	}
+                	}
+                	catch (Exception $_e)
+                	{
+                	}
+        			$quote->collectTotals();
+        			$result->totals = $this->_getReviewHtml();
+        			$quote->save();
+        			
+        			if(!$this->getOnepage()->getQuote()->isVirtual()){
+        				$layout = $this->_getShippingMethodsHtml();
+						$result->rates		= $layout->getOutput();
+					}
+					
+					$result->payments	= $this->_getPaymentMethodsHtml();
+			    }
+			break;    
 			
 			case('varify_taxvat'):
 			case('get_methods'):
@@ -468,6 +530,36 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 				$result->payments	= $this->_getPaymentMethodsHtml();
 				$result->totals = $this->_getReviewHtml();
 			break;
+			case('save_payment_methods'):
+                
+                $billing_address_data = $this->getRequest()->getPost('billing');
+                $address = $this->getOnepage()->getQuote()->getBillingAddress();
+				$address->addData($billing_address_data);
+				$address->implodeStreetAddress();				
+				$this->getOnepage()->getQuote()->collectTotals()->save();
+                
+			    $result->section	= 'centinel';
+			    $data = $this->getRequest()->getPost('payment', array());
+        		if (empty($data)){                    
+                    $result->error	= true;
+					$result->message = $this->__('Invalid payment data');
+                }else{
+                    $payment = $this->getOnepage()->getQuote()->getPayment();
+                    $payment->importData($data);            
+                    $this->getOnepage()->getQuote()->save();
+                    $redirectUrl = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
+                    if (!$redirectUrl) {
+                        $method = $this->getOnepage()->getQuote()->getPayment()->getMethodInstance();
+                        if ($method->getIsCentinelValidationEnabled()) {
+                            $centinel = $method->getCentinelValidator();
+                            if ($centinel && $centinel->shouldAuthenticate()) {
+			                    $result->centinel = $this->_getCentinelHtml();
+                            }
+                        }        
+                    }
+                }
+                
+			break;    			
 			case('get_shipping_methods'):
 				if (!$this->getOnepage()->getQuote()->isVirtual()) {
 					
@@ -556,11 +648,17 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 		
                 	}
             	}
-				
-				
+            	
+            	if ($this->getOnepage()->getQuote()->getUseRewardPoints() && !isset($payment['use_reward_points'])){
+            	      $this->getOnepage()->getQuote()->setUseRewardPoints(false);
+            	}elseif (!$this->getOnepage()->getQuote()->getUseRewardPoints() && isset($payment['use_reward_points'])){
+            	      $this->getOnepage()->getQuote()->setUseRewardPoints(true);
+            	}
+								
 				$this->getOnepage()->getQuote()->collectTotals();
 				$result->section = 'totals';
 				$result->totals = $this->_getReviewHtml();
+				$result->payments	= $this->_getPaymentMethodsHtml();
 				
 				$this->getOnepage()->getQuote()->save();
 			break;
@@ -695,6 +793,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		        		$dob = Mage::app()->getLocale()->date($dob, null, null, false)->toString('yyyy-MM-dd');
 		        			
 		        		$this->getOnepage()->getQuote()->setCustomerDob($dob);
+		        		
+		        		$billing_address_data['dob'] = $dob;
 		        		
 		        	}catch(Exception $e){
 		        			
@@ -875,6 +975,20 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         		
         		$result = array('error'=>0, 'message'=>array());
         		
+        		$pollId = intval($this->getRequest()->getPost('poll_id'));
+                $answerId = intval($this->getRequest()->getPost('poll_vote'));
+                if ($pollId && $answerId){       
+                    $poll = Mage::getModel('poll/poll')->load($pollId);
+                    if ($poll->getId() && !$poll->getClosed() && !$poll->isVoted()) {
+                        $vote = Mage::getModel('poll/poll_vote')
+                            ->setPollAnswerId($answerId)
+                            ->setIpAddress(Mage::helper('core/http')->getRemoteAddr(true))
+                            ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());           
+                        $poll->addVote($vote);
+                        Mage::getSingleton('core/session')->setJustVotedPoll($pollId);
+                    }
+                }    
+        		                
         		$billing_address_data = $this->getRequest()->getPost('billing');
         		
         		if(isset($billing_address_data['day']) && $billing_address_data['month'] && $billing_address_data['year']){
@@ -884,6 +998,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		        		$dob = Mage::app()->getLocale()->date($dob, null, null, false)->toString('yyyy-MM-dd');
 		        			
 		        		$this->getOnepage()->getQuote()->setCustomerDob($dob);
+		        		
+		        		$billing_address_data['dob'] = $dob;
 		        		
 		        	}catch(Exception $e){
 		        			
@@ -1169,4 +1285,26 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $layout->generateXml()->generateBlocks();
         return $layout->getOutput();
     }
+    
+    protected function _getCentinelHtml()
+    {
+        $layout = Mage::getModel('core/layout');
+        $layout->getUpdate()->load('gomage_checkout_onepage_centinel');
+        $layout->generateXml()->generateBlocks();
+        return $layout->getOutput();
+    }
+    
+    protected function _getTopLinksHtml(){
+	    $layout = Mage::getSingleton('core/layout');
+	    
+	    $top_links = $layout->createBlock('page/template_links', 'glc.top.links');
+        $checkout_cart_link = $layout->createBlock('checkout/links', 'checkout_cart_link');            
+        $top_links->setChild('checkout_cart_link', $checkout_cart_link);
+        if (method_exists($top_links, 'addLinkBlock')){
+            $top_links->addLinkBlock('checkout_cart_link');
+        }
+        $checkout_cart_link->addCartLink();             
+        return $top_links->renderView(); 
+	} 
+    
 }

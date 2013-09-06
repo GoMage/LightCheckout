@@ -7,19 +7,12 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
 class GoMage_Checkout_Helper_GiftMessage extends Mage_Core_Helper_Data
-{
-    /**
-     * Giftmessages allow section in configuration
-     *
-     */
-    const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS = 'sales/gift_messages/allow_items';
-    const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER = 'sales/gift_messages/allow_order';
-
+{    
     /**
      * Next id for edit gift message block
      *
@@ -63,9 +56,9 @@ class GoMage_Checkout_Helper_GiftMessage extends Mage_Core_Helper_Data
      * @return string
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer=false)
-    {
+    {        
         if (in_array($type, array('onepage_checkout','multishipping_adress'))) {
-            if (!$this->isMessagesAvailable('items', $entity)) {
+            if (!$this->isMessagesAvailable('items', $entity)) {                
                 return '';
             }
         } elseif (!$this->isMessagesAvailable($type, $entity)) {
@@ -89,9 +82,9 @@ class GoMage_Checkout_Helper_GiftMessage extends Mage_Core_Helper_Data
      * @return boolean
      */
     public function isMessagesAvailable($type, Varien_Object $entity, $store=null)
-    {
-        $resultItems = Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
-        $resultOrder = Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER, $store);
+    {        
+        $resultItems = $this->getConfigGiftMessageAllowItems($store);
+        $resultOrder = $this->getConfigGiftMessageAllowOrder($store);
 
         if ($type == 'items') {
             return $resultItems || $resultOrder;
@@ -148,7 +141,7 @@ class GoMage_Checkout_Helper_GiftMessage extends Mage_Core_Helper_Data
      */
     protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store=null)
     {
-        $result = Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
+        $result = $this->getConfigGiftMessageAllowItems($store);
 
         if ($productGiftMessageAllow==2 || is_null($productGiftMessageAllow)) {
             return $result;
@@ -290,6 +283,22 @@ class GoMage_Checkout_Helper_GiftMessage extends Mage_Core_Helper_Data
         }
 
         return $message;
+    }
+    
+    public function getConfigGiftMessageAllowItems($store=null)
+    {        
+        if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 5))            
+            return Mage::getStoreConfig('sales/gift_options/allow_items', $store);    
+        else 
+            return Mage::getStoreConfig('sales/gift_messages/allow_items', $store);    
+    }
+    
+    public function getConfigGiftMessageAllowOrder($store=null)
+    {        
+        if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 5))
+            return Mage::getStoreConfig('sales/gift_options/allow_order', $store);    
+        else             
+            return Mage::getStoreConfig('sales/gift_messages/allow_order', $store);    
     }
 
 }

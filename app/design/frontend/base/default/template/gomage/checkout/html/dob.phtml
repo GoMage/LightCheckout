@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 2.0
  */
 ?>
@@ -16,21 +16,21 @@
 <?php
     $this->setDateInput('d',
         '<div class="dob-day">
-             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text '. ($this->isRequired() ? 'required-entry' : '') .' " ' . $this->getFieldParams() . ' />
+             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text '. ($this->isRequired() ? 'required-entry' : '') .' validate-digits-range digits-range-0-31 " ' . $this->getFieldParams() . ' />
              <label for="' . $this->getFieldId('day') . '">' . $this->__('DD') . '</label>
          </div>'
     );
 
     $this->setDateInput('m',
         '<div class="dob-month">
-             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text '. ($this->isRequired() ? 'required-entry' : '') .'" ' . $this->getFieldParams()  . ' />
+             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text '. ($this->isRequired() ? 'required-entry' : '') .' validate-digits-range digits-range-0-12 " ' . $this->getFieldParams()  . ' />
              <label for="' . $this->getFieldId('month') . '">' . $this->__('MM')  . '</label>
          </div>'
     );
 
     $this->setDateInput('y',
         '<div class="dob-year">
-             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text '. ($this->isRequired() ? 'required-entry' : '') .' " ' . $this->getFieldParams()  . ' />
+             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text '. ($this->isRequired() ? 'required-entry' : '') .' validate-digits-range digits-range-0-' . date('Y') . ' " ' . $this->getFieldParams()  . ' />
              <label for="' . $this->getFieldId('year') . '">' . $this->__('YYYY')  . '</label>
          </div>'
     );
@@ -44,6 +44,6 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>, '<?php echo $this->getDateFormat() ?>');
+    //var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>, '<?php echo $this->getDateFormat() ?>');
 //]]>
 </script>

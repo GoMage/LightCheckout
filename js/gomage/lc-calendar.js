@@ -645,19 +645,19 @@ LightCheckoutCalendar.parseDate = function(g, e) {
 	var b = new Date();
 	var c = g.split(".");
 	if (e == "%m.%d.%Y") {
-		var a = parseInt(c[0]) - 1;
+		var a = parseInt(c[0]*1) - 1;
 		b.setMonth(a);
-		var f = parseInt(c[1]);
+		var f = parseInt(c[1]*1);
 		b.setDate(f);
-		var h = parseInt(c[2]);
+		var h = parseInt(c[2]*1);
 		b.setFullYear(h)
 	} else {
 		if (e == "%d.%m.%Y") {
-			var f = parseInt(c[0]);
+			var f = parseInt(c[0]*1);
 			b.setDate(f);
-			var a = parseInt(c[1]) - 1;
+			var a = parseInt(c[1]*1) - 1;
 			b.setMonth(a);
-			var h = parseInt(c[2]);
+			var h = parseInt(c[2]*1);
 			b.setFullYear(h)
 		} else {
 			throw "Unsupported format (" + e + ")"

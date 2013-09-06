@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 2.0
  */
 ?>
@@ -25,6 +25,8 @@
 	
 </div>
 
+<div id="gcheckout-payment-centinel"></div>
+
 <div class="review checkout-step" id="gcheckout-onepage-review">
 	
 	<?php echo $this->getChildHtml('review');?>
@@ -39,13 +41,18 @@
 	<div class="advanced-options">
 		
 		<?php if (!$this->getQuote()->isVirtual()): ?>
-		    <?php echo $this->helper('gomage_checkout/giftMessage')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+   			<div id="gomage-lightcheckout-giftmessage">
+    		    <?php echo $this->helper('gomage_checkout/giftMessage')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+            </div>
 		<?php endif; ?>
 		<?php if($this->getConfigData('termsandconditions/enabled')):?>
-		<p class="control">
+	    <p class="control control-terms">
 			<input type="checkbox" value="1" id="accept_terms" name="accept_terms" class="required-entry absolute-advice radio" />
-			<label for="accept_terms"><?php echo $this->__('I accept the <a class="terms-link" href="%s" rel="#terms-block" onclick="checkout.showTerms();return false;">Terms and Conditions</a>', '#terms-block');?></label>
+			<label for="accept_terms"><?php echo $this->__('I accept the <a class="terms-link" href="%s" rel="#terms-block" onclick="%s">Terms and Conditions</a>', "#terms-block","checkout.showTerms();return false;");?></label>
 		</p>
+		<?php endif;?>
+   		<?php if($this->getConfigData('poll_settings/display')):?>
+			<?php echo $this->getChildHtml('poll'); ?>
 		<?php endif;?>
 	</div>
 	<div class="button-set" id="checkout-review-submit">
@@ -53,7 +60,7 @@
 	<?php if($this->isEnabled('newsletter')):?>
 		<?php if(!$this->isCustomerLoggedIn() || Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer())->getStatus() != 1):?>
 		
-		<p class="control">
+		<p class="control control-subscribe">
 			<input type="checkbox" value="1" id="subscribe" name="subscribe" <?php if($this->helper->getConfigData('address_fields/newsletter') == 2):?> checked="checked" <?php endif;?> />
 			<label for="subscribe"><?php echo $this->__('Subscribe to newsletter');?></label>
 		</p>

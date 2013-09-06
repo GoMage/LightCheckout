@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.3
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 
@@ -336,16 +336,18 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
     
     public function getTaxCountries(){
     	
-    	if($rule_id = intval(Mage::helper('gomage_checkout')->getConfigData('vat/rule'))){
+    	if($rule_ids = Mage::helper('gomage_checkout')->getConfigData('vat/rule')){
     	
     	$resource	= Mage::getSingleton('core/resource');
     	$connection	= $resource->getConnection('read');
     	
-    	$q = sprintf('SELECT DISTINCT(`tax_country_id`) FROM `%s` WHERE `tax_calculation_rate_id` IN (SELECT `tax_calculation_rate_id` FROM `%s` WHERE `tax_calculation_rule_id` = %d)', $resource->getTableName('tax_calculation_rate'), $resource->getTableName('tax_calculation'), $rule_id);
+    	$q = sprintf('SELECT DISTINCT(`tax_country_id`) FROM `%s` WHERE `tax_calculation_rate_id` IN (SELECT `tax_calculation_rate_id` FROM `%s` WHERE `tax_calculation_rule_id` in (%s) )', $resource->getTableName('tax_calculation_rate'), $resource->getTableName('tax_calculation'), $rule_ids);
     	
     	return (array)$connection->fetchCol($q);
     	
     	}
+    	
+    	return array();
     	
     }
     

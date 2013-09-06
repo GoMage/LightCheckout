@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 	
@@ -85,17 +85,8 @@
 	        	}
 	        }
 	        }
-	        	        
-		    switch (intval(Mage::helper('gomage_checkout')->getConfigData('deliverydate/dateformat')))
-	        {
-	            case GoMage_DeliveryDate_Model_Adminhtml_System_Config_Source_Dateformat::EUROPEAN:
-                    $value_format = 'd.m.Y';
-	            break;   
-	            default:
-	                $value_format = 'm.d.Y'; 
-	        }
-	        	        
-	        $element->setValue(date($value_format, time()+(($interval+$shift)*(60*60*24))));
+	        	        		    	        	        
+	        $element->setValue(date('d.m.Y', time()+(($interval+$shift)*(60*60*24))));
 	        
 	        $form->addElement($element, false);
 	        

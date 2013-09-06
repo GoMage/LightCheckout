@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  */ 
  -->
 <layout version="0.1.0">
@@ -18,7 +18,7 @@
 			<block type="gomage_sagepay/head" name="gomage.sagepay.head" />		  
 	  	</reference>		  	
 	  	<reference name="content">        	        	
-        	<block before="checkout.onepage" type="sagepaysuite/javascriptVars" name="sagepaysuite.js.vars" template="sagepaysuite/payment/SagePaySuiteVars.phtml" />
+        	<block before="checkout.onepage" type="gomage_sagepay/javascriptVars" name="sagepaysuite.js.vars" />
 	  	</reference>		  	  	
 	</gomage_checkout_onepage_index>
 	

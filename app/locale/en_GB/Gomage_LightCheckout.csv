@@ -32,7 +32,7 @@
 "Comments","Comments"
 "Already registered? Please log in here","Already registered? Please log in here"
 "Customer Login","Customer Login"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>"
 "Login","Login"
 "Forgot Your Password?","Forgot Your Password?"
 "Place Order","Place Order"

@@ -80,12 +80,17 @@ class GoMage_Checkout_Model_Tax_Calculation extends Mage_Tax_Model_Calculation{
         if($address->getBuyWithoutVat()>0){
         	
         	$mode = null;
-        	
+
+            $country_code = $address->getCountry();
+            if ($country_code == "GR"){
+                $country_code = "EL";
+            }
+
         	if($address->getCountry() == Mage::helper('gomage_checkout')->getConfigData('vat/country')){
-        		
+
         		$mode = Mage::helper('gomage_checkout')->getVatBaseCountryMode();
-        		
-        	}elseif(in_array($address->getCountry(), array("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","GB","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK"))){
+
+        	}elseif(in_array($country_code, array("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","GB","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK"))){
         		
         		$mode = Mage::helper('gomage_checkout')->getVatWithinCountryMode();
         		
@@ -93,19 +98,19 @@ class GoMage_Checkout_Model_Tax_Calculation extends Mage_Tax_Model_Calculation{
         	
         	if($mode){
         		
-        		$rule_id = intval(Mage::helper('gomage_checkout')->getConfigData('vat/rule'));
+        		$rule_ids = Mage::helper('gomage_checkout')->getConfigData('vat/rule');
         		
-        		if($rule_id){
+        		if($rule_ids){
         		
         		switch($mode){
         			
         			case(1):
         				if($address->getIsValidVat()>0){
-        					$request->setDisableByRule($rule_id);
+        					$request->setDisableByRule($rule_ids);
         				}
         			break;
         			case(2):
-        				$request->setDisableByRule($rule_id);
+        				$request->setDisableByRule($rule_ids);
         			break;
         			
         		}

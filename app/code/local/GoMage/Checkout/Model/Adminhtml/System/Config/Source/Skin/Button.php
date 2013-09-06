@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 2.0
  */
 	
@@ -38,8 +38,8 @@ class GoMage_Checkout_Model_Adminhtml_System_Config_Source_Skin_Button{
             array('value' => 'round-gray', 'label'=>'Round Gray'),
             array('value' => 'round-green', 'label'=>'Round Green'),
             array('value' => 'round-orange', 'label'=>'Round Orange'),
-            
-
+            array('value' => 'round-red', 'label'=>'Round Red'),
+                       
         );
     }
 

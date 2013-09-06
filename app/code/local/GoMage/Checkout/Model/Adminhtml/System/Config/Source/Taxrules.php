@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */
 	
@@ -25,7 +25,21 @@ class GoMage_Checkout_Model_Adminhtml_System_Config_Source_Taxrules{
     	$q = "SELECT `tax_calculation_rule_id`, `code` FROM {$tax_calculation_rule_table}";
 		$rules = Mage::getSingleton('core/resource')->getConnection('read')->fetchPairs($q);
 		
-		return $rules;
+		$options = array();
+		$options[] = array(
+                   'value' => '',
+                   'label' => ''
+                );             
+		
+        foreach ($rules as $code => $name) {            
+                $options[] = array(
+                   'value' => $code,
+                   'label' => $name
+                );            
+        }
+
+        return $options;
+		
     }
 
 }

@@ -32,7 +32,7 @@
 "Comments","Kommentar"
 "Already registered? Please log in here","Allerede oprettet? Logind her"
 "Customer Login","Kunde Logind"
-"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Terms and Conditions</a>","Jeg acceptere <a class=""terms-link"" href=""%s"" rel=""#terms-block"">Købsvilkår og -betingelser</a>"
+"I accept the <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Terms and Conditions</a>","Jeg acceptere <a class=""terms-link"" href=""%s"" rel=""#terms-block"" onclick=""%s"">Købsvilkår og -betingelser</a>"
 "Login","Logind"
 "Forgot Your Password?","Glemt dit Kodeord?"
 "Place Order","Gennemfør ordre"

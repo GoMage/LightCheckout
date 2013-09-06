@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.2
+ * @version      Release: 2.4
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -33,35 +33,22 @@
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         
-        <reference name="head">
-        	
-        	<!--<action method="addJs"><script>jquery/jquery.form.js</script></action>-->
-        	<action method="addJs"><script>gomage/validator.js</script></action>
+        <reference name="head">        	
+			<action method="addJs"><script>gomage/validator.js</script></action>
         	<action method="addJs"><script>gomage/lightcheckout.js</script></action>
-        	<!--<action method="addJs"><script>jquery/validationEngine/jquery.validationEngine-en.js</script></action>-->
-        	<!--<action method="addJs"><script>../gomage_checkout/js</script></action>
-        	
-        	<action method="addJs"><script>jquery/validationEngine/jquery.validationEngine.js</script></action>-->
-        	<!--<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
-        	<action method="addJs"><script>jquery/toolbox.expose.min.js</script></action>
-        	-->
-        	
-        	
-        	
-        	
-        	<!--<action method="addItem"><type>skin_css</type><name>css/gomage/validationEngine.css</name><params/></action>-->
-        	<!--<action method="addItem"><type>skin_js</type><name>js/gomage/checkout/onepage.js</name><params/></action>-->
-            <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout/onepage.css</name><params/></action>
-            <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout/overlay.css</name><params/></action>
-            <!--<action method="addItem"><type>skin_css</type><name>css/gomage/overlay/ie6.css</name><params/><if>lt IE 7</if></action>-->
+            <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout.css</name><params/></action>
             
+            <action method="addJs"><script>mage/centinel.js</script></action>
+            <action method="addJs"><file>gomage/directpost.js</file></action>
         </reference>
         
         <reference name="content" >
         	<action method="unsetChildren" />
         	
-        	<block type="gomage_checkout/onepage" name="checkout.onepage" template="gomage/checkout/onepage.phtml">
-        		
+        	<block type="gomage_checkout/onepage" name="checkout.onepage" template="gomage/checkout/onepage.phtml">        		
+        		<block type="paypal/express_shortcut" name="gomage.methods.paypal_express" template="paypal/express/shortcut.phtml">
+	                <action method="setIsQuoteAllowed"><value>1</value></action>
+	            </block>
         		<block type="core/template" name="checkout.onepage.address" as="address" template="gomage/checkout/onepage/address.phtml">
 	        		<block type="gomage_checkout/onepage_billing" name="checkout.onepage.address.billing" as="billing" template="gomage/checkout/html/address-billing.phtml">
 	        			<action method="setCountryIdTemplate"><template>gomage/checkout/html/address/field/country.phtml</template></action>
@@ -103,10 +90,16 @@
 			            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="gomage/checkout/onepage/review/totals.phtml"/>
 			            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
 			            <block type="checkout/cart_coupon" name="checkout.onepage.review.discount" as="discount" template="gomage/checkout/onepage/review/discount.phtml"/>
-			        </block>
-			        
+			            <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+			                <label>Items After</label>
+			                <block type="gomage_checkout/authorizenet_directpost_form" name="payment.form.directpost" template="authorizenet/directpost/form.phtml">
+				                <action method="setMethodInfo"></action>
+				            </block>
+			            </block>			            
+			        </block>			        
 			        <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="gomage/checkout/onepage/agreements.phtml"/>
         		</block>
+        		<block type="gomage_checkout/onepage_poll" name="checkout.onepage.poll" as="poll" template="gomage/checkout/onepage/poll.phtml"/>
         	</block>
         	
         </reference>
@@ -125,9 +118,16 @@
 			<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="gomage/checkout/onepage/review/totals.phtml"/>
             <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
             <block type="checkout/cart_coupon" name="checkout.onepage.review.discount" as="discount" template="gomage/checkout/onepage/review/discount.phtml"/>
+            <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+                <label>Items After</label>
+                <block type="gomage_checkout/authorizenet_directpost_form" name="payment.form.directpost" template="authorizenet/directpost/form.phtml">
+	                <action method="setMethodInfo"></action>
+	            </block>
+            </block>
         </block>
        	
     </gomage_checkout_onepage_review>
+    
     <gomage_checkout_onepage_paymentmethod>
         <remove name="right"/>
         <remove name="left"/>
@@ -136,4 +136,15 @@
             <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
         </block>
     </gomage_checkout_onepage_paymentmethod>
+    
+    <gomage_checkout_onepage_centinel>
+        <remove name="right"/>
+        <remove name="left"/>
+        <block type="centinel/authentication" output="toHtml" name="centinel.frame" template="centinel/authentication.phtml">
+            <action method="addRelatedBlock"><blockId>checkout-review-submit</blockId></action>
+            <action method="addRelatedBlock"><blockId>gcheckout-payment-methods-available</blockId></action>                        
+            <action method="setAuthenticationStartMode"><mode>instant</mode></action>
+        </block>
+    </gomage_checkout_onepage_centinel>
+
 </layout>
