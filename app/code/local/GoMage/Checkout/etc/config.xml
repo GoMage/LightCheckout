@@ -15,18 +15,19 @@
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.4.1</version>
+            <version>0.0.4.2</version>
         </GoMage_Checkout>
     </modules>
     <global>
     	<blocks>
 	        <gomage_checkout><class>GoMage_Checkout_Block</class></gomage_checkout>
 	        <adminhtml>
-                <rewrite>
+                <rewrite>                	
                 	<sales_order_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
                 	<sales_order_invoice_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
           			<sales_order_creditmemo_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
           			<sales_order_view_info>GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
+          			<sales_items_column_name>GoMage_Checkout_Block_Adminhtml_Sales_Items_Column_Name</sales_items_column_name>          			
 	        	</rewrite>
 	        </adminhtml>
 	        <sales>
@@ -344,6 +345,7 @@
 				<region>1</region>
 				<postcode>1</postcode>
 				<city>1</city>				
+				<email>0</email>
 			</ajax>			
 			<termsandconditions>
 				<enabled>0</enabled>

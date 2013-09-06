@@ -13,6 +13,10 @@
 	
 class GoMage_Checkout_Model_Adminhtml_System_Config_Source_Checkboxtax{
 
+	const YES_CHECKED = 1;
+	const YES_UNCHECKED = 2;
+	const NO = 3;
+	
     /**
      * Options getter
      *
@@ -21,10 +25,9 @@ class GoMage_Checkout_Model_Adminhtml_System_Config_Source_Checkboxtax{
     public function toOptionArray()
     {
         return array(
-            array('value' => 3, 'label'=>Mage::helper('gomage_checkout')->__('No')),
-            array('value' => 1, 'label'=>Mage::helper('gomage_checkout')->__('Yes, checked')),
-            array('value' => 2, 'label'=>Mage::helper('gomage_checkout')->__('Yes, unchecked')),
-            
+            array('value' => self::NO, 'label'=>Mage::helper('gomage_checkout')->__('No')),
+            array('value' => self::YES_CHECKED, 'label'=>Mage::helper('gomage_checkout')->__('Yes, checked')),
+            array('value' => self::YES_UNCHECKED, 'label'=>Mage::helper('gomage_checkout')->__('Yes, unchecked')),            
         );
     }
 

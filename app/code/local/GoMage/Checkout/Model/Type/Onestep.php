@@ -469,19 +469,17 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 		
 		}
 		
-		if (Mage::helper('gomage_checkout')->getConfigData('vat/enabled')) {
-			
-			$verify_result = $this->verifyCustomerVat();
-		
+		$verify_result = Mage::helper('gomage_checkout')->getConfigData('vat/enabled') && $this->verifyCustomerVat();
+		$flag = intval(Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox'));
+				
+		if ($this->getQuote()->getBillingAddress()->getBuyWithoutVat() === null) {									
+			$this->getQuote()->getBillingAddress()->setBuyWithoutVat($flag == GoMage_Checkout_Model_Adminhtml_System_Config_Source_Checkboxtax::YES_CHECKED);
+			$this->getQuote()->getShippingAddress()->setBuyWithoutVat($flag == GoMage_Checkout_Model_Adminhtml_System_Config_Source_Checkboxtax::YES_CHECKED);		
 		}
 		
-		if ($this->getQuote()->getBillingAddress()->getBuyWithoutVat() === null) {
-			
-			$flag = intval(Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox'));
-			
-			$this->getQuote()->getBillingAddress()->setBuyWithoutVat($flag === 1);
-			$this->getQuote()->getShippingAddress()->setBuyWithoutVat($flag === 1);
-		
+		if ($verify_result && $flag == GoMage_Checkout_Model_Adminhtml_System_Config_Source_Checkboxtax::NO){
+			$this->getQuote()->getBillingAddress()->setBuyWithoutVat(true);
+			$this->getQuote()->getShippingAddress()->setBuyWithoutVat(true);
 		}
 		
 		$paymentMethod = $this->getQuote()->getPayment()->getMethod();

@@ -285,33 +285,30 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
         $config = Mage::getStoreConfig('payment', $store);
         
         foreach ($config as $code => $methodConfig) {
-        	
-        	if(isset($methodConfig['model']) && $methodConfig['model']){
-        	
-        	if(isset($methodConfig['group']) && $methodConfig['group'] == 'mbookers' && Mage::getStoreConfigFlag('moneybookers/'.$code.'/active', $store)){
-        		
-        		$method = $this->_getPaymentMethod($code, $methodConfig);
-        		$method['group'] = 'mbookers';
-        		
-        		$methods[$code] = $method;
-        	}elseif($methodConfig['model'] == 	'googlecheckout/payment'){
-        		
-        		if(Mage::getStoreConfigFlag('google/checkout/active', $store)){
-        			$method = $this->_getPaymentMethod($code, $methodConfig);
-        			$methods[$code] = $method;
-        		}
-        		
-        	}elseif (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
-                $method = $this->_getPaymentMethod($code, $methodConfig);
-        		$method['group'] = '';
-        		
-        		$methods[$code] = $method;
-            }
-            
+
+        	if(isset($methodConfig['model']) && $methodConfig['model']){        	
+	        	if(isset($methodConfig['group']) && $methodConfig['group'] == 'mbookers' && Mage::getStoreConfigFlag('moneybookers/'.$code.'/active', $store)){	        		
+	        		$method = $this->_getPaymentMethod($code, $methodConfig);
+	        		$method['group'] = 'mbookers';	        		
+	        		$methods[$code] = $method;
+	        	}elseif($methodConfig['model'] == 'googlecheckout/payment'){	        		
+	        		if(Mage::getStoreConfigFlag('google/checkout/active', $store)){
+	        			$method = $this->_getPaymentMethod($code, $methodConfig);
+	        			$methods[$code] = $method;
+	        		}	        		
+	        	}elseif (isset($methodConfig['group']) && $methodConfig['group'] == 'payone'){	        		
+	        		$method = $this->_getPaymentMethod($code, $methodConfig);
+	        		if ($method && $method->isAvailable()){
+	        			$methods[$code] = $method;
+	        		}	        				        		
+	        	}elseif (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
+	                $method = $this->_getPaymentMethod($code, $methodConfig);
+	        		$method['group'] = '';	        		
+	        		$methods[$code] = $method;
+	            }            
             }
         }
-        
-        
+               
         return $methods;
     }
     

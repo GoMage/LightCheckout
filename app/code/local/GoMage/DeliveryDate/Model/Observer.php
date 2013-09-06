@@ -51,10 +51,15 @@
 			$request	= Mage::app()->getRequest();
 			$quote		= $event->getQuote();
 			$helper = Mage::helper('gomage_deliverydate');
-
+			
+			$shipping_method = $request->getPost('shipping_method', false);
+			if ($shipping_method && strpos($shipping_method, 'matrixrate_matrixrate') === 0){
+			   $shipping_method = 'matrixrate_matrixrate';
+			}
+			
 			if(($deliverydate = $request->getPost('deliverydate', false)) && $quote &&
 				$helper->isEnableDeliveryDate() && 
-				in_array($request->getPost('shipping_method', false), Mage::helper('gomage_deliverydate')->getShippingMethods())){
+				in_array($shipping_method, Mage::helper('gomage_deliverydate')->getShippingMethods())){
 				
 				if(is_array($deliverydate)){
 					

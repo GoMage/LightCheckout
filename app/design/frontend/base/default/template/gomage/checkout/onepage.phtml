@@ -118,6 +118,10 @@
 			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping_city input';
 		}
 		
+		if($this->helper('gomage_checkout')->getConfigData('ajax/email')){
+        	$observe_billing_items[] = '#billing_email';
+        }
+		
 		
 	?>
 		
@@ -308,10 +312,12 @@
 ?>
 <div class="glc gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin, ' ', $buttons, ' ', $round;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 	
-	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">
-	
-	<?php include(dirname(__FILE__).'/form.phtml');?>
-		
+	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">	
+		<?php 
+			$form_block = clone $this;
+			$form_block->setTemplate('gomage/checkout/form.phtml');
+			echo $form_block->toHtml();
+		?>		
 	</form>
 	
 	<script type="text/javascript">

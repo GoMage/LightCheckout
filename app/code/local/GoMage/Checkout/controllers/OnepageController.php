@@ -77,6 +77,9 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 		
 		$result = new stdClass();
 		$result->error = false;
+		
+		$helper = Mage::helper('gomage_checkout');
+		
 		try {
 			switch ($action) :
 				
@@ -539,6 +542,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 					if ($billing_address_data = $this->getRequest()->getPost('billing')) {
 						
 						$billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
+						
+						if ($helper->getConfigData('ajax/email')){							
+							$this->getOnepage()->getQuote()->setCustomerEmail($billing_address_data['email']);
+						}
 						
 						$paymentMethod = $this->getOnepage()->getQuote()->getPayment()->getMethod();
 						if (!$paymentMethod){
@@ -1106,6 +1113,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 						$result->message = array_merge($result->message, $messages);
 					}
 					
+					Mage::dispatchEvent('gomage_checkout_save_quote_before', array('request' => $this->getRequest(), 'quote' => $this->getOnepage()->getQuote()));
+					
 					$this->getOnepage()->getQuote()->save();
 					
 					if ($payment_data = $this->getRequest()->getPost('payment', array())) {
@@ -1150,9 +1159,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 						
 						}
 					
-					}
-					
-					Mage::dispatchEvent('gomage_checkout_save_quote_before', array('request' => $this->getRequest(), 'quote' => $this->getOnepage()->getQuote()));
+					}					
 					
 					$customer = $this->getSession()->getCustomer();
 					
@@ -1361,6 +1368,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 					$result['message'] = array_merge($result['message'], $messages);
 				}
 				
+				Mage::dispatchEvent('gomage_checkout_save_quote_before', array('request' => $this->getRequest(), 'quote' => $this->getOnepage()->getQuote()));
+				
 				$this->getOnepage()->getQuote()->save();
 				
 				if ($payment_data = $this->getRequest()->getPost('payment', array())) {
@@ -1412,9 +1421,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 					}
 				
 				}
-				
-				Mage::dispatchEvent('gomage_checkout_save_quote_before', array('request' => $this->getRequest(), 'quote' => $this->getOnepage()->getQuote()));
-				
+												
 				$customer = $this->getSession()->getCustomer();
 				
 				if ($this->getSession()->isLoggedIn() && $customer->getTaxvat() != $this->getOnepage()->getQuote()->getBillingAddress()->getTaxvat()) {

@@ -24,7 +24,8 @@ class GoMage_Checkout_CartController extends Mage_Checkout_CartController
 			$quote = Mage::getSingleton('gomage_checkout/type_onestep')->getQuote();
 			
 			if ($quote->hasItems()){				
-	            $this->_redirect('*/onepage');	            	            
+	            $this->_redirect('*/onepage');
+	            return;	            	            
 	        }
 	        			
 		}		
