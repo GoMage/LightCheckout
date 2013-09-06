@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 2.4
  */
 
@@ -21,10 +21,7 @@ class GoMage_Checkout_Model_Order_Invoice_Total_Giftwrap extends Mage_Sales_Mode
         $totalGomageGiftWrapAmount     = 0;
         $baseTotalGomageGiftWrapAmount = 0;
 
-        foreach ($invoice->getAllItems() as $item) {
-            if ($item->getOrderItem()->isDummy()) {
-                continue;
-            }
+        foreach ($invoice->getAllItems() as $item) {            
             $orderItem = $item->getOrderItem();
             $orderItemGomageGiftWrap      = (float) $orderItem->getGomageGiftWrapAmount();
             $baseOrderItemGomageGiftWrap  = (float) $orderItem->getBaseGomageGiftWrapAmount();

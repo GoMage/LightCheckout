@@ -1,0 +1,90 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 4.0
+ * @since        Class available since Release 4.0
+ */ 
+?>
+<?php $discount_position = Mage::helper('gomage_checkout')->getConfigData('general/enable_discount'); ?>
+<?php if($discount_position == 1): ?> 
+	<?php echo $this->getChildHtml('discount'); ?>
+	<?php echo $this->getChildHtml('giftcards'); ?>
+<?php endif; ?>
+<?php echo $this->getChildHtml('items_before'); ?>
+<div id="checkout-review-table-wrapper">
+    <table class="data-table" id="checkout-review-table">
+        <?php if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
+        
+		<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_remove')>0):?>
+		<col width="1" />
+		<col />
+		<?php else:?>
+		<col />
+		<?php endif;?>
+		
+		<?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>
+		<col width="1"/>
+		<?php endif; ?>
+		
+        <col width="1" />
+		<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_change_qty')>0):?>
+        <col width="50" />
+		<?php else:?>
+		<col width="1"/>
+		<?php endif;?>
+		
+		<col width="1" />
+        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+        <col width="1" />
+        <col width="1" />
+        <?php endif; ?>
+        <thead>
+            <tr>
+    			<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_remove')>0):?>
+			    <th rowspan="<?php echo $rowspan ?>"></th>
+			    <?php endif;?>
+                <th rowspan="<?php echo $rowspan ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
+                <?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>
+                <th class="a-center" rowspan="<?php echo $rowspan ?>"><span class="nobr"><?php echo Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title') ?></span></th>	
+                <?php endif; ?>
+                <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Price') ?></th>
+                <th rowspan="<?php echo $rowspan ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
+                <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Subtotal') ?></th>
+    			
+            </tr>
+            <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <tr>
+                    <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                    <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                </tr>
+            <?php endif; ?>
+        </thead>
+        <?php echo $this->getChildHtml('totals'); ?>
+        <tbody>
+        <?php foreach($this->getItems() as $_item): ?>
+            <?php echo $this->getItemHtml($_item)?>
+        <?php endforeach ?>
+        </tbody>
+    </table>          
+    <?php echo $this->getChildHtml('items_after'); ?>            
+</div>
+<?php if($discount_position == 2): ?>
+<div class="discount-bottom">
+	<?php echo $this->getChildHtml('discount'); ?>
+	<?php echo $this->getChildHtml('giftcards'); ?>
+</div>
+<?php endif;?>
+<script type="text/javascript">
+//<![CDATA[
+    decorateTable('checkout-review-table');
+    truncateOptions();
+//]]>
+</script>

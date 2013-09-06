@@ -7,14 +7,14 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 3.1
  */
 	
 class GoMage_Checkout_Model_Adminhtml_System_Config_Source_Vatverification{
 
 	CONST VIES = 0;
-	CONST ISVAT = 0;
+	CONST ISVAT = 1;
 	
     /**
      * Options getter
@@ -24,8 +24,8 @@ class GoMage_Checkout_Model_Adminhtml_System_Config_Source_Vatverification{
     public function toOptionArray()
     {
         return array(
-            array('value' => 0, 'label'=>Mage::helper('gomage_checkout')->__('VIES')),
-            array('value' => 1, 'label'=>Mage::helper('gomage_checkout')->__('Isvat')),            
+            array('value' => self::VIES, 'label'=>Mage::helper('gomage_checkout')->__('VIES')),
+            array('value' => self::ISVAT, 'label'=>Mage::helper('gomage_checkout')->__('Isvat')),            
         );
     }
 

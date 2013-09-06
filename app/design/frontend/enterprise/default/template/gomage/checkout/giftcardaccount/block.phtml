@@ -1,0 +1,45 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 4.0
+ * @since        Class available since Release 4.0
+ */ 
+?>
+<div class="giftcard">
+	<div class="lightcheckout-discount-form lightcheckout-giftcard-form">
+		<div id="giftcard_balance_lookup"></div>	    
+		<label for="giftcard_code"><?php echo $this->__('Gift card code') ?></label>
+		<div class="input-box">
+            <input class="input-text" id="giftcard_code" name="giftcard_code" value="" />
+        </div>
+        <button class="button" onclick="if(!$('giftcard_code').value){alert('<?php echo $this->__('Please enter gift card code.') ?>')}else{checkout.applyGiftCard();}" type="button" value="<?php echo $this->__('Add Gift Card') ?>"><span><span><?php echo $this->__('Add Gift Card') ?></span></span></button>
+        <div class="check-gc-status-wrap">
+          <a href="#" class="check-gc-status" onclick="checkGiftCardStatus(); return false;"><?php echo $this->__('Check Gift Card status and balance') ?></a>
+        </div>
+	</div>
+    <script type="text/javascript">
+    //<![CDATA[    
+	    function checkGiftCardStatus()
+	    {        
+	        if (!$('giftcard_code').value){
+	            return;
+	        }
+	        new Ajax.Updater(
+	            'giftcard_balance_lookup',
+	            '<?php echo Mage::getUrl('enterprise_giftcardaccount/cart/quickCheck') ?>',
+	            {
+	                onCreate: function() { checkout.showLoadinfo(); },
+	                onComplete: function() { checkout.hideLoadinfo(); },
+	                parameters : {giftcard_code : $('giftcard_code').value}
+	            }
+	        );
+	    }
+    //]]>
+    </script>
+</div>

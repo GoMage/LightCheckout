@@ -7,25 +7,26 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0
  */
 
- $order = $this->getOrder();?>
+$order = $this->getOrder();?>
 <div class="entry-edit">
 	<div class="entry-edit-head">
 		<h4 class="icon-head"><?php echo $this->__('Delivery Date') ?></h4>
 	</div>
-	<fieldset>
-		
+	<fieldset>		
 		<?php
 			if($order->hasGomageDeliverydate()){
-				echo Mage::app()->getLocale()->date($order->getGomageDeliverydate(), Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
+				if (Mage::helper('gomage_checkout')->getConfigData('deliverydate/showtime')){
+					echo Mage::app()->getLocale()->date($order->getGomageDeliverydate(), Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
+				}else{
+					echo Mage::app()->getLocale()->date($order->getGomageDeliverydate(), Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
+				}	
 			}else{
-				echo 'Now';
-			}
-			
-		?>
-		
+				echo $this->__('Now');
+			}			
+		?>		
 	</fieldset>
 </div>

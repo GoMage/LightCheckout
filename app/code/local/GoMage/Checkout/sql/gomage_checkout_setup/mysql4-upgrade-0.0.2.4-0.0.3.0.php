@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
  /**
  * GoMage LightCheckout Extension
  *
@@ -8,14 +7,11 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
- */ 
- -->
-<config>
-	<tabs>
-        <gomage translate="label">
-            <label>GoMage</label>
-            <sort_order>200</sort_order>
-        </gomage>
-    </tabs>
-</config>
+ * @version      Release: 4.0
+ * @since        Class available since Release 3.0
+ */
+
+$installer = $this;
+$installer->startSetup();
+
+$installer->endSetup();

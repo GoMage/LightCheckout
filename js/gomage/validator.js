@@ -6,7 +6,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0 
  */ 
 
@@ -186,12 +186,6 @@ Object.extend(Validation, {
                 pair.value.hide();
             }.bind(this));
         }
-        
-        
-		elm.observe('focus', function(){
-			Validation.hideAdvice(this.elm,this.advice);
-		}.bind({elm:elm,advice:advice}));
-		
         
         elm.advices.set(adviceName, advice);
         if(typeof Effect == 'undefined') {

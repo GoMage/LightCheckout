@@ -8,13 +8,14 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
+ * @since Class available since Release 1.0
  */ 
  -->
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.3.2</version>
+            <version>0.0.4.0</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -25,6 +26,7 @@
                 	<sales_order_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
                 	<sales_order_invoice_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
           			<sales_order_creditmemo_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
+          			<sales_order_view_info>GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
 	        	</rewrite>
 	        </adminhtml>
 	        <sales>
@@ -40,7 +42,17 @@
 	        	<rewrite>
 	        		<onepage_success>GoMage_Checkout_Block_Checkout_Success</onepage_success>
 	        	</rewrite>
-	        </checkout>	        			
+	        </checkout>
+	        <enterprise_giftcardaccount>
+		        <rewrite>
+		               <checkout_cart_total>GoMage_Checkout_Block_GiftCardAccount_Checkout_Cart_Total</checkout_cart_total>
+		        </rewrite>
+		    </enterprise_giftcardaccount>	        	        			
+		    <enterprise_customerbalance>
+		        <rewrite>
+		               <checkout_total>GoMage_Checkout_Block_CustomerBalance_Checkout_Total</checkout_total>
+		        </rewrite>
+		    </enterprise_customerbalance>
 	    </blocks>
 	    <models>
             <gomage_checkout><class>GoMage_Checkout_Model</class></gomage_checkout>
@@ -63,12 +75,7 @@
             	<rewrite>
             		<quote_address>GoMage_Checkout_Model_Quote_Address</quote_address>            		
             	</rewrite>
-            </sales>              
-            <paypal>
-            	<rewrite>
-            		<api_nvp>GoMage_Checkout_Model_Paypal_Api_Nvp</api_nvp>
-            	</rewrite>
-            </paypal>            
+            </sales>                                      
         </models>
         <resources>
             <gomage_checkout_setup>
@@ -91,11 +98,6 @@
                 </connection>
             </gomage_checkout_read>
 		</resources>
-    	<fieldsets>
-    		<sales_convert_quote>
-    			<gomage_checkout_customer_comment><to_order>gomage_checkout_customer_comment</to_order></gomage_checkout_customer_comment>
-    		</sales_convert_quote>
-    	</fieldsets>
     	<helpers>
 			<gomage_checkout><class>GoMage_Checkout_Helper</class></gomage_checkout>
 			<authorizenet>
@@ -115,6 +117,8 @@
         		<totals>
         			<gomage_gift_wrap>
                         <class>gomage_checkout/order_invoice_total_giftwrap</class>
+                        <after>subtotal,shipping</after>
+                        <before>grand_total</before>
                     </gomage_gift_wrap>
         		</totals>	
         	</order_invoice>
@@ -149,6 +153,9 @@
         	</totals>	
         </pdf>	
         <fieldsets>
+        	<sales_convert_quote>
+    			<gomage_checkout_customer_comment><to_order>gomage_checkout_customer_comment</to_order></gomage_checkout_customer_comment>
+    		</sales_convert_quote>
         	<sales_convert_quote_address>
         		<gomage_gift_wrap_amount><to_order>*</to_order></gomage_gift_wrap_amount>
         		<base_gift_wrap_amount_amount><to_order>*</to_order></base_gift_wrap_amount_amount>
@@ -158,13 +165,28 @@
         		-->
         	</sales_convert_quote_address>	
         	<sales_convert_order>
-        		<gomage_gift_wrap_amount><to_quote_address_shipping>*</to_quote_address_shipping></gomage_gift_wrap_amount>
-        		<base_gomage_gift_wrap_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_gomage_gift_wrap_amount>
+        		<gomage_gift_wrap_amount>
+        			<to_quote_address_shipping>*</to_quote_address_shipping>
+        			<to_invoice>*</to_invoice>                            			
+        		</gomage_gift_wrap_amount>
+        		<base_gomage_gift_wrap_amount>
+        			<to_quote_address_shipping>*</to_quote_address_shipping>
+        			<to_invoice>*</to_invoice>
+        		</base_gomage_gift_wrap_amount>
         	</sales_convert_order>	
         	<sales_convert_order_item>
-        		<gomage_gift_wrap><to_quote_item>*</to_quote_item></gomage_gift_wrap>
-                <gomage_gift_wrap_amount><to_quote_item>*</to_quote_item></gomage_gift_wrap_amount>
-                <base_gomage_gift_wrap_amount><to_quote_item>*</to_quote_item></base_gomage_gift_wrap_amount>
+        		<gomage_gift_wrap>
+        			<to_quote_item>*</to_quote_item>
+        			<to_invoice_item>*</to_invoice_item>        			
+        		</gomage_gift_wrap>
+                <gomage_gift_wrap_amount>
+                	<to_quote_item>*</to_quote_item>
+                	<to_invoice_item>*</to_invoice_item>                	
+                </gomage_gift_wrap_amount>
+                <base_gomage_gift_wrap_amount>
+                	<to_quote_item>*</to_quote_item>
+                	<to_invoice_item>*</to_invoice_item>                	
+                </base_gomage_gift_wrap_amount>
         	</sales_convert_order_item>	
         	<sales_convert_quote_item>
                 <gomage_gift_wrap><to_order_item>*</to_order_item></gomage_gift_wrap>
@@ -228,6 +250,14 @@
                     </payflowlink_save_order_onepage>
                 </observers>
             </controller_action_postdispatch_gomage_checkout_onepage_save>
+            <paypal_prepare_line_items>
+            	<observers>
+                    <gomage_checkout_add_giftwrap_item>
+                        <class>gomage_checkout/observer</class>
+                        <method>addGiftWrapItem</method>
+                    </gomage_checkout_add_giftwrap_item>
+                </observers>
+            </paypal_prepare_line_items>
         </events>
         <translate>
 			<modules>
@@ -307,6 +337,7 @@
 		<gomage_checkout>
 			<registration>
 				<mode>0</mode>
+				<auto>0</auto>
 			</registration>
 			<ajax>
 				<country>1</country>

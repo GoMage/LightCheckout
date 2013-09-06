@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 2.0
  */
 
@@ -54,6 +54,12 @@ class GoMage_DeliveryDate_Model_Form_Element_Date extends Varien_Data_Form_Eleme
 		foreach ($nonworking_days as $_value){			
 			$_disabled_dates_conf[] = sprintf('(date.getDate() == %d && date.getMonth() == %d)', $_value['day'], $_value['month']);
 		} 
+		
+		$shift = Mage::helper('gomage_deliverydate')->getDeliveryDayShift();		
+		for($i=0; $i < $shift; $i++){
+			$date = time() + $i*60*60*24;
+			$_disabled_dates_conf[] = sprintf('(date.getDate() == %d && date.getMonth() == %d)', intval(date('d', $date)), intval(date('m', $date)) - 1);
+		}
 			
 		$disabled_dates_conf = 'disabled: function(date) {
 		

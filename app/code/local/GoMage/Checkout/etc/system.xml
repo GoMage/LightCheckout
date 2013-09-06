@@ -8,10 +8,17 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0           
+ * @since Class available since Release 1.0
  */ 
  -->
 <config>
+	<tabs>
+        <gomage translate="label">
+            <label>GoMage</label>
+            <sort_order>200</sort_order>
+        </gomage>
+    </tabs> 
 	<sections>
 		<gomage_activation>
 			<label>Activation</label>
@@ -23,7 +30,7 @@
             <show_in_store>1</show_in_store>
             <groups>
 				<lightcheckout translate="label">
-					<label>GoMage LightCheckout v.3.2</label>
+					<label>GoMage LightCheckout v.4.0</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
@@ -78,6 +85,15 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</mode>
+						<auto>
+							<label>Auto-Registration</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</auto>						
 						<account_checkbox>
 							<label>Create an Account checkbox</label>
 							<frontend_type>select</frontend_type>
@@ -86,6 +102,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
+							<depends><auto>0</auto></depends>
 						</account_checkbox>
 					</fields>
 				</registration>

@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0
  */
 ?>
@@ -98,13 +98,13 @@
 		            <?php endif ?>
 			        
 			        
-			        <?php if(!$this->isCustomerLoggedIn()): ?>	
-						<?php if(!$this->isCustomerLoggedIn() && ( $this->getCheckoutMode() == 0 || $this->getCheckoutMode() == 1 ) ):?>
+			        <?php if(!$this->isCustomerLoggedIn() && !$this->getAutoRegistration()): ?>	
+						<?php if(!$this->isCustomerLoggedIn() && in_array($this->getCheckoutMode(), array(0, 1))):?>
 							<?php if($this->getCheckoutMode() == 0):?>
-							<li class="control control-register">
-								<input class="radio" id="customer_account_create" onclick="if(this.checked){$('register-customer-password').style.display='block';}else{$('register-customer-password').style.display='none';}" type="checkbox" <?php if(Mage::getSingleton('customer/session')->getCreateAccount()):?>checked="checked"<?php endif;?> name="create_account" value="1"  />
-								<label for="customer_account_create"><?php echo $this->__('Create an Account');?></label>
-							</li>
+								<li class="control control-register">
+									<input class="radio" id="customer_account_create" onclick="if(this.checked){$('register-customer-password').style.display='block';}else{$('register-customer-password').style.display='none';}" type="checkbox" <?php if(Mage::getSingleton('customer/session')->getCreateAccount()):?>checked="checked"<?php endif;?> name="create_account" value="1"  />
+									<label for="customer_account_create"><?php echo $this->__('Create an Account');?></label>
+								</li>
 							<?php endif;?>
 			                <li class="fields" id="register-customer-password" <?php if(!Mage::getSingleton('customer/session')->getCreateAccount() && $this->getCheckoutMode() == 0):?>style="display:none;"<?php endif;?>>
 			                    <div class="field">

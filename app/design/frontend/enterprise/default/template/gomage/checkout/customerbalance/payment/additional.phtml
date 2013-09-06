@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 3.2
  */
 ?>
@@ -28,10 +28,11 @@
     </div>
     <script type="text/javascript">
     //<![CDATA[
+
     var isFullyPaidAfterCustomerBalanceApplication = <?php echo ($this->isFullyPaidAfterApplication() ? 'true' : 'false'); ?>;
     var customerBalanceSubstracted = <?php if ($this->isCustomerBalanceUsed()): ?>true<?php else: ?>false<?php endif; ?>;
-
-    if (customerBalanceSubstracted) {
+    
+    if (customerBalanceSubstracted ) {
         quoteBaseGrandTotal += <?php echo (float)$this->getQuote()->getBaseCustomerBalAmountUsed(); ?>;
         checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
         customerBalanceSubstracted = false;
@@ -68,18 +69,10 @@
                 }
             }
             if ($('use_customer_balance').checked) {
-                $('checkout-payment-method-load').hide();
-                payment.switchMethod();
-            }
-        } else {
-            var elements = Form.getElements(this.form);
-            for (var i=0; i<elements.length; i++) {
-                if (elements[i].name == 'payment[method]') {
-                    elements[i].disabled = false;
-                }
-            }
-            $('checkout-payment-method-load').show();
-            payment.switchMethod(payment.lastUsedMethod);
+                $('checkout-payment-method-load').hide();                
+            }                        
+        } else {            
+            $('checkout-payment-method-load').show();            
         }
     }
 
@@ -99,7 +92,7 @@
         }
         payment.addBeforeValidateFunction('customerbalance', customerBalanceValidate.bind(payment));
     }
-
+       
     Event.observe($('use_customer_balance'), 'click', payment.switchCustomerBalanceCheckbox);
     //]]>
     </script>

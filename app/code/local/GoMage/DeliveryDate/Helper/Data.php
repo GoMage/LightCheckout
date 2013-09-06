@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 2.5
  */
 
@@ -92,5 +92,49 @@ class GoMage_DeliveryDate_Helper_Data extends Mage_Core_Helper_Abstract{
 	public function getShippingMethods(){
 		return explode(',', Mage::getStoreConfig('gomage_checkout/deliverydate/shipping_methods'));
 	}
+	
+	public function getDeliveryDayShift(){
+		
+		$shift = 0;
+				
+		$available_days = Mage::helper('gomage_deliverydate')->getDeliveryDays();
+        $available_days = array_keys($available_days);
+        
+        if (!empty($available_days)){
+        	$interval = intval(Mage::helper('gomage_checkout')->getConfigData('deliverydate/interval_days'));
+			$shift += $interval;
+			
+			for ($i=0; $i <= $interval; $i++){
+				$date = time() + $i*60*60*24;
+				if ($this->isNonWorkingDay($date) || !in_array(date('w', $date), $available_days)){
+					$shift++;			
+					$interval++;			
+				}	
+			}
+			$date = time() + $shift*60*60*24;
+	        while($this->isNonWorkingDay($date) || !in_array(date('w', $date), $available_days)){
+	            $date += 60*60*24;
+	            $shift++;
+	        }
+        }
+        
+		return $shift;
+	}
+	
+	public function isNonWorkingDay($value){
+
+        $result = false;
+        $nonworking_days = Mage::helper('gomage_deliverydate')->getNonWorkingDays();
+
+        foreach ($nonworking_days as $day){
+            if ((intval(date('d', $value)) == intval($day['day'])) &&
+                ((intval(date('m', $value)) - 1) == intval($day['month']))){
+                $result = true;
+                break;
+            }
+        }
+
+        return $result;
+    }
     	
 }

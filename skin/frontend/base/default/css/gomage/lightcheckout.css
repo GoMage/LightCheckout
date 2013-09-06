@@ -1018,6 +1018,18 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	padding:0;
 	margin:12px 0;
 }
+.glc .check-gc-status-wrap{
+  padding-top:5px;
+  }
+.glc .discount + .giftcard .lightcheckout-giftcard-form{
+  border-top:1px solid #eaeaea;
+  }
+  .glc-skin-default .discount + .giftcard .lightcheckout-giftcard-form{
+    border-top:0;
+  }
+.glc .discount-bottom .discount + .giftcard .lightcheckout-giftcard-form{
+  border-top:0;
+  }
 /* Discount form END */
 
 /* Mage agreements */
@@ -1942,6 +1954,12 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 .glc .data-table tfoot td strong .price{
 	font-size:17px;
 }
+.glc .data-table .btn-remove,
+.glc .data-table .btn-remove img{
+  display:inline;
+  display:inline-block;
+  vertical-align:middle;
+  }
 
 	/* Default */
 .glc-skin-default .data-table{

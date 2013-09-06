@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 3.2
  */
 
@@ -23,10 +23,20 @@ class GoMage_Checkout_Helper_Authorizenet_Data extends Mage_Authorizenet_Helper_
     {    	
         $route = array();
         switch ($controller) {
-           case 'onepage':
-                $route['action'] = 'save';
-                $route['controller'] = 'onepage';
-                $route['module'] = 'gomage_checkout';
+           case 'onepage':           	
+           	    $h = Mage::helper('gomage_checkout');
+        		if(!(bool)$h->getConfigData('general/enabled'))
+				{
+					$route['action'] = 'saveOrder';
+	                $route['controller'] = 'onepage';
+	                $route['module'] = 'checkout';
+				}
+				else 
+				{
+					$route['action'] = 'save';
+	                $route['controller'] = 'onepage';
+	                $route['module'] = 'gomage_checkout';		
+				}
                 break;
 
             case 'sales_order_create':

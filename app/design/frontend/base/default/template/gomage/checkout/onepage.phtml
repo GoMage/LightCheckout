@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0
  */
  
@@ -249,9 +249,9 @@
 		
 		<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 			<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
-			<?php if(Mage::getStoreConfig('customer/facebook/enabled')): ?>
-		    		<span><?php echo $this->__('or');?></span>
-		    		<a rel="facebook-connect" title="<?php echo $this->__('Login with Facebook');?>" href="<?php echo $this->helper('inchoo_facebook')->getConnectUrl() ?>"><?php echo $this->__('Login with Facebook');?></a>
+			<?php if(Mage::getStoreConfig('customer/facebook/enabled')): ?>					
+		    		<span><?php echo $this->__('or');?></span>		    		
+		    		<a rel="facebook-connect" title="<?php echo $this->__('Login with Facebook');?>" href="<?php echo $this->helper('facebook')->getConnectUrl() ?>"><?php echo $this->__('Login with Facebook');?></a>
 			<?php endif; ?>
 		</div>
 		

@@ -1,5 +1,5 @@
 <?php
- /**
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -7,36 +7,19 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0
  */
+
+class GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sales_Order_View_Info {
 	
-	class GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Info extends Mage_Core_Block_Template{
+	protected function _afterToHtml($html) {
 		
-		protected $order;
-		
-		public function getOrder(){
-			if(is_null($this->order)){
-				
-		        if(Mage::registry('current_order')) {
-		        	
-		            $order = Mage::registry('current_order');
-		            
-		        }elseif(Mage::registry('order')) {
-		        	
-		            $order = Mage::registry('order');
-		            
-		        }else{
-		        	
-		        	$order = new Varien_Object();
-		        	
-		        }
-		        
-		        $this->order = $order;
-			}
-			
-			return $this->order;
+		if ($this->getChild('gomage.checkout.order.info')) {			
+			$html .= $this->getChild('gomage.checkout.order.info')->toHtml();		
 		}
 		
-		
+		return parent::_afterToHtml($html);
 	}
+
+}

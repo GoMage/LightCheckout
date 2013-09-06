@@ -6,7 +6,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0 
  */ 
 
@@ -69,11 +69,20 @@ LightCheckoutCalendar.setup = function(e) {
 LightCheckoutCalendar.Calendar = function(a) {
 	this.lang = {
 		daysShort : [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" ],
-		monthsShort : [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
-				"Sep", "Oct", "Nov", "Dec" ],
+		monthsShort : [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
 		today : "Today",
 		goToday : "Go Today"
-	};
+	};	
+	if (typeof LightCheckoutCalendar.Calendar._SDN != "undefined"){		
+		var ar = new Array();
+        for (var i = 7; i > 0;) {
+            ar[--i] = LightCheckoutCalendar.Calendar._SDN[i].substr(0, 2);
+        }
+        this.lang.daysShort = ar;
+	}
+	if (typeof LightCheckoutCalendar.Calendar._SMN != "undefined"){
+		this.lang.monthsShort = LightCheckoutCalendar.Calendar._SMN;
+	}
 	if (!a) {
 		throw "The class requires a configuration object"
 	}

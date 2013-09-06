@@ -9,7 +9,7 @@
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 2.4
  */
 
@@ -29,9 +29,10 @@ class GoMage_Checkout_Model_Quote_Address_Total_Shipping extends Mage_Sales_Mode
             }
             $addressQty = 0;
             foreach ($items as $item) {
-                if ($item->getData('gomage_gift_wrap')) $addressQty++; 
-            }    
-            
+                if ($item->getData('gomage_gift_wrap')){
+                	$addressQty += $item->getTotalQty();	
+                }  
+            }                
             if (!$addressQty) {
                 return $this;
             }

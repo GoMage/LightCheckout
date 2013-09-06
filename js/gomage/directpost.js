@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     js
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var directPost = Class.create();
@@ -184,8 +184,8 @@ directPost.prototype = {
     saveOnepageOrder : function() {
         this.hasError = false;
         this.setLoadWaiting();
-        var params = Form.serialize(payment.form);        
-        params += '&controller=' + this.controller;
+        var params = checkout.getFormData();        
+        params['controller'] = this.controller;
         new Ajax.Request(this.orderSaveUrl, {
             method : 'post',
             parameters : params,
@@ -355,7 +355,10 @@ directPost.prototype = {
     createHiddenElement : function(name, value) {
         var field;
         if (isIE) {
-            field = document.createElement('<input type="hidden" name="' + name + '" value="' + value + '" />');
+            field = document.createElement('input');
+            field.setAttribute('type', 'hidden');
+            field.setAttribute('name', name);
+            field.setAttribute('value', value);
         } else {
             field = document.createElement('input');
             field.type = 'hidden';

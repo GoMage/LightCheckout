@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0
  */
 	
@@ -71,6 +71,23 @@ class GoMage_Checkout_Model_Observer {
 	        }     
     	}   
         return $this;
+    }
+    
+    public function addGiftWrapItem($observer){    	    	
+    	if (Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0){
+	    	$cart = $observer->getEvent()->getData('paypal_cart');	    	
+	    	if ($cart){	    		
+	    		$gift_wrap_amount = 0;
+	    		$salesEntity = $cart->getSalesEntity(); 
+	    		foreach($salesEntity->getAllItems() as $item){
+		    		$gift_wrap_amount += $item->getBaseGomageGiftWrapAmount();
+	    		}
+	    		if ($gift_wrap_amount){
+	    			$cart->addItem(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title'), 1, $gift_wrap_amount);	
+	    		}	    	    				
+	    	}
+    	}     	   	
+    	return $this;
     }
     
 }

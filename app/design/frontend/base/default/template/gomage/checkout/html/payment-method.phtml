@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.2
+ * @version      Release: 4.0
  * @since        Class available since Release 1.0
  */
 ?>
@@ -45,22 +45,5 @@
 		<div class="tool-tip-content">
 			<img src="<?php echo $this->getSkinUrl('images/gomage/lightcheckout/cvv.png') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" />
 		</div>
-	</div>
-	<script type="text/javascript">
-    //<![CDATA[
-        function toggleToolTip(event){
-            if($('payment-tool-tip')){
-                /*$('payment-tool-tip').setStyle({
-                    top: (Event.pointerY(event)-510)+'px',
-                    left: (Event.pointerX(event)-800)+'px'
-                })*/
-                $('payment-tool-tip').toggle();
-            }
-            Event.stop(event);
-        }
-        if($('payment-tool-tip-close')){
-            Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
-        }        
-    //]]>
-	</script>		
+	</div>		
 </div>
