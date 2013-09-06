@@ -1,0 +1,37 @@
+/**
+* GoMage LightCheckout Extension
+*
+* @category     Extension
+* @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
+* @author       GoMage
+* @license      http://www.gomage.com/license-agreement/  Single domain license
+* @terms of use http://www.gomage.com/terms-of-use
+* @version      Release: 5.0
+* @since        Available since Release 5.0
+*/
+
+/* Design Tab
+-------------------------------------------------- */
+.entry-edit .entry-edit-head.glc-design-child-head{
+  background: #E6E6E6;
+  border: 1px solid #D6D6D6;
+  margin: -1px 0 0;
+  padding: 4px 12px;  
+  }
+.entry-edit .entry-edit-head.glc-design-child-head a{
+  background: url("../../images/gomage/lightcheckout/bkg_config-nested.png") no-repeat 100% 5px;
+  color: #2F2F2F;
+  }  
+  .entry-edit .entry-edit-head.glc-design-child-head a.open{ 
+    background-position:100% -195px; 
+    }
+.entry-edit fieldset.glc-design-child{
+  border:1px solid #d6d6d6;
+  border-top:0;
+  margin:0;
+  padding:15px 12px 20px;
+  background:#fff;
+  }
+  .entry-edit fieldset.glc-design-child#gomage_checkout_skin_popup{
+    margin: 0 0 20px;
+    }

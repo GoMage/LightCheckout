@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 4.0
  */ 
 ?>
@@ -22,11 +22,14 @@
         <?php if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
         
 		<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_remove')>0):?>
-		<col width="1" />
-		<col />
-		<?php else:?>
-		<col />
+		<col width="1" />				
 		<?php endif;?>
+		
+		<?php if(Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnails')>0):?>
+		<col width="1" />				
+		<?php endif;?>
+				
+		<col />
 		
 		<?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>
 		<col width="1"/>
@@ -49,6 +52,9 @@
     			<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_remove')>0):?>
 			    <th rowspan="<?php echo $rowspan ?>"></th>
 			    <?php endif;?>
+			    <?php if(Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnails')>0):?>
+				<th rowspan="<?php echo $rowspan ?>"></th>				
+				<?php endif;?>			    			    
                 <th rowspan="<?php echo $rowspan ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
                 <?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>
                 <th class="a-center" rowspan="<?php echo $rowspan ?>"><span class="nobr"><?php echo Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title') ?></span></th>	

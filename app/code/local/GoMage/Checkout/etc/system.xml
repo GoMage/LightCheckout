@@ -4,11 +4,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1           
+ * @version      Release: 5.0           
  * @since Class available since Release 1.0
  */ 
  -->
@@ -30,7 +30,7 @@
             <show_in_store>1</show_in_store>
             <groups>
 				<lightcheckout translate="label">
-					<label>GoMage LightCheckout v.4.2</label>
+					<label>GoMage LightCheckout v.5.0</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
@@ -71,7 +71,7 @@
 				<registration translate="label">
 					<label>Registration</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>10</sort_order>
+					<sort_order>20</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
@@ -104,12 +104,21 @@
 							<show_in_store>1</show_in_store>
 							<depends><auto>0</auto></depends>
 						</account_checkbox>
+						<success_page>
+							<label>Allow Guest Registration on Success Page</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</success_page>
 					</fields>
 				</registration>
 				<ajax translate="label">
 					<label>Ajax Settings</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>15</sort_order>
+					<sort_order>70</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
@@ -158,7 +167,16 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </email>						
+                        </email>	
+                        <login>
+                            <label>Enable Ajax for Login Action</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login>					
 					</fields>
 				</ajax>
 				<termsandconditions translate="label">
@@ -208,46 +226,21 @@
 					<label>General</label>
 					<frontend_type>text</frontend_type>
 					<frontend_model>gomage_checkout/adminhtml_system_config_fieldset_help</frontend_model>
-					<sort_order>5</sort_order>
+					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
-					<fields>
-						
+					<fields>						
 						<enabled translate="label">
 							<label>Enable LightCheckout</label>
-							<frontend_type>select</frontend_type>
-							
+							<frontend_type>select</frontend_type>							
 							<frontend_model>gomage_checkout/adminhtml_config_form_renderer_enabledisable</frontend_model>
-							<source_model>gomage_checkout/adminhtml_system_config_source_enabledisable</source_model>
-							
+							<source_model>gomage_checkout/adminhtml_system_config_source_enabledisable</source_model>							
 							<sort_order>0</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</enabled>
-						
-						<skin translate="label">
-							<label>LightCheckout Skin</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_checkout/adminhtml_system_config_source_skin</source_model>
-							<sort_order>5</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</skin>
-						
-						<button_skin translate="label">
-							<label>Buttons View</label>
-							<frontend_type>select</frontend_type>
-							<frontend_model>gomage_checkout/adminhtml_config_form_Renderer_buttonskin</frontend_model>
-							<source_model>gomage_checkout/adminhtml_system_config_source_skin_button</source_model>
-							<sort_order>6</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</button_skin>
-						
 						<default_country translate="label">
 							<label>Default Country</label>
 							<frontend_type>select</frontend_type>
@@ -256,8 +249,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</default_country>
-						
+						</default_country>						
 						<default_shipping_method translate="label">
 							<label>Default Shipping Method</label>
 							<frontend_type>select</frontend_type>
@@ -266,8 +258,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</default_shipping_method>
-						
+						</default_shipping_method>						
 						<default_payment_method translate="label">
 							<label>Default Payment Method</label>
 							<frontend_type>select</frontend_type>
@@ -276,8 +267,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</default_payment_method>
-						
+						</default_payment_method>						
 						<title translate="label">
 							<label>Page Title</label>
 							<frontend_type>text</frontend_type>
@@ -285,8 +275,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</title>
-						
+						</title>						
 						<content translate="label">
 							<label>Page Content</label>
 							<frontend_type>textarea</frontend_type>
@@ -295,7 +284,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</content>
-  
 						<different_shipping_enabled translate="label">
 							<label>Enable Different Shipping Address</label>
 							<frontend_type>select</frontend_type>
@@ -304,8 +292,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</different_shipping_enabled>		
-						
+						</different_shipping_enabled>								
 						<allow_change_qty translate="label">
 							<label>Allow to change Qty</label>
 							<frontend_type>select</frontend_type>
@@ -314,8 +301,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</allow_change_qty>
-						
+						</allow_change_qty>						
 						<allow_remove translate="label">
 							<label>Allow to Remove Item from Checkout</label>
 							<frontend_type>select</frontend_type>
@@ -324,8 +310,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</allow_remove>
-												
+						</allow_remove>											
 						<disable_cart translate="label">
 							<label>Disable Cart</label>
 							<frontend_type>select</frontend_type>
@@ -334,8 +319,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</disable_cart>
-						
+						</disable_cart>						
 						<enable_discount translate="label">
 							<label>Enable Discount Codes</label>
 							<frontend_type>select</frontend_type>
@@ -344,8 +328,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</enable_discount>
-						
+						</enable_discount>						
 						<order_summary translate="label">
 							<label>Show Order Summary on Success Page</label>
 							<frontend_type>select</frontend_type>
@@ -354,30 +337,343 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</order_summary>
-						
-						<disable_mobile translate="label">
-							<label>Disable LightCheckout on Mobile Devices</label>
+						</order_summary>																								 						
+					</fields>
+				</general>
+				<design>
+					<label>Design</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>					
+					<fields>
+						<skin translate="label">
+							<label>Skin</label>
 							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>120</sort_order>
+							<frontend_model>gomage_checkout/adminhtml_config_form_renderer_skin</frontend_model>
+							<source_model>gomage_checkout/adminhtml_system_config_source_skin</source_model>
+							<sort_order>5</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</disable_mobile>
-												 						
+						</skin>
 					</fields>
-				</general>
-				
-				<geoip translate="label">
-					<label>GeoIP Settings</label>
+				</design>												
+				<skin_header>
+				    <label>Header</label>
+				    <frontend_type>text</frontend_type>
+				    <show_in_default>1</show_in_default>
+				    <show_in_website>1</show_in_website>
+				    <show_in_store>1</show_in_store>
+				    <sort_order>31</sort_order>				     
+				    <fields>
+				        <bg_color translate="label">
+				            <label>Background Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>5</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </bg_color>
+				        <gradient translate="label">
+							<label>Use Gradient</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</gradient>
+						<bg_color2 translate="label">
+				            <label>Background Color 2</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>15</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				            <depends><gradient>1</gradient></depends>
+				        </bg_color2>
+				        <font_color translate="label">
+				            <label>Font Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>20</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </font_color>
+				        <border_radius translate="label">
+				            <label>Border Radius</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>25</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <validate>validate-number</validate>
+				        </border_radius>
+				        <p_bg_color translate="label">
+				            <label>Pagination Background Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>30</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </p_bg_color>
+				        <p_font_color translate="label">
+				            <label>Pagination Font Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>35</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </p_font_color>
+				        <p_radius translate="label">
+				            <label>Pagination Radius</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>40</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <validate>validate-number</validate>
+				        </p_radius>
+				     </fields>
+				</skin_header>
+				<skin_block>
+				    <label>Block</label>
+				    <frontend_type>text</frontend_type>
+				    <show_in_default>1</show_in_default>
+				    <show_in_website>1</show_in_website>
+				    <show_in_store>1</show_in_store>
+				    <sort_order>32</sort_order>				    
+				    <fields>
+				        <bg_color translate="label">
+				            <label>Background Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>5</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </bg_color>
+				        <border_color translate="label">
+				            <label>Border Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>10</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </border_color>
+				        <font_color translate="label">
+				            <label>Font Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>15</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </font_color>
+				        <border_radius translate="label">
+				            <label>Border Radius</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>20</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <validate>validate-number</validate>
+				        </border_radius>
+				        <or_bg_color translate="label">
+				            <label>Order Review Background Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>25</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </or_bg_color>
+				     </fields>
+				</skin_block>
+				<skin_button>
+				    <label>Button</label>
+				    <frontend_type>text</frontend_type>
+				    <show_in_default>1</show_in_default>
+				    <show_in_website>1</show_in_website>
+				    <show_in_store>1</show_in_store>
+				    <sort_order>33</sort_order>				    
+				    <fields>
+				        <bg_color translate="label">
+				            <label>Background Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>5</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </bg_color>
+				        <gradient translate="label">
+							<label>Use Gradient</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</gradient>
+						<bg_color2 translate="label">
+				            <label>Background Color 2</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>15</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				            <depends><gradient>1</gradient></depends>
+				        </bg_color2>
+				        <mo_bg_color translate="label">
+				            <label>Mouse Over Backgroung Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>20</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </mo_bg_color>
+				        <mo_bg_color2 translate="label">
+				            <label>Mouse Over Backgroung Color 2</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>25</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				            <depends><gradient>1</gradient></depends>
+				        </mo_bg_color2>
+				        <font_color translate="label">
+				            <label>Font Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>30</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </font_color>
+				        <mo_font_color translate="label">
+				            <label>Mouse Over Font Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>35</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </mo_font_color>
+				        <radius translate="label">
+				            <label>Radius</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>40</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <validate>validate-number</validate>
+				        </radius>
+				     </fields>
+				</skin_button>
+				<skin_popup>
+				    <label>Pop-up Window</label>
+				    <frontend_type>text</frontend_type>
+				    <show_in_default>1</show_in_default>
+				    <show_in_website>1</show_in_website>
+				    <show_in_store>1</show_in_store>
+				    <sort_order>34</sort_order>				    
+				    <fields>
+				        <close_color translate="label">
+				            <label>Close Button Color</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>5</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>e.g. "ffffff", "000" </comment>
+				            <validate>color</validate>
+				        </close_color>
+				        <radius translate="label">
+				            <label>Border Radius</label>
+				            <frontend_type>text</frontend_type>
+				            <sort_order>10</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <validate>validate-number</validate>
+				        </radius>
+				    </fields>
+				</skin_popup>		                                                                         																	
+				<device>
+					<label>Devices</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>15</sort_order>
+					<sort_order>40</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
 					<fields>
-						
+						<desktop translate="label">
+							<label>Show on Desktops and Laptops</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</desktop>
+						<tablet translate="label">
+							<label>Show on Tablet Devices with Full Browser</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_device</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</tablet>	
+						<smartphone translate="label">
+							<label>Show on Smartphones</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_device</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+                                 <![CDATA[A <a target="_blank" href="http://en.wikipedia.org/wiki/Responsive_web_design">responsive design</a> is used for correct displaying on mobile devices]]>
+                            </comment>
+						</smartphone>						 
+					</fields>
+				</device>	
+				<geoip translate="label">
+					<label>GeoIP Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>60</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>						
 						<geoip_enabled translate="label">
 							<label>Enable GeoIP for Country</label>
 							<frontend_type>select</frontend_type>
@@ -387,8 +683,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</geoip_enabled>
-						
+						</geoip_enabled>						
 						<geoip_state_enabled translate="label">
 							<label>Enable GeoIP for State/Province</label>
 							<frontend_type>select</frontend_type>
@@ -399,7 +694,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</geoip_state_enabled>
-
 						<geoip_post_enabled translate="label">
 							<label>Enable GeoIP for Zip/Postcode</label>
 							<frontend_type>select</frontend_type>
@@ -409,8 +703,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</geoip_post_enabled>
-						
+						</geoip_post_enabled>						
 						<geoip_city_enabled translate="label">
 							<label>Enable GeoIP for City</label>
 							<frontend_type>select</frontend_type>
@@ -420,34 +713,17 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</geoip_city_enabled>
-						<!--  
-						<import translate="label">
-                            <label>Import</label>
-                            <frontend_type>import</frontend_type>
-                            <backend_model>gomage_checkout/adminhtml_system_config_source_import</backend_model>
-                            <sort_order>40</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>
-								<![CDATA[To use GeoIP you need to upload GeoliteCity.dat file to folder /media/geoip. Read more in the <a target="_blank" href="http://www.gomage.com/media/extensions/lightcheckout/GoMage_LightCheckout_Installation_Guide.pdf">Installation Guide</a>]]>
-							</comment> 
-                        </import> 
-						-->
+						</geoip_city_enabled>						
 					</fields>
-				</geoip>
-				
+				</geoip>				
 				<address_fields translate="label">
 					<label>Enable/Disable Fields</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>20</sort_order>
+					<sort_order>80</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					
-					<fields>
-						
+					<show_in_store>1</show_in_store>					
+					<fields>						
 						<address_book translate="label">
 							<label>Show Address Book</label>
 							<frontend_type>select</frontend_type>
@@ -456,8 +732,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</address_book>
-						 
+						</address_book>						 
 						<company translate="label">
 							<label>Company</label>
 							<frontend_type>select</frontend_type>
@@ -466,8 +741,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</company>
-						
+						</company>						
 						<country_id translate="label">
 							<label>Country</label>
 							<frontend_type>select</frontend_type>
@@ -479,8 +753,7 @@
 						</country_id>
 						<city translate="label">
 							<label>City</label>
-							<frontend_type>select</frontend_type>
-							<!--<frontend_model>gomage_checkout/adminhtml_address</frontend_model>-->
+							<frontend_type>select</frontend_type>							
 							<source_model>adminhtml/system_config_source_nooptreq</source_model>
 							<sort_order>20</sort_order>
 							<show_in_default>1</show_in_default>
@@ -531,8 +804,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</postcode>
-												
+						</postcode>												
 						<comments translate="label">
 							<label>Comments</label>
 							<frontend_type>select</frontend_type>
@@ -542,7 +814,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</comments>
-
 						<newsletter translate="label">
 							<label>Newsletter Checkbox</label>
 							<frontend_type>select</frontend_type>							
@@ -551,8 +822,36 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</newsletter>
-						
+						</newsletter>		
+						<thumbnails translate="label">
+							<label>Show Thumbnails</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>95</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</thumbnails>
+						<thumbnail_w translate="label">
+							<label>Thumbnail Width, px</label>
+							<frontend_type>text</frontend_type>							
+							<sort_order>96</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-number</validate>
+							<depends><thumbnails>1</thumbnails></depends>
+						</thumbnail_w>
+						<thumbnail_h translate="label">
+							<label>Thumbnail Height, px</label>
+							<frontend_type>text</frontend_type>							
+							<sort_order>97</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-number</validate>
+							<depends><thumbnails>1</thumbnails></depends>
+						</thumbnail_h>				
 						<payments_buttons translate="label">
 							<label>Show Payment Buttons</label>
 							<frontend_type>multiselect</frontend_type>
@@ -561,8 +860,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</payments_buttons>
-						
+						</payments_buttons>						
 						<secure_window_width>
 							<label>3D Secure Window Width, px</label>
 							<frontend_type>text</frontend_type>
@@ -570,8 +868,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</secure_window_width>
-						
+						</secure_window_width>						
 						<secure_window_height>
 							<label>3D Secure Window Height, px</label>
 							<frontend_type>text</frontend_type>
@@ -579,18 +876,16 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</secure_window_height>
-						
+						</secure_window_height>						
 					</fields>
 				</address_fields>
 				<address_sort translate="label">
 					<label>Sort Address Fields</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>30</sort_order>
+					<sort_order>90</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					
+					<show_in_store>1</show_in_store>					
 					<fields>
 						<company_order translate="label">
 							<label>Company Order</label>
@@ -658,18 +953,14 @@
 						</postcode_order>
 					</fields>
 				</address_sort>
-				<vat>
-					
+				<vat>					
 					<label>EU VAT/Tax Settings</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>100</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					
-					
-					<fields>
-						
+					<show_in_store>1</show_in_store>										
+					<fields>						
 						<enabled translate="label">
 							<label>Enable EU VAT Option</label>
 							<frontend_type>select</frontend_type>
@@ -678,8 +969,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</enabled>
-						
+						</enabled>						
 						<vat_verification translate="label">
 							<label>Verification System</label>
 							<frontend_type>select</frontend_type>
@@ -689,18 +979,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</vat_verification>
-						
-						<!--
-						<autocheck translate="label">
-							<label>Auto Check VAT Number</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_enabledisable</source_model>
-							<sort_order>20</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</autocheck>
-						-->
 						<country translate="label">
 							<label>Base EU Country</label>
 							<frontend_type>select</frontend_type>
@@ -709,8 +987,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</country>
-						
+						</country>						
 						<base_country translate="label">
 							<label>B2C &amp; B2B (Base EU Country)</label>
 							<frontend_type>select</frontend_type>
@@ -719,8 +996,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</base_country>
-						
+						</base_country>						
 						<if_not_base_country translate="label">
 							<label>B2C &amp; B2B (within EU, not Base EU Country)</label>
 							<frontend_type>select</frontend_type>
@@ -730,8 +1006,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</if_not_base_country>
-						
-						
 						<rule translate="label">
 							<label>VAT/Tax Rule</label>
 							<frontend_type>multiselect</frontend_type>
@@ -741,17 +1015,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</rule>
-						
-						<!--<vat_required translate="label">
-							<label>Allow Buy without VAT</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>60</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</vat_required>-->
-						
 						<show_checkbox translate="label">
 							<label>Show Buy without VAT checkbox</label>
 							<frontend_type>select</frontend_type>
@@ -761,8 +1024,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</show_checkbox>
-						
-						
 						<text_under translate="label">
 							<label>Text under VAT/Tax field</label>
 							<frontend_type>text</frontend_type>
@@ -770,9 +1031,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</text_under>
-						
-						<!-- -->
+						</text_under>						
 					</fields>
 				</vat>
 				<poll_settings>					

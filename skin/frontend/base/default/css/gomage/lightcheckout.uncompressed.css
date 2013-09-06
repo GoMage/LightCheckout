@@ -1,0 +1,1655 @@
+/**
+* GoMage LightCheckout Extension
+*
+* @category     Extension
+* @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
+* @author       GoMage
+* @license      http://www.gomage.com/license-agreement/  Single domain license
+* @terms of use http://www.gomage.com/terms-of-use
+* @version      Release: 5.0
+* @since        Available since Release 1.0
+*/
+
+/* Reset
+-------------------------------------------------- */
+.glc form,
+#login-form form{
+  display:inline;
+  }
+.glc input,
+.glc select,
+.glc textarea,
+.glc button,
+#login-form input,
+#login-form select,
+#login-form textarea,
+#login-form button{
+	color:#2F2F2F;
+	vertical-align:middle;
+	font:12px/15px Arial,Helvetica,sans-serif;
+  }
+.glc input.radio{
+  margin-right: 3px;
+  }
+.glc fieldset,
+.glc .form-list,
+.glc .form-list ul,
+#login-form .form-list,
+.glc .sp-methods dd ul{
+	margin:0;
+	padding:0;
+	border:0;
+	list-style:none;
+  }
+.glc .sp-methods dd,
+.glc .sp-methods{
+	margin:0;
+  }
+.glc #billing-new-address-form,
+.glc #shipping-new-address-form{
+	width:auto;
+  }
+.glc .methods .shipping-methods .shipping-methods {
+	width:auto;
+  }
+.glc .gcheckout-payment-methods dt{
+	line-height:16px;
+}
+.glc .sp-methods label{
+	vertical-align:middle;
+}
+.glc .sp-methods label,
+.glc .sp-methods label .price{
+	color:#5f6162;
+	font-weight:400;
+	font-size:12px;
+}
+.glc .sp-methods dt{
+	margin:0 0 5px;
+	padding-top:0;
+	color:#5f5f5f;
+  font-weight: 700;
+}
+.glc .gcheckout-payment-methods dd,
+.glc .button-set,
+.glc .totals .cart-tax-info, 
+.glc .totals .cart-price,
+.glc .gcheckout-payment-methods .sp-methods .form-list{
+	padding:0;
+}
+.glc .a-left{text-align:left !important;}
+.glc .a-center{text-align:center !important;}
+.glc .a-right{text-align:right !important;}
+.glc .v-top{vertical-align:top;}
+.glc .v-middle{vertical-align:middle;}
+.glc .f-left,.glc .left{float:left !important;}
+.glc .f-right,.glc .right{float:right !important;}
+.glc .f-none{float:none !important;}
+.glc .f-fix{float:left;width:100%;}
+.glc .no-display{display:none;}
+.glc .nobr{white-space: nowrap !important;}
+.glc .v-fix{	float:left;}
+/* Reset END
+-------------------------------------------------- */
+
+
+/* Layout
+-------------------------------------------------- */
+
+/* Text content before checkout */
+.glc-content{
+	margin:0 0 10px;
+  }
+
+/* Login link */
+#gcheckout-login-link{
+	padding:0 0 5px;
+	border:0;
+	font-weight:700;
+  }
+  .glc-login-and-paypal #gcheckout-login-link,
+  .glc-login-and-paypal .gs-login-checkout{
+    float:left;
+    padding:5px 0;
+    }
+    .glc-login-and-paypal .gs-login-checkout li{
+      display: inline;
+      display: inline-block;
+      }
+  .glc-login-and-paypal #gcheckout-login-link{
+    margin-right: 10px;
+    }
+  .glc-paypal-express{
+    position:relative;
+    margin:0 0 -10px;
+    }
+  .glc-login-and-paypal .glc-paypal-express{
+    float:right;
+    }
+  .glc-paypal-express p{
+    margin:0 14px 0 4px;
+    text-align:right;
+    }
+  .glc-paypal-express p .paypal-or{
+    display:none;
+    }    
+
+/* Main container */
+.glc{
+	position:relative;
+	margin: 5px 0 10px;
+  padding: 15px 0 0;
+	text-align:left;
+	font:12px/1.55 Arial,Helvetica,sans-serif;
+  }
+  
+/* STEP Address */
+.glc-step.address{
+  float: left;
+  width:34%;
+  }
+  /* Shipping address */
+  .shipping-address{
+    padding-top:10px;
+    }
+
+/* STEP Methods */  
+.glc-step.methods{
+	float: right;
+  width:65%;
+  }
+  /* Shipping methods */
+  .glc .methods .shipping-methods{
+    float:left;
+    width:49%;
+    }
+  /* Payment methods */
+  .glc .methods #gcheckout-payment-methods{
+    position:relative;
+    float: right;
+    width:49%;
+    }
+    .glc.not_shipping_mode .methods #gcheckout-payment-methods{
+      width: 100% !important;
+      }
+      
+/* STEP Review */
+.glc-step.review{
+  float: right;
+	padding-top:15px;
+  width: 65%;
+  }
+  
+/* glc column */
+.glc-col{
+	padding:15px;
+  border: 1px solid #eaeaea;
+  border-top: 0;
+  background: #fff;
+  }
+  
+/* glc title */
+.glc-title{
+	margin:0;
+	padding:0 17px;
+  /* border: 1px solid #eaeaea; */
+  background-color: #f19e2b;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8b53f), to(#ea8616));
+  background-image: -webkit-linear-gradient(top, #f8b53f, #ea8616);
+  background-image:    -moz-linear-gradient(top, #f8b53f, #ea8616);
+  background-image:      -o-linear-gradient(top, #f8b53f, #ea8616);
+  background-image:         linear-gradient(to bottom, #f8b53f, #ea8616);
+	color:#fafafa;
+	text-transform:uppercase;
+	font:700 12px/30px Arial,Helvetica,sans-serif;
+  -webkit-background-clip: padding-box !important;
+  -moz-background-clip   : padding-box !important;
+  background-clip        : padding-box !important;
+  }
+  .glc-title strong{
+    font-weight: 700;
+    }
+  /* glc number */
+  .glc-title span{
+    float: left;
+    margin: 4px 8px 0 0;
+    padding: 2px 0;
+    width: 19px;
+    border: 1px solid #dedede;
+    background: #fff;
+    color: #1b1b1b;
+    text-align: center;
+    font: 700 14px/15px Arial, "Nimbus Sans L", Helvetica, sans-serif;
+    }
+  
+/* Layout END
+-------------------------------------------------- */
+
+/* Common styles
+-------------------------------------------------- */
+.glc a{
+	color:#1E7EC8;
+}
+.glc .gift-messages-form h4{
+	color:#000;
+	font-weight:400;
+  }
+.glc .methods .shipping-methods .sp-methods{
+	padding-right:5px;
+  }
+.glc .methods #gcheckout-payment-methods .sp-methods{
+  padding-right:5px;
+  }  
+.glc .review .totals,
+.customer-comment{
+	padding-bottom:5px;
+  }
+.glc .button-set{
+	margin:0;
+	border:0;
+	text-align:right;
+  }
+.glc .review .advanced-options select{
+	margin-bottom:10px;
+	max-width:100%;
+  }
+.glc #checkout-review-table-wrapper .buttons-set{
+	margin:0;
+	padding:10px 16px;
+	border:1px solid #EAEAEA;
+  border-width:0 1px 1px;
+	text-align:left;
+  }
+#checkout-review-table-wrapper{
+  overflow:auto;
+  width:100%;  
+  }
+.glc .totals td.attributes-col h4.title{
+	font-weight:400;
+}
+/* Common styles END
+-------------------------------------------------- */
+
+/* Icons
+-------------------------------------------------- */
+.glc-ico{
+  display: inline-block;
+  overflow: hidden;
+  background-image: url(../../images/gomage/lightcheckout/glc_sprite.png);
+  vertical-align: middle;
+  }
+  
+  /* Calendar */
+  .ico-cal{
+    width: 15px;
+    height: 15px;
+    background-position: 0 -183px;
+    cursor: pointer;
+    }
+    
+  /* Delete button */
+  .ico-del{
+    width: 16px;
+    height: 16px;
+    background-position: 0 -116px;
+    cursor: pointer;
+    }
+  
+/* Icons END
+-------------------------------------------------- */
+
+/* Delivery date
+-------------------------------------------------- */
+.delivery-date-delivery_date{
+	padding-right:7px;
+  }  
+  .glc .delivery-date #delivery_date{
+    padding:0;
+    width: 65px;
+    border: 0;
+    background: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow   : none;
+    box-shadow        : none;
+    font-weight: 700;
+    line-height:14px;
+    cursor:default;
+    }
+  .glc .delivery-date img{
+    cursor:pointer;
+    }   
+  .delivery-date-delivery_date label{
+    color:#5F5F5F;
+    font-weight:700;
+    vertical-align: middle;
+    }
+/* Delivery date END
+-------------------------------------------------- */
+
+/* Inputs and labels
+-------------------------------------------------- */
+.glc .form-list li,
+.glc .form-list .input-box{
+	margin:0;
+  }
+.glc .form-list li.control{
+	margin-bottom:4px;
+  }
+.glc .form-list .input-box{
+	padding-bottom:10px;
+  }
+.glc .form-list .input-box,
+.glc .form-list li.wide .input-box,
+.glc .gift-messages-form .item .details .form-list li.wide .input-box{
+	clear:both;
+	width:100%;
+  }
+.glc .form-list input.input-text{
+	width:100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box;
+  }
+.glc div.validation-passed,
+.glc .validation-error{
+	padding-right:0 !important;
+	background:none !important;
+  }
+.glc .form-list .fields .field{
+	float:left;
+	clear:none;
+	padding:0;
+	width:48%;
+  }
+  .glc .form-list .fields .field + .field{
+    margin-left: 4%;
+    }
+.glc .form-list .postcode-region .field-region{
+	width:68%;
+  }
+.glc .form-list .postcode-region .field-postcode{
+	width:28%;
+  }
+.glc .form-list .fields .input-box,
+.glc .form-list .fields input.input-text,
+.glc .form-list .input-box select,
+.glc .form-list .fields select{
+	width:100%;
+}
+.glc .form-list li.control label,
+.glc p.control label{
+	display:inline;
+	float:none;
+	padding-left:3px;
+	color:#666;
+	vertical-align:middle;
+	font-weight:400;
+}
+.glc li.control input.radio,
+.glc .control input,
+.glc p.control input.checkbox,
+.glc p.control input.radio{
+	display:inline;
+	margin:0 !important;
+	vertical-align:middle;
+}
+.glc p.control{
+	margin:0 0 10px;
+  }
+.glc .button-set p.control{
+	padding:10px 0 0;
+  }
+
+.glc .form-list label.required em,
+#login-form .form-list label.required em{
+	position:absolute;
+	top:0;
+	right:-8px;
+	float:right;
+	margin:0;
+	color:#EB340A;
+	font-style:normal;
+}
+.glc .delivery-date li input,
+.glc .delivery-date li span,
+#gcheckout-payment-methods dl dt input,
+#gcheckout-payment-methods dl dt label{
+	vertical-align:middle;
+}
+#gcheckout-payment-methods dl dt input,
+#gcheckout-payment-methods dl dt label{
+	line-height:16px;
+}
+/* input labels */
+.glc .form-list label.required,
+.glc .form-list label,
+#login-form .form-list label.required{
+	position:relative;
+	z-index:0;
+	float:left;
+	padding-right:0;
+	padding-bottom:0;
+	width:auto;
+	color:#5f5f5f;
+}
+.glc .gcheckout-payment-methods .form-list label.required,
+.glc .gcheckout-payment-methods .form-list label{
+	padding-top:0;
+	line-height:14px;
+}
+.glc .shipping-advanced{
+	padding-top:10px;
+}
+/* inputs */
+.glc input.input-text,
+.glc select,
+.glc textarea,
+#login-form .form-list li .input-box .input-text{
+	border:1px solid #d7d7d7;
+	-webkit-border-radius: 3px;
+	-moz-border-radius   : 3px;
+	border-radius        : 3px;
+	background: #fff;
+  background-color:#fff;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.06) inset;
+  -moz-box-shadow   : 0 2px 3px rgba(0, 0, 0, 0.06) inset;
+  box-shadow        : 0 2px 3px rgba(0, 0, 0, 0.06) inset;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition   : all 0.2s ease;
+  -o-transition     : all 0.2s ease;
+  transition        : all 0.2s ease;
+}
+.glc textarea{
+	resize: vertical;
+  }
+.glc input.input-text,
+.glc textarea,
+#login-form input.input-text{
+	padding:2px;
+  }
+.glc input.input-text:focus,
+.glc select:focus,
+.glc textarea:focus,
+.simple_overlay input.input-text:focus,
+.simple_overlay select:focus,
+.simple_overlay textarea:focus{
+  background-color:#edf7fd !important;
+  }
+
+.glc .validation-failed {
+  background: none !important;
+  background-color: #FAEBE7 !important;
+  border-style: dashed !important;
+  border-color: #EB340A !important;
+}
+  
+/* Gift message */
+.glc .gift-message-form{
+  margin:0 0 10px;
+  }
+.glc .gift-messages-form .item .details .form-list .input-box,
+.glc .gift-message-form .item .details .form-list .input-box{
+	width:100%;
+  }
+.glc .gift-messages-form li.fields .gift-to,
+.glc .gift-message-form li.fields .field,
+.glc .gift-messages-form li.fields .gift-from,
+.glc .gift-message-form li.fields .field:first-child{
+	width:48% !important;
+}
+.glc .gift-message-form .gift-item .fieldset label{
+  width:auto;
+  }
+.glc .gift-message-form .gift-item .fieldset{
+  width:320px;
+  }
+  .glc .gift-message-form .gift-item .fieldset .form-list{
+    padding-left:20px;
+    }
+.glc .gift-messages p.control{
+	color:#666;
+	font-weight:400;
+}
+.glc .gift-messages-form .form-list .fields input.input-text,
+.glc .gift-messages-form .form-list li.wide textarea,
+.glc .gift-message-form .form-list .fields input.input-text,
+.glc .gift-message-form .form-list li textarea,
+.glc .gift-messages-form .whole-order .form-list li.wide textarea,
+.glc .gift-message-form .whole-order .form-list li textarea,
+.glc .gift-messages-form .item .details .form-list li.wide textarea,
+.glc .gift-message-form .item .details .form-list li textarea{
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box; 
+  }
+
+/* Expiration Date */
+.glc #gcheckout-payment-methods-available label[for*="expiration"] ~ .input-box .v-fix,
+.glc #gcheckout-payment-methods-available label[for*="expiration"] ~ .v-fix,
+.glc #co-directpost-form label[for*="expiration"] ~ .input-box .v-fix{
+  width: 48%;
+  margin-right: 4%;
+  padding: 0 !important;
+  }
+  .glc #gcheckout-payment-methods-available label[for*="expiration"] ~ .input-box .v-fix + .v-fix,
+  .glc #gcheckout-payment-methods-available label[for*="expiration"] ~ .v-fix + .v-fix,
+  .glc #co-directpost-form label[for*="expiration"] ~ .input-box .v-fix + .v-fix{
+    margin: 0;
+    }
+.glc .sp-methods select.month,
+.glc .sp-methods select.year,
+.glc #co-directpost-form select.year,
+.glc #co-directpost-form select.month{
+	width: 100% !important;
+  }
+
+/* Customer comment */
+.glc .customer-comment label{
+	display:block;
+	font-weight:400;
+  padding:2px 0 4px 16px;
+  color:#5f6162;
+  }
+.glc .customer-comment textarea{
+	overflow:auto;
+	width: 100%;
+	height:60px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box;  
+  }
+
+/* Customer Name */
+.glc .customer-name-prefix .name-prefix,
+.glc .customer-name-suffix .name-suffix,
+.glc .customer-name-prefix-suffix .name-prefix,
+.glc .customer-name-prefix-suffix .name-suffix,
+.glc .customer-name-prefix-middlename-suffix .name-suffix{
+	width:24% !important;
+}
+.glc .customer-name-prefix .name-firstname,
+.glc .customer-name-suffix .name-firstname,
+.glc .customer-name-prefix .name-lastname,
+.glc .customer-name-suffix .name-lastname,
+.glc .customer-name-prefix-middlename-suffix .name-lastname,
+.glc .customer-name-prefix-middlename-suffix .name-middlename{
+	width:34% !important;
+}
+.glc .customer-name-middlename-suffix .name-firstname,
+.glc .customer-name-middlename-suffix .name-middlename{
+	width:48% !important;
+}
+.glc .customer-name-middlename-suffix .name-suffix,
+.glc .customer-name-prefix-middlename .name-prefix,
+.glc .customer-name-prefix-middlename-suffix .name-prefix{
+	width:23% !important;
+}
+.glc .customer-name-middlename .field{
+  width: 31% !important;
+  }
+  .glc .customer-name-middlename .field.name-middlename{
+    width: 30% !important;
+    }
+.glc .customer-name-prefix-suffix .name-firstname,
+.glc .customer-name-prefix-suffix .name-lastname{
+	width:72% !important;
+}
+.glc .customer-name-prefix-middlename .name-firstname,
+.glc .customer-name-prefix-middlename-suffix .name-firstname,
+.glc .customer-name-middlename-suffix .name-lastname{
+	width:73% !important;
+}
+.glc .customer-name-prefix-middlename-suffix .name-middlename,
+.glc .customer-name-middlename-suffix .name-lastname,
+.glc .customer-name-prefix-suffix .name-lastname,
+.glc .customer-name-prefix-middlename .name-middlename{
+  margin-left: 0 !important;
+}
+
+/* Date of birth */
+.glc .form-list li.customer-dob .field{
+	float:none;
+	width:100%;
+  }
+.glc .form-list li.customer-dob-gender .field{
+	float:left;
+	width:50%;
+  margin-left: 0 !important;
+}
+.glc .form-list li.customer-dob .field label{
+	display:block;
+	clear:both;
+	overflow:visible;
+	color:#666;
+	font-weight:700;
+	font-size:12px;
+}
+.glc .form-list .fields .field .customer-dob .dob-day{
+	float:left;
+	clear:none;
+	margin-right:4%;
+  width: 31% !important;
+  }
+.glc .form-list .fields .field .customer-dob .input-box,
+.glc .form-list .fields .field .customer-dob .dob-month,
+.glc .form-list .fields .field .customer-dob .dob-year,
+.glc .form-list .customer-dob-gender .field .customer-dob .dob-day{
+	float:left;
+	clear:none;
+	margin-right:4%;
+	width:30% !important;
+  }
+.glc .form-list .customer-dob-gender .field .customer-dob .input-box,
+.glc .form-list .customer-dob-gender .field .customer-dob .dob-month,
+.glc .form-list .customer-dob-gender .field .customer-dob .dob-day{
+  margin-right: 3%;
+  }
+  .glc .form-list .fields .field .customer-dob .dob-year{
+    margin-right: 0;
+    width: 31% !important;
+    }  
+.glc .form-list .fields .field .customer-dob .input-box input.input-text,
+.glc .form-list li.customer-dob .input-box input.input-text{
+	display:block;
+	width:100% !important;
+  }
+.glc .form-list li.customer-dob .field .input-box label{
+	display:block;
+  float: none;
+	color:#888;
+	text-align:center;
+	font-weight:400;
+	font-size:10px;
+  }
+.glc .form-list li.customer-dob-gender .field .input-box label{
+	width:94% !important;
+  }
+.glc img{
+	max-width:100%;
+  }
+  .glc #checkout-review-table img{
+    max-width: none;
+    }
+.glc .shipping-methods .messages li{
+	margin-right:17px !important;
+  }
+.glc #payment_form_authorizenet_directpost .input-box select,
+.glc #payment_form_authorizenet_directpost input.input-text{
+	width:100%;
+  }
+
+.glc .form-list label.vat-label input{
+	display:inline;
+  }
+.glc .form-list label.vat-label span{
+	padding-left:3px;
+	vertical-align:middle;
+	font-weight:400;
+  }
+.glc .form-list label.vat-label{
+	padding-bottom:10px;
+  }
+.glc .cvv-what-is-this{
+	float:left;
+	line-height:14px;
+  margin: 3px 0 0 10px;
+}
+  
+/* Sagepay fix */
+#gcheckout-payment-methods dl dt label{	
+	padding:0 !important;
+	background:none !important;
+}
+.glc #gcheckout-payment-methods dl dt.gcheckout-onepage-sagepay label{
+	padding:0 0 1px 65px !important;
+	background:url(../../images/gomage/lightcheckout/sagepay.png) no-repeat 0 2px !important;
+}
+
+/* Captcha */
+.glc #captcha-input-box-gcheckout_onepage input.input-text{
+  width:260px;
+  }
+.glc #captcha-image-box-gcheckout_onepage{
+  padding:0 0 10px;
+  }
+.glc .captcha-image{
+  margin:0;
+  width:258px;
+  }
+  
+/* Inputs and labels END
+-------------------------------------------------- */
+
+
+/* Overlay and Popups
+-------------------------------------------------- */
+
+/* Overlay */
+.gomage-checkout-overlay{
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:999;
+	width:100%;
+	height:100%;
+	background:#000;
+	opacity:.6;
+	filter:alpha(opacity=60);
+  }
+
+/* POPUP styles */
+.simple_overlay{
+	z-index:10000;
+	display:none;
+	width:320px;
+  max-width: 96%;
+  background: #fff;
+  -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow   : 3px 3px 4px rgba(0, 0, 0, 0.75);
+  box-shadow        : 3px 3px 4px rgba(0, 0, 0, 0.75);
+	text-align:left;
+  }
+  .glc-popup-content{
+    padding: 12px 24px;
+    }
+  .simple_overlay .close{
+    position:absolute;
+    top:5px;
+    right:10px;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor:pointer;
+    line-height: 18px;
+    }
+
+/* Loadinfo */
+.loadinfo{
+	position:fixed;
+	top:45%;
+	left:50%;
+	margin-left:-150px;
+	padding:8px 8px 8px 35px;
+	width:250px;
+	border:1px solid #0A263C;
+	-webkit-border-radius: 3px;
+	-moz-border-radius   : 3px;
+	border-radius        : 3px;
+	background:url('../../images/gomage/lightcheckout/loadinfo.gif') 5px 50% no-repeat #fff;
+  -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow   : 2px 2px 3px rgba(0, 0, 0, 0.5);
+  box-shadow        : 2px 2px 3px rgba(0, 0, 0, 0.5);
+	font-weight:700;
+  }
+
+/* Login POPUP */
+#login-form.simple_overlay{
+	width:308px;
+  font:12px/15px Arial,Helvetica,sans-serif;
+  }
+  #login-form .form-list li{
+    margin:0 0 8px;
+    }
+  #login-form .form-list .input-box{
+    clear:both;
+    width: 100%;
+    }  
+    #login-form .form-list li .input-box .input-text{
+      width:100%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing   : border-box;
+      box-sizing        : border-box;       
+      }    
+  #login-form .loadinfo{
+    clear:both;
+    overflow:hidden;
+    margin:0;
+    width:220px;
+    }
+  #login-form .details h2{
+    margin:0 0 5px;
+    color:#464646;
+    font-weight:400;
+    font-size:18px;
+    line-height:1.35;
+    }
+  #login-form .loadinfo{
+    position:static;
+    margin:0;
+    padding:5px 5px 5px 35px;
+    border:0;
+    background-position:0 50%;
+    -webkit-box-shadow: none;
+    -moz-box-shadow   : none;
+    box-shadow        : none;
+    }    
+  .simple_overlay .actions button.button{
+    float:right;
+    }
+  #gcheckout-forgot-form .actions button.button{
+    float:left;
+    }
+  #gcheckout-forgot-form .actions button.button[type="submit"]{
+    float:right;
+    }
+  #login-form .error{
+    padding-bottom:5px;
+    color:#DF280A;
+    font-weight:bold;
+    }
+  #login-form .success{
+    padding-bottom:5px;
+    color:#3D6611;
+    font-weight:bold;
+    }    
+  #login-form .actions a{
+    float:left;
+    color:#1E7EC8;
+    text-decoration:underline;
+    line-height:26px;
+    }
+  #login-form .actions a:hover{
+    text-decoration:none;
+    }    
+
+/* Terms and Conditions POPUP */
+#terms-block.simple_overlay{
+	width:400px;
+	height:250px;
+  }
+  #terms-block.simple_overlay .glc-popup-content{
+    height: 100%;
+    padding: 24px 9px 24px 24px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing   : border-box;
+    box-sizing        : border-box;
+    }
+  #terms-block.simple_overlay .details{
+    height:100%;
+    overflow: auto;
+    }
+
+/* Overlay and Popups END
+-------------------------------------------------- */
+
+/* Buttons
+-------------------------------------------------- */
+
+/* Buttons reset */
+.glc button.button::-moz-focus-inner,.simple_overlay button.button::-moz-focus-inner{ padding:0; border:0; }
+.glc button.button,.simple_overlay button.button{ -webkit-border-fit:lines; }
+
+.simple_overlay button.button,
+.glc button.button,
+.glc button.btn-checkout{
+	display:inline;
+	float:none;
+	overflow:visible;
+	margin:0;
+	padding:0;
+	width:auto !important;
+	height:auto !important;
+	border:0;
+	background:none;
+	text-indent:0px !important;
+	text-shadow:none;
+	cursor:pointer;
+  }
+.glc button.btn-checkout{
+	display:inline !important;
+	float:none !important;
+	height:41px !important;
+  }
+  
+/* Simple buttons */
+.simple_overlay button.button span,
+.glc button.button span{
+  display:block;
+	margin:0;
+  padding: 0;
+  height:24px;
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius   : 0;
+  border-radius        : 0;
+  background: none;
+  color:#FFF;
+	text-align:center;
+  text-transform:none;
+	white-space:nowrap;
+  font:400 12px/24px Arial,Helvetica,sans-serif;  
+  }
+  .simple_overlay button.button span span,
+  .glc button.button span span{
+    margin:0;
+    padding: 0 12px;
+    background-color: #f19e2b;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8b640), to(#e98414));
+    background-image: -webkit-linear-gradient(top, #f8b640, #e98414);
+    background-image:    -moz-linear-gradient(top, #f8b640, #e98414);
+    background-image:      -o-linear-gradient(top, #f8b640, #e98414);
+    background-image:         linear-gradient(to bottom, #, #e98414);
+    /* -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); */
+    /* -moz-box-shadow   : 1px 1px 3px rgba(0, 0, 0, 0.4); */
+    /* box-shadow        : 1px 1px 3px rgba(0, 0, 0, 0.4); */
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip   : padding-box !important;
+    background-clip        : padding-box !important;
+    }
+    
+/* Checkout button */
+.glc button.btn-checkout span{
+  display: block;
+  margin: 0;
+  padding: 0;
+	height:41px;
+	border:0 !important;
+  background: none;
+  color:#FFF;
+  text-indent:0px;
+  white-space:nowrap;
+	font:700 15px/40px Arial,Helvetica,sans-serif;
+  }
+  .glc button.btn-checkout span span{
+    margin:0;
+    padding:0 25px;
+    background-color: #f28b0a;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbaa16), to(#e46708));
+    background-image: -webkit-linear-gradient(top, #fbaa16, #e46708);
+    background-image:    -moz-linear-gradient(top, #fbaa16, #e46708);
+    background-image:      -o-linear-gradient(top, #fbaa16, #e46708);
+    background-image:         linear-gradient(to bottom, #fbaa16, #e46708);
+    text-indent:0px !important;
+    text-transform:none;
+    }
+
+/* Disabled buttons */
+.glc button.disabled{
+  cursor: default !important;
+  }
+.glc button.disabled span{
+  background: none !important;
+  }
+.glc button.disabled span span{
+  background: #e0e0e0 !important;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#e9e9e9), to(#d8d8d8)) !important;
+  background: -webkit-linear-gradient(top, #e9e9e9, #d8d8d8) !important;
+  background:    -moz-linear-gradient(top, #e9e9e9, #d8d8d8) !important;
+  background:      -o-linear-gradient(top, #e9e9e9, #d8d8d8) !important;
+  background:         linear-gradient(to bottom, #e9e9e9, #d8d8d8) !important;
+  }
+/* Buttons END
+-------------------------------------------------- */
+
+/* Validation
+-------------------------------------------------- */
+.validation-advice{
+	margin:0;
+	padding:0;
+	background:none;
+	opacity:.87;
+  }
+.validation-advice-container{
+	padding:4px 10px;
+	width:130px;
+	border:2px solid #DDD;
+  -webkit-border-radius: 6px;
+  -moz-border-radius   : 6px;
+  border-radius        : 6px;
+	background:#EE0101;
+  -webkit-box-shadow: 0px 0px 6px #000;
+  -moz-box-shadow   : 0px 0px 6px #000;
+  box-shadow        : 0px 0px 6px #000;
+	color:#FFF;
+	text-align:center;
+	font-weight:100;
+	font-size:11px;
+	font-family:Tahoma,Geneva,Kalimati,sans-serif;
+  }
+.advice-absolute .arrow{
+	position:absolute;
+	bottom:0;
+	left:20px;
+	z-index:5001;
+	width:15px; 
+	height:15px;
+  }
+.advice-absolute .arrowBottom{
+  top:0;
+  margin:-6px;
+  }
+.advice-absolute .arrow div{
+  display:block;
+  margin:0 auto;
+  height:1px;
+	border-right:2px solid #ddd;
+	border-left:2px solid #ddd;
+  background:#ee0101;
+	-webkit-box-shadow: 0px 2px 3px #444;
+	-moz-box-shadow   : 0px 2px 3px #444;
+	box-shadow        : 0px 2px 3px #444;
+	font-size:0px;
+  font-size:0px;
+  line-height:0px;
+  }
+	.advice-absolute .arrowBottom div{
+		-webkit-box-shadow: none;
+		-moz-box-shadow   : none;
+		box-shadow        : none;
+	}
+.greenPopup .arrow div{
+  background:#33be40;
+  }
+.blackPopup .arrow div{
+  background:#393939;
+  color:#FFF;
+  }
+.advice-absolute{
+  z-index:998;
+  cursor:pointer;
+  }
+.advice-absolute .arrow .line10{
+  width:15px;
+  border:0;
+  } 
+.advice-absolute .arrow .line9{
+  width:13px;
+  border:0;
+  } 
+.advice-absolute .arrow .line8{
+  width:11px;
+  } 
+.advice-absolute .arrow .line7{
+  width:9px;
+  } 
+.advice-absolute .arrow .line6{
+  width:7px;
+  } 
+.advice-absolute .arrow .line5{
+  width:5px;
+  } 
+.advice-absolute .arrow .line4{
+  width:3px;
+  } 
+.advice-absolute .arrow .line3{
+  width:1px;
+	border-right:2px solid #ddd;
+	border-bottom:0;
+	border-left:2px solid #ddd;
+  } 
+.advice-absolute .arrow .line2{
+  width:3px;
+  border:0;
+  background:#ddd;
+  }
+.advice-absolute .arrow .line1{
+  width:1px;
+  border:0;
+  background:#ddd;
+  }
+/* Validatoin END
+-------------------------------------------------- */
+
+/* Discount form
+-------------------------------------------------- */
+.lightcheckout-discount-form .input-box,
+.lightcheckout-discount-form label,
+.lightcheckout-discount-form button.button{
+	display:inline;
+  }
+.lightcheckout-discount-form .input-box{
+	padding-right:3px;
+  }
+.lightcheckout-discount-form .input-box input.input-text{
+	width:190px;
+  }
+.lightcheckout-discount-form label{
+  display: inline-block;
+  margin: 0 3px 0 0;
+	vertical-align:middle;
+	text-transform:uppercase;
+	font:700 13px/16px Arial,Helvetica,sans-serif;
+  }
+.lightcheckout-discount-form{
+	margin:0;
+	padding:12px 16px;
+	border:1px solid #eaeaea;
+	border-top:0;
+	border-bottom:0;
+  }
+.discount-bottom .lightcheckout-discount-form{
+	border-bottom:1px solid #eaeaea;
+  }
+.glc .check-gc-status-wrap{
+  padding-top:5px;
+  }
+.glc .discount + .giftcard .lightcheckout-giftcard-form{
+  border-top:1px solid #eaeaea;
+  }
+.glc .discount-bottom .discount + .giftcard .lightcheckout-giftcard-form{
+  border-top:0;
+  }
+/* Discount form END
+-------------------------------------------------- */
+
+/* Sweet Tooth
+-------------------------------------------------- */
+.glc-rewards-points{
+	margin:-5px 0 0;
+	padding:12px 16px;
+	border:1px solid #eaeaea;
+	border-top:0;
+  }
+  .glc-rewards-points .slider{
+    margin-bottom: 6px;
+    width: 248px;    
+    }
+/* Sweet Tooth END
+-------------------------------------------------- */
+
+/* Mage agreements
+-------------------------------------------------- */
+.glc .checkout-agreements .agreement-content{
+	border:1px solid #B6B6B6;
+  }
+.glc .checkout-agreements .agree{
+	margin:0;
+	padding:5px 0;
+  }
+.glc .checkout-agreements .agree label{
+	color:#666;
+	font-weight:400;
+  }
+.glc .checkout-agreements li{
+	margin:20px 0;
+  }
+/* Mage agreements END
+-------------------------------------------------- */
+
+
+/* Table styles
+-------------------------------------------------- */
+.glc .data-table{
+	margin:0;
+	padding:0;
+	width:100%;
+	border:1px solid #e1e1e1;
+  border-spacing:0;
+	border-collapse:collapse;
+	color:#3e3e3e;
+  empty-cells:show;
+  font-size:100%;
+}
+.glc .data-table tfoot th{
+	border-right:1px solid #E4E4E4;
+	font-weight:normal;
+}
+.glc .data-table h3{
+	margin:0;
+}
+.glc .data-table tr.last th, .glc .data-table tr.last td{
+	border-bottom:1px solid #e1e1e1 !important;
+}
+.glc .data-table thead th{
+	background: #f5f5f5;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#f0f0f0));
+	background: -webkit-linear-gradient(top, #f9f9f9, #f0f0f0);
+	background:    -moz-linear-gradient(top, #f9f9f9, #f0f0f0);
+	background:      -o-linear-gradient(top, #f9f9f9, #f0f0f0);
+	background:         linear-gradient(to bottom, #f9f9f9, #f0f0f0);
+}
+.glc .data-table thead th{
+  padding: 2px 8px;
+	border-right:1px solid #e4e4e4;
+	color:#5f6162;
+	vertical-align:middle;
+	white-space:nowrap;
+	font-weight:700;
+}
+.glc .data-table td{
+	padding:3px 8px;
+}
+.glc .data-table td.light-chechout-remove-td{
+	padding:3px 8px;
+}
+.glc .data-table thead tr.first th{
+  border-bottom:1px solid #E4E4E4;
+}
+.glc .data-table tfoot tr,.glc .data-table tfoot tr.first td{
+	background:none !important;
+}
+.glc .data-table tfoot{
+	background-color: #f5f5f5;
+}
+.glc .data-table tfoot td{
+	padding-top:1px;
+	padding-bottom:1px;
+	border-right:1px solid #e4e4e4;
+	border-bottom:0;
+}
+.glc .data-table .odd,
+.glc .data-table .even{
+	background:#fff;
+}
+.glc .data-table tbody th, .glc .data-table tbody td{
+	border-right:1px solid #e4e4e4;
+	border-bottom:1px solid #e4e4e4;
+}
+.glc .data-table tfoot strong{
+	color:#1c1c1c;
+	font-size:17px;
+}
+.glc .data-table tfoot td strong .price{
+	font-size:17px;
+}
+.glc .data-table tr.summary-details-first td{
+  border-top:0;
+  background:#F2F2F2;
+  color:#1C1C1C;
+  font-size:11px;
+}
+.glc .data-table tr.summary-total .summary-collapse {
+  float:right;
+  padding-left:20px;
+  background:url("../../images/gomage/lightcheckout/glc_sprite.png") no-repeat 0 5px;
+  text-align:right;
+  cursor:pointer;
+}
+.glc .data-table tr.show-details .summary-collapse {
+  background-position:0 -52px;
+}
+.glc .data-table .btn-remove,
+.glc .data-table .btn-remove img{
+  display:inline;
+  display:inline-block;
+  vertical-align:middle;
+  }
+  
+/* Qty buttons */
+.glc .gcheckout-qty{
+	display:inline;
+	padding:0 2px 0 1px;
+	vertical-align:middle;
+  }
+.glc .glc-qtybtn{
+	display:-moz-inline-box;
+	display:inline-block;
+	vertical-align:middle;
+	cursor:pointer;
+  }
+  .glc .glc-qtybtn > span{
+    display:block;
+    width:14px;
+    height:16px;
+    border: 1px solid #898989;
+    -webkit-border-radius: 3px;
+    -moz-border-radius   : 3px;
+    border-radius        : 3px;
+    background-color: #dedede;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f1f1), to(#cdcdcd));
+    background-image: -webkit-linear-gradient(top, #f1f1f1, #cdcdcd);
+    background-image:    -moz-linear-gradient(top, #f1f1f1, #cdcdcd);
+    background-image:      -o-linear-gradient(top, #f1f1f1, #cdcdcd);
+    background-image:         linear-gradient(to bottom, #f1f1f1, #cdcdcd);
+    text-align:center;
+    line-height:16px;
+    }
+  .glc .glc-plus > span{
+    padding-top:1px;
+    height: 16px;
+    }
+    
+/* Table styles END
+-------------------------------------------------- */
+
+/* Payment tool tip
+-------------------------------------------------- */
+.glc .tool-tip{
+	position:absolute;
+	top:20%;
+	right:0;
+	z-index:999;
+	padding:15px 20px;
+	border:1px solid #D7D7D7;
+	-webkit-border-radius: 3px;
+	-moz-border-radius   : 3px;
+	border-radius        : 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box;  
+	background:#fff;
+  }
+  .glc .tool-tip .tool-tip-content{
+    padding:5px;
+    }
+  .glc .tool-tip #payment-tool-tip-close{
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    cursor: pointer;    
+    }
+/* Payment tool tip END
+-------------------------------------------------- */
+
+/* Right to left layout
+-------------------------------------------------- */
+.glc-rtl,
+.glc-rtl *{
+  text-align:right;
+  direction:rtl;
+}
+.glc-rtl .form-list .fields .field + .field{
+  margin-right: 4%;
+  margin-left: 0;
+  }
+.glc-rtl.glc-login-and-paypal #gcheckout-login-link,
+.glc-rtl.glc-login-and-paypal .gs-login-checkout{
+  float:right;
+}
+.glc-rtl .cvv-what-is-this{
+  float: right;
+  margin-right: 10px;
+  }
+.glc-rtl.glc-login-and-paypal .glc-paypal-express{
+  float:left;
+}
+.glc-rtl.simple_overlay .close{
+  right:auto;
+  left:15px;
+}
+.glc-rtl.glc .form-list label.required,
+.glc-rtl.glc .form-list label,
+.glc-rtl#login-form .form-list label.required{
+  float:right;
+}
+.glc-rtl.glc .form-list label.required em,
+.glc-rtl#login-form .form-list label.required em{
+  right:auto;
+  left:-8px;
+}
+.glc-rtl#login-form .actions a{
+  float:right;
+}
+.glc-rtl.simple_overlay .actions button.button{
+  float:left;
+}
+.glc-rtl.glc .methods .shipping-methods,
+.glc-rtl.glc .address{
+  float:right;
+}
+.glc-rtl .glc-title span{
+  float:right;
+  margin:4px 0 0 8px;
+}
+.glc-rtl input.radio{
+  margin-right:0;
+  margin-left:3px;
+}
+.glc-rtl .glc-step.methods,
+.glc-rtl .methods #gcheckout-payment-methods{
+  float: left;
+  }
+.glc-rtl .glc-step.review{
+  float: left;
+  }
+.glc-rtl .form-list .fields .field,
+.glc-rtl .form-list li.customer-dob-gender .field{
+  float:right;
+}
+.glc-rtl .loadinfo{
+  padding: 8px 35px 8px 8px;
+  background-position:264px 50%;
+}
+.glc-rtl .delivery-date-delivery_date.left,
+.glc-rtl .delivery-date-delivery_time.left{
+  float:right !important;
+}
+.glc-rtl .delivery-date-delivery_date{
+  padding:0 0 0 7px;
+}
+.glc-rtl .lc-calendar-ctrl .lc-calendar-but-title{
+  text-align:center;
+}
+.glc-rtl .v-fix{
+  float:right;
+}
+.glc-rtl .a-right{
+  text-align:left !important;
+}
+.glc-rtl .a-left{
+  text-align:right !important;
+}
+.glc-rtl .summary-collapse{
+  text-align:left;
+}
+.glc-rtl .sp-methods select.month{
+  margin-right:0;
+  margin-left:10px;
+}
+.glc-rtl .gift-messages-form .item .product-img-box{
+  float:right;
+}
+.glc-rtl .gift-messages-form .item .details{
+  margin-right:90px;
+  margin-left:0;
+}
+.glc-rtl input.checkbox{
+  margin-right:0;
+  margin-left:3px;
+}
+.glc-rtl .methods .shipping-methods .sp-methods,
+.glc-rtl .methods #gcheckout-payment-methods .sp-methods{
+  padding-right:0;
+  padding-left:5px;
+}
+.glc-rtl#login-form .loadinfo{
+  padding:5px 35px 5px 5px;
+  background-position:236px 50%;
+}
+.glc-rtl .form-list .fields .field .customer-dob .input-box,
+.glc-rtl .form-list .fields .field .customer-dob .dob-month,
+.glc-rtl .form-list .fields .field .customer-dob .dob-day, 
+.glc-rtl .form-list .fields .field .customer-dob .dob-year{
+  float:right;
+  margin-right: 0;
+  margin-left: 3%;
+}
+.glc-rtl .form-list .fields .field .customer-dob .dob-year{
+  margin-left: 0 !important;
+  }
+.glc-rtl .customer-dob-gender .field + .field{
+  margin-right: 0 !important;
+  }
+.glc.glc-rtl .button-set,
+.glc.glc-rtl .button-set p.control{
+  text-align:left;
+}
+.validation-advice-rtl .arrow{
+  right:20px;
+  left:auto;
+}
+.glc-rtl #gcheckout-forgot-form .actions button.button{
+  float: right;
+  }
+.glc-rtl #gcheckout-forgot-form .actions button.button[type="submit"]{
+  float: left;
+  }
+.glc-rtl tr.summary-total .summary-collapse{
+  float: left;
+  text-align: left;
+  }
+.glc-rtl .customer-name-prefix-middlename-suffix .name-middlename,
+.glc-rtl .customer-name-middlename-suffix .name-lastname,
+.glc-rtl .customer-name-prefix-middlename .name-middlename,
+.glc-rtl .customer-name-prefix-suffix .name-lastname{
+  margin-right: 0 !important;
+  }
+.glc-rtl #gcheckout-payment-methods-available label[for*="expiration"] ~ .input-box .v-fix,
+.glc-rtl #gcheckout-payment-methods-available label[for*="expiration"] ~ .v-fix,
+.glc-rtl #co-directpost-form label[for*="expiration"] ~ .input-box .v-fix{
+  margin-left: 4%;
+  margin-right: 0;
+  }
+  .glc-rtl #gcheckout-payment-methods-available label[for*="expiration"] ~ .input-box .v-fix + .v-fix,
+  .glc-rtl #gcheckout-payment-methods-available label[for*="expiration"] ~ .v-fix + .v-fix,
+  .glc-rtl #co-directpost-form label[for*="expiration"] ~ .input-box .v-fix + .v-fix{
+    margin: 0;
+    }
+.glc-rtl .captcha-image{
+  float: right;
+  }
+.glc-rtl .cart-points-total_spent .caption,
+.glc-rtl .cart-points-total_earned .caption,
+.glc-rtl .cart-points-total_spent .points-amount{
+  text-align: left !important;
+  }
+/* Right to left layout END
+-------------------------------------------------- */
+
+/* Fix klarna payment
+-------------------------------------------------- */
+.glc .klarna_box{
+  display:block;
+  margin-right:12px;
+  min-width:1px;
+  width:auto;
+  }
+.glc .klarna_box_bottom_left,
+.glc .klarna_box_bottom_right{
+  float:none;
+  width:auto;
+  }
+.glc .klarna_box .invoice_type label{
+  padding-top:4px !important;
+  }
+/* Fix klarna payment END
+-------------------------------------------------- */
+
+/* Clears
+-------------------------------------------------- */
+.glc:after,
+.glc .methods:after,
+.glc .delivery-date li:after,
+#login-form .actions:after,
+.delivery-date:after,
+.glc .form-list .input-box:after,
+.glc-col:after,
+.glc-content:after,
+.glc-login-and-paypal:after{
+  display:block;
+  clear:both;
+  overflow:hidden;
+  width:0;
+  height:0;
+  content:'';
+  font-size:0;
+  }
+/* Clears END
+-------------------------------------------------- */
+
+
+/* Responsive
+-------------------------------------------------- */
+@media screen and (max-width:860px){
+  .glc .methods .shipping-methods,
+  .glc .methods #gcheckout-payment-methods{
+    float: none !important;
+    width: auto;
+    }
+  .glc-step.address,
+  .glc-step.methods{
+    width: 49%;
+    }
+  .glc-step.review{
+    float: none;
+    clear: both;
+    width: 100%;
+    }
+  .glc .methods .shipping-methods{
+    margin-bottom: 10px;
+    }
+  }
+@media screen and (max-width:540px){
+  .not_shipping_mode .glc-step.methods,
+  .glc .methods .shipping-methods{
+    margin-top: 10px;
+    }
+  .glc-step.address,
+  .glc-step.methods,
+  .glc-step.review{
+    float: none !important;
+    width: auto;
+    }
+  .glc .data-table{
+    font-size: 11px;
+    }    
+    .glc .data-table thead th,
+    .glc .data-table td{
+      padding: 2px 3px;
+      }
+    .glc .data-table thead th,
+    .glc .data-table thead th .nobr{
+      white-space: normal !important;
+      }
+    .glc .data-table tfoot strong{
+      font-size: 110%;
+      }
+      .glc .data-table tfoot td strong .price{
+        font-size: 100%;
+        }
+  .lightcheckout-discount-form .input-box input.input-text{
+    width: 100px;
+    }
+  .glc .tool-tip{
+    max-width: 100%;
+    }
+  }
+  
+@media screen and (max-width:320px){
+  .glc .form-list .fields .field{
+    margin: 0 !important;
+    float: none !important;
+    width: auto !important;
+    }
+  }
+/* Responsive END
+-------------------------------------------------- */
+
+/* Calendar
+-------------------------------------------------- */
+.lc-calendar{font-size:12px;font-family:Arial,Helvetica,sans-serif;cursor:default;}
+.lc-calendar .lc-calendar-ctrl{position:relative;width:173px;height:39px;border:1px solid #435;background:#ccc;color:#0A263C;font-weight:700;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-but{position:absolute;top:2px;z-index:10;float:left;width:16px;height:16px;cursor:pointer;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-but div{margin-top:3px;margin-left:3px;background-image:url(../../images/gomage/lightcheckout/glc_sprite.png);background-repeat:no-repeat;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-y-prev{left:4px;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-y-prev div{width:8px;height:9px;background-position:-8px -248px;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-m-prev{left:24px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-m-prev div{width:8px;height:9px;background-position:0 -248px;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-m-next{left:100%;margin-left:-42px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-m-next div{margin-left:4px !important;width:8px;height:9px;background-position:-16px -248px;}
+.lc-calendar .lc-calendar-ctrl div.lc-calendar-y-next{left:100%;margin-left:-22px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-y-next div{margin-left:4px !important;width:8px;height:9px;background-position:-24px -248px;}
+.lc-calendar .lc-calendar-ctrl .lc-calendar-but-title{height:20px;}
+.lc-calendar .lc-calendar-week-header table{width:100%;border-spacing:2px;border-collapse:separate;border-top:1px solid #000;background:#AAA;font-weight:700;font-size:10px;}
+.lc-calendar .lc-calendar-pane table{width:100%;border:1px solid #000;border-spacing:2px;background:#aaa;}
+.lc-calendar .lc-calendar-week-header td{padding:3px 5px;text-align:center;font-size:10px;line-height:12px;}
+.lc-calendar .lc-calendar-pane td div{padding:2px 5px;background:#bbb;text-align:center;font-size:10px;line-height:12px;}
+.lc-calendar .lc-calendar-pane td.lc-enabled-day div:hover{background:#fff;color:#000;}
+.lc-calendar .lc-calendar-pane td.lc-enabled-day div.lc-selected-day:hover{background:#f33;color:#fff;}
+.lc-calendar .lc-selected-day{background:#AAA;color:#fff !important;}
+.lc-calendar .lc-calendar-pane td .lc-today{background:#666;color:#FFF;}
+.lc-calendar .lc-calendar-pane td .lc-selected-day{background:#F66;color:#FFF;}
+.lc-calendar-week-header td,.lc-calendar-week-header td.lc-weekend{padding:3px 5px;background:#333;color:#FFF;}
+.lc-calendar .lc-calendar-week-header td div{padding:0;width:12px;}
+.lc-calendar .lc-disabled-day,.lc-calendar .lc-out-of-month{color:#888;}
+.ls-popup-container{position:absolute;z-index:100;width:175px;height:200px;}
+/* Calendar END
+-------------------------------------------------- */

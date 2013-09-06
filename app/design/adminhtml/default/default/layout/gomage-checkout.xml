@@ -4,11 +4,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -21,4 +21,12 @@
 	        </block>
         </reference>
     </adminhtml_sales_order_view>
+    <default>
+		<reference name="head">    		
+    		<action method="addJs"><script>jscolor/jscolor.js</script></action>
+    		<action method="addJs"><script>jscolor/jscolor/jscolor.js</script></action>
+    		<action method="addJs"><script>gomage/lightcheckout/admin/config.js</script></action>
+    		<action method="addCss"><name>css/gomage/lightcheckout.css</name></action> 
+    	</reference>
+    </default>     
 </layout>

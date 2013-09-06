@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */
 ?>
@@ -15,10 +15,24 @@
 <tr>
 	<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_remove')>0):?>
     <td class="a-center light-chechout-remove-td">
-    	<a onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartremove');return false;" title="<?php echo $this->__('Remove item')?>" class="btn-remove2"><?php echo $this->__('Remove item')?></a>
+    	<a onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartremove');return false;" title="<?php echo $this->__('Remove item')?>">
+        <span class="glc-ico ico-del"></span>
+      </a>
     </td>
     <?php endif;?>
-    <td><h3 class="product-name"><?php echo $this->htmlEscape($this->getProductName()) ?></h3>
+    <?php if(Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnails')>0):?>
+	<td class="a-center lc-thumbnails">
+		<a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>">
+			<img src="<?php echo $this->getProductThumbnail()->resize(Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnail_w'), Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnail_h')); ?>" width="<?php echo Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnail_w') ?>" height="<?php echo Mage::helper('gomage_checkout')->getConfigData('address_fields/thumbnail_h') ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" />
+		</a>
+	</td>					
+	<?php endif;?>
+    <td>
+    	<h3 class="product-name">
+    		<a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>">
+    			<?php echo $this->htmlEscape($this->getProductName()) ?>
+    		</a>	
+    	</h3>    			
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">
             <?php foreach ($_options as $_option) : ?>
@@ -37,6 +51,7 @@
             <?php endforeach; ?>
         </dl>
         <?php endif;?>
+        <?php echo Mage::helper('gomage_checkout/rewards_points')->getPoints($_item); ?>
     </td>
     <?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>
     <td class="a-center light-chechout-gift-wrap-td">

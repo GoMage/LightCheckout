@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */
 
@@ -44,8 +44,7 @@ class GoMage_DeliveryDate_Block_Form extends GoMage_Checkout_Block_Onepage_Abstr
         $element = new GoMage_DeliveryDate_Model_Form_Element_Date(array(
             'name'   => 'deliverydate[date]',
             'label'  => $this->__('Select a Date:'),
-            'title'  => $this->__('Delivery Date'),
-            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
+            'title'  => $this->__('Delivery Date'),            
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'       => $dateFormatIso,
             'no_span'      => 1,

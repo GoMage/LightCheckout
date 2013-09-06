@@ -3,43 +3,19 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */
- 
-	$checkout_skin	= 'glc-skin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
-	
-	if($this->helper('gomage_checkout')->getConfigData('general/skin') == 'default'){
-	
-		$buttons_skin = 'glc-bskin-'.$this->helper('gomage_checkout')->getConfigData('general/button_skin');
-		
-		$checkout_popup_skin = 'glc-pskin-default';
-	
-	}else{
-		
-		$buttons_skin = '';
-		
-		$checkout_popup_skin = 'glc-pskin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
-		
-	}
-	$buttons="";
-	$round="";
-	
-	if ($checkout_skin=='glc-skin-black' or $checkout_skin=='glc-skin-blue' or $checkout_skin=='glc-skin-brown' or $checkout_skin=='glc-skin-gray' or $checkout_skin=='glc-skin-green' or $checkout_skin=='glc-skin-light-blue' or $checkout_skin=='glc-skin-light-green' or $checkout_skin=='glc-skin-orange' or $checkout_skin=='glc-skin-red' or $checkout_skin=='glc-skin-pink' or $checkout_skin=='glc-skin-violet' or $checkout_skin=='glc-skin-yellow' or $buttons_skin=='glc-bskin-square-black' or $buttons_skin=='glc-bskin-square-blue' or $buttons_skin=='glc-bskin-square-brown' or $buttons_skin=='glc-bskin-square-grey' or $buttons_skin=='glc-bskin-square-green' or $buttons_skin=='glc-bskin-square-light-blue' or $buttons_skin=='glc-bskin-square-light-green' or $buttons_skin=='glc-bskin-square-orange' or $buttons_skin=='glc-bskin-square-red' or $buttons_skin=='glc-bskin-square-pink' or $buttons_skin=='glc-bskin-square-violet' or $buttons_skin=='glc-bskin-square-yellow' or $checkout_popup_skin=='glc-pskin-black' or $checkout_popup_skin=='glc-pskin-blue' or $checkout_popup_skin=='glc-pskin-brown' or $checkout_popup_skin=='glc-pskin-gray' or $checkout_popup_skin=='glc-pskin-green' or $checkout_popup_skin=='glc-pskin-light-blue' or $checkout_popup_skin=='glc-pskin-light-green' or $checkout_popup_skin=='glc-pskin-orange' or $checkout_popup_skin=='glc-pskin-red' or $checkout_popup_skin=='glc-pskin-pink' or $checkout_popup_skin=='glc-pskin-violet' or $checkout_popup_skin=='glc-pskin-yellow')
-	$buttons="glc-nbutton";
-	
-	if($buttons_skin=='glc-bskin-round-black' or $buttons_skin=='glc-bskin-round-blue' or $buttons_skin=='glc-bskin-round-green' or $buttons_skin=='glc-bskin-round-orange' or $buttons_skin=='glc-bskin-round-red' or $buttons_skin=='glc-bskin-round-gray')
-	$round="glc-bskin-round";
- 
 ?>
+
 <?php if($this->getContent()):?>
-<div class="glc-content<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
-	<?php echo $this->getContent();?>
-</div>
+  <div class="glc-content<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
+    <?php echo $this->getContent();?>
+  </div>
 <?php endif ?>
 
 <script type="text/javascript">
@@ -125,91 +101,34 @@
 		
 	?>
 		
-		var observe_billing_items	= '<?php echo implode(',', $observe_billing_items);?>';
-		var observe_shipping_items	= '<?php echo implode(',', $observe_shipping_items);?>';
+	var observe_billing_items	= '<?php echo implode(',', $observe_billing_items);?>';
+	var observe_shipping_items	= '<?php echo implode(',', $observe_shipping_items);?>';
 	
-	
-	
-	var loginFormHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="login-form" style="display:none;">'+
-		'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
-		'<div class="glc-popup-content"><div class="glc-popup-content-in">'+
-		'<a class="close" onclick="checkout.hideLoginForm();"></a>'+
-		'<div class="details" id="gcheckout-login-wrapper">'+
-			'<h2><?php echo $this->__("Customer Login")?></h2>'+
-			'<form id="gcheckout-login-form" action="" method="post" onsubmit="checkoutloginform.submit();return false;">'+
-			'<ul class="form-list">'+
-                '<li>'+
-                    '<label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>'+
-                    '<div class="input-box">'+
-                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="text" title="<?php echo $this->__("Email Address");?>" class="input-text required-entry" id="email" value="" name="login[username]" />'+
-                    '</div>'+
-                '</li>'+
-                '<li>'+
-                    '<label class="required" for="pass"><em>*</em><?php echo $this->__("Password");?></label>'+
-                    '<div class="input-box">'+
-                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="password" title="<?php echo $this->__("Password");?>" id="pass" class="input-text required-entry validate-password" name="login[password]" />'+
-                    '</div>'+
-                '</li>'+
-            '</ul>'+
-            '<div class="actions">'+
-            	'<a class="forgot-link" onclick="checkoutloginform.showForgotForm();return false;" href="<?php echo $this->getUrl("customer/account/forgotpassword")?>"><?php echo $this->__("Forgot Your Password?")?></a>'+
-            	'<button class="button" type="submit"><span><span><?php echo $this->__("Login");?></span></span></button>'+
-            	'<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>'+
-            '</div>'+
-            '</form>'+
-		'</div>'+
-		'<div class="details" id="gcheckout-forgot-wrapper" style="display:none;">'+
-			'<h2><?php echo $this->__("Forgot Your Password?")?></h2>'+
-			'<form id="gcheckout-forgot-form" action="" method="post" onsubmit="checkoutloginform.submitForgot();return false;">'+
-			'<ul class="form-list">'+
-                '<li>'+
-                    '<label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>'+
-                    '<div class="input-box">'+
-                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submitForgot(); return false;}" type="text" title="<?php echo $this->__("Email Address");?>" class="input-text required-entry" id="forgot_email" value="" name="forgot_email" />'+
-                    '</div>'+
-                '</li>'+                
-            '</ul>'+
-            '<div class="actions">'+            	
-            	'<button class="button" onclick="checkoutloginform.showLoginForm();return false;" type="button"><span><span><?php echo $this->__("Back");?></span></span></button>'+
-            	'<button class="button" type="submit"><span><span><?php echo $this->__("Submit");?></span></span></button>'+
-            	'<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>'+
-            '</div>'+
-            '</form>'+
-		'</div>'+		
-		'</div>'+
-		'</div>'+
-		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+
-	'</div>';
+	var loginFormHtml = <?php echo json_encode($this->getLoginForm()); ?>;
 	
 	<?php if($this->getConfigData('termsandconditions/enabled')):?>
 	
-	var termsHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
-	'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
-	'<div class="glc-popup-content"><div class="glc-popup-content-in" style="width:<?php $tacwidth=intval($this->getConfigData('termsandconditions/width'))-48; echo $tacwidth; ?>px;height:<?php intval($tacheight=$this->getConfigData('termsandconditions/height'))-25; echo $tacheight; ?>px;">'+
-		'<a class="close" onclick="checkout.hideTerms();return false;"></a>'+
+	var termsHtml = '<div class="simple_overlay<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
+	'<div class="glc-popup-content">'+
+		'<a class="close" onclick="checkout.hideTerms();return false;">&#x2715;</a>'+
 		'<div class="details">'+
 			'<div class="popup-content">'+
 				'<?php echo preg_replace("/'/", "&#39;", preg_replace('/[\n\r]/', '', (preg_replace('/\<script.*?\\/script>/si', '', $this->getConfigData('termsandconditions/content')))));?>'+
 			'</div>'+
 		'</div>'+
 		'</div>'+
-		'</div>'+
-		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+		
 	'</div>';
 	
 	<?php endif;?>
 
-   	var centinelHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="gcheckout-payment-centinel" style="display:none;width:<?php echo intval($this->getConfigData('address_fields/secure_window_width')) ?>px;height:<?php echo intval($this->getConfigData('address_fields/secure_window_height')) ?>px;">'+
-	'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
-	'<div class="glc-popup-content"><div class="glc-popup-content-in" style="width:552;px;height:475px;">'+
-		'<a class="close" onclick="checkout.hideCentinel();return false;"></a>'+
+   	var centinelHtml = '<div class="simple_overlay" id="gcheckout-payment-centinel" style="display:none;width:<?php echo intval($this->getConfigData('address_fields/secure_window_width')) ?>px;height:<?php echo intval($this->getConfigData('address_fields/secure_window_height')) ?>px;">'+
+	'<div class="glc-popup-content" style="width:552;px;height:475px;">'+
+		'<a class="close" onclick="checkout.hideCentinel();return false;">&#x2715;</a>'+
 		'<div class="details">'+
 			'<div class="popup-content" id="gcheckout-payment-centinel-html">'+
 			'</div>'+
 		'</div>'+
 		'</div>'+
-		'</div>'+
-		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+
 	'</div>';
 
    	if (typeof(CentinelAuthenticate) != 'undefined'){
@@ -247,18 +166,12 @@
 
 <?php if((!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2) || Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?>
 <div class="glc-login-and-paypal<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
-<?php endif; ?>
 
-		<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
-		
-		<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
-			<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
-			<?php if(Mage::getStoreConfig('customer/facebook/enabled')): ?>					
-		    		<span><?php echo $this->__('or');?></span>		    		
-		    		<a rel="facebook-connect" title="<?php echo $this->__('Login with Facebook');?>" href="<?php echo $this->helper('facebook')->getConnectUrl() ?>"><?php echo $this->__('Login with Facebook');?></a>
-			<?php endif; ?>
-		</div>
-		
+		<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>		
+			<div id="gcheckout-login-link" class="glc-login-link<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
+				<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>			
+			</div>	
+			<?php echo $this->getChildHtml('login_before')?> 	
 		<?php endif;?>
 		
 		<?php $payments_buttons = explode(',', Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')); ?>
@@ -275,42 +188,10 @@
 		    	</div>
 		    <?php endif;?>
 		<?php endif; ?>
-
-<?php if((!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2) || Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?>
 </div>
 <?php endif; ?>
-<?php
-	
-	$class_mode = '';
-	
-	if(Mage::getSingleton('checkout/session')->getQuote()->isVirtual()){
-		
-		$class_mode .= ' not_shipping_mode ';
-		
-	}
-	
-	if(!Mage::helper('gomage_deliverydate')->isEnableDeliveryDate()){
-		
-		$class_mode .= ' not_deliverydate_mode ';
-		
-	}
 
-
-	if(!Mage::getSingleton('checkout/session')->getShippingSameAsBilling()){
- 
-    if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')) 
-      {
-      $class_mode .= ' notddate_diferent_shipping_address ';
-      }
-    else
-      {
-      $class_mode .= ' diferent_shipping_address ';
-      }
-		
-	}
-	
-?>
-<div class="glc gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin, ' ', $buttons, ' ', $round;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
+<div class="glc gcheckout-onepage-wrap <?php echo $this->getContentCssClasses(); ?>">
 	
 	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">	
 		<?php 

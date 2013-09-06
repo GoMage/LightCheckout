@@ -3,42 +3,38 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */
 ?>
 <div class="shipping-methods">
 	
-	<h2 class="glc-title"><span><span></span><?php echo $this->__('Shipping method');?></span></h2>
-	<div class="glc-col">
-	<div class="glc-col-in">
-	<div id="gcheckout-shipping-method-available" class="shipping-methods-available">
-		
-		<?php echo $this->getChildHtml('available') ?>
-		
-	</div>
-	
-	<div class="shipping-additional">
-		
-		<?php echo $this->getChildHtml('additional') ?>
-		
-	</div>
-	
-	</div>
-	</div>
-	
+  <div class="shipping-method">
+
+    <h2 class="glc-title"><span id="glc-shipping-number" class="glc-number"><?php echo (Mage::getSingleton('checkout/session')->getShippingSameAsBilling() ? '2' : '3'); ?></span><strong><?php echo $this->__('Shipping method');?></strong></h2>
+    
+    <div class="glc-col">
+    
+      <div id="gcheckout-shipping-method-available" class="shipping-methods-available">
+        <?php echo $this->getChildHtml('available') ?>
+      </div>
+    
+      <div class="shipping-additional">
+        <?php echo $this->getChildHtml('additional') ?>
+      </div>
+    
+    </div>
+  
+  </div>
+  
 	<?php if($advanced_content = trim($this->getChildHtml('advanced'))): ?>
-	
-	<div class="shipping-advanced">
-		
-		<?php echo $advanced_content ?>
-		
-	</div>
-	
+    <div class="shipping-advanced">
+      <?php echo $advanced_content ?>
+    </div>
 	<?php endif;?>
 	
 </div>

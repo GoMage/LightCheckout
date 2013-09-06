@@ -4,11 +4,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -30,13 +30,28 @@
             
             <action method="addJs"><script>mage/centinel.js</script></action>
             <action method="addJs"><file>gomage/directpost.js</file></action>
-            <action method="addJs"><file>varien/accordion.js</file></action>            
+            <action method="addJs"><file>varien/accordion.js</file></action>     
+            
+            <action method="addCss" ifconfig="rewards/general/layoutsactive"><stylesheet>css/rewards/checkout/minicart.css</stylesheet></action>
+            <action method="addCss" ifconfig="rewards/general/layoutsactive"><stylesheet>css/rewards/slider.css</stylesheet></action>
+            <action method="addJs" ifconfig="rewards/general/layoutsactive"><script>tbt/scriptaculous/SmoothSlider.js</script></action>
+            <action method="addJs" ifconfig="rewards/general/layoutsactive"><script>tbt/rewards/points/RedemptionSlider.js</script></action>
+            
+                   
         </reference>
         
+        <reference name="after_body_start">			
+			<block type="core/template" template="gomage/checkout/styles.phtml" />
+		</reference> 
+                
         <reference name="content" >
         	<action method="unsetChildren" />
         	
         	<block type="gomage_checkout/onepage" name="checkout.onepage" template="gomage/checkout/onepage.phtml">
+        		<block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
+                    <label>Login/Registration Before</label>
+                    <action method="setMayBeInvisible"><value>1</value></action>
+                </block>
         		<block type="paypal/express_shortcut" name="gomage.methods.paypal_express" template="paypal/express/shortcut.phtml">
 	                <action method="setIsQuoteAllowed"><value>1</value></action>
 	            </block>
@@ -102,9 +117,27 @@
 				    			<action method="setIfConfig"><ifconfig>payment/authorizenet_directpost/active</ifconfig></action>
 				            </block>				            
 			            </block>			            
-			        </block>			        
-			        <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="gomage/checkout/onepage/agreements.phtml"/>
+			        </block>
+			        <block type="core/text_list" name="gomage.rewards.points">
+					    <block type="core/template" name="rewards_js_points_captions" as="rewards_cartpoints_spender_js">
+					    	<action method="setTemplate" ifconfig="rewards/general/layoutsactive"><template>rewards/js/captions.phtml</template></action>
+					    </block>
+					    <block type="gomage_checkout/config_block" name="rewards_points_cart_minibox" as="rewards_cartpoints_spender">
+					    	<action method="setConfigBlock"><config_block>rewards/checkout_cart</config_block></action>
+					    	<action method="setIfConfig"><ifconfig>rewards/general/layoutsactive</ifconfig></action>
+					    	<action method="setCallMethod"><method>setTemplate</method><params><template>rewards/checkout/cartmini.phtml</template></params></action>
+					    </block>
+					    <block type="core/template" name="points_cart_box.js" as="minicart_js">
+					    	<action method="setTemplate" ifconfig="rewards/general/layoutsactive"><template>gomage/checkout/rewards/minicart_js.phtml</template></action>
+					    </block>
+					    <block type="gomage_checkout/config_block" name="points_cart_box.slider" as="points_slider">
+					    	<action method="setConfigBlock"><config_block>rewards/checkout_cart_slider</config_block></action>
+					    	<action method="setIfConfig"><ifconfig>rewards/general/layoutsactive</ifconfig></action>
+					    	<action method="setCallMethod"><method>setTemplate</method><params><template>rewards/checkout/cart/slider.phtml</template></params></action>
+					    </block>
+					</block>			        			        
         		</block>
+        		<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="gomage/checkout/onepage/agreements.phtml"/>
         		<block type="gomage_checkout/onepage_poll" name="checkout.onepage.poll" as="poll" template="gomage/checkout/onepage/poll.phtml"/>
         		<block type="core/text_list" name="form.additional.info">
 	                <block type="gomage_checkout/config_block" name="captcha.gomage.checkout">
@@ -193,6 +226,7 @@
     
     <checkout_onepage_success> 
      	<reference name="checkout.success">
+     		<action method="setTemplate"><template>gomage/checkout/success.phtml</template></action>
      		<block type="gomage_checkout/checkout_success_summary" name="gomage.checkout.success.summary">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
@@ -209,7 +243,15 @@
 		    			<action method="setIfConfig"><ifconfig>sales/gift_options/allow_printed_card</ifconfig></action>
 		            </block>
                 </block>
-            </block> 
+            </block>
+            <block type="gomage_checkout/checkout_success_register" name="gomage.checkout.success.register">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+                <block type="core/text_list" name="form.additional.info">
+                	<block type="core/template" template="gomage/checkout/success/register.phtml" /> 
+                </block>
+            </block>              
      	</reference> 
     </checkout_onepage_success>
     

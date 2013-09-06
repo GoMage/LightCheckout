@@ -4,11 +4,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -16,7 +16,6 @@
 	<gomage_checkout_onepage_index>		
 		<reference name="head">			 
             <action method="addItem"><type>js</type><name>gomage/lc-calendar.js</name></action>
-            <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout-calendar.css</name><params/></action>
             <block type="core/html_calendar" name="gomage.deliverydate.calendar" template="gomage/deliverydate/js/calendar.phtml"/>
 		</reference>		        
         <reference name="checkout.onepage.shipping_method.advanced">

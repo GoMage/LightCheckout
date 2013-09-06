@@ -1,0 +1,63 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 5.0
+ * @since        Class available since Release 5.0
+ */
+?>
+<?php 
+	$ajax_login = Mage::helper('gomage_checkout')->getConfigData('ajax/login');
+?>
+<div class="simple_overlay<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="login-form" style="display:none;">
+	<div class="glc-popup-content">
+		<a class="close" onclick="checkout.hideLoginForm();">&#x2715;</a>
+		<div class="details" id="gcheckout-login-wrapper">
+			<h2><?php echo $this->__("Customer Login")?></h2>
+			<form id="gcheckout-login-form" action="<?php echo $this->getUrl('customer/account/loginPost'); ?>" method="post" onsubmit="return checkoutloginform.submit(<?php echo $ajax_login ?>);">
+				<ul class="form-list">
+	                <li>
+	                    <label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>
+	                    <div class="input-box">
+	                        <input type="text" title="<?php echo $this->__("Email Address");?>" class="input-text required-entry validate-email" id="email" value="" name="login[username]" />
+	                    </div>
+	                </li>
+	                <li>
+	                    <label class="required" for="pass"><em>*</em><?php echo $this->__("Password");?></label>
+	                    <div class="input-box">
+	                        <input onkeydown="if(event.keyCode == 13 ){ return checkoutloginform.submit(<?php echo $ajax_login ?>);}" type="password" title="<?php echo $this->__("Password");?>" id="pass" class="input-text required-entry validate-password" name="login[password]" />
+	                    </div>
+	                </li>
+	            </ul>
+	            <div class="actions">
+	            	<a class="forgot-link" onclick="checkoutloginform.showForgotForm();return false;" href="<?php echo $this->getUrl("customer/account/forgotpassword")?>"><?php echo $this->__("Forgot Your Password?")?></a>
+	            	<button class="button" type="submit"><span><span><?php echo $this->__("Login");?></span></span></button>
+	            	<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>
+	            </div>
+            </form>
+		</div>
+		<div class="details" id="gcheckout-forgot-wrapper" style="display:none;">
+			<h2><?php echo $this->__("Forgot Your Password?")?></h2>
+			<form id="gcheckout-forgot-form" action="" method="post" onsubmit="checkoutloginform.submitForgot();return false;">
+				<ul class="form-list">
+	                <li>
+	                    <label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>
+	                    <div class="input-box">
+	                        <input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submitForgot(); return false;}" type="text" title="<?php echo $this->__("Email Address");?>" class="input-text required-entry" id="forgot_email" value="" name="forgot_email" />
+	                    </div>
+	                </li>                
+	            </ul>
+	            <div class="actions">            	
+	            	<button class="button" onclick="checkoutloginform.showLoginForm();return false;" type="button"><span><span><?php echo $this->__("Back");?></span></span></button>
+	            	<button class="button" type="submit"><span><span><?php echo $this->__("Submit");?></span></span></button>
+	            	<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>
+	            </div>
+            </form>
+		</div>		
+	</div>
+</div>

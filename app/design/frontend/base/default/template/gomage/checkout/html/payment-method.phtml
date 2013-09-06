@@ -3,47 +3,43 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 1.0
  */
 ?>
-<div id="gcheckout-payment-methods" class="gcheckout-payment-methods">
-	<h2 class="glc-title"><span><span></span><?php echo $this->__('Payment method');?></span></h2>
-	<div class="glc-col">
-	<div class="glc-col-in">
-	<script type="text/javascript">
-	//<![CDATA[
-	    var payment = new paymentForm('gcheckout-onepage-form');
-	//]]>
-	</script>
+<div id="gcheckout-payment-methods" class="payment-methods">
+
+  <h2 class="glc-title"><span id="glc-payment-number" class="glc-number"><?php echo (Mage::getSingleton('checkout/session')->getShippingSameAsBilling() ? '4' : '5'); ?></span><strong><?php echo $this->__('Payment method');?></strong></h2>
 	
-	<div id="gcheckout-payment-methods-available">
+  <div class="glc-col">
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var payment = new paymentForm('gcheckout-onepage-form');
+    //]]>
+    </script>
 	
-	<?php echo $this->getChildHtml('methods') ?>
+    <div id="gcheckout-payment-methods-available">
+      <?php echo $this->getChildHtml('methods') ?>
+    </div>
 	
-	</div>
-	
-	<?php if($advanced_content = trim($this->getChildHtml('advanced'))): ?>
-	
-	<div class="payment-advanced">
-		
-		<?php echo $advanced_content ?>
-		
-	</div>
-	
-	<?php endif;?>
-	</div>
-	</div>
+    <?php if($advanced_content = trim($this->getChildHtml('advanced'))): ?>
+      <div class="payment-advanced">
+        <?php echo $advanced_content ?>
+      </div>
+    <?php endif;?>
+
+    </div>
+  
 	<div class="tool-tip" id="payment-tool-tip" style="display:none;">
-		<div class="btn-close">
-			<a href="#" id="payment-tool-tip-close"><img src="<?php echo $this->getSkinUrl('images/gomage/lightcheckout/btn_window_close.png') ?>" alt="<?php echo $this->__('Close') ?>" title="<?php echo $this->__('Close') ?>" /></a>
-		</div>
+		<a href="#" id="payment-tool-tip-close" title="<?php echo $this->__('Close') ?>">&#x2715;</a>
 		<div class="tool-tip-content">
 			<img src="<?php echo $this->getSkinUrl('images/gomage/lightcheckout/cvv.png') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" />
 		</div>
 	</div>		
+  
 </div>

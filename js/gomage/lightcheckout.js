@@ -2,13 +2,14 @@
  * GoMage LightCheckout Extension
  * 
  * @category Extension
- * @copyright Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author GoMage
  * @license http://www.gomage.com/license-agreement/ Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version Release: 4.1
+ * @version Release: 5.0
  * @since Class available since Release 1.0
  */ 
+
 Lightcheckout = Class.create({
 	billing_taxvat_enabled:false,
 	billing_taxvat_verified_flag:false,
@@ -108,6 +109,7 @@ Lightcheckout = Class.create({
 		this.observeMethods();
 		this.observeAddresses();
 		this.findExistsCustomer();
+		this.setBlocksNumber();
 	},
 	
 	findExistsCustomer: function(){
@@ -172,32 +174,22 @@ Lightcheckout = Class.create({
 
 			if (show){
 				control.show();
-				wrap.removeClassName('not_deliverydate_mode');
+				wrap.removeClassName('not_deliverydate_mode');				
 			}else{
 				control.hide();
 				wrap.addClassName('not_deliverydate_mode');
 			}
-
+			this.setBlocksNumber();
 		}
 	},
 
-	observeMethods:function(){
-		$$('#gcheckout-shipping-method-available input').each(function(e){
-			e.onchange = null;
-			Event.stopObserving(e, 'click');
-			e.observe('click', function(e){
-				if(this.elem.checked){
-					this.obj.prepareDeliveryDate();
-					this.obj.submit(this.obj.getFormData(), 'get_totals');
-				}
-			}.bind({elem:e,obj:this}));
-		}.bind(this));
-		$$('#gcheckout-onepage-form input[name=shipping_method]').each(function(e){
-			e.addClassName('validate-one-required-by-name');
-			throw $break;
-		});
+	observeMethods:function(){		
+		this.observeShippingMethods();
+		this.observePaymentMethods();		
+	},
 
-
+	observePaymentMethods:function(){
+		
 		var payment_elms = $$('#checkout-payment-method-load input[name="payment[method]"]');
 
 		payment_elms.each(function(e){
@@ -218,12 +210,7 @@ Lightcheckout = Class.create({
 			input.checked = true;
 			payment.switchMethod(input.value);
 		}
-	
-		this.observePaymentMethods();
-		this.prepareDeliveryDate();
-	},
-
-	observePaymentMethods:function(){
+		
 		$$('#checkout-payment-method-load input[name="payment[method]"]').each(function(e){
 			Event.stopObserving(e, 'click');
 			e.observe('click', function(e){
@@ -240,7 +227,46 @@ Lightcheckout = Class.create({
         });
         
 	},
+	
+	observeShippingMethods:function(){
+		$$('#gcheckout-shipping-method-available input').each(function(e){
+			e.onchange = null;
+			Event.stopObserving(e, 'click');
+			e.observe('click', function(e){
+				if(this.elem.checked){
+					this.obj.prepareDeliveryDate();					
+					this.obj.submit(this.obj.getFormData(), 'get_totals');
+				}
+			}.bind({elem:e,obj:this}));
+		}.bind(this));
+		$$('#gcheckout-onepage-form input[name=shipping_method]').each(function(e){
+			e.addClassName('validate-one-required-by-name');
+			throw $break;
+		});
+		
+		this.prepareDeliveryDate();
+	},	
 
+	setBlocksNumber:function(){
+		var number = 2;
+		if ($('gcheckout-shipping-address') && $('gcheckout-shipping-address').visible()){
+			number++;
+		}
+		var shipping_block = ($$('.shipping-method').length > 0 ? $$('.shipping-method')[0] : false);
+		if (shipping_block && shipping_block.visible()){
+			$('glc-shipping-number').innerHTML = number;
+			number++;
+		}
+        var deliverydate_block = ($$('.shipping-advanced').length > 0 ? $$('.shipping-advanced')[0] : false);
+		if (deliverydate_block && deliverydate_block.visible()){
+			$('glc-deliverydate-number').innerHTML = number;
+			number++;
+		}
+		if ($('gcheckout-payment-methods') && $('gcheckout-payment-methods').visible()){
+			$('glc-payment-number').innerHTML = number;			
+		}
+	},
+	
 	getFormData:function(){		
 		var form_data = $('gcheckout-onepage-form').serialize(true);
 		for (var key in form_data){
@@ -258,7 +284,6 @@ Lightcheckout = Class.create({
 	},
 	
 	applyDisocunt: function(flag){
-
 		if (flag){
 	        $('remove_coupone').value = 1;
 			this.submit({coupon_code: GlcUrl.encode($('coupon_code').value),
@@ -268,7 +293,6 @@ Lightcheckout = Class.create({
 			this.submit({coupon_code: GlcUrl.encode($('coupon_code').value),
 				         remove: $('remove_coupone').value}, 'discount');
 		}
-
 	},
 	
 	applyGiftCard: function(){		
@@ -381,161 +405,77 @@ Lightcheckout = Class.create({
 		    }else{
 
 		    if(response.error){
-
 				if(response.message){
-				alert(response.message);
+					alert(response.message);
 				}
 				this.existsreview = false;
 				this.hideLoadinfo();
-
 			}else{
 
 				var process_save_order = false;
 				
-				if(response.section == 'methods'){
-
-					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
-					
-					if(response.rates){
-						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
-						}
+				if(response.methods){
+					// Quote isVirtual
+					this.innerHTMLwithScripts($('gcheckout-onepage-methods'), response.methods);
+					var wrap = $$('div.gcheckout-onepage-wrap')[0];
+					if (wrap && !wrap.hasClassName('not_shipping_mode')){
+						wrap.addClassName('not_shipping_mode');	
 					}
-
-					if(response.payments){
-						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
-						payment.init();
-						this.observePaymentMethods();
+					if ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').up('li.control')){
+						$('billing_use_for_shipping_yes').up('li.control').remove();
 					}
-
-					if (response.gift_message){
-						if(giftmessage_block = $('gomage-lightcheckout-giftmessage')){
-							this.innerHTMLwithScripts(giftmessage_block, response.gift_message);
-						}
+					if ($('gcheckout-shipping-address')){
+						$('gcheckout-shipping-address').remove();
 					}
-					
-					if(response.methods){
-						//Quote isVirtual
-						this.innerHTMLwithScripts($('gcheckout-onepage-methods'), response.methods);
-						var wrap = $$('div.gcheckout-onepage-wrap')[0];
-						if (wrap && !wrap.hasClassName('not_shipping_mode')){
-							wrap.addClassName('not_shipping_mode');	
-						}
-						if ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').up('li.control')){
-							$('billing_use_for_shipping_yes').up('li.control').remove();
-						}
-						if ($('gcheckout-shipping-address')){
-							$('gcheckout-shipping-address').remove();
-						}
-						payment.init();
-						this.observePaymentMethods();
-					}
-					
+					payment.init();
 					this.observeMethods();
-
-					if(response.toplinks){
-						var link = $$('ul.links a.top-link-cart')[0];
-						if (link && response.toplinks){
-							var content = response.toplinks;
-							if (content && content.toElement){
-						    	content = content.toElement();
-						    }else if (!Object.isElement(content)){
-							    content = Object.toHTML(content);
-							    var tempElement = document.createElement('div');
-							    tempElement.innerHTML = content;
-							    el =  this.getElementsByClassName('top-link-cart', tempElement);
-							    if (el.length > 0){
-							        content = el[0];
-							    }
-							    else{
-							       return;
-							    }
-						    }
-							link.parentNode.replaceChild(content, link);
-						}else{
-							// enterprise
-							link = $$('div.quick-access div.top-cart')[0];
-							if (link){
-								var js_scripts = response.toplinks.extractScripts();																
-								var content = response.toplinks;								
-								if (content && content.toElement){
-							    	content = content.toElement();
-							    }else if (!Object.isElement(content)){
-								    content = Object.toHTML(content);
-								    var tempElement = document.createElement('div');
-								    tempElement.innerHTML = content;
-								    el =  this.getElementsByClassName('top-cart', tempElement);
-								    if (el.length > 0){
-								        content = el[0];
-								    }
-								    else{
-								       return;
-								    }
-							    }
-								link.parentNode.replaceChild(content, link);
-								for (var i=0; i< js_scripts.length; i++){
-							        if (typeof(js_scripts[i]) != 'undefined'){
-							        	LightcheckoutglobalEval(js_scripts[i]);
-							        }
-							    }
-							}
-						}
+				}
+				
+				if(response.shippings){
+					if(shipping_rates_block = $('gcheckout-shipping-method-available')){
+						this.innerHTMLwithScripts(shipping_rates_block, response.shippings);
+						this.observeShippingMethods();
 					}
-					
+				}
 
-				}else if(response.section == 'payment_methods'){
+				if(response.payments){
+					this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
+					payment.init();
+					this.observePaymentMethods();
+				}
 
-					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
-					
-					if(response.payments){
-						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
-						payment.init();
-						this.observePaymentMethods();
+				if (response.gift_message){
+					if(giftmessage_block = $('gomage-lightcheckout-giftmessage')){
+						this.innerHTMLwithScripts(giftmessage_block, response.gift_message);
 					}
+				}
+				
+				if(response.toplinks){						
+					this.replaceTopLinks(response.toplinks);						
+				}
+				
+				if(response.review){
+					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.review);
+				}	
+				
+				if (response.content_billing){
+					var div_billing = document.createElement('div');
+					div_billing.innerHTML = response.content_billing;
+					$('gcheckout-onepage-address').replaceChild(div_billing.firstChild, $('gcheckout-billing-address'));
+				}
 
-				}else if(response.section == 'shiping_rates'){
-
-					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
-					
-					if(response.rates){
-						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
-						}
-					}
-					
-					this.observeMethods();
-
-				}else if(response.section == 'totals'){
-					
-					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
-					
-					if(response.rates){
-						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
-						}
-						this.observeMethods();
-					}
-
-					if(response.payments){
-						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);						
-						payment.init();
-						this.observePaymentMethods();
-					}
-
-				}else if(response.section == 'varify_taxvat'){
-					
-					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
-
-					if(response.rates){
-						if(shipping_rates_block = $('gcheckout-shipping-method-available')){
-							this.innerHTMLwithScripts(shipping_rates_block, response.rates);
-						}
-					}
-					if(response.payments){
-						this.innerHTMLwithScripts($('gcheckout-payment-methods-available'), response.payments);
-						payment.init();
-					}
-
+				if (response.content_shipping){
+					var div_shipping = document.createElement('div');
+					div_shipping.innerHTML = response.content_shipping;
+					$('gcheckout-onepage-address').replaceChild(div_shipping.firstChild, $('gcheckout-shipping-address'));
+				}
+				
+				if (response.content_billing || response.content_shipping){
+					initAddresses();
+				}
+				
+				if(response.section == 'varify_taxvat'){
+										
 					if($('billing_taxvat_verified')){
 						$('billing_taxvat_verified').remove();
 					}
@@ -543,25 +483,18 @@ Lightcheckout = Class.create({
 					checkout.billing_taxvat_verified_flag = response.verify_result;
 
 					if(response.verify_result){
-
 						if(label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]){
-
-						label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
-
+							label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
 						}
-
 					}else if($('billing_taxvat') && $('billing_taxvat').value){
-
 						if(label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]){
-
-						label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:red;">Not Verified</span>)</strong>';
-
+							label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:red;">Not Verified</span>)</strong>';
 						}
-					}
+					}					
 
-					this.observeMethods();
-
-				} else if (response.section == 'centinel'){
+				} 
+				
+				if (response.section == 'centinel'){
 
 					if (response.centinel){
 						this.showCentinel(response.centinel);
@@ -574,6 +507,8 @@ Lightcheckout = Class.create({
 						}
 					}
 				}
+
+                this.setBlocksNumber();
 
 				if (this.existsreview)
 				{
@@ -606,6 +541,45 @@ Lightcheckout = Class.create({
 	           if(re.test(els[i].className))a.push(els[i]);
 	    }
 	    return a;
+	},
+	
+	replaceTopLinks:function(toplinks){
+
+		var link = $$('ul.links a.top-link-cart')[0];
+		var link_class = '';
+		if (link){
+			link_class = 'top-link-cart';		
+		}else{
+			// enterprise
+			var link = $$('div.quick-access div.top-cart')[0];
+			link_class = 'top-cart';
+		}
+		
+		if (link && link_class){
+			var js_scripts = toplinks.extractScripts();																
+			var content = toplinks;								
+			if (content && content.toElement){
+		    	content = content.toElement();
+		    }else if (!Object.isElement(content)){
+			    content = Object.toHTML(content);
+			    var tempElement = document.createElement('div');
+			    tempElement.innerHTML = content;
+			    el =  this.getElementsByClassName(link_class, tempElement);
+			    if (el.length > 0){
+			        content = el[0];
+			    }
+			    else{
+			       return;
+			    }
+		    }
+			link.parentNode.replaceChild(content, link);
+			for (var i=0; i< js_scripts.length; i++){
+		        if (typeof(js_scripts[i]) != 'undefined'){
+		        	LightcheckoutglobalEval(js_scripts[i]);
+		        }
+		    }
+		}
+		
 	},
 
 	showLoadinfo:function(){
@@ -672,26 +646,21 @@ Lightcheckout = Class.create({
 			this.hideLoginForm();
 		}.bind(this);
 
-
-
 		var loginForm = $('login-form');
 
 		if(!loginForm){
-
 			$$('body')[0].insert(loginFormHtml);
-
 			var loginForm = $('login-form');
 		}
 
 		loginForm.style.position = 'fixed';
 		loginForm.style.display = 'block';
 
-
-		var left	= loginForm.offsetWidth/2;
+		var left = loginForm.offsetWidth/2;
 
 		var contentHeight = document.documentElement ? document.documentElement.clientHeight : document.body.clientHeigh;
 
-		var top		= contentHeight/2.4 - loginForm.offsetHeight/2;
+		var top	= contentHeight/2.4 - loginForm.offsetHeight/2;
 
 		loginForm.style.left = '50%';
 		loginForm.style.marginLeft = '-'+left+'px';
@@ -814,9 +783,9 @@ Lightcheckout = Class.create({
 
 				}else{
 
-					if(response.rates){
+					if(response.shippings){
 						if ($('gcheckout-shipping-method-available')){
-							this.innerHTMLwithScripts($('gcheckout-shipping-method-available'), response.rates);
+							this.innerHTMLwithScripts($('gcheckout-shipping-method-available'), response.shippings);
 						}
 					}
 					if(response.payments){
@@ -836,8 +805,8 @@ Lightcheckout = Class.create({
 						$('gcheckout-onepage-address').replaceChild(div_shipping.firstChild, $('gcheckout-shipping-address'));
 					}
 
-					if(response.totals){
-						this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.totals);
+					if(response.review){
+						this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.review);
 					}
 
 					initAddresses();
@@ -935,6 +904,10 @@ LightcheckoutLogin = Class.create({
 		this.url_forgot = (data && data.url_forgot) ? data.url_forgot : '';
 	},
 	submit:function(params){
+					
+		if (typeof params != 'undefined' && params == 0){
+			return true;
+		}
 
 		$$('#gcheckout-login-form .actions button')[0].style.display = 'none';
 		$$('#gcheckout-login-form .actions .loadinfo')[0].style.display = 'block';
@@ -944,11 +917,8 @@ LightcheckoutLogin = Class.create({
 		    method:'post',
 		    parameters:{'login[username]':$$('#gcheckout-login-form #email')[0].value,'login[password]':$$('#gcheckout-login-form #pass')[0].value},
 		    onSuccess: function(transport){
-
-
-
 		    	try{
-				eval('var response = '+transport.responseText);
+		    		eval('var response = '+transport.responseText);
 				}catch(e){
 					var response = new Object();
 					response.error = true;
@@ -1029,6 +999,9 @@ LightcheckoutLogin = Class.create({
 		    	// ...
 		    }
 		  });
+				
+		return false;		
+		
 	},
 	showForgotForm: function(){		
 		if($$('#gcheckout-forgot-form div.error').length){

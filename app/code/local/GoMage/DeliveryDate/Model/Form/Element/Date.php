@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since        Class available since Release 2.0
  */
 
@@ -19,10 +19,10 @@ class GoMage_DeliveryDate_Model_Form_Element_Date extends Varien_Data_Form_Eleme
         $this->addClass('input-text');
 
         $html = sprintf(
-            '<input name="%s" id="%s" readonly="readonly" value="%s" %s style="width:65px !important;border:0 !important;background:none !important;font-weight:bold !important;" />'
-            .' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
+            '<input name="%s" id="%s" readonly="readonly" value="%s" %s />' .
+            '<span class="glc-ico ico-cal" id="%s_trig"></span>',
             $this->getName(), $this->getHtmlId(), $this->_escape($this->getValue()), $this->serialize($this->getHtmlAttributes()),
-            $this->getImage(), $this->getHtmlId(), Mage::helper('gomage_checkout')->__('Select Date'), ($this->getDisabled() ? 'display:none;' : '')
+            $this->getHtmlId()
         );
         $outputFormat = $this->getFormat();
                                 

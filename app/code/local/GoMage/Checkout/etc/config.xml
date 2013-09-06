@@ -4,18 +4,18 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.1
+ * @version      Release: 5.0
  * @since Class available since Release 1.0
  */ 
  -->
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.4.2</version>
+            <version>0.0.5.0</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -38,12 +38,7 @@
 	                <order_info>GoMage_Checkout_Block_Sales_Order_Info</order_info>
 	                <order_print>GoMage_Checkout_Block_Sales_Order_Print</order_print>
 		        </rewrite>
-	        </sales>
-	        <checkout>
-	        	<rewrite>
-	        		<onepage_success>GoMage_Checkout_Block_Checkout_Success</onepage_success>
-	        	</rewrite>
-	        </checkout>
+	        </sales>	        
 	        <enterprise_giftcardaccount>
 		        <rewrite>
 		               <checkout_cart_total>GoMage_Checkout_Block_GiftCardAccount_Checkout_Cart_Total</checkout_cart_total>
@@ -106,13 +101,7 @@
             		<data>GoMage_Checkout_Helper_Authorizenet_Data</data>
             	</rewrite>
 			</authorizenet>
-		</helpers>
-		<rewrite>
-			<gomage_checkout_onepage_cart>
-                <from><![CDATA[#^/checkout/cart#]]></from>
-                <to>/gomage_checkout/cart</to>
-            </gomage_checkout_onepage_cart>
-        </rewrite>
+		</helpers>		
         <sales>
         	<order_invoice>
         		<totals>
@@ -159,11 +148,7 @@
     		</sales_convert_quote>
         	<sales_convert_quote_address>
         		<gomage_gift_wrap_amount><to_order>*</to_order></gomage_gift_wrap_amount>
-        		<base_gift_wrap_amount_amount><to_order>*</to_order></base_gift_wrap_amount_amount>
-        		<!--
-        		<gomage_gift_wrap_amount><to_order_item_gomage_gift_wrap>*</to_order_item_gomage_gift_wrap></gomage_gift_wrap_amount>
-        		<base_gomage_gift_wrap_amount><to_order_item_gomage_gift_wrap>*</to_order_item_gomage_gift_wrap></base_gomage_gift_wrap_amount>
-        		-->
+        		<base_gift_wrap_amount_amount><to_order>*</to_order></base_gift_wrap_amount_amount>        		
         	</sales_convert_quote_address>	
         	<sales_convert_order>
         		<gomage_gift_wrap_amount>
@@ -259,6 +244,24 @@
                     </gomage_checkout_add_giftwrap_item>
                 </observers>
             </paypal_prepare_line_items>
+            <controller_action_predispatch_checkout_cart_index>
+            	<observers>
+                    <gomage_checkout_disable_shopping_cart_page>
+                        <type>singleton</type>
+                        <class>gomage_checkout/observer</class>
+                        <method>disableShoppingCart</method>
+                    </gomage_checkout_disable_shopping_cart_page>
+                </observers> 
+            </controller_action_predispatch_checkout_cart_index>
+            <customer_register_success>
+            	<observers>
+                    <gomage_checkout_customer_register_success>
+                        <type>singleton</type>
+                        <class>gomage_checkout/observer</class>
+                        <method>prepareCustomerOrder</method>
+                    </gomage_checkout_customer_register_success>
+                </observers> 
+            </customer_register_success> 
         </events>
         <translate>
 			<modules>
@@ -346,6 +349,7 @@
 				<postcode>1</postcode>
 				<city>1</city>				
 				<email>0</email>
+				<login>1</login>
 			</ajax>			
 			<termsandconditions>
 				<enabled>0</enabled>
@@ -356,11 +360,48 @@
 				<enabled>0</enabled>
 				<geoip_enabled>0</geoip_enabled>
 				<title>GoMage LightCheckout</title>
-				<deliverydate>1</deliverydate>
-				<skin>orange</skin>
-				<button_skin>default</button_skin>
-				<disable_mobile>1</disable_mobile>
+				<deliverydate>1</deliverydate>								
 			</general>
+			
+			<design>
+				<skin>orange</skin>				
+			</design>
+			<skin_header>
+				<bg_color>#f8b53f</bg_color>
+				<gradient>1</gradient>
+				<bg_color2>#ea8616</bg_color2>
+				<font_color>#fafafa</font_color>
+				<border_radius>4</border_radius>
+				<p_bg_color>#FFFFFF</p_bg_color>
+				<p_font_color>#696969</p_font_color>
+				<p_radius>4</p_radius>
+			</skin_header>
+			<skin_block>
+				<bg_color>#FFFFFF</bg_color>				
+				<border_color>#EAEAEA</border_color>
+				<font_color>#2F2F2F</font_color>
+				<border_radius>4</border_radius>
+				<or_bg_color>#f5f5f5</or_bg_color>
+			</skin_block>
+			<skin_button>
+				<bg_color>#f8b53f</bg_color>
+				<gradient>1</gradient>
+				<bg_color2>#ea8616</bg_color2>
+				<mo_bg_color>#f8b53f</mo_bg_color>
+				<mo_bg_color2>#ea8616</mo_bg_color2>
+				<font_color>#FFFFFF</font_color>
+				<mo_font_color>#FFFFFF</mo_font_color>
+				<radius>4</radius>
+			</skin_button>
+			<skin_popup>
+				<close_color>#000000</close_color>				
+				<radius>4</radius>				
+			</skin_popup>
+			
+			<device>
+				<desktop>1</desktop>
+				<tablet>1,2,3,4</tablet>
+			</device>
 			<address_fields>
 				
 				<firstname>1</firstname>
@@ -387,6 +428,9 @@
 				<telephone_order>6</telephone_order>
 				<fax>opt</fax>
 				<fax_order>6</fax_order>
+				
+				<thumbnail_w>25</thumbnail_w>
+				<thumbnail_h>25</thumbnail_h>
 				
 				<comments>0</comments>
 				<newsletter>0</newsletter>
