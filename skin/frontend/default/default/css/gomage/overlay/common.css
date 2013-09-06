@@ -1,0 +1,92 @@
+/* the overlayed element */
+.overlay {
+	
+	/* initially overlay is hidden */
+	display:none;
+	
+	/* growing background image */
+	background-image:url(../../../images/gomage/overlay/white.png);
+	
+	/* 
+		width after the growing animation finishes
+		height is automatically calculated
+	*/
+	width:300px;
+	height:180px;
+	
+	/* some padding to layout nested elements nicely  */
+	padding:35px;
+
+	/* a little styling */	
+	font-size:11px;
+}
+
+/* default close button positioned on upper right corner */
+.overlay .close {
+	background-image:url(../../../images/gomage/overlay/close.png);
+	position:absolute; right:5px; top:5px;
+	cursor:pointer;
+	height:35px;
+	width:35px;
+}
+
+/* the overlayed element */
+.simple_overlay {
+	
+	/* must be initially hidden */
+	display:none;
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* styling */
+	background-color:#fff;
+	
+	width:320px;
+	min-height:200px;
+	padding:10px 20px;
+	border:1px solid #666;
+	
+	/* CSS3 styling for latest browsers */
+	/*-moz-box-shadow:0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;	*/
+}
+#login-block.simple_overlay{
+	width:270px;
+	min-height:155px;
+	-height:155px;
+}
+#terms-block.simple_overlay{
+	width:400px;
+	height:250px;
+	padding:15px 10px 20px 20px;
+}
+#terms-block.simple_overlay .details{
+	height:100%;
+}
+#terms-block.simple_overlay .popup-content{
+	overflow:auto;
+	height:100%;
+	
+}
+#login-block .loadinfo {
+	position:static;
+	border:0;
+	background-position:0 50%;
+	padding:5px 5px 5px 35px;
+	margin:0;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+
+/* close button positioned on upper right corner */
+.simple_overlay .close {
+	background-image:url(../../../images/gomage/overlay/close.png);
+	position:absolute;
+	right:-15px;
+	top:-15px;
+	cursor:pointer;
+	height:35px;
+	width:35px;
+}
+

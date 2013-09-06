@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+
+<config>
+	<sections>
+		<gomage_checkout>
+
+            <label>LightCheckout</label>
+            <tab>gomage</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>150</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+
+			<groups>
+				<registration translate="label">
+					<label>Registration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>15</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<mode>
+							<label>Checkout Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_mode</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</mode>
+					</fields>
+				</registration>
+				<termsandconditions translate="label">
+					<label>Terms &amp; Conditions</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>100</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled translate="label">
+							<label>Enable Terms and Conditions</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						<content translate="label">
+							<label>Terms and Conditions Text</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</content>
+						<width>
+							<label>Popup Width in Pixels</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>200</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</width>
+						<height>
+							<label>Popup Height in Pixels</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>250</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</height>
+					</fields>
+				</termsandconditions>
+				<general translate="label">
+					<label>General</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+
+					<fields>
+						
+						<enabled translate="label">
+							<label>Enable LightCheckout</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						
+						<default_country translate="label">
+							<label>Default Country</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</default_country>
+						
+						
+						<default_shipping_method translate="label">
+							<label>Default Shipping Method</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_shipping_allowedmethods</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</default_shipping_method>					
+						
+						
+						<default_payment_method translate="label">
+							<label>Default Payment Method</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_payment_allowedmethods</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</default_payment_method>
+
+						<title translate="label">
+							<label>Page Title</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+						
+						<content translate="label">
+							<label>Page Content</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</content>
+  
+						<different_shipping_enabled translate="label">
+							<label>Enable Different Shipping Address</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</different_shipping_enabled>		
+						
+						<deliverydate translate="label">
+							<label>Enable Delivery Date</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>65</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</deliverydate>
+						
+						<geoip_enabled translate="label">
+							<label>Enable GeoIP for Country</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</geoip_enabled>
+						
+
+					</fields>
+
+				</general>
+				
+				<address_fields translate="label">
+					<label>Enable/Disable Address Fields</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					
+					<fields>
+						 
+						<company translate="label">
+							<label>Company</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</company>
+						
+						<country_id translate="label">
+							<label>Country</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</country_id>
+						<city translate="label">
+							<label>City</label>
+							<frontend_type>select</frontend_type>
+							<!--<frontend_model>gomage_checkout/adminhtml_address</frontend_model>-->
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</city>
+						<telephone translate="label">
+							<label>Telephone</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</telephone>
+						<fax translate="label">
+							<label>Fax</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fax>
+						<region translate="label">
+							<label>Region</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</region>
+						<street translate="label">
+							<label>Address</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</street>
+						<postcode translate="label">
+							<label>Zip/Postcode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_nooptreq</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</postcode>
+						
+						
+						<comments translate="label">
+							<label>Comments</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</comments>
+
+						<newsletter translate="label">
+							<label>Newsletter Checkbox</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</newsletter>
+					</fields>
+				</address_fields>
+				<address_sort translate="label">
+					<label>Sort Address Fields</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					
+					<fields>
+						<company_order translate="label">
+							<label>Company Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>14</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</company_order>
+						<country_id_order translate="label">
+							<label>Country Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>16</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</country_id_order>
+						<city_order translate="label">
+							<label>City Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>21</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</city_order>
+						<telephone_order translate="label">
+							<label>Telephone Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>31</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</telephone_order>
+						<fax_order translate="label">
+							<label>Fax Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>41</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fax_order>
+						<region_order translate="label">
+							<label>Region Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>51</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</region_order>
+						<street_order translate="label">
+							<label>Address Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>61</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</street_order>
+						<postcode_order translate="label">
+							<label>Zip/Postcode Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>71</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</postcode_order>
+					</fields>
+				</address_sort>
+			</groups>
+		</gomage_checkout>
+	</sections>
+</config>

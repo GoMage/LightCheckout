@@ -1,0 +1,32 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+ $order = $this->getOrder();?>
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head"><?php echo $this->__('Delivery Date') ?></h4>
+	</div>
+	<fieldset>
+		
+		<?php
+			if($order->hasGomageDeliverydate()){
+				echo Mage::app()->getLocale()->date($order->getGomageDeliverydate(), Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
+			}else{
+				echo 'Now';
+			}
+			
+		?>
+		
+	</fieldset>
+</div>

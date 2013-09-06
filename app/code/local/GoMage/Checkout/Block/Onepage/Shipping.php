@@ -1,0 +1,97 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+
+
+class GoMage_Checkout_Block_Onepage_Shipping extends GoMage_Checkout_Block_Onepage_Abstract{
+	
+	protected $prefix = 'shipping';
+	
+    public function getMethod()
+    {
+        return $this->getQuote()->getCheckoutMethod();
+    }
+
+    public function getAddress()
+    {
+    	
+    	if($this->asBilling()){
+    		
+    		$customer = $this->getQuote()->getCustomer();
+    		
+    		if($customer->getId() > 0){
+    			
+    			if($address = $customer->getDefaultShippingAddress()){
+    				
+    				return $address;
+    				
+    			}
+    			
+    			
+    		}
+    		
+    	}
+    	
+        return $this->getQuote()->getShippingAddress();
+        
+    }
+	
+	
+	public function asBilling(){
+    	
+    	if(null == $this->getCheckout()->getShippingSameAsBilling()){
+    		return true;
+    	}
+    	
+    	return (bool)$this->getCheckout()->getShippingSameAsBilling();
+    	
+    }
+	
+    /**
+     * Retrieve is allow and show block
+     *
+     * @return bool
+     */
+    public function isShow()
+    {
+        return !$this->getQuote()->isVirtual();
+    }
+    
+    public function getCountryHtmlSelect($type)
+    {
+    	
+        $countryId = $this->getAddress()->getCountryId();
+        
+        if (is_null($countryId)) {
+        	$countryId = $this->getConfigData('general/default_country');
+        }
+        
+        if (is_null($countryId)) {
+            $countryId = Mage::getStoreConfig('general/country/default');
+        }
+        
+        
+        
+        $select = $this->getLayout()->createBlock('core/html_select')
+            ->setName($type.'[country_id]')
+            ->setId($type.'_country_id')
+            ->setTitle(Mage::helper('checkout')->__('Country'))
+            ->setClass('validate[required]')
+            ->setValue($countryId)
+            ->setOptions($this->getCountryOptions());
+        
+
+        return $select->getHtml();
+    }
+}

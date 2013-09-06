@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+<layout version="0.1.0">
+	
+	
+	<gomage_checkout_onepage_index>
+		
+		<reference name="head">
+			<action method="addJs" ifconfig="gomage_deliverydate/general/enabled"><script>jquery/date.min.js</script></action>
+			<action method="addJs" ifconfig="gomage_deliverydate/general/enabled"><script>jquery/jquery.datePicker.min.js</script></action>
+			
+			<action method="addItem"><type>skin_css</type><name>css/gomage/datePicker.css</name><params/></action>
+			<action method="addItem"><type>skin_css</type><name>css/gomage/deliverydate/common.css</name><params/></action>
+		</reference>
+		
+        
+        <reference name="checkout.onepage.shipping_method.advanced">
+        	<block type="gomage_deliverydate/form" name="checkout.onepage.shipping_method.additional.delivery_date" template="gomage/deliverydate/form.phtml" />
+        </reference>
+        
+        
+		
+        
+	</gomage_checkout_onepage_index>
+	
+</layout>

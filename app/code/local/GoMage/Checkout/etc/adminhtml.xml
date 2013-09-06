@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <gomage_checkout/>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

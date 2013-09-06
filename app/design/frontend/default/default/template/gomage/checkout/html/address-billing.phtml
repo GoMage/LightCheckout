@@ -1,0 +1,161 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+?>
+<div class="billing-address" id="gcheckout-billing-address">
+	<h2 class="gcheckout-title"><?php echo $this->__('Billing address');?></h2>
+	<ul class="form-list">
+	    <li id="billing-new-address-form">
+	        <fieldset>
+	            <ul>
+					<li class="fields">
+	                <?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+					</li>
+					
+					
+	        		<?php if(!$this->isCustomerLoggedIn()): ?>
+	                <li>
+                        <label for="billing_email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="billing[email]" id="billing_email" value="<?php echo $this->htmlEscape($this->getAddress()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate[custom[email]]" />
+                        </div>
+	                </li>
+	        		<?php endif ?>
+	        		
+					
+					<?php $this->getSortedFields();?>
+	                
+	                <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+			        <?php if ($_taxvat->isEnabled()): ?>
+			                <li>
+			                    <?php echo $_taxvat->setTaxvat($this->getQuote()->getCustomerTaxvat())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+			                </li>
+			        <?php endif ?>
+			        	
+			        	
+	                <?php
+	                	
+	                	if(Mage::getVersion() < '1.4.0')
+	                		$_dob = $this->getLayout()->createBlock('customer/widget_dob')->setTemplate('gomage/checkout/html/dob13.phtml');
+	                	else
+	                		$_dob = $this->getLayout()->createBlock('customer/widget_dob')->setTemplate('gomage/checkout/html/dob.phtml');
+	                ?>
+	     	 	<?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+	            <?php if ($_dob && $_dob->isEnabled() || $_gender && $_gender->isEnabled()): ?>
+	                <li class="fields customer-dob <?php if ($_gender && $_gender->isEnabled()): ?>customer-dob-gender<?php endif;?>">
+	                <?php if ($_dob->isEnabled()): ?>
+	                    <div class="field">
+	                        <?php echo $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+	                    </div>
+	                <?php endif; ?>
+	                <?php if ($_gender && $_gender->isEnabled()): ?>
+	                    <div class="field">
+	                        <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+	                    </div>
+	                <?php endif ?>
+	                </li>
+	            <?php endif ?>
+	                <?php if(!$this->isCustomerLoggedIn()): ?>
+	                
+	        	
+
+	        
+						<?php if(!$this->isCustomerLoggedIn() && ( $this->getCheckoutMode() == 0 || $this->getCheckoutMode() == 1 ) ):?>
+							<?php if($this->getCheckoutMode() == 0):?>
+							<li class="control">
+								<input class="radio" id="customer_account_create" onclick="if(this.checked){$('register-customer-password').style.display='block';}else{$('register-customer-password').style.display='none';}" type="checkbox" <?php if(Mage::getSingleton('customer/session')->getCreateAccount()):?>checked="checked"<?php endif;?> name="create_account" value="1"  />
+								<label for="customer_account_create"><?php echo $this->__('Create Account');?></label>
+							</li>
+							<?php endif;?>
+			                <li class="fields" id="register-customer-password" <?php if(!Mage::getSingleton('customer/session')->getCreateAccount() && $this->getCheckoutMode() == 0):?>style="display:none;"<?php endif;?>>
+			                    <div class="field">
+			                        <label for="billing_customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+			                        <div class="input-box">
+			                            <input type="password" name="billing[password]" id="billing_customer_password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+			                        </div>
+			                    </div>
+			                    <div class="field">
+			                        <label for="billing_confirm_password" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
+			                        <div class="input-box">
+			                            <input type="password" name="billing[confirmation]" title="<?php echo $this->__('Confirm Password') ?>" id="billing_confirm_password" class="input-text validate[confirm[billing_customer_password]]" />
+			                        </div>
+			                    </div>
+			                </li>
+		            	<?php endif; ?>
+	                <?php endif; ?>
+	            </ul>
+	        </fieldset>
+	     </li>
+	    <?php if ($this->isCustomerLoggedIn()):?>
+	        <li id="billing_address_book" class="control" style="display:none">
+	            <input type="checkbox" name="billing[save_in_address_book]" id="billing_save_in_address_book" value="1" title="<?php echo  $this->__('Save in address book') ?>" class="checkbox" /><label for="billing_save_in_address_book"><?php echo  $this->__('Save in address book') ?></label>
+	        </li>
+	    <?php endif; ?>
+	    <?php if ($this->canShip()):?>
+	        <li class="control">
+	            <input type="checkbox" name="billing[use_for_shipping]" id="billing_use_for_shipping_yes" value="1" <?php if($this->shippingAsBilling()):?> checked="checked" <?php endif;?> title="<?php echo  $this->__('Ship to this address') ?>" onclick="changeAddressMode(this.checked)" class="radio" />
+				<label for="billing_use_for_shipping_yes"><?php echo  $this->__('Ship to billing address') ?></label>
+	        </li>
+	    <?php endif; ?>
+	</ul>
+	    <?php if (!$this->canShip()): ?>
+	        <input type="hidden" name="billing[use_for_shipping]" value="1" />
+	    <?php endif; ?>
+	<script type="text/javascript">
+	//<![CDATA[
+		
+		function changeAddressMode(flag){
+			
+			if(flag){
+				
+				$('gcheckout-shipping-address').style.display = 'none';
+				
+				<?php if(!Mage::getStoreConfig('gomage_checkout/general/deliverydate')):?>
+				$$('div.gcheckout-onepage-wrap')[0].removeClassName('notddate_diferent_shipping_address');
+				<?php else:?>
+				$$('div.gcheckout-onepage-wrap')[0].removeClassName('diferent_shipping_address');
+				<?php endif;?>
+				
+			}else{
+				
+				$('gcheckout-shipping-address').style.display = 'block';
+				
+				<?php if(!Mage::getStoreConfig('gomage_checkout/general/deliverydate')):?>
+				$$('div.gcheckout-onepage-wrap')[0].addClassName('notddate_diferent_shipping_address');
+				<?php else:?>
+				$$('div.gcheckout-onepage-wrap')[0].addClassName('diferent_shipping_address');
+				<?php endif;?>
+				
+			};
+			
+			
+		}
+		
+	    <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
+	    var billingRegionUpdater = new RegionUpdater('billing_country_id', 'billing_region', 'billing_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"billing_postcode"' : 'undefined';?>);
+	    <?php endif;?>
+	    	
+	    <?php if($this->isCustomerLoggedIn()):?>
+	    jQuery('#gcheckout-billing-address input:not(#billing_use_for_shipping_yes), #gcheckout-billing-address select').bind('change', function(){
+	    	jQuery('#billing_address_book').show();
+	    });
+	    <?php endif;?>
+	    jQuery('#gcheckout-onepage-address input:not(#billing_use_for_shipping_yes), #gcheckout-onepage-address select').bind('focus',function(){
+	    	jQuery('div.'+this.id+'formError').fadeOut(150,function(){
+				$(this).remove();
+			});
+	    });
+	//]]>
+	</script>
+</div>

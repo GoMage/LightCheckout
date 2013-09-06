@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+<layout version="0.1.0">
+	<default>
+		<reference name="head">
+			<action method="addJs"><script>jquery/jquery-1.4.2.min.js</script></action>
+		</reference>
+	</default>
+</layout>

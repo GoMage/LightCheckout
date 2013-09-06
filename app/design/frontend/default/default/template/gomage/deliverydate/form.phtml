@@ -1,0 +1,128 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+ if(Mage::getStoreConfig('gomage_checkout/general/deliverydate')):?>
+<h2 class="gcheckout-title"><?php echo $this->__('Time of Delivery');?></h2>
+<ul class="delivery-date">
+	<li class="delivary-now"><label><input onclick="this.checked ? setDeliveryDate() : '';" <?php if(!$this->getDate()):?> checked="checked" <?php endif;?> type="radio" name="deliverydate[when]" value="now"/><span><?php echo $this->__('Now')?></span></label></li>
+	<li class="delivary-later">
+		
+		<label class="left"><input onclick="this.checked ? $('delivery-date-buttons').style.display = 'block' : '';" <?php if($this->getDate()):?> checked="checked" <?php endif;?> type="radio" name="deliverydate[when]" value="later"/><span><?php echo $this->__('Later')?></span></label>
+		<div class="left" <?php if(!$this->getDate()):?> style="display:none" <?php endif;?> id="delivery-date-buttons">
+			<span id="dilivery-date-readonly" class="left inline-date"></span>
+			
+			<input id="dilivery-date-input" name="deliverydate[date]" style="display:none;" readonly="readonly" type="text" class="date-pick hidden" onchange="$('dilivery-date-readonly').innerHTML = this.value"/>
+			<select id="dilivery-time" name="deliverydate[time]" size="1">
+				<option value="00:00">00:00</option>
+				<option value="01:00">01:00</option>
+				<option value="02:00">02:00</option>
+				<option value="03:00">03:00</option>
+				<option value="04:00">04:00</option>
+				<option value="05:00">05:00</option>
+				<option value="06:00">06:00</option>
+				<option value="07:00">07:00</option>
+				<option value="08:00">08:00</option>
+				<option value="09:00">09:00</option>
+				<option value="10:00">10:00</option>
+				<option value="11:00">11:00</option>
+				<option value="12:00">12:00</option>
+				<option value="13:00">13:00</option>
+				<option value="14:00">14:00</option>
+				<option value="15:00">15:00</option>
+				<option value="16:00">16:00</option>
+				<option value="17:00">17:00</option>
+				<option value="18:00">18:00</option>
+				<option value="19:00">19:00</option>
+				<option value="20:00">20:00</option>
+				<option value="21:00">21:00</option>
+				<option value="22:00">22:00</option>
+				<option value="23:00">23:00</option>
+			</select>
+		</div>
+		<input id="dilivery-date-customeroffset-input" name="deliverydate[customer_offset]" type="hidden" class="hidden" />
+	</li>
+</ul>
+
+<?php // echo date('Ymd', strtotime($this->getDate()));?>
+<script type="text/javascript">
+	//<![CDATA[
+	jQuery(function($){
+		$('#payment-num, #review-num').each(function(){
+			
+			$(this).text(parseInt($(this).text())+1);
+			
+		})
+	});
+	
+	function setDeliveryDate(date){
+		
+		
+		
+		if(date){
+			var value = date.m+'.'+date.d+'.'+date.y;
+			
+			var options = $('dilivery-time').getElementsByTagName('option');
+			var current_time = date.h+':'+date.i;
+			for(var i = 0;i<options.length;i++){
+				if(options[i].value == current_time){
+					options[i].selected = 'selected';
+					break;
+				}
+			}
+			
+		}else{
+			var date	= new Date();
+			var m	= (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
+			var d		= (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate());
+			var y		= date.getFullYear();
+			var value = m+'.'+d+'.'+y;
+			
+			$('delivery-date-buttons').style.display = 'none';
+		}
+		var _date	= new Date();
+		var offset	= (_date.getTimezoneOffset()*60);
+			
+		$('dilivery-date-customeroffset-input').value = offset;
+		
+		$('dilivery-date-readonly').innerHTML	= value;
+		$('dilivery-date-input').value			= value;
+		
+		
+		
+	}
+	<?php if($date = $this->getDate()):
+		
+		$timestamp = strtotime($date);
+		
+		$js_date = array(
+			'y'=>date('Y', $timestamp),
+			'm'=>date('m', $timestamp),
+			'd'=>date('d', $timestamp),
+			'h'=>date('H', $timestamp),
+			'i'=>date('i', $timestamp),
+		);
+	?>
+		setDeliveryDate(<?php echo json_encode($js_date);?>);
+	<?php else:?>
+		setDeliveryDate();
+	<?php endif;?>
+	
+	Date.firstDayOfWeek = 0;
+	Date.format = 'mm.dd.yyyy';
+	jQuery(function(){
+		jQuery('.date-pick').datePicker()
+	});
+	//]]>
+</script>
+<?php endif;?>

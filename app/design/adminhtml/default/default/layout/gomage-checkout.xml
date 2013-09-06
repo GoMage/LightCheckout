@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+<layout version="1.0">
+    <adminhtml_sales_order_view>
+        <reference name="gomage.order_info">
+            <block type="gomage_checkout/adminhtml_sales_order_view_info" name="gomage_checkout.order_info" template="gomage/checkout/sales/order/view/info.phtml" />
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>

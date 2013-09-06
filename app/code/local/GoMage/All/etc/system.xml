@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <gomage translate="label">
+            <label>GoMage</label>
+            <sort_order>200</sort_order>
+        </gomage>
+    </tabs>
+</config>

@@ -1,0 +1,49 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+?>
+<div class="shipping-address" id="gcheckout-shipping-address" <?php if($this->asBilling()):?>style="display:none;"<?php endif;?>>
+	<h2 class="gcheckout-title"><?php echo $this->__('Shipping address');?></h2>
+	    <ul class="form-list">
+	        <li id="shipping-new-address-form">
+	            <fieldset>
+	                <ul>
+	                    <li class="fields"><?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
+						
+						<?php $this->getSortedFields();?>
+	                    
+	                </ul>
+	            </fieldset>
+	        </li>
+	         <?php if ($this->isCustomerLoggedIn()):?>
+	        <li id="shipping_address_book" class="control" style="display:none">
+	            <input type="checkbox" name="shipping[save_in_address_book]" id="shipping_save_in_address_book" value="1" title="<?php echo  $this->__('Save in address book') ?>" class="checkbox" /><label for="shipping_save_in_address_book"><?php echo  $this->__('Save in address book') ?></label>
+	        </li>
+		    <?php endif; ?>
+	    </ul>
+	<script type="text/javascript">
+		//<![CDATA[
+		<?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
+	    var shippingRegionUpdater = new RegionUpdater('shipping_country_id', 'shipping_region', 'shipping_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"shipping_postcode"' : 'undefined';?>);
+	   	<?php endif;?>
+	   	
+	   	<?php if($this->isCustomerLoggedIn()):?>
+	   	jQuery('#gcheckout-shipping-address input, #gcheckout-shipping-address select').bind('change', function(){
+	    	jQuery('#shipping_address_book').show();
+	    });
+	   	<?php endif;?>
+		//]]>
+	</script>
+
+</div>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+<config>
+    <modules>
+        <GoMage_Checkout>
+            <version>0.0.1</version>
+        </GoMage_Checkout>
+    </modules>
+    <global>
+    	<blocks>
+	        <gomage_checkout><class>GoMage_Checkout_Block</class></gomage_checkout>
+	    </blocks>
+	    <models>
+            <gomage_checkout><class>GoMage_Checkout_Model</class></gomage_checkout>
+            <checkout>
+            	<rewrite>
+            		<type_onepage>GoMage_Checkout_Model_Type_Onepage</type_onepage>
+            	</rewrite>
+            </checkout>
+            <core>
+            	<rewrite>
+            		<url_rewrite>GoMage_Checkout_Model_Url_Rewrite</url_rewrite>
+            	</rewrite>
+            </core>
+            <sales>
+            	<rewrite>
+            		<quote_address>GoMage_Checkout_Model_Quote_Address</quote_address>
+            		<quote>GoMage_Checkout_Model_Quote</quote>
+            	</rewrite>
+            </sales>
+        </models>
+        <resources>
+            <gomage_checkout_setup>
+                <setup>
+                    <module>GoMage_Checkout</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </gomage_checkout_setup>   
+            <gomage_checkout_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </gomage_checkout_write>
+            <gomage_checkout_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </gomage_checkout_read>
+		</resources>
+    	<fieldsets>
+    		<sales_convert_quote>
+    			<gomage_checkout_customer_comment><to_order>gomage_checkout_customer_comment</to_order></gomage_checkout_customer_comment>
+    		</sales_convert_quote>
+    	</fieldsets>
+    	<helpers>
+			<gomage_checkout><class>GoMage_Checkout_Helper</class></gomage_checkout>
+		</helpers>
+		<rewrite>
+			<!--<gomage_checkout_onepage_index_3>
+                <from><![CDATA[#^/checkout/onepage/index#]]></from>
+                <to>/gomage_checkout/onepage/index</to>
+            </gomage_checkout_onepage_index_3>
+            <gomage_checkout_onepage_index_1>
+                <from><![CDATA[#^/checkout/onepage/$#]]></from>
+                <to>/gomage_checkout/onepage/index</to>
+            </gomage_checkout_onepage_index_1>
+            <gomage_checkout_onepage_index_2>
+                <from><![CDATA[#^/checkout/onepage$#]]></from>
+                <to>/gomage_checkout/onepage/index</to>
+            </gomage_checkout_onepage_index_2>
+            -->
+        </rewrite>
+	</global>
+	<frontend>
+		<secure_url>
+            <gomage_checkout_onepage>/gomage_checkout/onepage</gomage_checkout_onepage>
+        </secure_url>
+		<routers>
+			<gomage_checkout>
+				<use>standard</use>
+	            <args>
+	               <module>GoMage_Checkout</module>
+	               <frontName>gomage_checkout</frontName>
+	            </args>
+	        </gomage_checkout>
+		</routers>
+		<layout>
+            <updates>
+                <gomage_checkout module="gomage_checkout">
+                    <file>gomage-checkout.xml</file>
+                </gomage_checkout>
+            </updates>
+        </layout>
+        <events>
+        	<gomage_checkout_save_quote_before>
+                <observers>
+                    <giftmessage>
+                        <type>model</type>
+                        <class>giftmessage/observer</class>
+                        <method>checkoutEventCreateGiftMessage</method>
+                    </giftmessage>
+                </observers>
+            </gomage_checkout_save_quote_before>
+            <sales_order_load_after>
+                <observers>
+                    <collect_totals_after>
+                        <type>model</type>
+                        <class>gomage_checkout/observer</class>
+                        <method>salesOrderLoad</method>
+                    </collect_totals_after>
+                </observers>
+            </sales_order_load_after>
+            
+        </events>
+        <translate>
+			<modules>
+				<GoMage_Checkout>
+					<files>
+						<default>Gomage_LightCheckout.csv</default>
+					</files>
+				</GoMage_Checkout>
+			</modules>
+        </translate>
+	</frontend>
+	<adminhtml>
+		<translate>
+			<modules>
+				<GoMage_Checkout>
+					<files>
+						<default>Gomage_LightCheckout.csv</default>
+					</files>
+				</GoMage_Checkout>
+			</modules>
+        </translate>
+		<layout>
+            <updates>
+                <gomage_checkout module="gomage_checkout">
+                    <file>gomage-checkout.xml</file>
+                </gomage_checkout>
+            </updates>
+        </layout>
+        <acl>
+	        <resources>
+	            <admin>
+	                <children>
+	                    <system>
+	                        <children>
+	                            <config>
+	                                <children>
+	                                    <gomage_checkout/>
+	                                </children>
+	                            </config>
+	                        </children>
+	                    </system>
+	                </children>
+	            </admin>
+	        </resources>
+	    </acl>
+	</adminhtml>
+	<default>
+		<gomage_checkout>
+			<registration>
+				<mode>0</mode>
+			</registration>
+			<termsandconditions>
+				<enabled>0</enabled>
+				<width>500</width>
+				<height>300</height>
+			</termsandconditions>
+			<general>
+				<enabled>0</enabled>
+				<geoip_enabled>0</geoip_enabled>
+				<title>GoMage LightCheckout</title>
+				<deliverydate>1</deliverydate>
+			</general>
+			<address_fields>
+				<firstname>1</firstname>
+				<lastname>1</lastname>
+				
+				<company>0</company>
+				<company_order>1</company_order>
+				
+				<country_id>1</country_id>
+				<country_id_order>2</country_id_order>
+				
+				<region>req</region>
+				<region_order>3</region_order>
+				<postcode>req</postcode>
+				<postcode_order>3</postcode_order>
+				
+				<city>req</city>
+				<city_order>4</city_order>
+				
+				<street>req</street>
+				<street_order>5</street_order>
+				
+				<telephone>req</telephone>
+				<telephone_order>6</telephone_order>
+				<fax>opt</fax>
+				<fax_order>6</fax_order>
+				
+				<comments>0</comments>
+				<newsletter>0</newsletter>
+			</address_fields>
+			<address_sort>
+				
+				
+				<company_order>1</company_order>
+				<country_id_order>2</country_id_order>
+				<region_order>3</region_order>
+				<postcode_order>3</postcode_order>
+				<city_order>4</city_order>
+				<street_order>5</street_order>
+				<telephone_order>6</telephone_order>
+				<fax_order>6</fax_order>
+				
+			</address_sort>
+		</gomage_checkout>
+	</default>
+</config>

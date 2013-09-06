@@ -1,0 +1,72 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+
+/**
+ * 
+ * @see Mage_Checkout_Block_Onepage_Payment_Methods
+ *
+ */
+?>
+
+<?php if(Mage::getVersion() < '1.4.0'):?>
+
+<dl class="sp-methods" id="checkout-payment-method-load">
+    
+    <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+        <dt>
+        <?php if( sizeof($this->getMethods()) > 1 ): ?>
+            <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" class="radio" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> />
+        <?php else: ?>
+            <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
+        <?php endif; ?>
+            <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+        </dt>
+        <?php if($html = $this->getChildHtml('payment.method.'.$_code)): ?>
+        <dd>
+            <?php echo $html; ?>
+        </dd>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</dl>
+<script type="text/javascript">payment.init();</script>
+
+<?php else:?>
+
+<dl class="sp-methods" id="checkout-payment-method-load">
+<?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+    <dt>
+    <?php if( sizeof($this->getMethods()) > 1 ): ?>
+        <input onclick="payment.switchMethod('<?php echo $_code ?>')" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" <?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio" />
+    <?php else: ?>
+        <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio" /></span>
+    <?php endif; ?>
+        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+    </dt>
+    <?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+    <dd>
+        <?php echo $html; ?>
+    </dd>
+    <?php endif;  endforeach; ?>
+</dl>
+<script type="text/javascript">
+//<![CDATA[
+	<?php echo $this->getChildChildHtml('scripts'); ?>
+	payment.init();
+	payment.currentMethod = "<?php echo $this->getSelectedMethodCode(); ?>";
+//]]>
+</script>
+
+
+<?php endif;?>

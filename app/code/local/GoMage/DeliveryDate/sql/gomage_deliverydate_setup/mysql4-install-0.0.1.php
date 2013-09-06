@@ -1,0 +1,81 @@
+<?php
+ /**
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+
+$installer = $this;
+$installer->startSetup();
+if(Mage::getVersion() < '1.4.1'){
+	$attribute_data = array(
+	        'group'             => 'General',
+	        'type'              => 'static',
+	        'backend'           => '',
+	        'frontend'          => '',
+	        'label'             => 'Delivery Date',
+	        'input'             => 'text',
+	        'class'             => '',
+	        'source'            => '',
+	        'global'            => true,
+	        'visible'           => true,
+	        'required'          => false,
+	        'user_defined'      => false,
+	        'default'           => '',
+	        'searchable'        => false,
+	        'filterable'        => false,
+	        'comparable'        => false,
+	        'visible_on_front'  => false,
+	        'unique'            => false,
+	    );
+
+	$installer->addAttribute('order', 'gomage_deliverydate', $attribute_data);
+	$installer->addAttribute('order', 'gomage_deliverydate_formated', $attribute_data);
+
+}else{
+	
+	try{
+	
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order_grid')}` ADD `gomage_deliverydate` DATETIME;");
+		
+	}catch(Exception $e){
+		if(strpos($e, 'Column already exists') === false){
+			throw $e;
+		}
+	}
+	
+}
+try{
+
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_deliverydate` DATETIME;");
+	$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_quote')}` ADD `gomage_deliverydate_formated` VARCHAR(128);");
+	
+}catch(Exception $e){
+	if(strpos($e, 'Column already exists') === false){
+		throw $e;
+	}
+}
+
+try{
+	if(Mage::getVersion() < '1.4.1'){
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_deliverydate` DATETIME;");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_order')}` ADD `gomage_deliverydate_formated` VARCHAR(128);");
+	}else{
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_deliverydate` DATETIME;");
+		$installer->run("ALTER TABLE `{$installer->getTable('sales_flat_order')}` ADD `gomage_deliverydate_formated` VARCHAR(128);");
+	}
+
+}catch(Exception $e){
+	if(strpos($e, 'Column already exists') === false){
+		throw $e;
+	}
+}
+$installer->endSetup();

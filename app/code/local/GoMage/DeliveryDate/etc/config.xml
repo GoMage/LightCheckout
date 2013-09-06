@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**     
+ * GoMage.com
+ *
+ * GoMage LightCheckout Extension
+ * @category     Extension
+ * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @author       GoMage.com
+ * @license      http://www.gomage.com/licensing  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ */ 
+ -->
+<config>
+    <modules>
+        <GoMage_DeliveryDate>
+            <version>0.0.1</version>
+        </GoMage_DeliveryDate>
+    </modules>
+    <global>
+    	<blocks>
+	        <gomage_deliverydate><class>GoMage_DeliveryDate_Block</class></gomage_deliverydate>
+	    </blocks>
+	    <!--<models>
+            <gomage_deliverydate><class>GoMage_DeliveryDate_Model</class></gomage_deliverydate>
+        </models>-->
+        <resources>
+            <gomage_deliverydate_setup>
+                <setup>
+                    <module>GoMage_DeliveryDate</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </gomage_deliverydate_setup>   
+            <gomage_deliverydate_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </gomage_deliverydate_write>
+            <gomage_deliverydate_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </gomage_deliverydate_read>
+		</resources>
+		<fieldsets>
+    		<sales_convert_quote>
+    			<gomage_deliverydate><to_order>gomage_deliverydate</to_order></gomage_deliverydate>
+    			<gomage_deliverydate_formated><to_order>gomage_deliverydate_formated</to_order></gomage_deliverydate_formated>
+    		</sales_convert_quote>
+    	</fieldsets>
+	</global>
+	<adminhtml>
+		<layout>
+            <updates>
+                <gomage_deliverydate module="gomage_deliverydate">
+                    <file>gomage-deliverydate.xml</file>
+                </gomage_deliverydate>
+            </updates>
+        </layout>
+        <events>
+        	<core_block_abstract_prepare_layout_before>
+        		<observers>
+                    <gomage_deliverydate_columns>
+                        <type>singleton</type>
+                        <class>GoMage_DeliveryDate_Model_Observer</class>
+                        <method>coreBlockAbstractPrepareLayoutBefore</method>
+                    </gomage_deliverydate_columns>
+                </observers>
+        	</core_block_abstract_prepare_layout_before>
+        </events>
+	</adminhtml>
+	<frontend>
+		<translate>
+			<modules>
+				<GoMage_DeliveryDate>
+					<files>
+						<default>Gomage_DeliveryDate.csv</default>
+					</files>
+				</GoMage_DeliveryDate>
+			</modules>
+        </translate>
+		<layout>
+            <updates>
+                <gomage_deliverydate module="gomage_deliverydate">
+                    <file>gomage-deliverydate.xml</file>
+                </gomage_deliverydate>
+            </updates>
+        </layout>
+        <events>
+        	<gomage_checkout_save_quote_before>
+        		<observers>
+                    <gomage_deliverydate_savequotedata>
+                        <type>singleton</type>
+                        <class>GoMage_DeliveryDate_Model_Observer</class>
+                        <method>saveQuoteData</method>
+                    </gomage_deliverydate_savequotedata>
+                </observers>
+        	</gomage_checkout_save_quote_before>
+        </events>
+	</frontend>
+	<default>
+		<gomage_deliverydate>
+			<general>
+				<enabled>1</enabled>
+			</general>
+		</gomage_deliverydate>
+	</default>
+</config>

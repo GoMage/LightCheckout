@@ -1,0 +1,27 @@
+.delivery-date{
+	overflow:hidden;
+}
+.delivery-date li{
+
+	margin-bottom:5px;
+	zoom:1;
+}
+.delivery-date li:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+.delivery-date label{
+	margin-right:10px;
+	height:25px;
+	float:left;
+}
+.delivery-date label input{
+	margin-right:5px;
+}
+.delivery-date .inline-date{
+	font-weight:900;
+}
+.delivery-date .dp-choose-date{
+	margin:2px 5px;
+}
