@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 1.0
  */
 
@@ -406,6 +406,20 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
     public function isLefttoRightWrite(){
     	return in_array(Mage::app()->getLocale()->getLocaleCode(), array('ar_DZ','ar_EG','ar_KW','ar_MA',
     																	 'ar_SA','he_IL','fa_IR'));    	
+    }
+    
+    public function getGiftWrapTaxAmount(Mage_Sales_Model_Quote_Address $address, $amount){
+    	
+    	if (!intval($this->getConfigData('gift_wrapping/tax_class'))){
+    		return $amount;
+    	}    	
+    	$calculation = Mage::getModel('tax/calculation'); 
+    	$request = $calculation->getRateRequest($address, null, null, Mage::app()->getStore());    	
+    	$request->setProductClassId(intval($this->getConfigData('gift_wrapping/tax_class')));
+    	    	
+    	$taxRate = $calculation->getRate($request);
+    	
+    	return ($amount + $calculation->calcTaxAmount($amount, $taxRate));    	
     }
 	
 }

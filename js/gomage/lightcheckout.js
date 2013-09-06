@@ -1,3 +1,14 @@
+/**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.1
+ * @since        Class available since Release 1.0 
+ */ 
 Lightcheckout = Class.create({
 	billing_taxvat_enabled:false,
 	billing_taxvat_verified_flag:false,
@@ -8,7 +19,9 @@ Lightcheckout = Class.create({
 	accordion: null,
 	initialize:function(data){
 
-		this.accordion = new Accordion('checkout-review-submit', '.step-title', true);
+        if (typeof Accordion != 'undefined'){
+		    this.accordion = new Accordion('checkout-review-submit', '.step-title', true);
+        }
 
 		if(data && (typeof data.billing_taxvat_enabled != 'undefined')){
 			this.billing_taxvat_enabled = data.billing_taxvat_enabled;
@@ -196,28 +209,7 @@ Lightcheckout = Class.create({
 
 	getFormData:function(){
 
-		var elements = $('gcheckout-onepage-form').getElements('input, select, textarea');
-
-		var query = '';
-
-		for(var i = 0;i < elements.length;i++){
-			if(((elements[i].type == 'checkbox') || elements[i].type == 'radio') && !elements[i].checked){
-				continue;
-			}
-
-			if (elements[i].disabled)
-			{
-				continue;
-			}
-
-			if(query != ''){
-				query = query + '&';
-			}
-
-			query = query + elements[i].name + '=' + (elements[i].name == 'coupon_code' ? GlcUrl.encode(elements[i].value) : elements[i].value);
-
-		}
-		return query;
+		return $('gcheckout-onepage-form').serialize(true);
 
 	},
 	applyDisocunt:function(flag){
@@ -267,14 +259,6 @@ Lightcheckout = Class.create({
 
 		var params = this.getFormData();
 
-		if(typeof params != "string"){
-			parameters = new Array();
-			for(key in params){
-				parameters.push(key+'='+params[key]);
-			}
-			params = parameters.join('&');
-		}
-
 		var request = new Ajax.Request(this.save_order_url,
 		{
 		    method:'post',
@@ -310,23 +294,13 @@ Lightcheckout = Class.create({
 	submit:function(params, action){
 
 		this.showLoadinfo();
-
-		if(typeof params != "string"){
-			parameters = new Array();
-			for(key in params){
-
-				parameters.push(key+'='+params[key]);
-
-			}
-
-			params = parameters.join('&');
-
-		}
+		
+		params.action = action;
 
 		var request = new Ajax.Request(this.url,
 		  {
 		    method:'post',
-		    parameters:'action='+action+'&'+params,
+		    parameters:params,
 		    onSuccess: function(transport){
 
 		    eval('var response = '+transport.responseText);

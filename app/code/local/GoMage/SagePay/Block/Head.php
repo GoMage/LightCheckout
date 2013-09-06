@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 2.2
  */ 
 	
@@ -17,7 +17,7 @@ class GoMage_SagePay_Block_Head extends Mage_Core_Block_Template{
     { 
         parent::_prepareLayout(); 
         
-        if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled())
+        if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled() && $this->getLayout()->getBlock('head'))
         {
             $this->getLayout()->getBlock('head')->addItem('skin_css', 'sagepaysuite/css/growler/growler.css'); 
             $this->getLayout()->getBlock('head')->addItem('skin_css', 'sagepaysuite/css/sagePaySuite_Checkout.css');

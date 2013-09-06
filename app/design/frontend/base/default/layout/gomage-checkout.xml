@@ -4,11 +4,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -51,6 +51,7 @@
         		<block type="paypal/express_shortcut" name="gomage.methods.paypal_express" template="paypal/express/shortcut.phtml">
 	                <action method="setIsQuoteAllowed"><value>1</value></action>
 	            </block>
+	            <block type="googlecheckout/link" name="gomage.methods.google_checkout" template="googlecheckout/link.phtml" /> 
         		<block type="core/template" name="checkout.onepage.address" as="address" template="gomage/checkout/onepage/address.phtml">
 	        		<block type="gomage_checkout/onepage_billing" name="checkout.onepage.address.billing" as="billing" template="gomage/checkout/html/address-billing.phtml">
 	        			<action method="setCountryIdTemplate"><template>gomage/checkout/html/address/field/country.phtml</template></action>

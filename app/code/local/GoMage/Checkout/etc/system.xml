@@ -4,11 +4,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  */ 
  -->
 <config>
@@ -23,7 +23,7 @@
             <show_in_store>1</show_in_store>
             <groups>
 				<lightcheckout translate="label">
-					<label>GoMage LightCheckout v.3.0</label>
+					<label>GoMage LightCheckout v.3.1</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
@@ -508,8 +508,7 @@
 
 						<newsletter translate="label">
 							<label>Newsletter Checkbox</label>
-							<frontend_type>select</frontend_type>
-							<!--<source_model>adminhtml/system_config_source_enabledisable</source_model>-->
+							<frontend_type>select</frontend_type>							
 							<source_model>gomage_checkout/adminhtml_system_config_source_newsletter</source_model>
 							<sort_order>90</sort_order>
 							<show_in_default>1</show_in_default>
@@ -517,15 +516,16 @@
 							<show_in_store>1</show_in_store>
 						</newsletter>
 						
-						<paypal translate="label">
-							<label>Display PayPal Button</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
+						<payments_buttons translate="label">
+							<label>Show Payment Buttons</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_payment_buttons</source_model>
 							<sort_order>100</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</paypal>
+						</payments_buttons>
+						
 						
 					</fields>
 				</address_fields>
@@ -625,6 +625,17 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</enabled>
+						
+						<vat_verification translate="label">
+							<label>Verification System</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_Vatverification</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</vat_verification>
+						
 						<!--
 						<autocheck translate="label">
 							<label>Auto Check VAT Number</label>

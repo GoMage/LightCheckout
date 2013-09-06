@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.1
+ * @since        Class available since Release 3.1 
+ */ 
+ -->
+<layout version="0.1.0">		
+    <gomage_checkout_onepage_index>
+		<reference name="head">
+			<block type="gomage_payone/head" name="gomage.payone.head" />		  
+	  	</reference>
+	  	<reference name="content">        	        	
+        	<block before="checkout.onepage" type="gomage_payone/jsinclude" name="gomage.payone.jsinclude" />
+	  	</reference>			  		  		
+	</gomage_checkout_onepage_index>	
+</layout>

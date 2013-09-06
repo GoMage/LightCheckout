@@ -5,11 +5,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage.com (http://www.gomage.com)
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 1.0
  */
 
@@ -425,7 +425,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			case('get_methods'):
 				
 				if($billing_address_data = $this->getRequest()->getPost('billing')){
-					
+															
 				    $paymentMethod = $this->getOnepage()->getQuote()->getPayment()->getMethod();
 				    
 					$address = $this->getOnepage()->getQuote()->getBillingAddress();
@@ -497,9 +497,18 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 						}
 						
 					}
-					
-					
-					
+
+					if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 11)){
+						$enterprise_giftwrapping = Mage::getModel('enterprise_giftwrapping/observer');
+						if ($enterprise_giftwrapping && method_exists($enterprise_giftwrapping, 'checkoutProcessWrappingInfo')){					
+							Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method',
+		                        				array('request'=>$this->getRequest(),
+		                              				  'quote'=>$this->getOnepage()->getQuote())
+		                        				);
+		                	$this->getOnepage()->getQuote()->collectTotals();                	
+						}
+					}
+															
 					if(Mage::helper('gomage_checkout')->getConfigData('vat/enabled')){
 						
 						$result->verify_result = $this->getOnepage()->verifyCustomerVat();
@@ -660,7 +669,45 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             	}elseif (!$this->getOnepage()->getQuote()->getUseRewardPoints() && isset($payment['use_reward_points'])){
             	      $this->getOnepage()->getQuote()->setUseRewardPoints(true);
             	}
-								
+            	
+				if (!$this->getOnepage()->getQuote()->isVirtual()) {
+
+                        $address = $this->getOnepage()->getQuote()->getShippingAddress();
+	        			$address->setCollectShippingRates(true);
+	        			$address->collectShippingRates();
+
+    					if(Mage::helper('gomage_checkout')->getConfigData('vat/enabled')){
+    						$this->getOnepage()->verifyCustomerVat();
+    					}
+
+        			    $this->getOnepage()->getQuote()->collectTotals()->save();
+
+	        			$layout = $this->_getShippingMethodsHtml();
+
+						$result->rates		= $layout->getOutput();
+
+						$rates = (array)$layout->getBlock('root')->getShippingRates();
+
+						if(count($rates) == 1){
+
+							foreach($rates as $rate_code=>$methods){
+
+								if(count($methods) == 1){
+									foreach($methods as $method){
+										$address->setShippingMethod($method->getCode());
+										$this->getOnepage()->getQuote()->setTotalsCollectedFlag(false);
+									}
+
+								}
+
+								break;
+							}
+
+						}
+
+				}
+
+
 				$this->getOnepage()->getQuote()->collectTotals();
 				$result->section = 'totals';
 				$result->totals = $this->_getReviewHtml();
@@ -774,8 +821,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     				$layout = Mage::getModel('core/layout');
             		$layout->getUpdate()->load('gomage_checkout_onepage_index');
             		$layout->generateXml()->generateBlocks();
-            		$html = $layout->getBlock('checkout.onepage.address.billing')->toHtml();						
-    				$result->content_billing	= trim($html);						
+            		if ($type == 'billing'){
+	            		$html = $layout->getBlock('checkout.onepage.address.billing')->toHtml();						
+	    				$result->content_billing	= trim($html);
+            		}						
     				$html = $layout->getBlock('checkout.onepage.address.shipping')->toHtml();						
     				$result->content_shipping	= trim($html);
     				
@@ -915,6 +964,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             	
         		if($customer_comment = $this->getRequest()->getParam('customer_comment')){
             		$this->getOnepage()->getQuote()->setData('gomage_checkout_customer_comment', nl2br(strip_tags($customer_comment)));
+               		$this->getOnepage()->getQuote()->save();
             	}
             	
             	$helper = Mage::helper('gomage_checkout');

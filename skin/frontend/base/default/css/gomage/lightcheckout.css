@@ -15,7 +15,7 @@
 	vertical-align:middle;
 }
 .glc input.radio{
-    margin-right: 3px;
+  margin-right: 3px;
 }
 .glc fieldset,
 .glc .form-list,
@@ -77,7 +77,7 @@
 	float:left;
 	padding:0;
 	line-height:15px;
-    margin:3px 4px 0 2px;
+  margin:3px 4px 0 2px;
 }
 .glc .methods .shipping-methods,
 .glc .address{
@@ -2449,6 +2449,22 @@ html body div.glc-skin-default.not_shipping_mode .glc-title span span{
   right:20px;
 }
 /* Right to left layout END */
+
+/* Fix klarna payment */
+.glc .klarna_box{
+  min-width:1px;
+  width:auto;
+  display:block;
+  margin-right:12px;
+}
+.glc .klarna_box_bottom_left,
+.glc .klarna_box_bottom_right{
+  float:none;
+  width:auto;
+}
+.glc .klarna_box .invoice_type label{
+  padding-top:4px !important;
+}
 
 /* Clears */
 .glc:after,

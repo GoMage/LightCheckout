@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.1
+ */ 
+ -->
+<config>
+    <modules>
+        <GoMage_PayOne>
+            <version>1.0</version>
+        </GoMage_PayOne>
+    </modules>
+    <global>
+    	<blocks>
+	        <gomage_payone><class>GoMage_PayOne_Block</class></gomage_payone>
+	    </blocks>      
+    	<helpers>
+			<gomage_payone><class>GoMage_PayOne_Helper</class></gomage_payone>
+		</helpers>
+    </global>    
+	<frontend>	
+		<layout>
+            <updates>
+                <gomage_payone module="gomage_payone">
+                    <file>gomage-payone.xml</file>
+                </gomage_payone>
+            </updates>
+        </layout>                
+	</frontend>	
+</config>

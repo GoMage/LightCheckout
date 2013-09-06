@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 1.0
  */
 
@@ -70,8 +70,20 @@ class GoMage_Checkout_Helper_GiftMessage extends Mage_Core_Helper_Data
             ->setDontDisplayContainer($dontDisplayContainer)
             ->setEntity($entity)
             ->setTemplate('gomage/checkout/giftmessage/inline.phtml')
-            ->setType($type)->toHtml();
+            ->setType($type)->toHtml() . $this->getAdditionalInline();
     }
+    
+    public function getAdditionalInline()
+    {
+    	if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 11)){
+	    	$giftwrapping = Mage::getSingleton('core/layout')->createBlock('enterprise_giftwrapping/checkout_options');
+	    	if ($giftwrapping){
+	    		$giftwrapping->setTemplate('gomage/checkout/giftwrapping/checkout/options.phtml');
+	    		return $giftwrapping->toHtml();
+	    	}    	
+    	}
+    }
+
 
     /**
      * Check availability of giftmessages for specified entity.

@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 1.0
  */
  
@@ -216,11 +216,11 @@
 </script>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
-<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2 && Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?>
+<?php if((!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2) || Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?>
 <div class="glc-login-and-paypal<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 <?php endif; ?>
 
-	<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
+		<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
 		
 		<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 			<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
@@ -232,13 +232,22 @@
 		
 		<?php endif;?>
 		
-		<?php if(Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?> 
+		<?php $payments_buttons = explode(',', Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')); ?>
+		
+		<?php if(Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?> 				
+		    <?php if(in_array(GoMage_Checkout_Model_Adminhtml_System_Config_Source_Payment_Buttons::GOOGLE_CHECKOUT, $payments_buttons)): ?>	
+		    	<div class="glc-paypal-express">
+		    	    <?php echo $this->getChildHtml('gomage.methods.google_checkout'); ?>
+		    	</div>
+		    <?php endif;?>
+		    <?php if(in_array(GoMage_Checkout_Model_Adminhtml_System_Config_Source_Payment_Buttons::PAYPAL, $payments_buttons)): ?>	
 		    	<div class="glc-paypal-express">
 		    	    <?php echo $this->getChildHtml('gomage.methods.paypal_express'); ?>
 		    	</div>
+		    <?php endif;?>
 		<?php endif; ?>
 
-<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2 && Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?>
+<?php if((!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2) || Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?>
 </div>
 <?php endif; ?>
 <?php

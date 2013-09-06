@@ -4,17 +4,17 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  */ 
  -->
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.3.0</version>
+            <version>0.0.3.1</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -23,15 +23,24 @@
 	        <adminhtml>
                 <rewrite>
                 	<sales_order_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                	<sales_order_invoice_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+          			<sales_order_creditmemo_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
 	        	</rewrite>
 	        </adminhtml>
 	        <sales>
 		        <rewrite>
 	                <order_totals>GoMage_Checkout_Block_Sales_Order_Totals</order_totals>
+	                <order_invoice_totals>GoMage_Checkout_Block_Sales_Order_Invoice_Totals</order_invoice_totals>
+	                <order_creditmemo_totals>GoMage_Checkout_Block_Sales_Order_Creditmemo_Totals</order_creditmemo_totals>              		
 	                <order_info>GoMage_Checkout_Block_Sales_Order_Info</order_info>
 	                <order_print>GoMage_Checkout_Block_Sales_Order_Print</order_print>
 		        </rewrite>
-	        </sales>	        			
+	        </sales>
+	        <checkout>
+	        	<rewrite>
+	        		<onepage_success>GoMage_Checkout_Block_Checkout_Success</onepage_success>
+	        	</rewrite>
+	        </checkout>	        			
 	    </blocks>
 	    <models>
             <gomage_checkout><class>GoMage_Checkout_Model</class></gomage_checkout>
@@ -62,7 +71,12 @@
             		<!--<quote>GoMage_Checkout_Model_Quote</quote>-->
             		<!--<quote_address_total_shipping>GoMage_Checkout_Model_Quote_Address_Total_Shipping</quote_address_total_shipping>-->
             	</rewrite>
-            </sales>
+            </sales>              
+            <paypal>
+            	<rewrite>
+            		<api_nvp>GoMage_Checkout_Model_Paypal_Api_Nvp</api_nvp>
+            	</rewrite>
+            </paypal>            
         </models>
         <resources>
             <gomage_checkout_setup>
@@ -214,7 +228,7 @@
             <controller_action_postdispatch_gomage_checkout_onepage_save>
                 <observers>
                     <payflowlink_save_order_onepage>
-                        <class>paypal/observer</class>
+                        <class>gomage_checkout/observer</class>
                         <method>setResponseAfterSaveOrder</method>
                     </payflowlink_save_order_onepage>
                 </observers>
@@ -363,6 +377,7 @@
 				
 			</address_sort>
 			<vat>
+				<vat_verification>0</vat_verification>
 				<show_checkbox>3</show_checkbox>
 				<text_under>Buy without VAT (for EU only)</text_under>
 			</vat>

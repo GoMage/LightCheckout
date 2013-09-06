@@ -5,11 +5,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage.com (http://www.gomage.com)
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 2.4
  */
 
@@ -38,8 +38,8 @@ class GoMage_Checkout_Model_Quote_Address_Total_Shipping extends Mage_Sales_Mode
             
             $gift_wrap_price = Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/price');
             
-            $this->_addAmount($gift_wrap_price*$addressQty);
-            $this->_addBaseAmount($gift_wrap_price*$addressQty);
+            $this->_addAmount(Mage::helper('gomage_checkout')->getGiftWrapTaxAmount($address, $gift_wrap_price*$addressQty));
+            $this->_addBaseAmount(Mage::helper('gomage_checkout')->getGiftWrapTaxAmount($address, $gift_wrap_price*$addressQty));
             
             $shippingDescription = $address->getShippingDescription();
             if ($shippingDescription) $shippingDescription .= ' + ';

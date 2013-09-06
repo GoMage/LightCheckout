@@ -3,11 +3,11 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 2.4
  */
 
@@ -38,8 +38,8 @@ class GoMage_Checkout_Model_Quote_Giftwrap extends Mage_Sales_Model_Quote_Addres
             }
             else {
                
-                $item->setGomageGiftWrapAmount($gift_wrap_price*$item->getQty());
-                $item->setBaseGomageGiftWrapAmount($gift_wrap_price*$item->getQty());
+                $item->setGomageGiftWrapAmount(Mage::helper('gomage_checkout')->getGiftWrapTaxAmount($address, $gift_wrap_price*$item->getQty()));
+                $item->setBaseGomageGiftWrapAmount(Mage::helper('gomage_checkout')->getGiftWrapTaxAmount($address, $gift_wrap_price*$item->getQty()));
                 
                 $this->_addAmount($item->getGomageGiftWrapAmount());
                 $this->_addBaseAmount($item->getBaseGomageGiftWrapAmount());                

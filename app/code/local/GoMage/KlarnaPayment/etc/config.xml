@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.1
+ * @since        Class available since Release 3.1 
+ */ 
+ -->
+<config>
+    <modules>
+        <GoMage_KlarnaPayment>
+            <version>1.0</version>            
+        </GoMage_KlarnaPayment>
+    </modules>
+    <global>
+    	<blocks>
+	        <gomage_klarnapayment><class>GoMage_KlarnaPayment_Block</class></gomage_klarnapayment>
+	        <adminhtml>
+                <rewrite>
+                	<sales_order_totals>GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>                  	
+                	<sales_order_invoice_totals>GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+          			<sales_order_creditmemo_totals>GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
+          			<sales_order_view_info>GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>              	
+	        	</rewrite>
+	        </adminhtml>	          
+	        <sales>
+		        <rewrite>
+	                <order_totals>GoMage_KlarnaPayment_Block_Sales_Order_Totals</order_totals>
+	                <order_invoice_totals>GoMage_KlarnaPayment_Block_Sales_Order_Invoice_Totals</order_invoice_totals>
+	                <order_creditmemo_totals>GoMage_KlarnaPayment_Block_Sales_Order_Creditmemo_Totals</order_creditmemo_totals>              			                
+		        </rewrite>
+	        </sales>	        
+	    </blocks>
+    	<helpers>
+			<gomage_klarnapayment><class>GoMage_KlarnaPayment_Helper</class></gomage_klarnapayment>
+		</helpers>
+    </global>    
+	<frontend>	
+		<layout>
+            <updates>
+                <gomage_klarnapayment module="gomage_klarnapayment">
+                    <file>gomage-klarnapayment.xml</file>
+                </gomage_klarnapayment>
+            </updates>
+        </layout>              
+	</frontend>	
+</config>

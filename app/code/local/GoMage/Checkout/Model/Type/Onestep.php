@@ -3,17 +3,14 @@
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.1
  * @since        Class available since Release 1.0
  */
 
-/**
- * One page checkout processing model
- */
 class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepage
 {
 	
@@ -524,6 +521,14 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
             $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
         }
         
+
+        if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 11)){
+	    	$items = $this->getQuote()->getAllItems();    	
+	      	foreach ($items as $item) {      	         	   		
+	           $item->setGwId(null)->save();
+	        }
+        }
+        
         $this->getQuote()->setTotalsCollectedFlag(false);
     	$this->getQuote()->collectTotals()->save();        
         
@@ -569,22 +574,37 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     	if(in_array($country, array("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","GB","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK"))){
 	    	try{
-	    		$ch = curl_init();
-		        curl_setopt($ch, CURLOPT_URL, 'http://ec.europa.eu/taxation_customs/vies/viesquer.do');
-		        curl_setopt($ch, CURLOPT_POST, true);
-		        curl_setopt($ch, CURLOPT_POSTFIELDS, 'vat='.$vat_number.'&iso='.$country.'&ms='.$country);
-		        curl_setopt ($ch, CURLOPT_TIMEOUT, 30);
-		        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		        $content = curl_exec($ch);
-		        
-		        curl_close($ch);
-		        
-		        if ( strpos($content, "Yes, valid VAT number") === false ){
-		            $vat_exemption_flag=false;
-		        } else {
-		            $vat_exemption_flag=true;
-		        }
-		        
+	    		
+	    		if ($this->helper->getConfigData('general/mode') == GoMage_Checkout_Model_Adminhtml_System_Config_Source_Vatverification::ISVAT){	    			
+		    		$ch = curl_init();
+	                curl_setopt($ch, CURLOPT_URL, 'http://isvat.appspot.com/'.$country.'/'.$vat_number.'/');
+	                curl_setopt ($ch, CURLOPT_TIMEOUT, 30);
+	                curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+	                $content = curl_exec($ch);
+	                curl_close($ch);
+	
+			        if ( strpos($content, "true") === false ){
+			            $vat_exemption_flag=false;
+			        } else {
+			            $vat_exemption_flag=true;
+			        }	    		
+	    		}else{	    		
+		    		$ch = curl_init();
+			        curl_setopt($ch, CURLOPT_URL, 'http://ec.europa.eu/taxation_customs/vies/viesquer.do');
+			        curl_setopt($ch, CURLOPT_POST, true);
+			        curl_setopt($ch, CURLOPT_POSTFIELDS, 'vat='.$vat_number.'&iso='.$country.'&ms='.$country);
+			        curl_setopt ($ch, CURLOPT_TIMEOUT, 30);
+			        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+			        $content = curl_exec($ch);		        
+			        curl_close($ch);
+			        
+		    		if ( strpos($content, "Yes, valid VAT number") === false ){
+			            $vat_exemption_flag=false;
+			        } else {
+			            $vat_exemption_flag=true;
+			        }
+	    		}
+		        		        		        
 				$this->getQuote()->getBillingAddress()->setIsValidVat($vat_exemption_flag);
 				$this->getQuote()->getShippingAddress()->setIsValidVat($vat_exemption_flag);
 		    	
