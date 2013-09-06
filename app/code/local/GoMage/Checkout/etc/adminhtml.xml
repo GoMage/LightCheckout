@@ -47,4 +47,23 @@
             </admin>
         </resources>
     </acl>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <gomage_notification>
+                                        <title>GoMage - Notifications</title>
+                                    </gomage_notification>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
 </config>

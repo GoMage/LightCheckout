@@ -15,7 +15,7 @@
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.5.1</version>
+            <version>0.0.5.2</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -329,6 +329,9 @@
 	                                    <gomage_activation>
 	                                    	<title>GoMage - Activation</title>
 	                                    </gomage_activation>
+                                        <gomage_notification>
+                                            <title>GoMage - Notifications</title>
+                                        </gomage_notification>
 	                                </children>
 	                            </config>
 	                        </children>
@@ -488,5 +491,10 @@
                 </areas>
             </frontend>    
 		</captcha>
+        <gomage_notification>
+            <notification>
+                <enable>1</enable>
+            </notification>
+        </gomage_notification>
 	</default>
 </config>

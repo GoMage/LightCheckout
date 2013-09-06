@@ -14,7 +14,7 @@
 class GoMage_Checkout_Model_Observer_Notify {
 	
 	public function notify($event) {		
-		if (Mage::getSingleton('admin/session')->isLoggedIn()) {			
+		if (Mage::getSingleton('admin/session')->isLoggedIn() && Mage::getStoreConfig('gomage_notification/notification/enable')) {			
 			Mage::helper('gomage_checkout')->notify();		
 		}
 	}
