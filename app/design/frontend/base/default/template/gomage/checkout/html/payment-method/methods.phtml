@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.0
+ * @version      Release: 4.1
  * @since        Class available since Release 1.0
  */
 ?>
@@ -42,11 +42,11 @@
 <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
     <dt>
     <?php if( sizeof($this->getMethods()) > 1 ): ?>
-        <input onclick="payment.switchMethod('<?php echo $_code ?>')" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" <?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio" />
+        <input onclick="payment.switchMethod('<?php echo $_code ?>')" id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?>" <?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio" />
     <?php else: ?>
         <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio" /></span>
     <?php endif; ?>
-        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+        <label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method))  ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
     </dt>
     <?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
     <dd>

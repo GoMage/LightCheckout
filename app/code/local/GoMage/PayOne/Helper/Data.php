@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.0
+ * @version      Release: 4.1
  * @since        Class available since Release 3.1
  */
 
@@ -22,8 +22,8 @@ class GoMage_PayOne_Helper_Data extends Mage_Core_Helper_Abstract{
 	   if(!isset($_modulesArray['GoMage_PayOne'])) return false;
 	   if (!$_modulesArray['GoMage_PayOne']->is('active')) return false;
 
-       if(!isset($_modulesArray['Mage_Payone'])) return false;	   
-	   if (!$_modulesArray['Mage_Payone']->is('active')) return false;
+       if(!isset($_modulesArray['Payone_Core'])) return false;	   
+	   if (!$_modulesArray['Payone_Core']->is('active')) return false;
 
 	   return true;	   
     }	

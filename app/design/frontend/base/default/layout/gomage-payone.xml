@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 4.0
+ * @version      Release: 4.1
  * @since        Class available since Release 3.1 
  */ 
  -->
@@ -16,9 +16,6 @@
     <gomage_checkout_onepage_index>
 		<reference name="head">
 			<block type="gomage_payone/head" name="gomage.payone.head" />		  
-	  	</reference>
-	  	<reference name="content">        	        	
-        	<block before="checkout.onepage" type="gomage_payone/jsinclude" name="gomage.payone.jsinclude" />
-	  	</reference>			  		  		
+	  	</reference>	  			  		
 	</gomage_checkout_onepage_index>	
 </layout>

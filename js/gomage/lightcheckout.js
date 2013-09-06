@@ -6,7 +6,7 @@
  * @author GoMage
  * @license http://www.gomage.com/license-agreement/ Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version Release: 4.0
+ * @version Release: 4.1
  * @since Class available since Release 1.0
  */ 
 Lightcheckout = Class.create({
@@ -225,6 +225,7 @@ Lightcheckout = Class.create({
 
 	observePaymentMethods:function(){
 		$$('#checkout-payment-method-load input[name="payment[method]"]').each(function(e){
+			Event.stopObserving(e, 'click');
 			e.observe('click', function(e){
 				if(this.elem.checked){
 					if (default_payment_method)
