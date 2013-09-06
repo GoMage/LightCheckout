@@ -1,0 +1,34 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.2
+ * @since        Class available since Release 2.0
+ */
+?>
+<label for="<?php echo $this->getFieldId('taxvat')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>>
+<?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Tax/VAT number') ?>
+<?php if($this->getIsValidVat() !== null):?>
+<?php if($this->getIsValidVat()):?>
+<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>
+<?php else:?>
+<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:red;">Not Verified</span>)</strong>
+<?php endif;?>
+<?php endif;?>
+</label>
+<div class="input-box">
+    <input <?php if($this->getIsReadonly()):?> readonly="readonly" <?php endif;?> type="text" id="<?php echo $this->getFieldId('taxvat')?>" name="<?php echo $this->getFieldName('taxvat')?>" value="<?php echo $this->htmlEscape($this->getTaxvat()) ?>" title="<?php echo $this->__('Tax/VAT number') ?>" class="input-text<?php if ($this->isRequired()):?> required-entry <?php endif; ?> absolute-advice <?php if(Mage::helper('gomage_checkout')->getConfigData('vat/enabled')>0):?> validate-taxvat <?php endif; ?> <?php if($this->getIsReadonly()):?> readonly <?php endif;?>" <?php echo $this->getFieldParams() ?> />
+</div>
+<?php if( in_array(Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox'), array(1, 2))):?>
+<label class="vat-label">
+	<input id="buy_without_vat" type="checkbox" <?php if($this->getCheckedWithoutVat()):?>checked="checked"<?php endif;?> value="1" onclick="$('buy_without_vat_value').value = $('buy_without_vat_value2').value = (this.checked*1);"/> 
+	<span><?php echo Mage::helper('gomage_checkout')->__(Mage::helper('gomage_checkout')->getConfigData('vat/text_under'));?></span>
+</label>
+<?php endif;?>
+<input id="buy_without_vat_value" type="hidden" value="<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox')==2 ? 0 : 1?>" name="billing[buy_without_vat]"/> 
+<input id="buy_without_vat_value2" type="hidden" value="<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/show_checkbox')==2 ? 0 : 1?>" name="shipping[buy_without_vat]"/> 

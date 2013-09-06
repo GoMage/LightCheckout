@@ -1,0 +1,66 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.2
+ * @since        Class available since Release 2.0
+ */
+?>
+<div class="address checkout-step" id="gcheckout-onepage-address">
+	
+	<?php echo $this->getChildHtml('address');?>
+		
+</div>
+
+<div class="gcheckout-right-col">
+
+<div class="methods checkout-step" id="gcheckout-onepage-methods">
+	
+	<?php echo $this->getChildHtml('methods');?>
+	
+</div>
+
+<div class="review checkout-step" id="gcheckout-onepage-review">
+	
+	<?php echo $this->getChildHtml('review');?>
+	
+	<?php if($this->isEnabled('comments')):?>
+	<div class="customer-comment">
+		<label for="customer_comment"><?php echo  $this->__('Comments') ?></label>
+		<textarea id="customer_comment" name="customer_comment" cols="50" rows="5"><?php echo $this->getCustomerComment();?></textarea>
+	</div>
+	<?php endif;?>
+	
+	<div class="advanced-options">
+		
+		<?php if (!$this->getQuote()->isVirtual()): ?>
+		    <?php echo $this->helper('gomage_checkout/giftMessage')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+		<?php endif; ?>
+		<?php if($this->getConfigData('termsandconditions/enabled')):?>
+		<p class="control">
+			<input type="checkbox" value="1" id="accept_terms" name="accept_terms" class="required-entry absolute-advice radio" />
+			<label for="accept_terms"><?php echo $this->__('I accept the <a class="terms-link" href="%s" rel="#terms-block" onclick="checkout.showTerms();return false;">Terms and Conditions</a>', '#terms-block');?></label>
+		</p>
+		<?php endif;?>
+	</div>
+	<div class="button-set" id="checkout-review-submit">
+		<button onclick="checkout.LightcheckoutSubmit()" id="submit-btn" type="button" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+	<?php if($this->isEnabled('newsletter')):?>
+		<?php if(!$this->isCustomerLoggedIn() || Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer())->getStatus() != 1):?>
+		
+		<p class="control">
+			<input type="checkbox" value="1" id="subscribe" name="subscribe" <?php if($this->helper->getConfigData('address_fields/newsletter') == 2):?> checked="checked" <?php endif;?> />
+			<label for="subscribe"><?php echo $this->__('Subscribe to newsletter');?></label>
+		</p>
+		
+		<?php endif;?>
+	<?php endif;?>
+	</div>
+
+</div>
+</div>

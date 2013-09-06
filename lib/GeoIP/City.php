@@ -29,8 +29,8 @@
  *
  * Changelog:
  *
- * 2010-07-14   GoMage.com (http://www.gomage.com)
- *              Changed for LightCheckout Extension  
+ * 2010-07-14   GoMage (http://www.gomage.com)
+ *              Changed for the GoMage LightCheckout Extension  
  */
 
 

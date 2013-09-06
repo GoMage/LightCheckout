@@ -1,15 +1,13 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.3
  * @since        Class available since Release 1.0
  */
 
@@ -23,11 +21,9 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
 	}
 	public function getCheckoutMode(){
 		
-		
-		
 		if(is_null($this->mode)){
 			
-			if(Mage::getSingleton('checkout/type_onepage')->getQuote()->isAllowedGuestCheckout()){
+			if(Mage::getSingleton('gomage_checkout/type_onestep')->getQuote()->isAllowedGuestCheckout()){
 			
 				$this->mode = intval($this->getConfigData('registration/mode'));
 			
@@ -37,13 +33,181 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
 				
 			}
 			
-			
-			
 		}
 		
 		return $this->mode;
 		
 	}
+	
+	public function getAllStoreDomains(){
+		
+		$domains = array();
+    	
+    	foreach (Mage::app()->getWebsites() as $website) {
+    		
+    		$url = $website->getConfig('web/unsecure/base_url');
+    		
+    		if($domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url))){
+    		
+    		$domains[] = $domain;
+    		
+    		}
+    		
+    		$url = $website->getConfig('web/secure/base_url');
+    		
+    		if($domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url))){
+    		
+    		$domains[] = $domain;
+    		
+    		}
+    		
+    	}
+    	
+    	return array_unique($domains);
+    	
+		
+	}
+	
+	public function getAvailabelWebsites(){
+		return $this->_w();
+	}
+	public function getAvailavelWebsites(){
+		return $this->_w();
+	}
+	
+	protected function _w(){
+    
+        if(!Mage::getStoreConfig('gomage_activation/lightcheckout/installed') || 
+           (intval(Mage::getStoreConfig('gomage_activation/lightcheckout/count')) > 10))
+		{
+			return array();
+		}
+		            		
+		$time_to_update = 60*60*24*15;
+		
+		$r = Mage::getStoreConfig('gomage_activation/lightcheckout/ar');
+		$t = Mage::getStoreConfig('gomage_activation/lightcheckout/time');
+		$s = Mage::getStoreConfig('gomage_activation/lightcheckout/websites');
+		
+		$last_check = str_replace($r, '', Mage::helper('core')->decrypt($t));
+		
+		$allsites = explode(',', str_replace($r, '', Mage::helper('core')->decrypt($s)));
+		$allsites = array_diff($allsites, array(""));
+			
+		if(($last_check+$time_to_update) < time()){
+			$this->a(Mage::getStoreConfig('gomage_activation/lightcheckout/key'), 
+			         intval(Mage::getStoreConfig('gomage_activation/lightcheckout/count')),
+			         implode(',', $allsites));
+		}
+		
+		return $allsites;
+		
+	}
+	
+	public function a($k, $c = 0, $s = ''){
+		
+		$ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key='.urlencode($k).'&sku=lightcheckout&domains='.urlencode(implode(',', $this->getAllStoreDomains())));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        
+        $content = curl_exec($ch);
+               
+        $r	= Zend_Json::decode($content);
+        $e = Mage::helper('core');
+                
+        if(empty($r)){
+        	
+        	$value1 = Mage::getStoreConfig('gomage_activation/lightcheckout/ar');
+        	
+	        $groups = array(
+	        	'lightcheckout'=>array(
+	        		'fields'=>array(
+	        			'ar'=>array(
+	        				'value'=>$value1
+	        			),
+	        			'websites'=>array(
+	        				'value'=>(string)Mage::getStoreConfig('gomage_activation/lightcheckout/websites')
+	        			),
+	        			'time'=>array(
+	        				'value'=>(string)$e->encrypt($value1.(time()-(60*60*24*15-1800)).$value1)
+	        			),
+	        			'count'=>array(
+	        				'value'=>$c+1)	        			
+	        		)
+	        	)
+        	);
+        	
+	        Mage::getModel('adminhtml/config_data')
+	                ->setSection('gomage_activation')
+	                ->setGroups($groups)
+	                ->save();
+	                
+	        Mage::getConfig()->reinit();
+            Mage::app()->reinitStores();        
+        	
+        	return;
+        }
+        
+        $value1 = '';
+        $value2 = '';                
+        
+        if(isset($r['d']) && isset($r['c'])){
+    		$value1 = $e->encrypt(base64_encode(Zend_Json::encode($r)));
+        
+        if (!$s) $s = Mage::getStoreConfig('gomage_activation/lightcheckout/websites');
+        
+        $s = array_slice(explode(',', $s), 0, $r['c']);
+        
+        $value2 = $e->encrypt($value1.implode(',', $s).$value1);
+        
+        }
+        $groups = array(
+        	'lightcheckout'=>array(
+        		'fields'=>array(
+        			'ar'=>array(
+        				'value'=>$value1
+        			),
+        			'websites'=>array(
+        				'value'=>(string)$value2
+        			),
+        			'time'=>array(
+        				'value'=>(string)$e->encrypt($value1.time().$value1)
+        			),
+        			'installed'=>array(
+        				'value'=>1
+        			),
+        			'count'=>array(
+	        				'value'=>0)
+        		)
+        	)
+        );
+        
+        Mage::getModel('adminhtml/config_data')
+                ->setSection('gomage_activation')
+                ->setGroups($groups)
+                ->save();
+
+        Mage::getConfig()->reinit();
+        Mage::app()->reinitStores();        
+        
+	}
+	
+	public function ga(){
+		return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/lightcheckout/ar'))));
+	}
+	
+	public function getGeoipRecord(){
+		
+		return GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_record_by_addr($_SERVER['REMOTE_ADDR']);
+		
+	}
+	
 	public function getDefaultCountryId(){
 		
 		
@@ -51,11 +215,13 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
 		if(is_null($this->country_id)){
 			
 			
-			if(Mage::getStoreConfig('gomage_checkout/general/geoip_enabled') && file_exists(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')){
+			if(Mage::getStoreConfig('gomage_checkout/geoip/geoip_enabled') && file_exists(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')){
 				
 				
 				try{
-				$this->country_id = GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_country_code_by_addr($_SERVER['REMOTE_ADDR']);
+					
+					$this->country_id = GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_country_code_by_addr($_SERVER['REMOTE_ADDR']);
+					
 				}catch(Exception $e){
 					
 					echo $e;
@@ -153,8 +319,71 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
     {
         $modelName = $config['model'];
         $method = Mage::getModel($modelName);
+        
+        if($method){
         $method->setId($code)->setStore($store);
+        }
         return $method;
+    }
+    
+    public function getVatBaseCountryMode(){
+    	return $this->getConfigData('vat/base_country');
+    }
+    
+    public function getVatWithinCountryMode(){
+    	return $this->getConfigData('vat/if_not_base_country');
+    }
+    
+    public function getTaxCountries(){
+    	
+    	if($rule_id = intval(Mage::helper('gomage_checkout')->getConfigData('vat/rule'))){
+    	
+    	$resource	= Mage::getSingleton('core/resource');
+    	$connection	= $resource->getConnection('read');
+    	
+    	$q = sprintf('SELECT DISTINCT(`tax_country_id`) FROM `%s` WHERE `tax_calculation_rate_id` IN (SELECT `tax_calculation_rate_id` FROM `%s` WHERE `tax_calculation_rule_id` = %d)', $resource->getTableName('tax_calculation_rate'), $resource->getTableName('tax_calculation'), $rule_id);
+    	
+    	return (array)$connection->fetchCol($q);
+    	
+    	}
+    	
+    }
+    
+    public function getIsAnymoreVersion($major, $minor, $revision = 0)
+    {
+        $version_info = Mage::getVersion();
+        $version_info = explode('.', $version_info);
+        
+        if ($version_info[0] > $major)
+        {
+           return true;
+        }   
+        elseif ($version_info[0] == $major)
+        {
+            if ($version_info[1] > $minor)
+            {
+                return true; 
+            }
+            elseif ($version_info[1] == $minor)
+            {
+                if ($version_info[2] >= $revision)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }        
+        }
+        else
+        { 
+           return false;
+        }                                
     }
 	
 }

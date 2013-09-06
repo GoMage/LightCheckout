@@ -1,22 +1,16 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
 
-/**
- * Sales Quote address model
- *
- */
 class GoMage_Checkout_Model_Quote_Address extends Mage_Sales_Model_Quote_Address
 {
 	
@@ -49,6 +43,8 @@ class GoMage_Checkout_Model_Quote_Address extends Mage_Sales_Model_Quote_Address
 	
 	public function validate(){
 		
+		if((bool)Mage::helper('gomage_checkout')->getConfigData('general/enabled')){
+		
         $errors = array();
         $helper = Mage::helper('customer');
         $this->implodeStreetAddress();
@@ -62,7 +58,7 @@ class GoMage_Checkout_Model_Quote_Address extends Mage_Sales_Model_Quote_Address
 		            $errors[] = $helper->__('Please enter the state/province.');
 		        }
         	
-        	}elseif($fieldName == 'postcode' && Mage::getVersion() >= '1.4'){
+        	}elseif($fieldName == 'postcode' && Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4) ){
         		
         		
         		$_havingOptionalZip = Mage::helper('directory')->getCountriesWithOptionalZip();
@@ -84,5 +80,9 @@ class GoMage_Checkout_Model_Quote_Address extends Mage_Sales_Model_Quote_Address
             return true;
         }
         return $errors;
+        
+        }else{
+        	return parent::validate();
+        }
     }
 }

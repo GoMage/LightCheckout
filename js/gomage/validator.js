@@ -1,0 +1,208 @@
+
+Object.extend(Validation.prototype, {
+	onSubmit :  function(ev){
+		
+        if(!this.validate()){
+        	Event.stop(ev);
+			$$('div.validation-advice').each(function(e){
+				if(e.style.display != 'none'){
+					e.scrollTo();
+					throw $break;
+				}
+			});
+			
+        }else{
+        
+        $('submit-btn').addClassName('disabled').disabled = true;
+        
+        }
+    }
+});
+
+Object.extend(Validation, {
+	defaultOptions:{
+    onSubmit : true,
+    stopOnFirst : false,
+    immediate : false,
+    focusOnError : false,
+    useTitles : false,
+    addClassNameToContainer: false,
+    containerClassName: '.input-box',
+    onFormValidate : function(result, form) {},
+    onElementValidate : function(result, elm) {}
+	},
+	createAdvice : function(name, elm, useTitle, customError) {
+		
+        var v = Validation.get(name);
+        var errorMsg = useTitle ? ((elm && elm.title) ? elm.title : v.error) : v.error;
+        if (customError) {
+            errorMsg = customError;
+        }
+        try {
+            if (Translator){
+                errorMsg = Translator.translate(errorMsg);
+            }
+        }
+        catch(e){}
+
+        advice = '<div class="validation-advice" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none;"><div class="validation-advice-container">' + errorMsg + '</div></div>'
+
+
+        Validation.insertAdvice(elm, advice);
+        advice = Validation.getAdvice(name, elm);
+        //if($(elm).hasClassName('absolute-advice')) {
+            var dimensions = $(elm).getDimensions();
+            var originalPosition = Position.cumulativeOffset(elm);
+			
+            advice._adviceTop = (originalPosition[1]);
+            advice._adviceLeft = (originalPosition[0]+(elm.offsetWidth > 40 ? elm.offsetWidth-40: -21));
+            advice._adviceWidth = (dimensions.width);
+            advice._adviceAbsolutize = true;
+        //}
+        return advice;
+    },
+    test : function(name, elm, useTitle) {
+        var v = Validation.get(name);
+        var prop = '__advice'+name.camelize();
+        try {
+        if(Validation.isVisible(elm) && !v.test($F(elm), elm)) {
+            //if(!elm[prop]) {
+                var advice = Validation.getAdvice(name, elm);
+                if (advice == null) {
+                    advice = this.createAdvice(name, elm, useTitle);
+                }else{
+                	
+                	//if($(elm).hasClassName('absolute-advice')) {
+			            var dimensions = $(elm).getDimensions();
+			            var originalPosition = Position.cumulativeOffset(elm);
+						
+			            advice._adviceTop = (originalPosition[1]);
+            			advice._adviceLeft = (originalPosition[0] + (elm.offsetWidth > 40 ? elm.offsetWidth-40: -21));
+			        //}
+			        
+                }
+                this.showAdvice(elm, advice, name);
+                this.updateCallback(elm, 'failed');
+            //}
+            elm[prop] = 1;
+            if (!elm.advaiceContainer) {
+                elm.removeClassName('validation-passed');
+                elm.addClassName('validation-failed');
+            }
+
+           if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
+                var container = elm.up(Validation.defaultOptions.containerClassName);
+                if (container && this.allowContainerClassName(elm)) {
+                    container.removeClassName('validation-passed');
+                    container.addClassName('validation-error');
+                }
+            }
+            return false;
+        } else {
+        	
+            var advice = Validation.getAdvice(name, elm);
+            this.hideAdvice(elm, advice);
+            this.updateCallback(elm, 'passed');
+            elm[prop] = '';
+            elm.removeClassName('validation-failed');
+            elm.addClassName('validation-passed');
+            if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
+                var container = elm.up(Validation.defaultOptions.containerClassName);
+                if (container && !container.down('.validation-failed') && this.allowContainerClassName(elm)) {
+                    if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) {
+                        container.addClassName('validation-passed');
+                    } else {
+                        container.removeClassName('validation-passed');
+                    }
+                    container.removeClassName('validation-error');
+                }
+            }
+            return true;
+        }
+        } catch(e) {
+            throw(e)
+        }
+    },
+    isVisible : function(elm) {
+        while(elm.tagName != 'BODY') {
+            if(!$(elm).visible()) return false;
+            elm = elm.parentNode;
+        }
+        return true;
+    },
+	insertAdvice : function(elm, advice){
+        
+        var temp = document.createElement('DIV');
+        
+        temp.innerHTML = advice;
+        
+        document.body.appendChild(temp.firstChild);
+        
+        
+        
+    },
+    showAdvice : function(elm, advice, adviceName){
+    	
+        if(!elm.advices){
+            elm.advices = new Hash();
+        }
+        else{
+            elm.advices.each(function(pair){
+                this.hideAdvice(elm, pair.value);
+            }.bind(this));
+        }
+        
+        
+		elm.observe('focus', function(){
+			Validation.hideAdvice(this.elm,this.advice);
+		}.bind({elm:elm,advice:advice}));
+		
+        
+        elm.advices.set(adviceName, advice);
+        if(typeof Effect == 'undefined') {
+            advice.style.display = 'block';
+        } else {
+        	
+            if(!advice._adviceAbsolutize) {
+                new Effect.Appear(advice, {duration : 1 });
+            } else {
+            	
+            	
+            	
+                Position.absolutize(advice);
+                advice.show();
+                
+                advice.setStyle({
+                    'top':advice._adviceTop + 'px',
+                    'left': advice._adviceLeft + 'px',
+                    'width': 'auto',
+                    'height':'auto',
+                    'z-index': 1000
+                });
+                
+                
+                advice.addClassName('advice-absolute');
+                
+                advice.setStyle({
+                    'top':advice._adviceTop -advice.offsetHeight - 8 + 'px'
+                });
+                
+                
+                
+                if(advice.select('.arrow').length == 0){
+                	var arrowhtml = '<div class="arrow" style="top:'+(advice.offsetHeight-2)+'px"><div class="line10"></div><div class="line9"></div><div class="line8"></div><div class="line7"></div><div class="line6"></div><div class="line5"></div><div class="line4"></div><div class="line3"></div><div class="line2"></div><div class="line1"></div></div>';
+                
+                	advice.insert(arrowhtml);
+                
+                	Event.observe(advice, 'click', function(e){this.hide();});
+                }else{
+                	
+                	advice.select('.arrow')[0].top = (advice.offsetHeight-2)+'px';
+                }
+                
+            }
+        }
+    }
+});
+
+

@@ -1,18 +1,15 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
- 
  
  $helper = Mage::helper('gomage_checkout');
  
@@ -90,7 +87,7 @@ billing.onSave = function(evt){
 			<label for="allow_gift_messages"><?php echo $helper->__('Check this checkbox if you want to add gift messages.') ?></label>
         </p>
     </div>
-    <div class="gift-messages-form" id="allow-gift-message-container">
+    <div class="gift-messages-form" id="allow-gift-message-container" style="display:none;">
         <div class="inner-box">
             <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
                 <div class="whole-order">
@@ -192,7 +189,7 @@ billing.onSave = function(evt){
             <input type="checkbox" name="allow_gift_messages_<?php echo $this->getEntity()->getId() ?>" id="allow_gift_messages_<?php echo $this->getEntity()->getId() ?>" value="1" onclick="toogleVisibilityOnObjects(this, ['allow-gift-message-container-<?php echo $this->getEntity()->getId() ?>']);"<?php if($this->getItemsHasMesssages() || $this->getEntityHasMessage()): ?> checked="checked"<?php endif ?> class="checkbox" /><label for="allow_gift_messages_<?php echo $this->getEntity()->getId() ?>"><?php echo $helper->__('Check this checkbox if you want to add gift messages to your items.') ?></label>
         </p>
     </div>
-    <div class="gift-messages-form" id="allow-gift-message-container-<?php echo $this->getEntity()->getId() ?>">
+    <div class="gift-messages-form" id="allow-gift-message-container-<?php echo $this->getEntity()->getId() ?>" style="display:none;">
         <div class="inner-box">
             <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
                 <div class="whole-order">

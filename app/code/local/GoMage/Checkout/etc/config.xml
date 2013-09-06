@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/**     
- * GoMage.com
- *
+ /**
  * GoMage LightCheckout Extension
+ *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  */ 
  -->
 <config>
@@ -24,20 +23,31 @@
 	    </blocks>
 	    <models>
             <gomage_checkout><class>GoMage_Checkout_Model</class></gomage_checkout>
-            <checkout>
+            <!--<checkout>
             	<rewrite>
             		<type_onepage>GoMage_Checkout_Model_Type_Onepage</type_onepage>
             	</rewrite>
             </checkout>
+            -->
             <core>
             	<rewrite>
             		<url_rewrite>GoMage_Checkout_Model_Url_Rewrite</url_rewrite>
             	</rewrite>
             </core>
+            <tax>
+            	<rewrite>
+            		<calculation>GoMage_Checkout_Model_Tax_Calculation</calculation>
+            	</rewrite>
+            </tax>
+            <tax_mysql4>
+            	<rewrite>
+            		<calculation>GoMage_Checkout_Model_Mysql4_Tax_Calculation</calculation>
+            	</rewrite>
+            </tax_mysql4>
             <sales>
             	<rewrite>
             		<quote_address>GoMage_Checkout_Model_Quote_Address</quote_address>
-            		<quote>GoMage_Checkout_Model_Quote</quote>
+            		<!--<quote>GoMage_Checkout_Model_Quote</quote>-->
             	</rewrite>
             </sales>
         </models>
@@ -71,10 +81,11 @@
 			<gomage_checkout><class>GoMage_Checkout_Helper</class></gomage_checkout>
 		</helpers>
 		<rewrite>
-			<!--<gomage_checkout_onepage_index_3>
-                <from><![CDATA[#^/checkout/onepage/index#]]></from>
-                <to>/gomage_checkout/onepage/index</to>
-            </gomage_checkout_onepage_index_3>
+			<gomage_checkout_onepage_cart>
+                <from><![CDATA[#^/checkout/cart#]]></from>
+                <to>/gomage_checkout/cart</to>
+            </gomage_checkout_onepage_cart>
+         	<!--
             <gomage_checkout_onepage_index_1>
                 <from><![CDATA[#^/checkout/onepage/$#]]></from>
                 <to>/gomage_checkout/onepage/index</to>
@@ -138,6 +149,17 @@
         </translate>
 	</frontend>
 	<adminhtml>
+		<events>
+			<admin_system_config_changed_section_gomage_activation>
+                <observers>
+                    <collect_totals_after>
+                        <type>model</type>
+                        <class>gomage_checkout/observer</class>
+                        <method>checkK</method>
+                    </collect_totals_after>
+                </observers>
+            </admin_system_config_changed_section_gomage_activation>
+        </events>
 		<translate>
 			<modules>
 				<GoMage_Checkout>
@@ -162,7 +184,12 @@
 	                        <children>
 	                            <config>
 	                                <children>
-	                                    <gomage_checkout/>
+	                                    <gomage_checkout>
+	                                    	<title>GoMage - Light Checkout</title>
+	                                    </gomage_checkout>
+	                                    <gomage_activation>
+	                                    	<title>GoMage - Activation</title>
+	                                    </gomage_activation>
 	                                </children>
 	                            </config>
 	                        </children>
@@ -177,6 +204,12 @@
 			<registration>
 				<mode>0</mode>
 			</registration>
+			<ajax>
+				<country>1</country>
+				<region>1</region>
+				<postcode>1</postcode>
+				<city>1</city>
+			</ajax>
 			<termsandconditions>
 				<enabled>0</enabled>
 				<width>500</width>
@@ -187,8 +220,11 @@
 				<geoip_enabled>0</geoip_enabled>
 				<title>GoMage LightCheckout</title>
 				<deliverydate>1</deliverydate>
+				<skin>orange</skin>
+				<button_skin>default</button_skin>
 			</general>
 			<address_fields>
+				
 				<firstname>1</firstname>
 				<lastname>1</lastname>
 				
@@ -230,6 +266,11 @@
 				<fax_order>6</fax_order>
 				
 			</address_sort>
+			<vat>
+				<show_checkbox>3</show_checkbox>
+				<text_under>Buy without VAT (for EU only)</text_under>
+			</vat>
+			<helper><v>Y2xhc3MgR29NYWdlX0NoZWNrb3V0X0hlbHBlcl9EYXRhIGV4dGVuZHMgTWFnZV9Db3JlX0hlbHBlcl9BYnN0cmFjdHsgcHJvdGVjdGVkICRtb2RlOyBwcm90ZWN0ZWQgJGNvdW50cnlfaWQ7IHB1YmxpYyBmdW5jdGlvbiBnZXRDb25maWdEYXRhKCRub2RlKXsgcmV0dXJuIE1hZ2U6OmdldFN0b3JlQ29uZmlnKCJnb21hZ2VfY2hlY2tvdXQvIi4kbm9kZSk7IH0gcHVibGljIGZ1bmN0aW9uIGdldENoZWNrb3V0TW9kZSgpeyBpZihpc19udWxsKCR0aGlzLT5tb2RlKSl7IGlmKE1hZ2U6OmdldFNpbmdsZXRvbigiY2hlY2tvdXQvdHlwZV9vbmVwYWdlIiktPmdldFF1b3RlKCktPmlzQWxsb3dlZEd1ZXN0Q2hlY2tvdXQoKSl7ICR0aGlzLT5tb2RlID0gaW50dmFsKCR0aGlzLT5nZXRDb25maWdEYXRhKCJyZWdpc3RyYXRpb24vbW9kZSIpKTsgfWVsc2V7ICR0aGlzLT5tb2RlID0gMTsgfSB9IHJldHVybiAkdGhpcy0+bW9kZTsgfSBwdWJsaWMgZnVuY3Rpb24gZ2V0QWxsU3RvcmVEb21haW5zKCl7ICRkb21haW5zID0gYXJyYXkoKTsgZm9yZWFjaCAoTWFnZTo6YXBwKCktPmdldFdlYnNpdGVzKCkgYXMgJHdlYnNpdGUpIHsgJHVybCA9ICR3ZWJzaXRlLT5nZXRDb25maWcoIndlYi91bnNlY3VyZS9iYXNlX3VybCIpOyBpZigkZG9tYWluID0gdHJpbShwcmVnX3JlcGxhY2UoIi9eLio/XC9cLyguKik/XC8vIiwgIiQxIiwgJHVybCkpKXsgJGRvbWFpbnNbXSA9ICRkb21haW47IH0gJHVybCA9ICR3ZWJzaXRlLT5nZXRDb25maWcoIndlYi9zZWN1cmUvYmFzZV91cmwiKTsgaWYoJGRvbWFpbiA9IHRyaW0ocHJlZ19yZXBsYWNlKCIvXi4qP1wvXC8oLiopP1wvLyIsICIkMSIsICR1cmwpKSl7ICRkb21haW5zW10gPSAkZG9tYWluOyB9IH0gcmV0dXJuIGFycmF5X3VuaXF1ZSgkZG9tYWlucyk7IH0gcHVibGljIGZ1bmN0aW9uIGdldEF2YWlsYXZlbFdlYnNpdGVzKCl7IHJldHVybiAkdGhpcy0+X3coKTsgfSBwcm90ZWN0ZWQgZnVuY3Rpb24gX3coKXsgJHIgPSBNYWdlOjpnZXRTdG9yZUNvbmZpZygiZ29tYWdlX2FjdGl2YXRpb24vbGlnaHRjaGVja291dC9hciIpOyAkcyA9IE1hZ2U6OmdldFN0b3JlQ29uZmlnKCJnb21hZ2VfYWN0aXZhdGlvbi9saWdodGNoZWNrb3V0L3dlYnNpdGVzIik7IHJldHVybiBleHBsb2RlKCIsIiwgc3RyX3JlcGxhY2UoJHIsICIiLCBNYWdlOjpoZWxwZXIoImNvcmUiKS0+ZGVjcnlwdCgkcykpKTsgfSBwdWJsaWMgZnVuY3Rpb24gYSgkayl7ICRjaCA9IGN1cmxfaW5pdCgpOyBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfVVJMLCBzcHJpbnRmKCJodHRwOi8vZ29tYWdlLndlYi9pbmRleC5waHAvZ29tYWdlX2Rvd25sb2FkYWJsZS9rZXkvY2hlY2sva2V5LyVzL2RvbWFpbnMvJXMiLCAkaywgaW1wbG9kZSgiLCIsICR0aGlzLT5nZXRBbGxTdG9yZURvbWFpbnMoKSkpKTsgY3VybF9zZXRvcHQgKCRjaCwgQ1VSTE9QVF9USU1FT1VULCAzMCk7IGN1cmxfc2V0b3B0ICgkY2gsIENVUkxPUFRfUkVUVVJOVFJBTlNGRVIsIHRydWUpOyAkY29udGVudCA9IGN1cmxfZXhlYygkY2gpOyAkciA9IFplbmRfSnNvbjo6ZGVjb2RlKCRjb250ZW50KTsgJHZhbHVlMSA9ICIiOyAkdmFsdWUyID0gIiI7ICRlID0gTWFnZTo6aGVscGVyKCJjb3JlIik7IGlmKGlzc2V0KCRyWyJkIl0pICYmIGlzc2V0KCRyWyJjIl0pKXsgJHZhbHVlMSA9ICRlLT5lbmNyeXB0KGJhc2U2NF9lbmNvZGUoWmVuZF9Kc29uOjplbmNvZGUoJHIpKSk7IH0gJHMgPSBhcnJheV9zbGljZShleHBsb2RlKCIsIiwgTWFnZTo6Z2V0U3RvcmVDb25maWcoImdvbWFnZV9hY3RpdmF0aW9uL2xpZ2h0Y2hlY2tvdXQvd2Vic2l0ZXMiKSksIDAsICRyWyJjIl0pOyAkdmFsdWUyID0gJGUtPmVuY3J5cHQoJHZhbHVlMS5pbXBsb2RlKCIsIiwgJHMpLiR2YWx1ZTEpOyAkZ3JvdXBzID0gYXJyYXkoICJsaWdodGNoZWNrb3V0Ij0+YXJyYXkoICJmaWVsZHMiPT5hcnJheSggImFyIj0+YXJyYXkoICJ2YWx1ZSI9PiR2YWx1ZTEgKSwgIndlYnNpdGVzIj0+YXJyYXkoICJ2YWx1ZSI9PihzdHJpbmcpJHZhbHVlMiApICkgKSApOyBNYWdlOjpnZXRNb2RlbCgiYWRtaW5odG1sL2NvbmZpZ19kYXRhIikgLT5zZXRTZWN0aW9uKCJnb21hZ2VfYWN0aXZhdGlvbiIpIC0+c2V0R3JvdXBzKCRncm91cHMpIC0+c2F2ZSgpOyB9IHB1YmxpYyBmdW5jdGlvbiBnYSgpeyByZXR1cm4gWmVuZF9Kc29uOjpkZWNvZGUoYmFzZTY0X2RlY29kZShNYWdlOjpoZWxwZXIoImNvcmUiKS0+ZGVjcnlwdChNYWdlOjpnZXRTdG9yZUNvbmZpZygiZ29tYWdlX2FjdGl2YXRpb24vbGlnaHRjaGVja291dC9hciIpKSkpOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXRHZW9pcFJlY29yZCgpeyByZXR1cm4gR2VvSVBfQ29yZTo6Z2V0SW5zdGFuY2UoTWFnZTo6Z2V0QmFzZURpcigibWVkaWEiKS4iL2dlb2lwL0dlb0xpdGVDaXR5LmRhdCIsIEdlb0lQX0NvcmU6OkdFT0lQX1NUQU5EQVJEKS0+Z2VvaXBfcmVjb3JkX2J5X2FkZHIoJF9TRVJWRVJbIlJFTU9URV9BRERSIl0pOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXREZWZhdWx0Q291bnRyeUlkKCl7IGlmKGlzX251bGwoJHRoaXMtPmNvdW50cnlfaWQpKXsgaWYoTWFnZTo6Z2V0U3RvcmVDb25maWcoImdvbWFnZV9jaGVja291dC9nZW9pcC9nZW9pcF9lbmFibGVkIikgJiYgZmlsZV9leGlzdHMoTWFnZTo6Z2V0QmFzZURpcigibWVkaWEiKS4iL2dlb2lwL0dlb0xpdGVDaXR5LmRhdCIpICYmIGV4dGVuc2lvbl9sb2FkZWQoIm1ic3RyaW5nIikpeyB0cnl7ICR0aGlzLT5jb3VudHJ5X2lkID0gR2VvSVBfQ29yZTo6Z2V0SW5zdGFuY2UoTWFnZTo6Z2V0QmFzZURpcigibWVkaWEiKS4iL2dlb2lwL0dlb0xpdGVDaXR5LmRhdCIsIEdlb0lQX0NvcmU6OkdFT0lQX1NUQU5EQVJEKS0+Z2VvaXBfY291bnRyeV9jb2RlX2J5X2FkZHIoJF9TRVJWRVJbIlJFTU9URV9BRERSIl0pOyB9Y2F0Y2goRXhjZXB0aW9uICRlKXsgZWNobyAkZTsgfSB9IGlmICghJHRoaXMtPmNvdW50cnlfaWQpIHsgJHRoaXMtPmNvdW50cnlfaWQgPSBNYWdlOjpnZXRTdG9yZUNvbmZpZygiZ29tYWdlX2NoZWNrb3V0L2dlbmVyYWwvZGVmYXVsdF9jb3VudHJ5Iik7IGlmICghJHRoaXMtPmNvdW50cnlfaWQpIHsgJHRoaXMtPmNvdW50cnlfaWQgPSBNYWdlOjpnZXRTdG9yZUNvbmZpZygiZ2VuZXJhbC9jb3VudHJ5L2RlZmF1bHQiKTsgfSB9IH0gcmV0dXJuICR0aGlzLT5jb3VudHJ5X2lkOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXREZWZhdWx0U2hpcHBpbmdNZXRob2QoKXsgJGFkZHJlc3MgPSBNYWdlOjpnZXRTaW5nbGV0b24oImNoZWNrb3V0L3Nlc3Npb24iKS0+Z2V0UXVvdGUoKS0+Z2V0U2hpcHBpbmdBZGRyZXNzKCk7ICRhZGRyZXNzLT5zZXRDb2xsZWN0U2hpcHBpbmdSYXRlcyh0cnVlKS0+Y29sbGVjdFNoaXBwaW5nUmF0ZXMoKTsgJHJhdGVzID0gJGFkZHJlc3MtPmdldEdyb3VwZWRBbGxTaGlwcGluZ1JhdGVzKCk7IGlmKGNvdW50KCRyYXRlcykgPT0gMSl7IGZvcmVhY2goJHJhdGVzIGFzICRyYXRlX2NvZGU9PiRtZXRob2RzKXsgaWYoY291bnQoJG1ldGhvZHMpID09IDEpeyBmb3JlYWNoKCRtZXRob2RzIGFzICRtZXRob2QpeyByZXR1cm4gJG1ldGhvZC0+Z2V0Q29kZSgpOyB9IH1lbHNleyByZXR1cm4gJHRoaXMtPmdldENvbmZpZ0RhdGEoImdlbmVyYWwvZGVmYXVsdF9zaGlwcGluZ19tZXRob2QiKTsgfSB9IH1lbHNleyByZXR1cm4gJHRoaXMtPmdldENvbmZpZ0RhdGEoImdlbmVyYWwvZGVmYXVsdF9zaGlwcGluZ19tZXRob2QiKTsgfSB9IHB1YmxpYyBmdW5jdGlvbiBnZXREZWZhdWx0UGF5bWVudE1ldGhvZCgpeyByZXR1cm4gJHRoaXMtPmdldENvbmZpZ0RhdGEoImdlbmVyYWwvZGVmYXVsdF9wYXltZW50X21ldGhvZCIpOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXRBY3RpdmVQYXltZW50TWV0aG9kcygkc3RvcmU9bnVsbCkgeyAkbWV0aG9kcyA9IGFycmF5KCk7ICRjb25maWcgPSBNYWdlOjpnZXRTdG9yZUNvbmZpZygicGF5bWVudCIsICRzdG9yZSk7IGZvcmVhY2ggKCRjb25maWcgYXMgJGNvZGUgPT4gJG1ldGhvZENvbmZpZykgeyBpZihpc3NldCgkbWV0aG9kQ29uZmlnWyJtb2RlbCJdKSAmJiAkbWV0aG9kQ29uZmlnWyJtb2RlbCJdKXsgaWYoaXNzZXQoJG1ldGhvZENvbmZpZ1siZ3JvdXAiXSkgJiYgJG1ldGhvZENvbmZpZ1siZ3JvdXAiXSA9PSAibWJvb2tlcnMiICYmIE1hZ2U6OmdldFN0b3JlQ29uZmlnRmxhZygibW9uZXlib29rZXJzLyIuJGNvZGUuIi9hY3RpdmUiLCAkc3RvcmUpKXsgJG1ldGhvZCA9ICR0aGlzLT5fZ2V0UGF5bWVudE1ldGhvZCgkY29kZSwgJG1ldGhvZENvbmZpZyk7ICRtZXRob2RbImdyb3VwIl0gPSAibWJvb2tlcnMiOyAkbWV0aG9kc1skY29kZV0gPSAkbWV0aG9kOyB9ZWxzZWlmKCRtZXRob2RDb25maWdbIm1vZGVsIl0gPT0gImdvb2dsZWNoZWNrb3V0L3BheW1lbnQiKXsgaWYoTWFnZTo6Z2V0U3RvcmVDb25maWdGbGFnKCJnb29nbGUvY2hlY2tvdXQvYWN0aXZlIiwgJHN0b3JlKSl7ICRtZXRob2QgPSAkdGhpcy0+X2dldFBheW1lbnRNZXRob2QoJGNvZGUsICRtZXRob2RDb25maWcpOyAkbWV0aG9kc1skY29kZV0gPSAkbWV0aG9kOyB9IH1lbHNlaWYgKE1hZ2U6OmdldFN0b3JlQ29uZmlnRmxhZygicGF5bWVudC8iLiRjb2RlLiIvYWN0aXZlIiwgJHN0b3JlKSkgeyAkbWV0aG9kID0gJHRoaXMtPl9nZXRQYXltZW50TWV0aG9kKCRjb2RlLCAkbWV0aG9kQ29uZmlnKTsgJG1ldGhvZFsiZ3JvdXAiXSA9ICIiOyAkbWV0aG9kc1skY29kZV0gPSAkbWV0aG9kOyB9IH0gfSByZXR1cm4gJG1ldGhvZHM7IH0gcHJvdGVjdGVkIGZ1bmN0aW9uIF9nZXRQYXltZW50TWV0aG9kKCRjb2RlLCAkY29uZmlnLCAkc3RvcmU9bnVsbCkgeyAkbW9kZWxOYW1lID0gJGNvbmZpZ1sibW9kZWwiXTsgJG1ldGhvZCA9IE1hZ2U6OmdldE1vZGVsKCRtb2RlbE5hbWUpOyAkbWV0aG9kLT5zZXRJZCgkY29kZSktPnNldFN0b3JlKCRzdG9yZSk7IHJldHVybiAkbWV0aG9kOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXRWYXRCYXNlQ291bnRyeU1vZGUoKXsgcmV0dXJuICR0aGlzLT5nZXRDb25maWdEYXRhKCJ2YXQvYmFzZV9jb3VudHJ5Iik7IH0gcHVibGljIGZ1bmN0aW9uIGdldFZhdFdpdGhpbkNvdW50cnlNb2RlKCl7IHJldHVybiAkdGhpcy0+Z2V0Q29uZmlnRGF0YSgidmF0L2lmX25vdF9iYXNlX2NvdW50cnkiKTsgfSBwdWJsaWMgZnVuY3Rpb24gZ2V0VGF4Q291bnRyaWVzKCl7IGlmKCRydWxlX2lkID0gaW50dmFsKE1hZ2U6OmhlbHBlcigiZ29tYWdlX2NoZWNrb3V0IiktPmdldENvbmZpZ0RhdGEoInZhdC9ydWxlIikpKXsgJHJlc291cmNlID0gTWFnZTo6Z2V0U2luZ2xldG9uKCJjb3JlL3Jlc291cmNlIik7ICRjb25uZWN0aW9uID0gJHJlc291cmNlLT5nZXRDb25uZWN0aW9uKCJyZWFkIik7ICRxID0gc3ByaW50ZigiU0VMRUNUIERJU1RJTkNUKGB0YXhfY291bnRyeV9pZGApIEZST00gYCVzYCBXSEVSRSBgdGF4X2NhbGN1bGF0aW9uX3JhdGVfaWRgIElOIChTRUxFQ1QgYHRheF9jYWxjdWxhdGlvbl9yYXRlX2lkYCBGUk9NIGAlc2AgV0hFUkUgYHRheF9jYWxjdWxhdGlvbl9ydWxlX2lkYCA9ICVkKSIsICRyZXNvdXJjZS0+Z2V0VGFibGVOYW1lKCJ0YXhfY2FsY3VsYXRpb25fcmF0ZSIpLCAkcmVzb3VyY2UtPmdldFRhYmxlTmFtZSgidGF4X2NhbGN1bGF0aW9uIiksICRydWxlX2lkKTsgcmV0dXJuIChhcnJheSkkY29ubmVjdGlvbi0+ZmV0Y2hDb2woJHEpOyB9IH0gfQ==</v></helper>
 		</gomage_checkout>
 	</default>
 </config>

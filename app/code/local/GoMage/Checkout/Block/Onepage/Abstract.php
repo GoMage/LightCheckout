@@ -1,18 +1,15 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
- */
-
+ */ 
 	
 	class GoMage_Checkout_Block_Onepage_Abstract extends Mage_Checkout_Block_Onepage_Abstract{
 		
@@ -68,7 +65,17 @@
 						$order = intval(Mage::getStoreConfig('gomage_checkout/address_sort/'.$field_name.'_order'));
 						if(!isset($rows[$order]) || count($rows[$order]) < 2){
 							
-							$rows[$order][] = $field_name;
+							if($field_name == 'postcode' && isset($rows[$order][0]) && $rows[$order][0] == 'region'){
+								
+								array_unshift($rows[$order], $field_name);
+								
+							}else{
+								
+								$rows[$order][] = $field_name;
+								
+							}
+							
+							
 							
 						}else{
 							$rows[] = array($field_name);
@@ -173,5 +180,43 @@
 	    	
 	    	
 	    }
+	    
+	    public function getAddressesHtmlSelect($type)
+    {
+        if ($this->isCustomerLoggedIn()) {
+            $options = array();
+            foreach ($this->getCustomer()->getAddresses() as $address) {
+                $options[] = array(
+                    'value'=>$address->getId(),
+                    'label'=>$address->format('oneline')
+                );
+            }
+
+            $addressId = $this->getAddress()->getCustomerAddressId();
+            if (empty($addressId)) {
+                if ($type=='billing') {
+                    $address = $this->getCustomer()->getPrimaryBillingAddress();
+                } else {
+                    $address = $this->getCustomer()->getPrimaryShippingAddress();
+                }
+                if ($address) {
+                    $addressId = $address->getId();
+                }
+            }
+
+            $select = $this->getLayout()->createBlock('core/html_select')
+                ->setName($type.'_address_id')
+                ->setId($type.'-address-select')
+                ->setClass('address-select')
+                ->setExtraParams('onchange="checkout.loadAddress(\''.$type.'\', this.value, \''.$this->getUrl('gomage_checkout/onepage/ajax', array('action'=>'load_address')).'\')"')
+                ->setValue($addressId)
+                ->setOptions($options);
+
+            $select->addOption('', Mage::helper('checkout')->__('New Address'));
+
+            return $select->getHtml();
+        }
+        return '';
+    }
 		
 	}

@@ -1,22 +1,58 @@
 <?xml version="1.0"?>
 <!--
-/**     
- * GoMage.com
- *
+ /**
  * GoMage LightCheckout Extension
+ *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  */ 
  -->
-
 <config>
 	<sections>
+		<gomage_activation>
+			<label>Activation</label>
+            <tab>gomage</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+				<lightcheckout translate="label">
+					<label>GoMage LightCheckout</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<key>
+							<label>Activation Key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</key>
+						<websites translate="label">
+							<label>Select Websites</label>
+							<frontend_type>checkbox</frontend_type>
+							<source_model>adminhtml/system_config_source_website</source_model>
+							<frontend_model>gomage_checkout/adminhtml_config_form_renderer_website</frontend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</websites>
+					</fields>
+				</lightcheckout>
+			</groups>
+		</gomage_activation>
 		<gomage_checkout>
-
             <label>LightCheckout</label>
             <tab>gomage</tab>
             <frontend_type>text</frontend_type>
@@ -24,12 +60,11 @@
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
-
 			<groups>
 				<registration translate="label">
 					<label>Registration</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>15</sort_order>
+					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
@@ -43,8 +78,63 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</mode>
+						<account_checkbox>
+							<label>Create an Account checkbox</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_checkbox</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</account_checkbox>
 					</fields>
 				</registration>
+				<ajax translate="label">
+					<label>Ajax Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>15</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<country>
+							<label>Enable Ajax for Country</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</country>
+						<region>
+							<label>Enable Ajax for State/Region</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</region>
+						<postcode>
+							<label>Enable Ajax for Zip/Postcode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</postcode>
+						<city>
+							<label>Enable Ajax for City</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</city>
+					</fields>
+				</ajax>
 				<termsandconditions translate="label">
 					<label>Terms &amp; Conditions</label>
 					<frontend_type>text</frontend_type>
@@ -56,7 +146,7 @@
 						<enabled translate="label">
 							<label>Enable Terms and Conditions</label>
 							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
 							<sort_order>100</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -91,22 +181,45 @@
 				<general translate="label">
 					<label>General</label>
 					<frontend_type>text</frontend_type>
-					<sort_order>10</sort_order>
+					<sort_order>0</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
-
 					<fields>
 						
 						<enabled translate="label">
 							<label>Enable LightCheckout</label>
 							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
+							
+							<frontend_model>gomage_checkout/adminhtml_config_form_renderer_enabledisable</frontend_model>
+							<source_model>gomage_checkout/adminhtml_system_config_source_enabledisable</source_model>
+							
 							<sort_order>0</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</enabled>
+						
+						<skin translate="label">
+							<label>LightCheckout Skin</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_skin</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</skin>
+						
+						<button_skin translate="label">
+							<label>Buttons View</label>
+							<frontend_type>select</frontend_type>
+							<frontend_model>gomage_checkout/adminhtml_config_form_Renderer_buttonskin</frontend_model>
+							<source_model>gomage_checkout/adminhtml_system_config_source_skin_button</source_model>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</button_skin>
 						
 						<default_country translate="label">
 							<label>Default Country</label>
@@ -118,7 +231,6 @@
 							<show_in_store>1</show_in_store>
 						</default_country>
 						
-						
 						<default_shipping_method translate="label">
 							<label>Default Shipping Method</label>
 							<frontend_type>select</frontend_type>
@@ -127,8 +239,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</default_shipping_method>					
-						
+						</default_shipping_method>
 						
 						<default_payment_method translate="label">
 							<label>Default Payment Method</label>
@@ -139,7 +250,7 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</default_payment_method>
-
+						
 						<title translate="label">
 							<label>Page Title</label>
 							<frontend_type>text</frontend_type>
@@ -161,40 +272,104 @@
 						<different_shipping_enabled translate="label">
 							<label>Enable Different Shipping Address</label>
 							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<source_model>gomage_checkout/adminhtml_system_config_source_shippingaddressmode</source_model>
 							<sort_order>60</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</different_shipping_enabled>		
 						
-						<deliverydate translate="label">
-							<label>Enable Delivery Date</label>
+						<allow_change_qty translate="label">
+							<label>Allow to change Qty</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>65</sort_order>
+							<sort_order>80</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</deliverydate>
+						</allow_change_qty>
+						
+						<allow_remove translate="label">
+							<label>Allow to Remove Item from Checkout</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</allow_remove>
+						
+						<enable_discount translate="label">
+							<label>Enable Discount Codes</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_discount</source_model>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_discount>
+						
+						
+						<disable_cart translate="label">
+							<label>Disable Cart</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</disable_cart>
+						
+					</fields>
+				</general>
+				
+				<geoip translate="label">
+					<label>GeoIP Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>15</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
 						
 						<geoip_enabled translate="label">
 							<label>Enable GeoIP for Country</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
 							<sort_order>70</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</geoip_enabled>
 						
-
+						<geoip_city_enabled translate="label">
+							<label>Enable GeoIP for City</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
+							<sort_order>72</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</geoip_city_enabled>
+						
+						<geoip_post_enabled translate="label">
+							<label>Enable GeoIP for Zip/Postcode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
+							<sort_order>71</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</geoip_post_enabled>
+						
 					</fields>
-
-				</general>
+				</geoip>
 				
 				<address_fields translate="label">
-					<label>Enable/Disable Address Fields</label>
+					<label>Enable/Disable Fields</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>20</sort_order>
 					<show_in_default>1</show_in_default>
@@ -202,6 +377,16 @@
 					<show_in_store>1</show_in_store>
 					
 					<fields>
+						
+						<address_book translate="label">
+							<label>Show Address Book</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</address_book>
 						 
 						<company translate="label">
 							<label>Company</label>
@@ -251,7 +436,7 @@
 							<show_in_store>1</show_in_store>
 						</fax>
 						<region translate="label">
-							<label>Region</label>
+							<label>State/Region</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_nooptreq</source_model>
 							<sort_order>50</sort_order>
@@ -292,7 +477,8 @@
 						<newsletter translate="label">
 							<label>Newsletter Checkbox</label>
 							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<!--<source_model>adminhtml/system_config_source_enabledisable</source_model>-->
+							<source_model>gomage_checkout/adminhtml_system_config_source_newsletter</source_model>
 							<sort_order>90</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -350,7 +536,7 @@
 							<show_in_store>1</show_in_store>
 						</fax_order>
 						<region_order translate="label">
-							<label>Region Order</label>
+							<label>State/Region Order</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>51</sort_order>
 							<show_in_default>1</show_in_default>
@@ -375,6 +561,112 @@
 						</postcode_order>
 					</fields>
 				</address_sort>
+				<vat>
+					
+					<label>EU VAT/Tax Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>100</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					
+					
+					<fields>
+						
+						<enabled translate="label">
+							<label>Enable EU VAT Option</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						<!--
+						<autocheck translate="label">
+							<label>Auto Check VAT Number</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</autocheck>
+						-->
+						<country translate="label">
+							<label>Base EU Country</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</country>
+						
+						<base_country translate="label">
+							<label>B2C &amp; B2B (Base EU Country)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_countrymode</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</base_country>
+						
+						<if_not_base_country translate="label">
+							<label>B2C &amp; B2B (within EU, not Base EU Country)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_countrymode</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</if_not_base_country>
+						
+						
+						<rule translate="label">
+							<label>VAT/Tax Rule</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_taxrules</source_model>
+							<sort_order>55</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</rule>
+						
+						<!--<vat_required translate="label">
+							<label>Allow Buy without VAT</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</vat_required>-->
+						
+						<show_checkbox translate="label">
+							<label>Show Buy without VAT checkbox</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_checkout/adminhtml_system_config_source_checkboxtax</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</show_checkbox>
+						
+						
+						<text_under translate="label">
+							<label>Text under VAT/Tax field</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</text_under>
+						
+						<!-- -->
+					</fields>
+				</vat>
 			</groups>
 		</gomage_checkout>
 	</sections>

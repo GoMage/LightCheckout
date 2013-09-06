@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.2
+ */ 
+ -->
+<config>
+    <modules>
+        <GoMage_SagePay>
+            <version>1.0</version>
+        </GoMage_SagePay>
+    </modules>
+    <global>
+    	<blocks>
+	        <gomage_sagepay><class>GoMage_SagePay_Block</class></gomage_sagepay>
+	    </blocks>
+        <models>
+            <gomage_sagepay>
+                <class>GoMage_SagePay_Model</class>
+            </gomage_sagepay>
+        </models>
+    	<helpers>
+			<gomage_sagepay><class>GoMage_SagePay_Helper</class></gomage_sagepay>
+		</helpers>
+    </global>    
+	<frontend>	
+		<layout>
+            <updates>
+                <gomage_sagepay module="gomage_sagepay">
+                    <file>gomage-sagepay.xml</file>
+                </gomage_sagepay>
+            </updates>
+        </layout>  
+        <events>
+        	<checkout_type_onepage_save_order_after>
+                <observers>
+                    <gomagesagepaysave>
+                        <type>model</type>
+                        <class>gomage_sagepay/observer</class>
+                        <method>checkoutEventAfterSave</method>
+                    </gomagesagepaysave>
+                </observers>
+            </checkout_type_onepage_save_order_after>            
+        </events>              
+	</frontend>	
+</config>

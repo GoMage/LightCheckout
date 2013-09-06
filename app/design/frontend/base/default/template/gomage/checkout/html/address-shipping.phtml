@@ -1,49 +1,44 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
 ?>
-<div class="shipping-address" id="gcheckout-shipping-address" <?php if($this->asBilling()):?>style="display:none;"<?php endif;?>>
-	<h2 class="gcheckout-title"><?php echo $this->__('Shipping address');?></h2>
-	    <ul class="form-list">
-	        <li id="shipping-new-address-form">
-	            <fieldset>
-	                <ul>
-	                    <li class="fields"><?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
-						
-						<?php $this->getSortedFields();?>
-	                    
-	                </ul>
-	            </fieldset>
-	        </li>
-	         <?php if ($this->isCustomerLoggedIn()):?>
-	        <li id="shipping_address_book" class="control" style="display:none">
-	            <input type="checkbox" name="shipping[save_in_address_book]" id="shipping_save_in_address_book" value="1" title="<?php echo  $this->__('Save in address book') ?>" class="checkbox" /><label for="shipping_save_in_address_book"><?php echo  $this->__('Save in address book') ?></label>
-	        </li>
-		    <?php endif; ?>
-	    </ul>
-	<script type="text/javascript">
-		//<![CDATA[
-		<?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
-	    var shippingRegionUpdater = new RegionUpdater('shipping_country_id', 'shipping_region', 'shipping_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"shipping_postcode"' : 'undefined';?>);
-	   	<?php endif;?>
-	   	
-	   	<?php if($this->isCustomerLoggedIn()):?>
-	   	jQuery('#gcheckout-shipping-address input, #gcheckout-shipping-address select').bind('change', function(){
-	    	jQuery('#shipping_address_book').show();
-	    });
-	   	<?php endif;?>
-		//]]>
-	</script>
 
+<div class="shipping-address" id="gcheckout-shipping-address" <?php if($this->asBilling()):?>style="display:none;"<?php endif;?>>
+	<h2 class="gcheckout-title"><span><span><?php echo $this->__('Shipping address');?></span></span></h2>
+	<div class="lightcheckout-col-bg">
+	<div class="lightcheckout-col-bg-in">	
+    <ul class="form-list">
+		<?php if ($this->customerHasAddresses()): ?>
+	        <li class="wide">
+	            <label for="billing-address-select"><?php echo $this->__('Select a shipping address') ?></label>
+	            <div class="input-box">
+	                <?php echo $this->getAddressesHtmlSelect('shipping') ?>
+	            </div>
+	        </li>
+	    <?php endif; ?>
+        <li id="shipping-new-address-form">
+            <fieldset>
+                <ul>
+                    <li class="fields"><?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
+					<?php $this->getSortedFields();?>
+                </ul>
+            </fieldset>
+        </li>
+		<?php if ($this->isCustomerLoggedIn()):?>
+        <li id="shipping_address_book" class="control" style="display:none">
+            <input type="checkbox" name="shipping[save_in_address_book]" id="shipping_save_in_address_book" value="1" title="<?php echo  $this->__('Save in address book') ?>" class="checkbox" /><label for="shipping_save_in_address_book"><?php echo  $this->__('Save in address book') ?></label>
+        </li>
+	    <?php endif; ?>
+    </ul>
+	</div>
+	</div>
 </div>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.2
+ */ 
+ -->
+<layout version="0.1.0">
+		
+    <gomage_checkout_onepage_index>
+		<reference name="head">
+			<block type="gomage_sagepay/head" name="gomage.sagepay.head" />		  
+	  	</reference>		  	
+	  	<reference name="content">        	        	
+        	<block before="checkout.onepage" type="sagepaysuite/javascriptVars" name="sagepaysuite.js.vars" template="sagepaysuite/payment/SagePaySuiteVars.phtml" />
+	  	</reference>		  	  	
+	</gomage_checkout_onepage_index>
+	
+</layout>

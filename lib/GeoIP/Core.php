@@ -21,8 +21,8 @@
  * 
  * Changelog:
  *  
- * 2010-07-14   GoMage.com (http://www.gomage.com)
- *              Changed for LightCheckout Extension  
+ * 2010-07-14   GoMage (http://www.gomage.com)
+ *              Changed for the GoMage LightCheckout Extension  
  */
 
 class GeoIP_Core{
@@ -399,7 +399,11 @@ class GeoIP_Core{
 	  $ipnum = ip2long($addr);
 	  return $this->_geoip_seek_country($gi, $ipnum) - self::GEOIP_COUNTRY_BEGIN;
 	}
-
+	
+	public function geoip_record_by_addr($addr){
+		return GeoIP_City::geoip_record_by_addr($this,$addr, $this);
+	}
+	
 	public function geoip_country_code_by_addr($addr) {
 		$gi = $this;
 	  if ($gi->databaseType == self::GEOIP_CITY_EDITION_REV1) {

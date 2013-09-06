@@ -1,9 +1,0 @@
-div.apple_overlay {
-	background-image:url('../images/gomage/overlay/overlay_IE6.gif');
-	color:#fff;
-}
-/* default close button positioned on upper right corner */
-div.apple_overlay div.close {
-	background-image:url('../images/gomage/overlay/overlay_close_IE6.gif');
-
-}	

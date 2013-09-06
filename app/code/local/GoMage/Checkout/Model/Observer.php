@@ -1,16 +1,13 @@
 <?php
-	
-/**
- * GoMage.com
- *
+ /**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
 	
@@ -18,12 +15,18 @@
 		
 		static public function salesOrderLoad($event){
 			
-			
 			if($date = $event->getOrder()->getGomageDeliverydate()){
 				
 				$formated_date = Mage::app()->getLocale()->date($date, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM));
 				$event->getOrder()->setGomageDeliverydateFormated($formated_date);
 			};
+			
+		}
+		static public function checkK($event){
+			
+			$key = Mage::getStoreConfig('gomage_activation/lightcheckout/key');
+			
+			Mage::helper('gomage_checkout')->a($key);
 			
 		}
 		

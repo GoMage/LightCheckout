@@ -1,27 +1,32 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
 ?>
-<div id="gcheckout-payment-methods" class="payment-methods">
-	<h2 class="gcheckout-title"><?php echo $this->__('Payment methods');?></h2>
+<div id="gcheckout-payment-methods" class="gcheckout-payment-methods">
+	<h2 class="gcheckout-title"><span><span><?php echo $this->__('Payment method');?></span></span></h2>
+	<div class="lightcheckout-col-bg">
+	<div class="lightcheckout-col-bg-in">
 	<script type="text/javascript">
 	//<![CDATA[
 	    var payment = new paymentForm('gcheckout-onepage-form');
 	//]]>
 	</script>
+	
+	<div id="gcheckout-payment-methods-available">
+	
 	<?php echo $this->getChildHtml('methods') ?>
-		
+	
+	</div>
+	
 	<?php if($advanced_content = trim($this->getChildHtml('advanced'))): ?>
 	
 	<div class="payment-advanced">
@@ -31,4 +36,30 @@
 	</div>
 	
 	<?php endif;?>
+	</div>
+	</div>
+	<div class="tool-tip" id="payment-tool-tip" style="display:none;">
+    <div class="btn-close"><a href="#" id="payment-tool-tip-close"><img src="<?php echo $this->getSkinUrl('images/gomage/lightcheckout/btn_window_close.gif') ?>" alt="<?php echo $this->__('Close') ?>" title="<?php echo $this->__('Close') ?>" /></a></div>
+    <div class="tool-tip-content"><img src="<?php echo $this->getSkinUrl('images/gomage/lightcheckout/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" /></div>
+	</div>
+<script type="text/javascript">
+    //<![CDATA[
+        function toggleToolTip(event){
+            if($('payment-tool-tip')){
+                /*$('payment-tool-tip').setStyle({
+                    top: (Event.pointerY(event)-510)+'px',
+                    left: (Event.pointerX(event)-800)+'px'
+                })*/
+                $('payment-tool-tip').toggle();
+            }
+            Event.stop(event);
+        }
+        if($('payment-tool-tip-close')){
+            Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
+        }
+        $$('.cvv-what-is-this').each(function(element){
+            Event.observe(element, 'click', toggleToolTip);
+        });
+    //]]>
+	</script>		
 </div>

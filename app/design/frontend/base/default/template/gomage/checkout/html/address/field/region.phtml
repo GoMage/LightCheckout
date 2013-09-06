@@ -1,22 +1,40 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
+ 
+	$required		= $this->getIsRequired();
+	
+	$validation_type = $this->getValidationType();
+
+
+	$input_class = ' input-text ';
+	$label_class = '';
+
+	if($required){
+
+		if(!$validation_type){
+			$input_class .= 'required-entry absolute-advice'.' ';
+		}else{
+			$input_class .= $validation_type.' ';
+		}
+
+		$label_class .= ' required ';
+
+	}
 ?>
-<label for="<?php echo $this->getPrefix();?>_region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+<label for="<?php echo $this->getPrefix();?>_region_id" class="<?php echo $label_class;?>"><?php if($required):?><em style="display:block !important">*</em><?php endif;?><?php echo $this->__('State/Province') ?></label>
 <div class="input-box input-box-region <?php echo $this->getPrefix();?>-region">
 	<?php if($this->isEnabled('country_id')):?>
-    <select id="<?php echo $this->getPrefix();?>_region_id" name="<?php echo $this->getPrefix();?>[region_id]" title="<?php echo $this->__('State/Province') ?>" class="validate[required]" style="display:none;">
+    <select id="<?php echo $this->getPrefix();?>_region_id" name="<?php echo $this->getPrefix();?>[region_id]" title="<?php echo $this->__('State/Province') ?>" class="<?php echo $input_class;?>" style="display:none;">
         <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
     </select>
     <script type="text/javascript">
@@ -24,8 +42,8 @@
         $('<?php echo $this->getPrefix();?>_region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
     //]]>
     </script>
-    <input type="text" id="<?php echo $this->getPrefix();?>_region" name="<?php echo $this->getPrefix();?>[region]" value="<?php echo $this->htmlEscape($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
+    <input type="text" id="<?php echo $this->getPrefix();?>_region" name="<?php echo $this->getPrefix();?>[region]" value="<?php echo $this->htmlEscape($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="<?php echo $input_class;?>" style="display:none;" />
     <?php else:?>
-    <input type="text" id="<?php echo $this->getPrefix();?>_region" name="<?php echo $this->getPrefix();?>[region]" value="<?php echo $this->htmlEscape($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" />
+    <input type="text" id="<?php echo $this->getPrefix();?>_region" name="<?php echo $this->getPrefix();?>[region]" value="<?php echo $this->htmlEscape($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="<?php echo $input_class;?>" />
     <?php endif;?>
 </div>

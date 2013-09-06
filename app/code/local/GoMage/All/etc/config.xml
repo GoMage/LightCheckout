@@ -1,4 +1,16 @@
 <?xml version="1.0"?>
+<!--
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.2
+ */ 
+ -->
 <config>
     <modules>
         <GoMage_All>
@@ -22,15 +34,6 @@
             </adminhtml>
         </blocks>
 	</global>
-	<frontend>
-        <layout>
-            <updates>
-                <gomage_all module="gomage_all">
-                    <file>gomage.xml</file>
-                </gomage_all>
-            </updates>
-        </layout>
-    </frontend>
     <adminhtml>
 		<layout>
             <updates>

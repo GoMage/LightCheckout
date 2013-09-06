@@ -1,0 +1,3185 @@
+/* Layout */
+.simple_overlay{
+	text-align:left;
+}
+.gcheckout-onepage-wrap{
+	position:relative;
+	margin-top:10px;
+	font-size:12px;
+}
+.gcheckout-onepage-wrap .gcheckout-right-col{
+	width:64%;
+	float:left;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .gcheckout-right-col{
+	width:65%;
+}
+.gcheckout-onepage-wrap .delivery-date #delivery_date{
+	cursor:default;
+}
+.gcheckout-onepage-wrap .methods .shipping-methods,
+.gcheckout-onepage-wrap .address{
+	float:left;
+	display:inline;
+	padding-top:15px;
+	margin-right:10px;
+}
+.gcheckout-onepage-wrap .methods .shipping-methods .sp-methods{
+	padding-right:5px;
+}
+.gomage-checkout-skin-default .shipping-address{
+	padding:0;
+}
+.delivery-date-delivery_date label{
+	float:left;
+	font-weight:bold;
+	padding-top: 1px;
+	color: #5F5F5F;
+	line-height:18px;
+}
+.delivery-date-delivery_date.gomage-checkout-skin-default label{
+	color:#666;
+}
+.shipping-address{
+	padding-top:10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .methods .shipping-methods,
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .address{
+	margin-right:15px;
+}
+.delivery-date-delivery_date{
+	padding-right:7px;
+}
+.gcheckout-onepage-wrap .address{
+	width:34%;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .address{
+	width:33%;
+}
+.gcheckout-onepage-wrap .methods .shipping-methods{
+	width:49%;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .methods .shipping-methods{
+	width:45%;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .methods .shipping-methods{
+	padding-right:15px;
+}
+.gcheckout-onepage-wrap .methods #gcheckout-payment-methods{
+	float:left;
+	position:relative;
+	padding-top:15px;
+	width:49%;
+}
+.gcheckout-onepage-wrap .methods #gcheckout-payment-methods .sp-methods{
+	padding-right:5px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .methods #gcheckout-payment-methods{
+	width:47%;
+}
+html body .not_shipping_mode .methods #gcheckout-payment-methods{
+	width:99% !important;
+}
+.gcheckout-onepage-wrap .review{
+	padding-top:15px;
+}
+.gcheckout-onepage-wrap .review .totals,
+.customer-comment{
+	padding-bottom:5px;
+}
+.gcheckout-onepage-wrap .button-set{
+	text-align:right;
+	border:0;
+	margin:0;
+}
+#login-form .actions a{
+	float:left;
+	line-height:21px;
+	color:#1E7EC8;
+}
+.gcheckout-onepage-wrap .gcheckout-payment-methods dt{
+	line-height:16px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .shipping-methods dl dt{
+	line-height:18px;
+}
+.gcheckout-onepage-wrap .sp-methods label{
+	vertical-align:middle;
+}
+.gcheckout-onepage-wrap .sp-methods label,
+.gcheckout-onepage-wrap .sp-methods label .price{
+	font-weight:normal;
+	color:#5f6162;
+	font-size:12px;
+}
+.gomage-checkout-skin-default .sp-methods label,
+.gomage-checkout-skin-default .sp-methods label .price{
+	font-weight:bold;
+	color:#666;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .sp-methods dt{
+	padding-top:3px;
+	font:bold 12px/18px Arial,Helvetica,sans-serif;
+	margin-top:0;
+	color:#2F2F2F;
+}
+.gcheckout-onepage-wrap .sp-methods dt{
+	padding-top:0;
+	color:#5f5f5f;
+	margin-top:0;
+}
+.gcheckout-onepage-wrap .gcheckout-payment-methods dd,
+.gcheckout-onepage-wrap .button-set,
+.gcheckout-onepage-wrap .totals .cart-tax-info, 
+.gcheckout-onepage-wrap .totals .cart-price,
+.gcheckout-onepage-wrap .gcheckout-payment-methods .sp-methods .form-list{
+	padding:0;
+}
+/* Layout END */
+
+/* Common styles */
+.gcheckout-onepage-wrap a{
+	color:#1E7EC8;
+}
+.gcheckout-onepage-wrap .v-fix {
+	float:left;
+}
+.gcheckout-onepage-wrap .totals td.attributes-col h4.title{
+	font-weight:normal;
+}
+.gcheckout-onepage-wrap .data-table .gcheckout-qty{
+	display:inline;
+	padding:0 2px 0 1px;
+	vertical-align:middle;
+}
+.gcheckout-onepage-wrap .data-table .gcheckout-plus,
+.gcheckout-onepage-wrap .data-table .gcheckout-minus{
+	display:-moz-inline-box;
+	display:inline-block;
+	vertical-align:middle;
+	cursor:pointer;
+}
+.gcheckout-onepage-wrap .data-table .gcheckout-plus span,
+.gcheckout-onepage-wrap .data-table .gcheckout-minus span{
+	display:block;
+	height:17px;
+	line-height:16px;
+	background:url("../../../images/gomage/lightcheckout/plus_minus_bg.gif") no-repeat 0 0;
+	padding:0 0 0 4px;
+}
+.gcheckout-onepage-wrap .data-table .gcheckout-plus span span,
+.gcheckout-onepage-wrap .data-table .gcheckout-minus span span{
+	padding:0 4px 0 0;
+	width:7px;
+	background-position:100% 0;
+	text-align:center;
+}
+.gcheckout-onepage-wrap .data-table .gcheckout-plus span span{
+	padding-top:1px;
+}
+.gcheckout-onepage-wrap .data-table .btn-remove2 {
+	background:url("../../../images/gomage/lightcheckout/btn_trash.gif") no-repeat 0 0;
+	display:block;
+	font-size:0;
+	height:16px;
+	margin:0 auto;
+	line-height:0;
+	overflow:hidden;
+	cursor:pointer;
+	text-indent:-999em;
+	width:16px;
+}
+/* Common styles END */
+
+/* Inputs and labels */
+.gcheckout-onepage-wrap .form-list li,
+.gcheckout-onepage-wrap .form-list .input-box{
+	margin:0;
+}
+.gcheckout-onepage-wrap .form-list li.control{
+	margin-bottom:4px;
+}
+.gcheckout-onepage-wrap .form-list .input-box{
+	padding-bottom:10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .form-list li,
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .form-list .input-box{
+	margin-bottom:4px;
+	padding:0;
+}
+.gcheckout-onepage-wrap .form-list .input-box,
+.gcheckout-onepage-wrap .form-list li.wide .input-box,
+.gcheckout-onepage-wrap .gift-messages-form .item .details .form-list li.wide .input-box{
+	width:100%;
+	clear:both;
+}
+.gcheckout-onepage-wrap .form-list input.input-text{
+	width:88%;
+}
+.gcheckout-onepage-wrap div.validation-passed,
+.gcheckout-onepage-wrap .validation-error{
+	padding-right:0 !important;
+	background:none !important;
+}
+.gcheckout-onepage-wrap .form-list .fields .field{
+	width:49%;
+	float:left;
+	clear:none;
+	padding:0;
+}
+.gcheckout-onepage-wrap .gift-messages-form .item .details .form-list .input-box{
+	width:100%;
+}
+.gcheckout-onepage-wrap .form-list .postcode-region .field-region{
+	width:70%;
+}
+.gcheckout-onepage-wrap .form-list .postcode-region .field-region input.input-text{
+	width:86%;
+}
+.gcheckout-onepage-wrap .form-list .postcode-region .field-region select{
+	width:89%;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .form-list .postcode-region .field-region select{
+	width:88%;
+}
+.gcheckout-onepage-wrap .form-list .postcode-region .field-postcode{
+	width:28%;
+}
+.gcheckout-onepage-wrap .form-list .fields .input-box{
+	width:100%;
+}
+.gcheckout-onepage-wrap .form-list .fields input.input-text{
+	width:80%;
+}
+.gcheckout-onepage-wrap .form-list .input-box select{
+	width:90%;
+}
+.gcheckout-onepage-wrap .gift-messages-form li.fields .gift-from{
+	width:47% !important;
+	margin-right:5% !important;
+}
+.gcheckout-onepage-wrap .gift-messages-form li.fields .gift-to{
+	width:47% !important;
+}
+.gcheckout-onepage-wrap .sp-methods select.month{
+	width:146px !important;
+}
+.gcheckout-onepage-wrap .sp-methods select.year{
+	width:79px !important;
+}
+.gomage-checkout-skin-default .sp-methods select.month{
+	width:154px !important;
+}
+.gomage-checkout-skin-default .sp-methods select.year{
+	width:79px !important;
+}
+.gcheckout-onepage-wrap .form-list .fields select{
+	width:84%;
+}
+.gcheckout-onepage-wrap .form-list .region-postcode .field-region select{
+	width:86%;
+}
+.gcheckout-onepage-wrap .form-list .region-postcode .field-region input.input-text{
+	width:84%;
+}
+.gcheckout-onepage-wrap .form-list li.control label,
+.gcheckout-onepage-wrap p.control label{
+	float:none;
+	display:inline;
+	vertical-align:middle;
+	padding-left:3px;
+	color:#666;
+	font-weight:normal;
+}
+.gcheckout-onepage-wrap li.control input.radio,
+.gcheckout-onepage-wrap .control input,
+.gcheckout-onepage-wrap p.control input.checkbox,
+.gcheckout-onepage-wrap p.control input.radio{
+	margin:0 !important;
+	display:inline;
+	vertical-align:middle;
+}
+.not_shipping_mode .methods #gcheckout-payment-methods .form-list .input-box select{
+	width:45%;
+}
+.not_shipping_mode .methods #gcheckout-payment-methods .form-list .input-box select.month {
+    width: 159px !important;
+}
+.not_shipping_mode .methods #gcheckout-payment-methods .form-list input.input-text{
+	width:44%;
+}
+.gcheckout-onepage-wrap .gift-messages p.control{
+	color:#666;
+	font-weight:normal;
+}
+.customer-comment label{
+	display:block;
+	font-weight:normal;
+}
+.customer-comment textarea{
+	overflow:auto;
+	width:99%;
+	height:60px;
+}
+.gcheckout-onepage-wrap p.control{
+	margin-bottom:10px;
+}
+.gcheckout-onepage-wrap .button-set p.control{
+	padding-top:10px;
+}
+.gcheckout-onepage-wrap .gift-messages-form .form-list .fields input.input-text,
+.gcheckout-onepage-wrap .gift-messages-form .form-list li.wide textarea{
+	width:100%;
+}
+.gcheckout-onepage-wrap .gift-messages-form .whole-order .form-list li.wide textarea{
+	width:99%;
+}
+.gcheckout-onepage-wrap .gift-messages-form .item .details .form-list li.wide textarea{
+	width:99%;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .form-list label.required,
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .form-list label,
+#login-form .form-list label.required{
+	color:#666;
+	float:left;
+	padding:0;
+	font:bold 12px/18px Arial,Helvetica,sans-serif;
+	position:relative;
+	z-index:0;
+}
+#login-form .form-list label.required{
+	color:#5f5f5f;
+	padding-bottom:2px;
+	width:auto;
+}
+#login-form.gomage-checkout-popup-skin-default .form-list label.required{
+	color:#666;
+	padding-bottom:0;
+}
+.gcheckout-onepage-wrap .form-list label.required em,
+#login-form .form-list label.required em{
+	color:#EB340A;
+	float:right;
+	font-style:normal;
+	position:absolute;
+	right:-8px;
+	top:0;
+	margin:0;
+}
+.gcheckout-onepage-wrap .delivery-date li input,
+.gcheckout-onepage-wrap .delivery-date li  span,
+#gcheckout-payment-methods dl dt input,
+#gcheckout-payment-methods dl dt label{
+	vertical-align:middle;
+}
+#gcheckout-payment-methods dl dt input,
+#gcheckout-payment-methods dl dt label{
+	line-height:16px;
+}
+#login-form .form-list li .input-box .input-text{
+	width:254px;
+}
+.gcheckout-onepage-wrap .customer-name-prefix .name-prefix,
+.gcheckout-onepage-wrap .customer-name-suffix .name-suffix{
+	width:23% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix .name-firstname,
+.gcheckout-onepage-wrap .customer-name-suffix .name-firstname{
+	width:36% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix .name-lastname,
+.gcheckout-onepage-wrap .customer-name-suffix .name-lastname{
+	width:36% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix .name-lastname input.input-text,
+.gcheckout-onepage-wrap .customer-name-prefix .name-firstname input.input-text,
+.gcheckout-onepage-wrap .customer-name-suffix .name-lastname input.input-text,
+.gcheckout-onepage-wrap .customer-name-suffix .name-firstname input.input-text{
+	width:81% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix .name-prefix input.input-text,
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-prefix input.input-text{
+	width:76% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix .name-prefix select,
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-prefix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-firstname,
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-middlename{
+	width:49% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-firstname input.input-text,
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-middlename input.input-text{
+	width:80% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-lastname{
+	width:72% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-lastname input.input-text{
+	width:90% !important;
+}
+.gcheckout-onepage-wrap .customer-name-suffix .name-suffix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-suffix{
+	width:23% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-suffix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-suffix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-suffix .name-suffix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-suffix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-middlename-suffix .name-suffix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-suffix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-suffix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-prefix,
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-suffix{
+	width:23% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-firstname{
+	width:76% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-lastname{
+	width:72% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-firstname input.input-text,
+.gcheckout-onepage-wrap .customer-name-prefix-suffix .name-lastname input.input-text{
+	width:86% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-prefix{
+	width:23% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-prefix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-prefix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-firstname{
+	width:74% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-firstname input.input-text{
+	width:88% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-middlename{
+	width:49% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-lastname{
+	width:49% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-middlename input.input-text,
+.gcheckout-onepage-wrap .customer-name-prefix-middlename .name-lastname input.input-text{
+	width:80% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-prefix{
+	width:23% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-prefix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-prefix select{
+	width:79% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-firstname{
+	width:74% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-middlename{
+	width:35% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-lastname{
+	width:35% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-firstname input.input-text{
+	width:88% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-middlename input.input-text{
+	width:80% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-lastname input.input-text{
+	width:80% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-suffix{
+	width:26% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-suffix input.input-text{
+	width:70% !important;
+}
+.gcheckout-onepage-wrap .customer-name-prefix-middlename-suffix .name-suffix select{
+	width:77% !important;
+}
+.gcheckout-onepage-wrap .form-list li.customer-dob .field{
+	width:98%;
+	float:none;
+}
+.gcheckout-onepage-wrap .form-list li.customer-dob-gender .field{
+	width:49%;
+	float:left;
+}
+.gcheckout-onepage-wrap .form-list li.customer-dob .field label{
+	display:block;
+	clear:both;
+	overflow:visible;
+	font-size:12px;
+	color:#666;
+	font-weight:bold;
+}
+.gcheckout-onepage-wrap .form-list .fields .field .customer-dob .input-box,
+.gcheckout-onepage-wrap .form-list .fields .field .customer-dob .dob-month,
+.gcheckout-onepage-wrap .form-list .fields .field .customer-dob .dob-day,
+.gcheckout-onepage-wrap .form-list .fields .field .customer-dob .dob-year{
+	width:32% !important;
+	float:left;
+	margin-right:0;
+	clear:none;
+}
+.gcheckout-onepage-wrap .form-list .fields .field .customer-dob .input-box input.input-text,
+.gcheckout-onepage-wrap .form-list li.customer-dob .input-box input.input-text{
+	width:81% !important;
+	display:block;
+}
+.gcheckout-onepage-wrap .form-list li.customer-dob .field .input-box label{
+	display:block;
+	color:#888888;
+	font-size:10px;
+	font-weight:normal;
+	width:85% !important;
+	text-align:center;
+}
+.gcheckout-onepage-wrap .form-list li.customer-dob-gender .field .input-box label{
+	width:94% !important;
+}
+/* Inputs and labels END */
+
+/* Nubmers */
+.gomage-checkout-skin-default h2.gcheckout-title{
+	background-repeat:no-repeat;
+	background-position:2px 2px;
+	color:#404040;
+	font-size:15px;
+	font-weight:bold;
+	height:30px;
+	line-height:20px;
+	margin: 0 0 5px;
+	padding:6px 0 0 35px;
+	text-transform:uppercase;
+}
+.gomage-checkout-skin-default .shipping-address h2.gcheckout-title{
+	margin-top:20px;
+}
+.gomage-checkout-skin-default .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-1.png");
+}
+.gomage-checkout-skin-default .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-2.png");
+}
+.gomage-checkout-skin-default .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-3.png");
+}
+.gomage-checkout-skin-default .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-4.png");
+}
+.gomage-checkout-skin-default .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-skin-default .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-skin-default .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-skin-default .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-skin-default .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-skin-default .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-skin-default .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-skin-default .gcheckout-payment-methods h2.gcheckout-title {
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-skin-default .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-skin-default .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-skin-default .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/orange/gcheckout-numbers-3.png");
+}
+/* Nubmers END */
+
+/* Overlay and Popups */
+.loadinfo{
+	position:fixed;
+	left:50%;
+	top:45%;
+	width:250px;
+	margin-left:-150px;
+	padding:8px 8px 8px 35px;
+	border:1px solid #0A263C;
+	background:url('../../../images/gomage/lightcheckout/loadinfo.gif') 5px 50% no-repeat #fff;
+	font-weight:bold;
+	-moz-box-shadow: 3px 3px 3px #999;
+	-webkit-box-shadow: 3px 3px 3px #999;
+	box-shadow: 3px 3px 3px #999;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+#login-form .loadinfo{
+	clear:both;
+	overflow:hidden;
+	margin:0;
+	width:220px;
+}
+#login-form{
+	text-align:left;
+}
+#login-form .details h2{
+	font-weight:normal;
+	color:#464646;
+	font-size: 18px;
+	line-height: 1.35;
+    margin: 0 0 5px;
+}
+#login-form.gomage-checkout-popup-skin-default .details h2{
+	color:#0A263C;
+}
+.gomage-checkout-overlay{
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:999;
+	background:#000;
+	opacity:0.6;
+	filter:alpha(opacity=60);
+	width:100%;
+	height:100%;
+}
+/* Overlay and Popups END */
+.gcheckout-onepage-wrap .gcheckout-payment-methods dd img{
+	max-width:100%;
+}
+.gcheckout-onepage-wrap .shipping-methods .messages li{
+	margin-right: 17px !important;
+}
+/* Buttons */
+.simple_overlay button.button,
+.gcheckout-onepage-wrap button.button,
+.gcheckout-onepage-wrap button.btn-checkout{
+	background:none;
+	border:0;
+	cursor:pointer;
+	margin:0;
+	overflow:visible;
+	display:inline;
+	padding:0;
+	float:none;
+	width:auto;
+	text-indent:0px !important;
+	text-shadow:none;
+}
+.gcheckout-onepage-wrap button.btn-checkout{
+	height:41px !important;
+	float:none !important;
+	display:inline !important;
+}
+.simple_overlay .actions button.button{
+	float:right;
+}
+.simple_overlay button.button span,
+.gcheckout-onepage-wrap button.button span{
+	background:none repeat scroll 0 0 #F18200;
+	border:1px solid #DE5400;
+	color:#FFF;
+	display:block;
+	font:bold 12px/19px Arial,Helvetica,sans-serif;
+	height:19px;
+	padding:0 8px;
+	text-align:center;
+	white-space:nowrap;
+}
+.simple_overlay button.button span span,
+.gcheckout-onepage-wrap button.button span span{
+	border:0;
+	padding:0;
+}
+.gcheckout-onepage-wrap button.btn-checkout span{
+	background:url("../../../images/gomage/lightcheckout/buttons/orange/btn_checkout.png") no-repeat 0 0;
+	border:0 !important;
+	color:#FFF;
+	float:left;
+	font:bold 15px/40px Arial,Helvetica,sans-serif;
+	height:40px;
+	padding:0 0 0 9px;
+	text-indent:0px;
+	white-space:nowrap;
+}
+.gcheckout-onepage-wrap button.btn-checkout span span{
+	background-position:100% 0;
+	text-indent:0px;
+	padding:0 25px 0 16px;
+}
+.gcheckout-onepage-wrap button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/buttons/orange/btn_checkout.png") no-repeat 0 -40px !important;
+	border:0 !important;
+}
+.gcheckout-onepage-wrap button.disabled span span{
+	background-position:100% -40px !important;
+}
+
+.gcheckout-onepage-wrap button.button::-moz-focus-inner,
+.simple_overlay button.button::-moz-focus-inner{ padding:0; border:0; } /* FF Fix */
+.gcheckout-onepage-wrap button.button,
+.simple_overlay button.button{ -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
+/* Buttons END */
+
+
+/* Validatoin */
+.validation-advice{
+	margin:0;
+	padding:0;
+	background:none;
+	opacity: 0.87;
+}
+.validation-advice-container{
+	background:#EE0101;
+	border:2px solid #DDD;
+	color:#FFF;
+	font-family:tahoma;
+	font-size:11px;
+	padding:4px 10px;
+	width:130px;
+	text-align:center;
+	font-weight:100;
+	box-shadow: 0px 0px 6px #000;
+	-moz-box-shadow: 0px 0px 6px #000;
+	-webkit-box-shadow: 0px 0px 6px #000;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+.advice-absolute .arrow{
+	position:absolute;
+	bottom:0;
+	left:20px;
+	width:15px; 
+	height:15px;
+	z-index:5001;
+}
+.advice-absolute .arrowBottom{top:0;margin:-6px;}
+
+.advice-absolute .arrow div{
+	border-left:2px solid #ddd;
+	border-right:2px solid #ddd;
+	box-shadow: 0px 2px 3px #444;
+	-moz-box-shadow: 0px 2px 3px #444;
+	-webkit-box-shadow: 0px 2px 3px #444;
+	font-size:0px; height:1px; background:#ee0101;margin:0 auto;line-height:0px; font-size:0px; display:block;
+}
+	.advice-absolute .arrowBottom div{
+		box-shadow: none;
+		-moz-box-shadow: none;
+		-webkit-box-shadow: none;
+	}
+	
+.greenPopup .arrow div{background:#33be40;}
+.blackPopup .arrow div{background:#393939;color:#FFF;}
+
+.advice-absolute{cursor:pointer; z-index:998;}
+.advice-absolute .arrow .line10{width:15px;border:none;} 
+.advice-absolute .arrow .line9{width:13px;border:none;} 
+.advice-absolute .arrow .line8{width:11px;} 
+.advice-absolute .arrow .line7{width:9px;} 
+.advice-absolute .arrow .line6{width:7px;} 
+.advice-absolute .arrow .line5{width:5px;} 
+.advice-absolute .arrow .line4{width:3px;} 
+.advice-absolute .arrow .line3{width:1px;
+	border-left:2px solid #ddd;
+	border-right:2px solid #ddd;
+	border-bottom:0px solid #ddd;} 
+.advice-absolute .arrow .line2{width:3px;border:none;background:#ddd;}
+.advice-absolute .arrow .line1{width:1px;border:none;background:#ddd;}  
+
+/* Validatoin END */
+
+
+/* Discount form */
+.lightcheckout-discount-form .input-box,
+.lightcheckout-discount-form label,
+.lightcheckout-discount-form button.button{
+	display:inline;
+}
+.lightcheckout-discount-form .input-box{
+	padding-right:3px;
+}
+.lightcheckout-discount-form .input-box input.input-text{
+	width:200px;
+}
+.gomage-checkout-skin-default .lightcheckout-discount-form .input-box input.input-text{
+	width:170px;
+}
+.lightcheckout-discount-form label{
+	font:bold 13px/16px Arial,Helvetica,sans-serif;
+	text-transform:uppercase;
+	color:#E26703;
+	vertical-align:middle;
+	padding-right:3px;
+}
+.lightcheckout-discount-form {
+	margin:0;
+	border:1px solid #eaeaea;
+	border-top:0;
+	border-bottom:0;
+	padding:12px 0 12px 16px;
+}
+.discount-bottom .lightcheckout-discount-form{
+	border-bottom:1px solid #eaeaea;
+}
+.gomage-checkout-skin-default .lightcheckout-discount-form,.gomage-checkout-skin-default .discount-bottom .lightcheckout-discount-form{
+	border:0;
+	padding:0;
+	margin:12px 0;
+}
+/* Discount form END */
+
+
+/* Magento agreements */
+.gcheckout-onepage-wrap .checkout-agreements .agreement-content{
+	border:1px solid #B6B6B6;
+}
+.gcheckout-onepage-wrap .checkout-agreements .agree{
+	margin: 0;
+    padding: 5px 0;
+}
+.gcheckout-onepage-wrap .checkout-agreements .agree label{
+	color:#666;
+	font-weight:normal;
+}
+.gcheckout-onepage-wrap  .checkout-agreements li{
+	margin:20px 0;
+}
+/* Magento agreements END */
+
+/* Colors */
+
+	/* Black */
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-round-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-black .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-black .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-black .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-black .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-round-black .gcheckout-payment-methods h2.gcheckout-title {
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-black .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-black .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/black/gcheckout-numbers-3.png");
+}
+.gomage-checkout-button-skin-round-black button.button span{
+	background:#303b40;
+	border-color:#262f33;
+}
+.gomage-checkout-button-skin-round-black button.btn-checkout span{
+	background:url("../../../images/gomage/lightcheckout/buttons/black/btn_checkout.png") no-repeat 0 0;
+}
+.gomage-checkout-button-skin-round-black button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/buttons/black/btn_checkout.png") no-repeat 0 -40px !important;
+}
+
+	/* Blue */
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-round-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-blue .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-blue .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-blue .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-round-blue .gcheckout-payment-methods h2.gcheckout-title {
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-blue .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/blue/gcheckout-numbers-3.png");
+}
+.gomage-checkout-button-skin-round-blue button.button span{
+	background:#1a81d4;
+	border-color:#2a77c4;
+}	
+.gomage-checkout-button-skin-round-blue button.btn-checkout span{
+	background:url("../../../images/gomage/lightcheckout/buttons/blue/btn_checkout.png") no-repeat 0 0;
+}
+.gomage-checkout-button-skin-round-blue button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/buttons/blue/btn_checkout.png") no-repeat 0 -40px !important;
+}
+	/* Green */
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-round-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-green .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-green .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-green .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-round-green .gcheckout-payment-methods h2.gcheckout-title {
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-green .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/green/gcheckout-numbers-3.png");
+}
+.gomage-checkout-button-skin-round-green button.button span{
+	background:#74a322;
+	border-color:#81ad41;
+}	
+.gomage-checkout-button-skin-round-green button.btn-checkout span{
+	background:url("../../../images/gomage/lightcheckout/buttons/green/btn_checkout.png") no-repeat 0 0;
+}
+.gomage-checkout-button-skin-round-green button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/buttons/green/btn_checkout.png") no-repeat 0 -40px !important;
+}
+	/* Grey */
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-round-gray .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-gray .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-gray .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-gray .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-gray .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-gray .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-round-gray .gcheckout-payment-methods h2.gcheckout-title {
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-gray .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-gray .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-gray .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/grey/gcheckout-numbers-3.png");
+}
+.gomage-checkout-button-skin-round-gray button.button span{
+	background:#b8b9bb;
+	border-color:#a5a9ac;
+}	
+.gomage-checkout-button-skin-round-gray button.btn-checkout span{
+	background:url("../../../images/gomage/lightcheckout/buttons/grey/btn_checkout.png") no-repeat 0 0;
+}
+.gomage-checkout-button-skin-round-gray button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/buttons/grey/btn_checkout.png") no-repeat 0 -40px !important;
+}
+	/* Red */
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-red .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-red .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-red .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-red .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-round-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-red .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-red .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-red .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-round-red .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-round-red .gcheckout-payment-methods h2.gcheckout-title {
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-red .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-round-red .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/buttons/red/gcheckout-numbers-3.png");
+}
+.gomage-checkout-button-skin-round-red button.button span{
+	background:#ea2e28;
+	border-color:#97000b;
+}
+.gomage-checkout-button-skin-round-red button.btn-checkout span{
+	background:url("../../../images/gomage/lightcheckout/buttons/red/btn_checkout.png") no-repeat 0 0;
+}
+.gomage-checkout-button-skin-round-red button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/buttons/red/btn_checkout.png") no-repeat 0 -40px !important;
+}
+/* Colors END */
+
+/* Skins */
+.gcheckout-onepage-wrap .customer-comment label{
+	color:#5f6162;
+	padding:2px 0 4px 16px;
+}
+.gomage-checkout-skin-default .customer-comment label{
+	color:#2f2f2f;
+	padding:0;
+}
+.gcheckout-onepage-wrap .form-list label.vat-label input{
+	display:inline;
+}
+.gcheckout-onepage-wrap .form-list label.vat-label span{
+	vertical-align:middle;
+	font-weight:normal;
+	padding-left: 3px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default .form-list label.vat-label{
+	padding-bottom:0;
+}
+.gcheckout-onepage-wrap .form-list label.vat-label{
+	padding-bottom:10px;
+}
+.gomage-checkout-skin-default .methods .shipping-methods,
+.gomage-checkout-skin-default .address{
+	background:url("../../../images/gomage/lightcheckout/gcheckout-gradient.gif") no-repeat 100% 0;
+}
+.gomage-checkout-skin-default{
+	border-top:1px solid #D8D2C7;
+}
+#gcheckout-login-link{
+	border:0;
+	font-weight:bold;
+}
+.gomage-checkout-skin-default .lightcheckout-col-bg,
+.gomage-checkout-skin-default .lightcheckout-col-bg-in{
+	background:none;
+	padding:0;
+}
+.lightcheckout-col-bg{
+	background:url("../../../images/gomage/lightcheckout/light-checkout-col-bg.png") no-repeat 0 100%;
+	padding:0 0 0 7px;
+}
+.lightcheckout-col-bg-in{
+	background:url("../../../images/gomage/lightcheckout/light-checkout-col-bg.png") no-repeat 100% 100%;
+	padding:15px 0 15px 10px;
+}
+h2.gcheckout-title{
+	color:#fafafa;
+	font:bold 12px/30px Arial,Helvetica,sans-serif;
+	margin:0;
+	padding: 0 0 0 17px;
+	text-transform:uppercase;
+	background-position:0 0;
+}
+h2.gcheckout-title span{
+	background-position:100% 0;
+	display:block;
+}
+h2.gcheckout-title span span{
+	background-position:0 5px;
+	background-repeat:no-repeat;
+	padding:1px 0 0 29px;
+	height:29px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet h2.gcheckout-title,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow h2.gcheckout-title{
+	background-position:0 5px;
+	padding: 5px 0 0 26px;
+}
+.gcheckout-onepage-wrap .address .billing-address h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-1.png");
+}
+.gcheckout-onepage-wrap .shipping-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-2.png");
+}
+.gcheckout-onepage-wrap .shipping-methods .shipping-advanced h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-3.png");
+}
+.gcheckout-onepage-wrap .gcheckout-payment-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-4.png");
+}
+.gcheckout-onepage-wrap .review h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-6.png");
+}
+.not_shipping_mode .gcheckout-payment-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-2.png") !important;
+}
+.diferent_shipping_address .address .billing-address h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-1.png");
+}
+.diferent_shipping_address .shipping-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-3.png");
+}
+.diferent_shipping_address .shipping-methods .shipping-advanced h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-4.png");
+}
+.diferent_shipping_address .gcheckout-payment-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-5.png");
+}
+.diferent_shipping_address .shipping-address h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-2.png");
+}
+.not_deliverydate_mode .gcheckout-payment-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-3.png");
+}
+.notddate_diferent_shipping_address .gcheckout-payment-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-4.png");
+}
+.notddate_diferent_shipping_address .shipping-address h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-2.png");
+}
+.notddate_diferent_shipping_address .shipping-methods h2.gcheckout-title span span{
+	background-image:url("../../../images/gomage/lightcheckout/square_numbers/light-checkout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-black .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-black .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-black .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-black .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-black .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-black .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-black .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-blue .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-blue .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-blue .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-blue .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-brown .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-brown .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-brown .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-brown .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-brown .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-brown .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-brown .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-brown .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-brown .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-brown .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-grey .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-grey .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-grey .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-grey .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-grey .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-grey .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-grey .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-grey .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-grey .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-grey .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-green .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-green .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-green .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-green .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-light-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-light-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-light-blue .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-light-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-green .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-green .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-light-green .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-light-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-light-green .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-light-green .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-light-green .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-orange .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-orange .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-orange .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-orange .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-orange .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-orange .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-orange .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-orange .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-orange .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-orange .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-red .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-red .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-red .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-red .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-red .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-red .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-red .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-pink .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-pink .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-pink .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-pink .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-pink .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-pink .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-pink .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-pink .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-pink .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-pink .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-violet .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-violet .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-violet .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-violet .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-violet .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-violet .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-violet .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-violet .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-violet .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-violet .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-1.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-3.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-4.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-6.png");
+}
+.not_shipping_mode.gomage-checkout-button-skin-square-yellow .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-2.png") !important;
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-yellow .address .billing-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-1.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-yellow .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-3.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-yellow .shipping-methods .shipping-advanced h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-4.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-yellow .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-5.png");
+}
+.diferent_shipping_address.gomage-checkout-button-skin-square-yellow .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-2.png");
+}
+.not_deliverydate_mode.gomage-checkout-button-skin-square-yellow .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-3.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-yellow .gcheckout-payment-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-4.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-yellow .shipping-address h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-2.png");
+}
+.notddate_diferent_shipping_address.gomage-checkout-button-skin-square-yellow .shipping-methods h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/gcheckout-numbers-3.png");
+}
+
+.gcheckout-onepage-wrap .form-list label.required,
+.gcheckout-onepage-wrap .form-list label{
+	color:#5f5f5f;
+	float:left;
+	width:auto;
+	padding-right:0;
+	position:relative;
+	padding-bottom:0;
+	z-index:0;
+}
+.gcheckout-onepage-wrap .gcheckout-payment-methods .form-list label.required,
+.gcheckout-onepage-wrap .gcheckout-payment-methods .form-list label{
+	line-height:20px;
+	padding-top:0;
+}
+.gcheckout-onepage-wrap .shipping-advanced{
+	padding-top:10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-default input.input-text,
+.gcheckout-onepage-wrap.gomage-checkout-skin-default select,
+.gcheckout-onepage-wrap.gomage-checkout-skin-default textarea,
+#login-form.gomage-checkout-popup-skin-default .form-list li .input-box .input-text{
+	background:#FFF;
+    border: 1px solid #B6B6B6;
+	-moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+}
+.gcheckout-onepage-wrap input.input-text,
+.gcheckout-onepage-wrap select,
+.gcheckout-onepage-wrap textarea,
+#login-form .form-list li .input-box .input-text{
+	background:#fff url("../../../images/gomage/lightcheckout/input_bg.gif") repeat-x 0 0;
+	border:1px solid #d7d7d7;
+	-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;
+}
+
+	/* Skins colors */
+	
+		/* Black */
+.gcheckout-onepage-wrap.gomage-checkout-skin-black h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/title_bg.png");
+}
+.gomage-checkout-skin-black .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/title_bg2.png");
+}
+.gomage-checkout-skin-black .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/black/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-black .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-black a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-black .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black a,
+.gomage-checkout-button-skin-square-black a,
+.gomage-checkout-skin-black a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-round-black .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-black a,
+.gomage-checkout-button-skin-round-black a{
+	color:#252525;
+}
+#login-form.gomage-checkout-popup-skin-black .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.gcheckout-onepage-wrap .sp-methods dd li{
+	line-height:14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-black .close,
+.simple_overlay.gomage-checkout-button-skin-square-black .close{
+	background:url("../../../images/gomage/lightcheckout/skins/black/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-black button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-black button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/black/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-black button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-black button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/black/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/black/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/black/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-black button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-black button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Black END */
+
+		/* Blue */
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/title_bg.png");
+}
+.gomage-checkout-skin-blue .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/title_bg2.png");
+}
+.gomage-checkout-skin-blue .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/blue/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-blue .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-blue .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue a,
+.gomage-checkout-button-skin-square-blue a,
+.gomage-checkout-skin-blue a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-round-blue .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-blue a,
+.gomage-checkout-button-skin-round-blue a{
+	color:#285ea0;
+}
+#login-form.gomage-checkout-popup-skin-blue .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-blue .close,
+.simple_overlay.gomage-checkout-button-skin-square-blue .close{
+	background:url("../../../images/gomage/lightcheckout/skins/blue/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-blue button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-blue button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/blue/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-blue button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-blue button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/blue/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/blue/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/blue/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-blue button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-blue button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Blue END */
+
+		/* Brown */
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/title_bg.png");
+}
+.gomage-checkout-skin-brown .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/title_bg2.png");
+}
+.gomage-checkout-skin-brown .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/brown/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-brown .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-brown .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown a,
+.gomage-checkout-skin-brown a,
+.gomage-checkout-button-skin-square-brown a{
+	color:#411a09;
+}
+#login-form.gomage-checkout-popup-skin-brown .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-brown .close,
+.simple_overlay.gomage-checkout-button-skin-square-brown .close{
+	background:url("../../../images/gomage/lightcheckout/skins/brown/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-brown button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-brown button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/brown/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-brown button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-brown button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/brown/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/brown/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/brown/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-brown button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-brown button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Brown END */
+
+		/* Gray */
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/title_bg.png");
+}
+.gomage-checkout-skin-gray .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/title_bg2.png");
+}
+.gomage-checkout-skin-gray .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/gray/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-gray .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-grey .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey a,
+.gomage-checkout-button-skin-square-grey a,
+.gomage-checkout-skin-gray a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-round-gray .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-gray a{
+	color:#585858;
+}
+#login-form.gomage-checkout-popup-skin-gray .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-gray .close,
+.simple_overlay.gomage-checkout-button-skin-square-grey .close{
+	background:url("../../../images/gomage/lightcheckout/skins/gray/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-gray button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-grey button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/gray/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-gray button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-grey button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/gray/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/gray/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/gray/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-gray button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-grey button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Gray END */
+
+		/* Green */
+.gcheckout-onepage-wrap.gomage-checkout-skin-green h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/title_bg.png");
+}
+.gomage-checkout-skin-green .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/title_bg2.png");
+}
+.gomage-checkout-skin-green .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/green/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-green .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-green a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-green .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green a,
+.gomage-checkout-button-skin-square-green a,
+.gomage-checkout-skin-green a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-round-green .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-green a,
+.gomage-checkout-button-skin-round-green a{
+	color:#379a11;
+}
+#login-form.gomage-checkout-popup-skin-green .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-green .close,
+.simple_overlay.gomage-checkout-button-skin-square-green .close{
+	background:url("../../../images/gomage/lightcheckout/skins/green/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-green button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-green button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/green/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-green button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-green button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/green/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/green/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/green/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-green button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-green button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Green END */
+
+		/* Light-blue */
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/title_bg.png");
+}
+.gomage-checkout-skin-light-blue .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/title_bg2.png");
+}
+.gomage-checkout-skin-light-blue .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_blue/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-light-blue .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-light-blue .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue a,
+.gomage-checkout-button-skin-square-light-blue a,
+.gomage-checkout-skin-light-blue a{
+	color:#45c3ee;
+}
+#login-form.gomage-checkout-popup-skin-light-blue .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-light-blue .close,
+.simple_overlay.gomage-checkout-button-skin-square-light-blue .close{
+	background:url("../../../images/gomage/lightcheckout/skins/light_blue/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-light-blue button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-light-blue button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/light_blue/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-light-blue button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-light-blue button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/light_blue/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/light_blue/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/light_blue/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-blue button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-blue button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Light-blue END */
+
+		/* Light-green */
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/title_bg.png");
+}
+.gomage-checkout-skin-light-green .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/title_bg2.png");
+}
+.gomage-checkout-skin-light-green .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/light_green/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-light-green .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-light-green .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green a,
+.gomage-checkout-button-skin-square-light-green a,
+.gomage-checkout-skin-light-green a{
+	color:#83b433;
+}
+#login-form.gomage-checkout-popup-skin-light-green .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-light-green .close,
+.simple_overlay.gomage-checkout-button-skin-square-light-green .close{
+	background:url("../../../images/gomage/lightcheckout/skins/light_green/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-light-green button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-light-green button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/light_green/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-light-green button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-light-green button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/light_green/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/light_green/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/light_green/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-light-green button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-light-green button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Light-green END */
+
+		/* Orange */
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/title_bg.png");
+}
+.gomage-checkout-skin-orange .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/title_bg2.png");
+}
+.gomage-checkout-skin-orange .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/orange/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-orange .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-orange .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange a,
+.gomage-checkout-button-skin-square-orange a,
+.gomage-checkout-skin-orange a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-orange .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-round-orange .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-round-orange a,
+.gomage-checkout-button-skin-round-orange a{
+	color:#ea8717;
+}
+#login-form.gomage-checkout-popup-skin-orange .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-orange .close,
+.simple_overlay.gomage-checkout-button-skin-square-orange .close{
+	background:url("../../../images/gomage/lightcheckout/skins/orange/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-orange button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-orange button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/orange/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-orange button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-orange button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/orange/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/orange/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/orange/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-orange button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-orange button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Orange END */
+
+		/* Red */
+.gcheckout-onepage-wrap.gomage-checkout-skin-red h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/title_bg.png");
+}
+.gomage-checkout-skin-red .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/title_bg2.png");
+}
+.gomage-checkout-skin-red .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/red/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-red .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-red a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-red .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red a,
+.gomage-checkout-button-skin-square-red a,
+.gomage-checkout-skin-red a{
+	color:#d82535;
+}
+#login-form.gomage-checkout-popup-skin-red .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-red .close,
+.simple_overlay.gomage-checkout-button-skin-square-red .close{
+	background:url("../../../images/gomage/lightcheckout/skins/red/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-red button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-red button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/red/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-red button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-red button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/red/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/red/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/red/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-red button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-red button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Red END */
+
+		/* Rose */
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/title_bg.png");
+}
+.gomage-checkout-skin-pink .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/title_bg2.png");
+}
+.gomage-checkout-skin-pink .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/rose/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-pink .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-pink .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink a,
+.gomage-checkout-button-skin-square-pink a,
+.gomage-checkout-skin-pink a{
+	color:#df4bab;
+}
+#login-form.gomage-checkout-popup-skin-pink .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-pink .close,
+.simple_overlay.gomage-checkout-button-skin-square-pink .close{
+	background:url("../../../images/gomage/lightcheckout/skins/rose/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-pink button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-pink button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/rose/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-pink button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-pink button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/rose/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/rose/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/rose/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-pink button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-pink button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Rose END */
+
+		/* Violet */
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/title_bg.png");
+}
+.gomage-checkout-skin-violet .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/title_bg2.png");
+}
+.gomage-checkout-skin-violet .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/violet/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-violet .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-violet .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet a,
+.gomage-checkout-button-skin-square-violet a,
+.gomage-checkout-skin-violet a{
+	color:#453d75;
+}
+#login-form.gomage-checkout-popup-skin-violet .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-violet .close,
+.simple_overlay.gomage-checkout-button-skin-square-violet .close{
+	background:url("../../../images/gomage/lightcheckout/skins/violet/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-violet button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-violet button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/violet/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-violet button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-violet button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/violet/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/violet/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/violet/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-violet button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-violet button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Violet END */
+
+		/* Yellow */
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/title_bg.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/title_bg.png");
+}
+.gomage-checkout-skin-yellow .review h2.gcheckout-title{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/title_bg2.png");
+}
+.gomage-checkout-skin-yellow .review h2.gcheckout-title span{
+	background-image:url("../../../images/gomage/lightcheckout/skins/yellow/title_bg2.png");
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow .lightcheckout-discount-form label,
+#login-form.gomage-checkout-popup-skin-yellow .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .lightcheckout-discount-form label,
+#login-form.gomage-checkout-button-skin-square-yellow .actions a,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow a,
+.gomage-checkout-button-skin-square-yellow a,
+.gomage-checkout-skin-yellow a{
+	color:#eabb17;
+}
+#login-form.gomage-checkout-popup-skin-yellow .actions a{
+	line-height:26px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow .gift-messages-form h4,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow .gift-messages-form h4{
+	color:#000;
+	font-weight:normal;
+}
+.simple_overlay.gomage-checkout-popup-skin-yellow .close,
+.simple_overlay.gomage-checkout-button-skin-square-yellow .close{
+	background:url("../../../images/gomage/lightcheckout/skins/yellow/close.png") no-repeat 0 6px;
+	right: -14px;
+}
+.simple_overlay.gomage-checkout-popup-skin-yellow button.button span,
+.simple_overlay.gomage-checkout-button-skin-square-yellow button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/yellow/login_button.png") no-repeat 0 0;
+	height:27px;
+	padding:0 0 0 23px;
+}
+.simple_overlay.gomage-checkout-popup-skin-yellow button.button span span,
+.simple_overlay.gomage-checkout-button-skin-square-yellow button.button span span{
+	padding:0 23px 0 0;
+	background-position:100% 0;
+	font:normal 12px/27px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow button.button span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow button.button span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/yellow/discount_button.png") no-repeat 0 0;
+	height:25px;
+	padding:0 0 0 10px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow button.button span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow button.button span span{
+	padding:0 10px 0 0;
+	background-position:100% 0;
+	font:normal 12px/25px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow button.btn-checkout span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow button.btn-checkout span{
+	border:0;
+	background:url("../../../images/gomage/lightcheckout/skins/yellow/place_order.png") no-repeat 0 0;
+	height:41px;
+	padding:0 0 0 24px;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow button.btn-checkout span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow button.btn-checkout span span{
+	padding:0 24px 0 0;
+	background-position:100% 0;
+	font:bold 15px/41px Arial,Helvetica,sans-serif;
+	color:#fff;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow button.disabled span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow button.disabled span{
+	background:url("../../../images/gomage/lightcheckout/skins/yellow/place_order.png") no-repeat 0 -41px !important;
+}
+.gcheckout-onepage-wrap.gomage-checkout-skin-yellow button.disabled span span,
+.gcheckout-onepage-wrap.gomage-checkout-button-skin-square-yellow button.disabled span span{
+	background-position:100% -41px !important;
+}
+		/* Yellow END */
+		
+	/* Skins colors END */
+
+/* Skins END */
+
+/* Table styles */
+
+	/* New */
+.gcheckout-onepage-wrap .data-table{
+	border: 1px solid #e1e1e1;
+	border-collapse:collapse;
+	color:#3e3e3e;
+	width: 100%;
+	margin:0;
+}	
+.gcheckout-onepage-wrap .data-table tr.last th, .gcheckout-onepage-wrap .data-table tr.last td {
+    border-bottom: 1px solid #e1e1e1 !important;
+}
+.gcheckout-onepage-wrap .data-table thead th {
+    background: url("../../../images/gomage/lightcheckout/bkg_th_new.gif") repeat-x scroll 0 0 #f0f0f0;
+}
+.gcheckout-onepage-wrap .data-table thead th {
+    border-right: 1px solid #e4e4e4;
+    color: #5f6162;
+    font-weight: bold;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.gcheckout-onepage-wrap .data-table tfoot tr,.gcheckout-onepage-wrap .data-table tfoot tr.first td{
+    background: none !important;
+}
+.gcheckout-onepage-wrap .data-table tfoot{
+	background: url("../../../images/gomage/lightcheckout/bkg_tfoot_new.gif") repeat-x scroll 0 0 #f2f2f2;
+}
+.gcheckout-onepage-wrap .data-table tfoot td {
+    border-bottom: 0 none;
+    border-right: 1px solid #e4e4e4;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+.gcheckout-onepage-wrap .data-table .odd{background:#fff;}
+.gcheckout-onepage-wrap .data-table .even {background:#fff;}
+.gcheckout-onepage-wrap .data-table tbody th, .gcheckout-onepage-wrap .data-table tbody td {
+    border-bottom: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+}
+.gcheckout-onepage-wrap .data-table tfoot strong{
+	font-size:17px;
+	color:#1c1c1c;
+}
+.gcheckout-onepage-wrap .data-table tfoot td strong .price{
+	font-size:17px;
+}
+
+	/* Default */
+.gomage-checkout-skin-default .data-table{
+    border: 1px solid #BEBCB7;
+    width: 100%;
+	color:#2F2F2F;
+	border-collapse: separate;
+}
+.gcheckout-onepage-wrap .cvv-what-is-this{
+	float:left;
+	margin-top:2px;
+	line-height:14px;
+}
+.gomage-checkout-skin-default .data-table tr.last th, .gomage-checkout-skin-default .data-table tr.last td {
+    border-bottom: 0 none !important;
+}
+.gomage-checkout-skin-default .data-table thead th {
+    background: url("../../../images/gomage/lightcheckout/bkg_th.gif") repeat-x scroll 0 100% #D9E5EE;
+}
+.gomage-checkout-skin-default .data-table thead th {
+    border-right: 1px solid #C2D3E0;
+    color: #0A263C;
+    font-weight: bold;
+    padding: 2px 8px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.gomage-checkout-skin-default .data-table tfoot tr {
+    background-color: #DEE5E8 !important;
+}
+.gomage-checkout-skin-default .data-table tfoot tr.first td {
+    background:#DEE5E8 url("../../../images/gomage/lightcheckout/bkg_tfoot.gif") repeat-x scroll 0 0 !important;
+}
+.gomage-checkout-skin-default .data-table tfoot td {
+    border-bottom: 0 none;
+    border-right: 1px solid #D9DDE3;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+.gomage-checkout-skin-default .data-table td {
+    padding: 3px 8px;
+}
+.gomage-checkout-skin-default .data-table td.light-chechout-remove-td{
+	padding: 3px 8px;
+}
+.gomage-checkout-skin-default .data-table .odd {
+    background: none repeat scroll 0 0 #F8F7F5;
+}
+.gomage-checkout-skin-default .data-table .even { background:#eeeded; }
+.gomage-checkout-skin-default .data-table tr.last th, .gomage-checkout-skin-default .data-table tr.last td {
+    border-bottom: 0 none !important;
+}
+.gomage-checkout-skin-default .data-table tbody th, .gomage-checkout-skin-default .data-table tbody td {
+    border-bottom: 1px solid #D9DDE3;
+    border-right: 1px solid #D9DDE3;
+}
+.gomage-checkout-skin-default tfoot strong,.gomage-checkout-skin-default .data-table tfoot td.last strong{
+	font-size:15px;
+	color:#2f2f2f;
+	font-weight:bold;
+}
+/* Table styles END */
+
+.light-checkout-popup-head-bg{
+	height:10px;
+	background: url("../../../images/gomage/lightcheckout/popup/popup_head_bg.png") no-repeat 0 0;
+	padding:0 0 0 7px;
+}
+.light-checkout-popup-head-bg-in{
+	height:10px;
+	background: url("../../../images/gomage/lightcheckout/popup/popup_head_bg.png") no-repeat 100% 0;
+	padding:0;
+}
+.light-checkout-popup-bottom-bg{
+	height:15px;
+	background: url("../../../images/gomage/lightcheckout/popup/popup_bottom_bg.png") no-repeat 0 0;
+	padding:0 0 0 12px;	
+}
+.light-checkout-popup-bottom-bg-in{
+	height:15px;
+	background: url("../../../images/gomage/lightcheckout/popup/popup_bottom_bg.png") no-repeat 100% 0;
+	padding:0;
+}
+.light-checkout-popup-content-bg{
+	background: url("../../../images/gomage/lightcheckout/popup/popup_content_bg.png") repeat-y 0 0;
+	padding:0 0 0 1px;
+}
+.light-checkout-popup-content-bg-in{
+	background: url("../../../images/gomage/lightcheckout/popup/popup_content_bg.png") repeat-y 100% 0;
+	padding:0 27px 0 20px;
+}
+.gcheckout-onepage-wrap .tool-tip{
+    background:#EAF6FF;
+    border:1px solid #7BA7C9;
+    padding:15px 20px;
+    position:absolute;
+    z-index:9999;
+	top:20%;
+	right:0;
+}
+.gcheckout-onepage-wrap .tool-tip .btn-close{
+    margin:-9px -14px 0;
+    text-align: right;
+}
+.gcheckout-onepage-wrap .tool-tip .tool-tip-content{
+    padding:5px;
+}
+.gcheckout-onepage-wrap .tool-tip .btn-close a{
+    background:url("../../../images/gomage/lightcheckout/btn_window_close.gif") no-repeat 100% 0 ;
+    display:block;
+    height:15px;
+    margin:0 0 0 auto;
+    overflow:hidden;
+    text-align:left;
+    text-indent:-999em;
+    width:15px;
+}
+#gcheckout-payment-methods dl dt label{	
+	padding:0 !important;
+	background:none !important;
+}
+.gcheckout-onepage-wrap #gcheckout-payment-methods dl dt.gcheckout-onepage-sagepay label{
+	padding:0 0 1px 65px !important;
+	background:url(../../../images/gomage/lightcheckout/sagepay-section.png) no-repeat 0 2px !important;
+}
+
+input.input-text:focus,select:focus,textarea:focus { background:#edf7fd !important; }
+.gcheckout-onepage-wrap .delivery-date img{
+	cursor:pointer;
+}
+html body div.gomage-checkout-skin-default h2.gcheckout-title span,
+html body div.gomage-checkout-skin-default h2.gcheckout-title span span,
+html body div.gomage-checkout-skin-default.not_shipping_mode h2.gcheckout-title span span{
+	background:none !important;
+	display:inline;
+	padding:0;
+}
+/* Clears */
+.gcheckout-onepage-wrap:after,
+.gcheckout-onepage-wrap .methods:after,
+.gcheckout-onepage-wrap .delivery-date li:after,
+#login-form .actions:after,
+.delivery-date:after,
+.gcheckout-onepage-wrap .form-list .input-box:after{
+	content:' ';
+	clear:both;
+	display:block;
+	width:0; 
+	height:0;
+	overflow:hidden;
+	font-size:0;
+}
+.gcheckout-onepage-wrap,
+.gcheckout-onepage-wrap .methods,
+.gcheckout-onepage-wrap .delivery-date li,
+#login-form .actions,
+.gcheckout-onepage-wrap .data-table .gcheckout-minus,
+.gcheckout-onepage-wrap .data-table .gcheckout-plus,
+.delivery-date,
+.gcheckout-onepage-wrap .form-list .input-box{
+	zoom:1;
+}
+/* Clears END */
+
+/* IE styles */
+.gcheckout-onepage-wrap #gcheckout-payment-methods dl dt.gcheckout-onepage-sagepay label{
+	/background-position:19px 2px !important;
+}
+.gcheckout-onepage-wrap .data-table .gcheckout-plus,
+.gcheckout-onepage-wrap .data-table .gcheckout-minus{
+	/display:inline;
+}
+.gcheckout-onepage-wrap .gift-messages-form .item .details .form-list .input-box,
+.gcheckout-onepage-wrap .gift-messages-form .form-list .fields input.input-text,
+.gcheckout-onepage-wrap .gift-messages-form .form-list li.wide textarea{
+	_width:99%;
+}
+.loadinfo{
+	_position:absolute;
+	_top:0;
+}
+.gomage-checkout-overlay{
+	_position:absolute;
+}
+/* IE styles END */

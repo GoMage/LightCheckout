@@ -1,82 +1,168 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
  */
- echo $this->getContent();?>
-<script type="text/javascript" src="<?php echo $this->getUrl('gomage_checkout/js', array('_secure'=>true))?>"></script>
-<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js')?>jquery/validationEngine/jquery.validationEngine.js"></script>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/gomage/checkout/onepage.js')?>"></script>
+ 
+	$checkout_skin	= 'gomage-checkout-skin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
+	
+	if($this->helper('gomage_checkout')->getConfigData('general/skin') == 'default'){
+	
+		$buttons_skin = 'gomage-checkout-button-skin-'.$this->helper('gomage_checkout')->getConfigData('general/button_skin');
+		
+		$checkout_popup_skin = 'gomage-checkout-popup-skin-default';
+	
+	}else{
+		
+		$buttons_skin = '';
+		
+		$checkout_popup_skin = 'gomage-checkout-popup-skin-'.$this->helper('gomage_checkout')->getConfigData('general/skin');
+		
+	}
+	
+	
+ 
+?>
+<?php echo $this->getContent();?>
 
 <script type="text/javascript">
 	//<![CDATA[
-	var countryRegions			= <?php echo $this->helper('directory')->getRegionJson(); ?>;
-	var getMethodsUrl			= '<?php echo $this->getUrl('gomage_checkout/onepage/ajax', array('action'=>'get_methods'));?>';
-	var getPaymentMethodsUrl	= '<?php echo $this->getUrl('gomage_checkout/onepage/ajax', array('action'=>'get_payment_methods'));?>';
-	var getShippingMethodsUrl	= '<?php echo $this->getUrl('gomage_checkout/onepage/ajax', array('action'=>'get_shipping_methods'));?>';
-	var getTotalsUrl			= '<?php echo $this->getUrl('gomage_checkout/onepage/ajax', array('action'=>'get_totals'));?>';
-	var saveOrderUrl			= '<?php echo $this->getUrl('gomage_checkout/onepage/save');?>';
 	
+	
+	Validation.addAllThese([
+	    ['validate-taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', function(v) {
+	    
+	    if(vat_required_countries.indexOf($('billing_country_id').value) !== -1){
+	    	
+	    	if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.billing_taxvat_verified_flag){
+	    		
+	    		return false;
+	    	
+	    	}else if(v && !checkout.billing_taxvat_verified_flag){
+	    		
+	    		return false;
+	    		
+	    	}
+	    	
+	    }
+	    
+	    return true;
+	}]]);
+	
+	var countryRegions			= <?php echo $this->helper('directory')->getRegionJson(); ?>;
 	var default_shipping_method	= '<?php echo $this->getDefaultShippingMethod()?>';
 	var default_payment_method	= '<?php echo $this->getDefaultPaymentMethod()?>';
 	
 	var shippingMethod = false;
 	var loadinfo_text = "<?php echo $this->__('Updating information, please wait...')?>";
+	
+	var vat_required_countries = new Array(<?php printf('"%s"', implode('","', Mage::helper('gomage_checkout')->getTaxCountries()));?>);
+	
+	
+	<?php
+		
+		$observe_billing_items	= array('#buy_without_vat');
+		$observe_shipping_items	= array();
+		
+		if($this->helper('gomage_checkout')->getConfigData('ajax/country')){
+			$observe_billing_items[] = '#gcheckout-onepage-address .billing-country select';
+			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping-country select';
+		}
+		
+		if($this->helper('gomage_checkout')->getConfigData('ajax/region')){
+			$observe_billing_items[] = '#gcheckout-onepage-address .billing-region select, #gcheckout-onepage-address .billing-region input';
+			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping-region input, #gcheckout-onepage-address .shipping-region select';
+		}
+		
+		if($this->helper('gomage_checkout')->getConfigData('ajax/postcode')){
+			$observe_billing_items[] = '#gcheckout-onepage-address .billing_postcode input';
+			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping_postcode input';
+		}
+		
+		if($this->helper('gomage_checkout')->getConfigData('ajax/city')){
+			$observe_billing_items[] = '#gcheckout-onepage-address .billing_city input';
+			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping_city input';
+		}
+		
+		
+	?>
+		
+		var observe_billing_items	= '<?php echo implode(',', $observe_billing_items);?>';
+		var observe_shipping_items	= '<?php echo implode(',', $observe_shipping_items);?>';
+	
+	
+	
+	var loginFormHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin;?>" id="login-form" style="display:none;">'+
+		'<div class="light-checkout-popup-head-bg"><div class="light-checkout-popup-head-bg-in"></div></div>'+
+		'<div class="light-checkout-popup-content-bg"><div class="light-checkout-popup-content-bg-in">'+
+		'<a class="close" onclick="checkout.hideLoginForm();"></a>'+
+		'<div class="details">'+
+			'<h2><?php echo $this->__("Customer Login")?></h2>'+
+			'<form id="gcheckout-login-form" action="" method="post" onsubmit="checkoutloginform.submit();return false;">'+
+			'<ul class="form-list">'+
+                '<li>'+
+                    '<label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>'+
+                    '<div class="input-box">'+
+                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="text" title="Email Address" class="input-text required-entry" id="email" value="" name="login[username]" />'+
+                    '</div>'+
+                '</li>'+
+                '<li>'+
+                    '<label class="required" for="pass"><em>*</em><?php echo $this->__("Password");?></label>'+
+                    '<div class="input-box">'+
+                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="password" title="Password" id="pass" class="input-text required-entry validate-password" name="login[password]" />'+
+                    '</div>'+
+                '</li>'+
+            '</ul>'+
+            '<div class="actions">'+
+            	'<a class="forgot-link" href="<?php echo $this->getUrl("customer/account/forgotpassword")?>"><?php echo $this->__("Forgot Your Password?")?></a>'+
+            	'<button class="button" type="submit"><span><span><?php echo $this->__("Login");?></span></span></button>'+
+            	'<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>'+
+            '</div>'+
+            '</form>'+
+		'</div>'+
+		'</div>'+
+		'</div>'+
+		'<div class="light-checkout-popup-bottom-bg"><div class="light-checkout-popup-bottom-bg-in"></div></div>'+
+	'</div>';
+	
+	<?php if($this->getConfigData('termsandconditions/enabled')):?>
+	
+	var termsHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin;?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
+	'<div class="light-checkout-popup-head-bg"><div class="light-checkout-popup-head-bg-in"></div></div>'+
+	'<div class="light-checkout-popup-content-bg"><div class="light-checkout-popup-content-bg-in" style="width:<?php $tacwidth=intval($this->getConfigData('termsandconditions/width'))-48; echo $tacwidth; ?>px;height:<?php intval($tacheight=$this->getConfigData('termsandconditions/height'))-25; echo $tacheight; ?>px;">'+
+		'<a class="close" onclick="checkout.hideTerms();return false;"></a>'+
+		'<div class="details">'+
+			'<div class="popup-content">'+
+				'<?php echo preg_replace("/'/", "&#39;", preg_replace('/[\n\r]/', '', (preg_replace('/\<script.*?\\/script>/si', '', $this->getConfigData('termsandconditions/content')))));?>'+
+			'</div>'+
+		'</div>'+
+		'</div>'+
+		'</div>'+
+		'<div class="light-checkout-popup-bottom-bg"><div class="light-checkout-popup-bottom-bg-in"></div></div>'+		
+	'</div>';
+	
+	<?php endif;?>
+	
 	//]]>
+	
 </script>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
 	<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
-	<div>
-		<a href="#" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Click here to login.');?></a>
+	
+	<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?>">
+		<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
 	</div>
-	<div class="simple_overlay black" id="login-block" style="display:none;">
-		<div class="details">
-			<h2><?php echo $this->__('Customer Login')?></h2>
-			<form id="gcheckout-login-form" action="<?php echo $this->getUrl('gomage_checkout/onepage/customerLogin');?>" method="post">
-			<ul class="form-list">
-                <li>
-                    <label class="required" for="email"><em>*</em><?php echo $this->__('Email Address');?></label>
-                    <div class="input-box">
-                        <input type="text" title="Email Address" class="input-text required-entry" id="email" value="" name="login[username]" />
-                    </div>
-                </li>
-                <li>
-                    <label class="required" for="pass"><em>*</em><?php echo $this->__('Password');?></label>
-                    <div class="input-box">
-                        <input type="password" title="Password" id="pass" class="input-text required-entry validate-password" name="login[password]" />
-                    </div>
-                </li>
-            </ul>
-        	
-            <div class="actions">
-            	<a class="forgot-link" href="<?php echo $this->getUrl('customer/account/forgotpassword')?>"><?php echo $this->__('Forgot Your Password?')?></a>
-            	<button class="button" type="submit"><span><span><?php echo $this->__('Login');?></span></span></button>
-            	<div class="loadinfo" style="display:none;"><?php echo $this->__('Please wait...');?></div>
-            </div>
-            </form>
-		</div>
-	</div>
+	
 	<?php endif;?>
-	<?php if($this->getConfigData('termsandconditions/enabled')):?>
-	<div class="simple_overlay black" id="terms-block" style="display:none;width:<?php echo $this->getConfigData('termsandconditions/width')?>px;height:<?php echo $this->getConfigData('termsandconditions/height')?>px;">
-		<div class="details">
-			<div class="popup-content">
-				<?php echo nl2br($this->getConfigData('termsandconditions/content'));?>
-			</div>
-		</div>
-	</div>
-	<?php endif;?>
-
+	
 <?php
 	
 	$class_mode = '';
@@ -87,92 +173,117 @@
 		
 	}
 	
-	if(!Mage::getStoreConfig('gomage_checkout/general/deliverydate')){
+	if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')){
 		
 		$class_mode .= ' not_deliverydate_mode ';
 		
 	}
 	
 	
+	if(!Mage::getSingleton('checkout/session')->getShippingSameAsBilling()){
+		
+		$class_mode .= ' diferent_shipping_address ';
+		
+	}
+	
 ?>
 
-<div class="gcheckout-onepage-wrap <?php echo $class_mode;?>">
-
-	<form action="" method="post" id="gcheckout-onepage-form">
-		<div class="address checkout-step" id="gcheckout-onepage-address">
-			
-			<?php echo $this->getChildHtml('address');?>
-				
-		</div>
+<div class="gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin;?>">
+	
+	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">
+	
+	<?php include(dirname(__FILE__).'/form.phtml');?>
 		
-		<div class="gcheckout-right-col">
-		
-		<div class="methods checkout-step" id="gcheckout-onepage-methods">
-			
-			<?php echo $this->getChildHtml('methods');?>
-			
-		</div>
-		
-		<div class="review checkout-step" id="gcheckout-onepage-review">
-			
-			<?php echo $this->getChildHtml('review');?>
-			
-			<?php if($this->isEnabled('comments')):?>
-			<div class="customer-comment">
-				<label for="customer_comment"><?php echo  $this->__('Comments') ?></label>
-				<textarea id="customer_comment" name="customer_comment" cols="50" rows="5"><?php echo $this->getCustomerComment();?></textarea>
-			</div>
-			<?php endif;?>
-			
-			<div class="advanced-options">
-				
-				<?php if (!$this->getQuote()->isVirtual()): ?>
-				    <?php echo $this->helper('gomage_checkout/giftMessage')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
-				<?php endif; ?>
-				<?php if($this->getConfigData('termsandconditions/enabled')):?>
-				<p class="control">
-					<input type="checkbox" value="1" id="accept_terms" name="accept_terms" class="validate[required] radio" />
-					<label for="accept_terms"><?php echo $this->__('I accept the <a class="terms-link" href="%s" rel="#terms-block">Terms and Conditions</a>', '#terms-block');?></label>
-				</p>
-				<?php endif;?>
-			</div>
-			<div class="button-set">
-				<button id="submit-btn" type="submit" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout" onclick="if(validateCheckoutForm()){clearTimeout(loadinfoTimeOut);jQuery('#gcheckout-onepage-form').unbind('submit').attr('action', saveOrderUrl).submit();}return false;"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
-				<script type="text/javascript">
-					function validateCheckoutForm(){
-						return !jQuery.validationEngine.submitValidation(jQuery("#gcheckout-onepage-form"));
-					}
-				</script>
-			<?php if($this->isEnabled('newsletter')):?>
-				<?php if(!$this->isCustomerLoggedIn() || Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer())->getStatus() != 1):?>
-				
-				<p class="control">
-					<input type="checkbox" value="1" id="subscribe" name="subscribe" />
-					<label for="subscribe"><?php echo $this->__('Subscribe to newsletter');?></label>
-				</p>
-				
-				<?php endif;?>
-			<?php endif;?>
-			</div>
-			
-
-			
-			
-		</div>
-		</div>
-		<script type="text/javascript">
-			var triggers = jQuery(".login-button, .terms-link").overlay({top:'center',mask: {
-
-				// you might also consider a "transparent" color for the mask
-				color: '#000',
-
-				// load mask a little faster
-				loadSpeed: 200,
-
-				// very transparent
-				opacity: 0.6
-			}});
-		</script>
 	</form>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		var checkoutForm = new VarienForm('gcheckout-onepage-form');
+		var checkoutloginform = new LightcheckoutLogin({url:"<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>"});
+		
+		<?php if($this->isCustomerLoggedIn()):?>
+	    	
+	    	checkoutloginform.customerIsCustomerLoggedIn = true;
+	    	
+	    <?php else:?>
+	    	
+	    	checkoutloginform.customerIsCustomerLoggedIn = false;
+	    	
+	    <?php endif;?>
+	    
+		
+		var checkout = new Lightcheckout({url:"<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>", billing_taxvat_enabled:<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
+		
+		function changeAddressMode(flag){
+			
+			if(flag){
+				
+				$('gcheckout-shipping-address').style.display = 'none';
+				
+				<?php if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')):?>
+				$$('div.gcheckout-onepage-wrap')[0].removeClassName('notddate_diferent_shipping_address');
+				<?php else:?>
+				$$('div.gcheckout-onepage-wrap')[0].removeClassName('diferent_shipping_address');
+				<?php endif;?>
+				
+			}else{
+				
+				$('gcheckout-shipping-address').style.display = 'block';
+				
+				<?php if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')):?>
+				$$('div.gcheckout-onepage-wrap')[0].addClassName('notddate_diferent_shipping_address');
+				<?php else:?>
+				$$('div.gcheckout-onepage-wrap')[0].addClassName('diferent_shipping_address');
+				<?php endif;?>
+				
+			};
+			
+			
+		}
+		
+	    
+	    function initAddresses(){
+	    <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
+	    billingRegionUpdater = new RegionUpdater('billing_country_id', 'billing_region', 'billing_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"billing_postcode"' : 'undefined';?>);
+	    
+	    
+	    
+	    <?php if($this->getChild('address')->getChild('billing')->canShip()):?>
+	    
+			<?php if( $this->getChild('address')->getChild('shipping')->isEnabled('country_id') && $this->getChild('address')->getChild('shipping')->isEnabled('region')):?>
+		    shippingRegionUpdater = new RegionUpdater('shipping_country_id', 'shipping_region', 'shipping_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"shipping_postcode"' : 'undefined';?>);
+		   	<?php endif;?>
+	   	
+	   	<?php endif;?>
+	   	
+	   	<?php endif;?>	
+	   	
+	   	}
+	   	
+	   	initAddresses();
+	   	
+	   	<?php if(Mage::getSingleton('checkout/type_onepage')->getQuote()->getBillingAddress()->getIsValidVat()):?>
+	   	
+	   	checkout.billing_taxvat_verified_flag = true;
+	   	
+	   	<?php endif;?>
+
+	   	<?php if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled()): ?>
+	   	
+    	   	var review = new LightcheckoutReview('<?php echo $this->getUrl('gomage_checkout/onepage/save') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+    		SageServer = new EbizmartsSagePaySuite.Checkout
+    					(
+    		                {
+    	                        'checkout':  checkout,
+    	                        'review':    review,
+    	                        'payment':   payment	                        
+    		                }
+    	        		);
+	   	
+		<?php endif; ?>
+	   	
+		//]]>
+	</script>		 
+	
 </div>
 	

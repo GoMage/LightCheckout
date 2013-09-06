@@ -1,22 +1,31 @@
 <?php
  /**
- * GoMage.com
- *
  * GoMage LightCheckout Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
  * @since        Class available since Release 1.0
- */
-
+ */ 
 
 class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepage_Abstract{
 	
 	protected $prefix = 'billing';
+	
+	
+	public function customerHasAddresses(){
+		
+		if(intval($this->helper->getConfigData('address_fields/address_book'))){
+			
+			return parent::customerHasAddresses();
+			
+		}
+		return false;
+		
+	}
 	
 	protected function _prepareLayout(){
 		
@@ -58,11 +67,11 @@ class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepag
     
     public function shippingAsBilling(){
     	
-    	if(is_null($this->getCheckout()->getShippingSameAsBilling())){
+    	if(null === $this->getCheckout()->getShippingSameAsBilling()){
     		return true;
     	}
     	
-    	return (bool)($this->getCheckout()->getShippingSameAsBilling());
+    	return (bool)$this->getCheckout()->getShippingSameAsBilling();
     	
     }
 
@@ -94,14 +103,17 @@ class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepag
         }
         
         
+        $options = $this->getCountryOptions();
+        
+        $options[0] = array('value'=>'', 'label'=>$this->__('--Please Select--'));
         
         $select = $this->getLayout()->createBlock('core/html_select')
             ->setName($type.'[country_id]')
             ->setId($type.'_country_id')
             ->setTitle(Mage::helper('checkout')->__('Country'))
-            ->setClass('validate[required]')
+            ->setClass('required-entry absolute-advice')
             ->setValue($countryId)
-            ->setOptions($this->getCountryOptions());
+            ->setOptions($options);
 
 
         return $select->getHtml();

@@ -1,0 +1,31 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.2
+ * @since        Class available since Release 2.0
+ */
+?>
+	<div class="discount">
+        <div class="lightcheckout-discount-form">
+            
+            <input type="hidden" name="remove" id="remove_coupone" value="0" />
+            
+			<label for="coupon_code"><?php echo $this->__('Discount codes') ?></label>
+			
+            <div class="input-box">
+                <input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" />
+            </div>
+			
+			<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('Please enter coupon code.')}else{checkout.applyDisocunt(false);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
+			<?php if(strlen($this->getCouponCode())): ?>
+				&nbsp; <button type="button" title="<?php echo $this->__('Cancel Coupon') ?>" class="button" onclick="checkout.applyDisocunt(true)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><span><?php echo $this->__('Cancel Coupon') ?></span></span></button>
+			<?php endif;?>
+			
+        </div>
+    </div>

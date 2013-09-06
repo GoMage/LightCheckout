@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!--
-/**     
- * GoMage.com
- *
+ /**
  * GoMage LightCheckout Extension
+ *
  * @category     Extension
- * @copyright    Copyright (c) 2010 GoMage.com (http://www.gomage.com)
- * @author       GoMage.com
- * @license      http://www.gomage.com/licensing  Single domain license
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 2.2
+ * @since        Class available since Release 1.0
  */ 
  -->
 <layout version="0.1.0">
@@ -17,13 +17,13 @@
 	<!--<gomage_checkout_onepage_index>
 		<update handle="checkout_onepage_index"/>
 	</gomage_checkout_onepage_index>-->
-	
+	<!--
 	<gomage_checkout_js_index>
 		<reference name="root">
             <action method="setTemplate"><template>gomage/checkout/js.phtml</template></action>
         </reference>
 	</gomage_checkout_js_index>
-	
+	-->
 	<gomage_checkout_onepage_index>
 		<label>Checkout</label>
 		
@@ -35,23 +35,25 @@
         
         <reference name="head">
         	
-        	<action method="addJs"><script>jquery/jquery.form.js</script></action>
+        	<!--<action method="addJs"><script>jquery/jquery.form.js</script></action>-->
+        	<action method="addJs"><script>gomage/validator.js</script></action>
+        	<action method="addJs"><script>gomage/lightcheckout.js</script></action>
         	<!--<action method="addJs"><script>jquery/validationEngine/jquery.validationEngine-en.js</script></action>-->
         	<!--<action method="addJs"><script>../gomage_checkout/js</script></action>
         	
         	<action method="addJs"><script>jquery/validationEngine/jquery.validationEngine.js</script></action>-->
-        	<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
+        	<!--<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
         	<action method="addJs"><script>jquery/toolbox.expose.min.js</script></action>
+        	-->
         	
         	
         	
         	
-        	
-        	<action method="addItem"><type>skin_css</type><name>css/gomage/validationEngine.css</name><params/></action>
+        	<!--<action method="addItem"><type>skin_css</type><name>css/gomage/validationEngine.css</name><params/></action>-->
         	<!--<action method="addItem"><type>skin_js</type><name>js/gomage/checkout/onepage.js</name><params/></action>-->
-            <action method="addItem"><type>skin_css</type><name>css/gomage/checkout/onepage.css</name><params/></action>
-            <action method="addItem"><type>skin_css</type><name>css/gomage/overlay/common.css</name><params/></action>
-            <action method="addItem"><type>skin_css</type><name>css/gomage/overlay/ie6.css</name><params/><if>lt IE 7</if></action>
+            <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout/onepage.css</name><params/></action>
+            <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout/overlay.css</name><params/></action>
+            <!--<action method="addItem"><type>skin_css</type><name>css/gomage/overlay/ie6.css</name><params/><if>lt IE 7</if></action>-->
             
         </reference>
         
@@ -91,20 +93,47 @@
         		</block>
         		
         		<block type="gomage_checkout/onepage_review" name="checkout.onepage.review" as="review" template="gomage/checkout/onepage/review.phtml">
-        			<block type="checkout/onepage_review_info" name="info" template="checkout/onepage/review/info.phtml">
-			            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
-			            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
-			            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
-            			<action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>
-            			<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+        			<block type="checkout/onepage_review_info" name="info" template="gomage/checkout/onepage/review/info.phtml">
+			            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+			            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+			            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+            			<action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>gomage/checkout/onepage/review/downloadable_item.phtml</template></action>
+            			<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
             			
-			            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+			            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="gomage/checkout/onepage/review/totals.phtml"/>
 			            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+			            <block type="checkout/cart_coupon" name="checkout.onepage.review.discount" as="discount" template="gomage/checkout/onepage/review/discount.phtml"/>
 			        </block>
-			        <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+			        
+			        <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="gomage/checkout/onepage/agreements.phtml"/>
         		</block>
         	</block>
         	
         </reference>
 	</gomage_checkout_onepage_index>
+	<gomage_checkout_onepage_review>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_review_info" name="root" output="toHtml" template="gomage/checkout/onepage/review/info.phtml">
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+			<action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>gomage/checkout/onepage/review/downloadable_item.phtml</template></action>
+			<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>gomage/checkout/onepage/review/item.phtml</template></action>
+			<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="gomage/checkout/onepage/review/totals.phtml"/>
+            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+            <block type="checkout/cart_coupon" name="checkout.onepage.review.discount" as="discount" template="gomage/checkout/onepage/review/discount.phtml"/>
+        </block>
+       	
+    </gomage_checkout_onepage_review>
+    <gomage_checkout_onepage_paymentmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="checkout/onepage_payment_methods" name="root" output="toHtml" template="gomage/checkout/html/payment-method/methods.phtml">
+            <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+        </block>
+    </gomage_checkout_onepage_paymentmethod>
 </layout>
