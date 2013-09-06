@@ -6,7 +6,7 @@
  * @author GoMage
  * @license http://www.gomage.com/license-agreement/ Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version Release: 5.0
+ * @version Release: 5.1
  * @since Class available since Release 1.0
  */ 
 
@@ -449,31 +449,35 @@ Lightcheckout = Class.create({
 						this.innerHTMLwithScripts(giftmessage_block, response.gift_message);
 					}
 				}
-				
+
 				if(response.toplinks){						
 					this.replaceTopLinks(response.toplinks);						
 				}
-				
+
+                if(response.cart_sidebar && typeof(GomageProcartConfig) != 'undefined'){
+                    GomageProcartConfig._replaceEnterpriseTopCart(response.cart_sidebar, ($('topCartContent') && $('topCartContent').visible()));
+                }
+
 				if(response.review){
 					this.innerHTMLwithScripts($$('#gcheckout-onepage-review div.totals')[0], response.review);
-				}	
-				
+				}
+
 				if (response.content_billing){
 					var div_billing = document.createElement('div');
 					div_billing.innerHTML = response.content_billing;
 					$('gcheckout-onepage-address').replaceChild(div_billing.firstChild, $('gcheckout-billing-address'));
 				}
 
-				if (response.content_shipping){
+				if (response.content_shipping && $('gcheckout-shipping-address')){
 					var div_shipping = document.createElement('div');
 					div_shipping.innerHTML = response.content_shipping;
 					$('gcheckout-onepage-address').replaceChild(div_shipping.firstChild, $('gcheckout-shipping-address'));
 				}
-				
+
 				if (response.content_billing || response.content_shipping){
 					initAddresses();
 				}
-				
+
 				if(response.section == 'varify_taxvat'){
 										
 					if($('billing_taxvat_verified')){
@@ -492,8 +496,8 @@ Lightcheckout = Class.create({
 						}
 					}					
 
-				} 
-				
+				}
+
 				if (response.section == 'centinel'){
 
 					if (response.centinel){
@@ -766,12 +770,14 @@ Lightcheckout = Class.create({
     	if(id){
 			this.showLoadinfo();
 
+			var use_for_shipping = ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').checked);
+			
 			var request = new Ajax.Request(url,
 			  {
 			    method:'post',
 			    parameters:{'id':id,
 				            'type':type,
-				            'use_for_shipping': $('billing_use_for_shipping_yes').checked
+				            'use_for_shipping': use_for_shipping
 				           },
 			    onSuccess: function(transport){
 
@@ -799,7 +805,7 @@ Lightcheckout = Class.create({
 						$('gcheckout-onepage-address').replaceChild(div_billing.firstChild, $('gcheckout-billing-address'));
 					}
 
-					if (response.content_shipping){
+					if (response.content_shipping && $('gcheckout-shipping-address')){
 						var div_shipping = document.createElement('div');
 						div_shipping.innerHTML = response.content_shipping;
 						$('gcheckout-onepage-address').replaceChild(div_shipping.firstChild, $('gcheckout-shipping-address'));

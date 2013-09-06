@@ -15,7 +15,7 @@
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.5.0</version>
+            <version>0.0.5.1</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -54,9 +54,15 @@
             <gomage_checkout><class>GoMage_Checkout_Model</class></gomage_checkout>
             <core>
             	<rewrite>
-            		<url_rewrite>GoMage_Checkout_Model_Url_Rewrite</url_rewrite>
+            		<url_rewrite>GoMage_Checkout_Model_Url_Rewrite</url_rewrite>            		
+            		<url_rewrite_request>GoMage_Checkout_Model_Url_Rewrite_Request</url_rewrite_request>
             	</rewrite>
             </core>
+            <enterprise_urlrewrite>
+            	<rewrite>
+            		<url_rewrite_request>GoMage_Checkout_Model_Url_Rewrite_Enterprise_Request</url_rewrite_request>
+            	</rewrite>
+            </enterprise_urlrewrite>
             <tax>
             	<rewrite>
             		<calculation>GoMage_Checkout_Model_Tax_Calculation</calculation>
@@ -284,6 +290,14 @@
                     </collect_totals_after>
                 </observers>
             </admin_system_config_changed_section_gomage_activation>
+            <controller_action_predispatch>
+                <observers>
+                    <gomage_checkout_notify>
+                        <class>gomage_checkout/observer_notify</class>
+                        <method>notify</method>
+                    </gomage_checkout_notify>
+                </observers>
+            </controller_action_predispatch>
         </events>
 		<translate>
 			<modules>

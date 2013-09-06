@@ -318,7 +318,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 						$address->setPostcode($record->postal_code);
 					}
 					if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
-						$address->setRegionId($record->region);
+						$address->setRegionId($this->prepareRegion($record));
 					}
 				}
 				
@@ -342,7 +342,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 								$this->getQuote()->getBillingAddress()->setPostcode($record->postal_code);
 							}
 							if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
-								$this->getQuote()->getBillingAddress()->setRegionId($record->region);
+								$this->getQuote()->getBillingAddress()->setRegionId($this->prepareRegion($record));
 							}
 						
 						}
@@ -380,7 +380,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 								$address->setPostcode($record->postal_code);
 							}
 							if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
-								$address->setRegionId($record->region);
+								$address->setRegionId($this->prepareRegion($record));
 							}
 						}
 						$this->getQuote()->setShippingAddress($address);
@@ -415,7 +415,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 								$this->getQuote()->getBillingAddress()->setPostcode($record->postal_code);
 							}
 							if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
-								$this->getQuote()->getBillingAddress()->setRegionId($record->region);
+								$this->getQuote()->getBillingAddress()->setRegionId($this->prepareRegion($record));
 							}
 						
 						}
@@ -442,7 +442,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 									$this->getQuote()->getShippingAddress()->setPostcode($record->postal_code);
 								}
 								if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
-									$this->getQuote()->getShippingAddress()->setRegionId($record->region);
+									$this->getQuote()->getShippingAddress()->setRegionId($this->prepareRegion($record));
 								}
 							
 							}
@@ -608,5 +608,21 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 		return false;
 	
 	}
+
+    private function prepareRegion($record){
+
+        if ($record->country_code && $record->region){
+          $country = Mage::getModel('directory/country')->loadByCode($record->country_code);
+          if ($country && $country->getId()){
+            $region = Mage::getModel('directory/region')->loadByCode($record->region, $country->getId());
+            if ($region && $region->getId()){
+              return $region->getId();
+            }
+          }
+        }
+
+        return $record->region;
+
+    }
 
 }
