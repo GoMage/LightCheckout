@@ -159,13 +159,18 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 }
 .glc .review .advanced-options select{
 	max-width:100%;
-	margin-bottom:5px;
+	margin-bottom:10px;
 }
 .glc #checkout-review-table-wrapper .buttons-set{
-	border:0;
-	padding:10px 0 0;
+	border:1px solid #EAEAEA;
+  border-width:0 1px 1px;
+	padding:10px 16px;
 	margin:0;
 	text-align:left;
+}
+.glc.glc-skin-default #checkout-review-table-wrapper .buttons-set{
+	border:0;
+	padding:10px 0 0;
 }
 #checkout-review-table-wrapper{
   overflow:auto;
@@ -327,7 +332,8 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	clear:none;
 	padding:0;
 }
-.glc .gift-messages-form .item .details .form-list .input-box{
+.glc .gift-messages-form .item .details .form-list .input-box,
+.glc .gift-message-form .item .details .form-list .input-box{
 	width:100%;
 }
 .glc .form-list .postcode-region .field-region{
@@ -354,13 +360,24 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 .glc .form-list .input-box select{
 	width:90%;
 }
-.glc .gift-messages-form li.fields .gift-from{
+.glc .gift-messages-form li.fields .gift-to,
+.glc .gift-message-form li.fields .field{
+	width:47% !important;
+}
+.glc .gift-messages-form li.fields .gift-from,
+.glc .gift-message-form li.fields .field:first-child{
 	width:47% !important;
 	margin-right:5% !important;
 }
-.glc .gift-messages-form li.fields .gift-to{
-	width:47% !important;
-}
+.glc .gift-message-form .gift-item .fieldset label{
+  width:auto;
+  }
+.glc .gift-message-form .gift-item .fieldset{
+  width:320px;
+  }
+  .glc .gift-message-form .gift-item .fieldset .form-list{
+    padding-left:20px;
+    }
 .glc .sp-methods select.month{
 	width:146px !important;
 }
@@ -399,6 +416,9 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	display:inline;
 	vertical-align:middle;
 }
+.glc .gift-message-form{
+  margin:0 0 10px;
+  }
 .not_shipping_mode .methods #gcheckout-payment-methods .form-list .input-box select{
 	width:45%;
 }
@@ -428,13 +448,17 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	padding:10px 0 0;
 }
 .glc .gift-messages-form .form-list .fields input.input-text,
-.glc .gift-messages-form .form-list li.wide textarea{
+.glc .gift-messages-form .form-list li.wide textarea,
+.glc .gift-message-form .form-list .fields input.input-text,
+.glc .gift-message-form .form-list li textarea{
 	width:100%;
 }
-.glc .gift-messages-form .whole-order .form-list li.wide textarea{
+.glc .gift-messages-form .whole-order .form-list li.wide textarea,
+.glc .gift-message-form .whole-order .form-list li textarea{
 	width:99%;
 }
-.glc .gift-messages-form .item .details .form-list li.wide textarea{
+.glc .gift-messages-form .item .details .form-list li.wide textarea,
+.glc .gift-message-form .item .details .form-list li textarea{
 	width:99%;
 }
 .glc.glc-skin-default .form-list label.required,
@@ -849,6 +873,7 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	text-align:center;
 	white-space:nowrap;
 	margin:0;
+  text-transform:none;
 }
 .simple_overlay button.button span span,
 .glc button.button span span{
@@ -873,6 +898,7 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	text-indent:0px !important;
 	padding:0 25px 0 16px;
 	margin:0;
+  text-transform:none;
 }
 .glc button.disabled span{
 	background:url("../../images/gomage/lightcheckout/buttons/btn_orange.png") no-repeat 0 -40px !important;
@@ -2107,6 +2133,32 @@ html body div.glc-skin-default.not_shipping_mode .glc-title span span{
   padding-top:0;
   margin-top:-6px;
 }
+#gcheckout-forgot-form .actions button.button{
+  float:left;
+  }
+#gcheckout-forgot-form .actions button.button[type="submit"]{
+  float:right;
+  }
+#login-form .error{
+  color:#DF280A;
+  font-weight:bold;
+  padding-bottom:5px;
+}
+#login-form .success{
+  color:#3D6611;
+  font-weight:bold;
+  padding-bottom:5px;
+}
+.glc #captcha-input-box-gcheckout_onepage input.input-text{
+  width:254px;
+  }
+.glc #captcha-image-box-gcheckout_onepage{
+  padding:0 0 10px;
+  }
+.glc .captcha-image{
+  margin:0;
+  width:258px;
+  }
 
 /* Right to left layout */
 .glc-rtl,

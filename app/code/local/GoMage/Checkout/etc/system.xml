@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  */ 
  -->
 <config>
@@ -23,7 +23,7 @@
             <show_in_store>1</show_in_store>
             <groups>
 				<lightcheckout translate="label">
-					<label>GoMage LightCheckout v.3.1</label>
+					<label>GoMage LightCheckout v.3.2</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
@@ -132,7 +132,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</city>
+						</city>						
 					</fields>
 				</ajax>
 				<termsandconditions translate="label">
@@ -362,6 +362,17 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</geoip_enabled>
+						
+						<geoip_state_enabled translate="label">
+							<label>Enable GeoIP for State/Province</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</geoip_state_enabled>
 
 						<geoip_post_enabled translate="label">
 							<label>Enable GeoIP for Zip/Postcode</label>
@@ -526,6 +537,23 @@
 							<show_in_store>1</show_in_store>
 						</payments_buttons>
 						
+						<secure_window_width>
+							<label>3D Secure Window Width, px</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secure_window_width>
+						
+						<secure_window_height>
+							<label>3D Secure Window Height, px</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secure_window_height>
 						
 					</fields>
 				</address_fields>

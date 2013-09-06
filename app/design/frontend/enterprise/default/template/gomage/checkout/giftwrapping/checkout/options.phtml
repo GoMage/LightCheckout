@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 3.1
  */
 ?>
@@ -45,13 +45,13 @@
     <div id="gift-options-container">
         <?php if ($this->getAllowGiftReceipt()): ?>
         <p>
-            <input type="checkbox" name="giftwrapping[{{id}}][allow_gift_receipt]" id="allow-gift-receipt-{{id}}" value="1" class="checkbox" />
+            <input type="checkbox" name="giftwrapping[{{id}}][allow_gift_receipt]" id="allow-gift-receipt-{{id}}" value="1" class="checkbox" onchange="giftWrapping.glc_save_wrapping();" />
             <label for="allow-gift-receipt-{{id}}"><?php echo $this->__('Send Gift Receipt') ?></label>
         </p>
         <?php endif;?>
         <?php if ($this->getAllowPrintedCard()): ?>
         <p>
-            <input type="checkbox" name="giftwrapping[{{id}}][add_printed_card]" id="add-printed-card-{{id}}" value="1" onclick="" class="checkbox" />
+            <input type="checkbox" name="giftwrapping[{{id}}][add_printed_card]" id="add-printed-card-{{id}}" value="1" onclick="" class="checkbox" onchange="giftWrapping.glc_save_wrapping();" />
             <label for="add-printed-card-{{id}}"><?php echo $this->__('Add Printed Card') ?></label>
         </p>
         <p class="price-box no-display" id="price-options-box-{{id}}">
@@ -114,12 +114,15 @@ var giftWrapping = {
         if (this.allowGiftReceipt || this.allowPrintedCard) {
             $$('.extra-options-container').each(function(element){
                 var id = element.id.sub('extra-options-container-','');
-                if (this.cardInfo) {
-                    data.id = id;
-                    this.cardInfo[id].id = id;
+                	data.id = id;
+	                if (this.cardInfo[id]) {
+	                    this.cardInfo[id].id = id;
+	                } else {
+	                    this.cardInfo[id] = {"id":id};
+	                }
                     this.insertOptions(element, this.cardInfo[id]);
                     toogleVisibility(['add-gift-options-'+data.id], true);
-                }
+                
             }, this);
         }
     },
@@ -160,7 +163,7 @@ var giftWrapping = {
             imageBox.src = this.designsInfo[value].path;
             imageBox.removeClassName('no-display');
         } else {
-            imageBox.src = '';
+            imageBox.src = '<?php echo $this->getSkinUrl('images/spacer.gif')?>';
             imageBox.addClassName('no-display');
         }
         imageBox.up().removeClassName('no-display');
@@ -208,7 +211,11 @@ var giftWrapping = {
             $('price-box-'+id).addClassName('no-display');
             $('image-box-'+id).addClassName('no-display').up().addClassName('no-display');
         }
-        checkout.submit(checkout.getFormData(), 'get_methods');
+        this.glc_save_wrapping();
+    },
+
+    glc_save_wrapping : function(){
+    	checkout.submit(checkout.getFormData(), 'get_methods');
     }
 }
 giftWrapping.assign();

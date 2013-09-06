@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -98,14 +98,23 @@
 			                <block type="gomage_checkout/authorizenet_directpost_form" name="payment.form.directpost" template="authorizenet/directpost/form.phtml">
 				                <action method="setMethodInfo"></action>
 				            </block>
-				            <block type="paypal/iframe" name="paypal.iframe" />
+				            <block ifconfig="payment/authorizenet_directpost/active" type="paypal/iframe" name="paypal.iframe" />
 			            </block>			            
 			        </block>			        
 			        <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="gomage/checkout/onepage/agreements.phtml"/>
         		</block>
         		<block type="gomage_checkout/onepage_poll" name="checkout.onepage.poll" as="poll" template="gomage/checkout/onepage/poll.phtml"/>
-        	</block>
-        	
+        		<block type="core/text_list" name="form.additional.info">
+	                <block ifconfig="customer/captcha/enable" type="captcha/captcha" name="captcha.gomage.checkout">
+	                    <reference name="head">
+	                        <action method="addJs"><file>mage/captcha.js</file></action>
+	                    </reference>
+	                    <action method="setFormId"><formId>gcheckout_onepage</formId></action>
+	                    <action method="setImgWidth"><width>230</width></action>
+	                    <action method="setImgHeight"><width>50</width></action>
+	                </block>	                
+	            </block>
+        	</block>        	
         </reference>
 	</gomage_checkout_onepage_index>
 	<gomage_checkout_onepage_review>
@@ -127,7 +136,7 @@
                 <block type="gomage_checkout/authorizenet_directpost_form" name="payment.form.directpost" template="authorizenet/directpost/form.phtml">
 	                <action method="setMethodInfo"></action>
 	            </block>
-	            <block type="paypal/iframe" name="paypal.iframe" />
+	            <block ifconfig="payment/authorizenet_directpost/active" type="paypal/iframe" name="paypal.iframe" />
             </block>
         </block>
        	
@@ -155,9 +164,11 @@
     
     <checkout_onepage_success> 
      	<reference name="checkout.success">
-     		<block type="gomage_checkout/checkout_success_summary" name="gomage.checkout.success.summary">
+     		<block ifconfig="gomage_checkout/general/order_summary" type="gomage_checkout/checkout_success_summary" name="gomage.checkout.success.summary">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>downloadable</type><block>downloadable/sales_order_item_renderer_downloadable</block><template>downloadable/sales/order/items/renderer/downloadable.phtml</template></action>  
+                <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/items/renderer.phtml</template></action>
                 <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
                     <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
                     <action method="setValueProperties"><value>class="last a-right"</value></action>

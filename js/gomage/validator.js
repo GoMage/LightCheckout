@@ -6,9 +6,22 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 1.0 
  */ 
+
+var glc_exists_customer_msg = 'There is already a customer registered using this email address. Please login using this email address or enter a different email address.';
+if (typeof Translator != 'undefined'){
+	glc_exists_customer_msg = Translator.translate(glc_exists_customer_msg);
+}
+
+Validation.add('glc-exists-customer', glc_exists_customer_msg,		
+function(v) {	
+	if (typeof checkout != 'undefined'){
+		return !checkout.exists_customer;
+	}	
+	return true;
+});
 
 Object.extend(Validation, {
 	defaultOptions:{

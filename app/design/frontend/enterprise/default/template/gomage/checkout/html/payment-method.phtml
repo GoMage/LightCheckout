@@ -8,7 +8,7 @@
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
  * @version      Release: 3.2
- * @since        Class available since Release 1.0
+ * @since        Class available since Release 3.2
  */
 ?>
 <div id="gcheckout-payment-methods" class="gcheckout-payment-methods">
@@ -62,5 +62,17 @@
             Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
         }        
     //]]>
-	</script>		
+	</script>
+	<?php if($advanced_script = trim($this->getChildHtml('advanced_script'))): ?>
+	
+		<script type="text/javascript">
+	    //<![CDATA[
+			
+			<?php echo $advanced_script ?>
+			
+		//]]>
+		</script>
+	
+	<?php endif;?>
+			
 </div>

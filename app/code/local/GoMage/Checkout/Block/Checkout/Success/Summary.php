@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.0
+ * @version      Release: 3.2
  * @since        Class available since Release 2.5
  */
 
@@ -23,11 +23,6 @@ class GoMage_Checkout_Block_Checkout_Success_Summary extends Mage_Sales_Block_Or
     public function getOrder(){
     	
         return Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId());
-    }
-
-    protected function _prepareItem(Mage_Core_Block_Abstract $renderer){
-    	
-        return parent::_prepareItem($renderer);
     }
 
 }

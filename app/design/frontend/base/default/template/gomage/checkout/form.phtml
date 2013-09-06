@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 2.0
  */
 ?>
@@ -54,6 +54,12 @@
 		<?php endif;?>
 	</div>
 	<div id="checkout-update-section"></div>
+	<?php $form_additional_info = $this->getChildHtml('form.additional.info'); ?>
+	<?php if ($form_additional_info): ?>
+		<ul class="form-list">
+			<?php echo $form_additional_info; ?>
+		</ul>
+	<?php endif; ?>
 	<div class="button-set" id="checkout-review-submit">
 		<button <?php if(!$this->getQuote()->validateMinimumAmount()): ?>disabled="disabled"<?php endif; ?> onclick="checkout.LightcheckoutSubmit()" id="submit-btn" type="button" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout <?php if(!$this->getQuote()->validateMinimumAmount()): ?>disabled<?php endif; ?>">
 			<span><span><?php echo $this->__('Place Order') ?></span></span>
@@ -71,4 +77,5 @@
 	</div>
 
 </div>
+
 </div>

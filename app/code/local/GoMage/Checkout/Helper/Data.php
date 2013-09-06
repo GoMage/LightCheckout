@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 1.0
  */
 
@@ -204,7 +204,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
 	
 	public function getGeoipRecord(){
 		
-		return GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_record_by_addr($_SERVER['REMOTE_ADDR']);
+		return GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_record_by_addr(Mage::helper('core/http')->getRemoteAddr());
 		
 	}
 	
@@ -220,7 +220,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
 				
 				try{
 					
-					$this->country_id = GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_country_code_by_addr($_SERVER['REMOTE_ADDR']);
+					$this->country_id = GeoIP_Core::getInstance(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat", GeoIP_Core::GEOIP_STANDARD)->geoip_country_code_by_addr(Mage::helper('core/http')->getRemoteAddr());
 					
 				}catch(Exception $e){
 					
@@ -420,6 +420,19 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
     	$taxRate = $calculation->getRate($request);
     	
     	return ($amount + $calculation->calcTaxAmount($amount, $taxRate));    	
+    }
+    
+    public function getCountriesStatesRequired(){
+    	$result = array();
+    	
+    	if ($this->getConfigData('address_fields/region') == 'req'){
+    		$country_collection = Mage::helper('directory')->getCountryCollection();
+    		foreach ($country_collection as $country){
+    			$result[] = $country->getCountryId();
+    		}
+    	}
+    	return Mage::helper('core')->jsonEncode($result);
+    	
     }
 	
 }

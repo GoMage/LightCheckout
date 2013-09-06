@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 1.0
  */
  
@@ -48,7 +48,8 @@
 	<?php 
 	    $translator = array(
 	        'This is a required field.' => $this->__('This is a required field.'),
-	        'Please select one of the options.' => $this->__('Please select one of the options.')
+	        'Please select one of the options.' => $this->__('Please select one of the options.'),
+	    	'There is already a customer registered using this email address. Please login using this email address or enter a different email address.' => $this->__('There is already a customer registered using this email address. Please login using this email address or enter a different email address.')
 	    );
 	?>
 
@@ -79,6 +80,10 @@
 	}]]);
 	
 	var countryRegions			= <?php echo $this->helper('directory')->getRegionJson(); ?>;
+	var glc_regions_required    = <?php echo Mage::helper('gomage_checkout')->getCountriesStatesRequired(); ?>;
+	if (typeof countryRegions.config != 'undefined'){		
+		countryRegions.config.regions_required = glc_regions_required;
+	} 
 	var default_shipping_method	= '<?php echo $this->getDefaultShippingMethod()?>';
 	var default_payment_method	= '<?php echo $this->getDefaultPaymentMethod()?>';
 	
@@ -125,7 +130,7 @@
 		'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
 		'<div class="glc-popup-content"><div class="glc-popup-content-in">'+
 		'<a class="close" onclick="checkout.hideLoginForm();"></a>'+
-		'<div class="details">'+
+		'<div class="details" id="gcheckout-login-wrapper">'+
 			'<h2><?php echo $this->__("Customer Login")?></h2>'+
 			'<form id="gcheckout-login-form" action="" method="post" onsubmit="checkoutloginform.submit();return false;">'+
 			'<ul class="form-list">'+
@@ -143,12 +148,30 @@
                 '</li>'+
             '</ul>'+
             '<div class="actions">'+
-            	'<a class="forgot-link" href="<?php echo $this->getUrl("customer/account/forgotpassword")?>"><?php echo $this->__("Forgot Your Password?")?></a>'+
+            	'<a class="forgot-link" onclick="checkoutloginform.showForgotForm();return false;" href="<?php echo $this->getUrl("customer/account/forgotpassword")?>"><?php echo $this->__("Forgot Your Password?")?></a>'+
             	'<button class="button" type="submit"><span><span><?php echo $this->__("Login");?></span></span></button>'+
             	'<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>'+
             '</div>'+
             '</form>'+
 		'</div>'+
+		'<div class="details" id="gcheckout-forgot-wrapper" style="display:none;">'+
+			'<h2><?php echo $this->__("Forgot Your Password?")?></h2>'+
+			'<form id="gcheckout-forgot-form" action="" method="post" onsubmit="checkoutloginform.submitForgot();return false;">'+
+			'<ul class="form-list">'+
+                '<li>'+
+                    '<label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>'+
+                    '<div class="input-box">'+
+                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submitForgot(); return false;}" type="text" title="<?php echo $this->__("Email Address");?>" class="input-text required-entry" id="forgot_email" value="" name="forgot_email" />'+
+                    '</div>'+
+                '</li>'+                
+            '</ul>'+
+            '<div class="actions">'+            	
+            	'<button class="button" onclick="checkoutloginform.showLoginForm();return false;" type="button"><span><span><?php echo $this->__("Back");?></span></span></button>'+
+            	'<button class="button" type="submit"><span><span><?php echo $this->__("Submit");?></span></span></button>'+
+            	'<div class="loadinfo" style="display:none;"><?php echo $this->__("Please wait...");?></div>'+
+            '</div>'+
+            '</form>'+
+		'</div>'+		
 		'</div>'+
 		'</div>'+
 		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+
@@ -172,7 +195,7 @@
 	
 	<?php endif;?>
 
-   	var centinelHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="gcheckout-payment-centinel" style="display:none;width:600px;height:500px;">'+
+   	var centinelHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="gcheckout-payment-centinel" style="display:none;width:<?php echo intval($this->getConfigData('address_fields/secure_window_width')) ?>px;height:<?php echo intval($this->getConfigData('address_fields/secure_window_height')) ?>px;">'+
 	'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
 	'<div class="glc-popup-content"><div class="glc-popup-content-in" style="width:552;px;height:475px;">'+
 		'<a class="close" onclick="checkout.hideCentinel();return false;"></a>'+
@@ -185,32 +208,34 @@
 		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+
 	'</div>';
 
-    CentinelAuthenticate.prototype.cancel = function() {
-
-        if (this._isAuthenticationStarted) {
-            if (this._isRelatedBlocksLoaded()) {
-                this._showRelatedBlocks();
-            }
-            if (this._isCentinelBlocksLoaded()) {
-                $(this.centinelBlockId).hide();
-                $(this.iframeId).src = '';
-            }
-            this._isAuthenticationStarted = false;
-        }
-        checkout.hideCentinel();
-    }
-
-    CentinelAuthenticate.prototype.success = function() {
-
-        if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
-            this._showRelatedBlocks();
-            $(this.centinelBlockId).hide();
-            this._isAuthenticationStarted = false;
-            checkout.hideCentinel();
-            checkout.saveorder();
-        }
-        
-    }
+   	if (typeof(CentinelAuthenticate) != 'undefined'){
+	    CentinelAuthenticate.prototype.cancel = function() {
+	
+	        if (this._isAuthenticationStarted) {
+	            if (this._isRelatedBlocksLoaded()) {
+	                this._showRelatedBlocks();
+	            }
+	            if (this._isCentinelBlocksLoaded()) {
+	                $(this.centinelBlockId).hide();
+	                $(this.iframeId).src = '';
+	            }
+	            this._isAuthenticationStarted = false;
+	        }
+	        checkout.hideCentinel();
+	    }
+	
+	    CentinelAuthenticate.prototype.success = function() {
+	
+	        if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
+	            this._showRelatedBlocks();
+	            $(this.centinelBlockId).hide();
+	            this._isAuthenticationStarted = false;
+	            checkout.hideCentinel();
+	            checkout.saveorder();
+	        }
+	        
+	    }
+   	}
 
 	//]]>
 </script>
@@ -226,7 +251,7 @@
 			<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
 			<?php if(Mage::getStoreConfig('customer/facebook/enabled')): ?>
 		    		<span><?php echo $this->__('or');?></span>
-		    		<a rel="facebook-connect" title="<?php echo $this->__('Login with Facebook');?>" href="<?php echo $this->helper('facebook')->getConnectUrl() ?>"><?php echo $this->__('Login with Facebook');?></a>
+		    		<a rel="facebook-connect" title="<?php echo $this->__('Login with Facebook');?>" href="<?php echo $this->helper('inchoo_facebook')->getConnectUrl() ?>"><?php echo $this->__('Login with Facebook');?></a>
 			<?php endif; ?>
 		</div>
 		
@@ -292,7 +317,7 @@
 	<script type="text/javascript">
 	//<![CDATA[
 		var checkoutForm = new VarienForm('gcheckout-onepage-form');
-		var checkoutloginform = new LightcheckoutLogin({url:"<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>"});
+		var checkoutloginform = new LightcheckoutLogin({url:"<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>", url_forgot:"<?php echo $this->getUrl("gomage_checkout/onepage/forgotPassword");?>"});
 		
 		<?php if($this->isCustomerLoggedIn()):?>
 	    	
@@ -339,9 +364,7 @@
 	    function initAddresses(){
 	    <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
 	    billingRegionUpdater = new RegionUpdater('billing_country_id', 'billing_region', 'billing_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"billing_postcode"' : 'undefined';?>);
-	    
-	    
-	    
+
 	    <?php if($this->getChild('address')->getChild('billing')->canShip()):?>
 	    
 			<?php if( $this->getChild('address')->getChild('shipping')->isEnabled('country_id') && $this->getChild('address')->getChild('shipping')->isEnabled('region')):?>

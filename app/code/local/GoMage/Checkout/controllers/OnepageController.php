@@ -9,7 +9,7 @@
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 3.1
+ * @version      Release: 3.2
  * @since        Class available since Release 1.0
  */
 
@@ -136,6 +136,11 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			    	}
 			    	
 			    	$address = $this->getOnepage()->getQuote()->getShippingAddress();
+			    	
+					$address->setCollectShippingRates(true);
+        			$address->collectShippingRates();
+        			$address->setCollectShippingRates(true);			    	
+			    	
 				    $layout = $this->_getShippingMethodsHtml();	        			
     				$result->rates	= $layout->getOutput();    				
     				$rates = (array)$layout->getBlock('root')->getShippingRates();    																
@@ -425,6 +430,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			case('get_methods'):
 				
 				if($billing_address_data = $this->getRequest()->getPost('billing')){
+					
+					$billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
 															
 				    $paymentMethod = $this->getOnepage()->getQuote()->getPayment()->getMethod();
 				    
@@ -437,15 +444,15 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 					if (!$this->getOnepage()->getQuote()->isVirtual()) {
 						
 						if(!isset($billing_address_data['use_for_shipping']) || !intval($billing_address_data['use_for_shipping'])){
-							
+
 							$shipping_address_data = $this->getRequest()->getPost('shipping');
-							
+
 						}else{
-							
+
 							$shipping_address_data = $billing_address_data;
-							
+
 						}
-						
+
 						$address = $this->getOnepage()->getQuote()->getShippingAddress();
 						$address->addData($shipping_address_data);
 						$address->implodeStreetAddress();
@@ -454,10 +461,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 	        			
 	        			$address->setCollectShippingRates(true);  
         				if($shippingMethod = $this->getRequest()->getPost('shipping_method', false)){
-                			
+
                 			$this->getOnepage()->getQuote()->getShippingAddress()->setShippingMethod($shippingMethod);
-                			
-                		}   
+
+                		}
     					try {
                         	if ($paymentMethod){        			
                         	    $this->getOnepage()->getQuote()->getPayment()->importData(array('method' =>	$paymentMethod));
@@ -500,11 +507,22 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
 					if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 11)){
 						$enterprise_giftwrapping = Mage::getModel('enterprise_giftwrapping/observer');
-						if ($enterprise_giftwrapping && method_exists($enterprise_giftwrapping, 'checkoutProcessWrappingInfo')){					
+						if ($enterprise_giftwrapping && method_exists($enterprise_giftwrapping, 'checkoutProcessWrappingInfo')){
 							Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method',
 		                        				array('request'=>$this->getRequest(),
 		                              				  'quote'=>$this->getOnepage()->getQuote())
 		                        				);
+							
+							if ($this->getOnepage()->getQuote()->getShippingAddress()) {
+								$wrappingInfo = array();
+			                    $wrappingInfo['gw_id'] = $this->getOnepage()->getQuote()->getShippingAddress()->getData('gw_id');
+			                    $wrappingInfo['gw_allow_gift_receipt'] = $this->getOnepage()->getQuote()->getShippingAddress()->getData('gw_allow_gift_receipt');
+			                    $wrappingInfo['gw_add_card'] = $this->getOnepage()->getQuote()->getShippingAddress()->getData('gw_add_card');
+			                    
+			                    $this->getOnepage()->getQuote()->getBillingAddress()->addData($wrappingInfo);
+							}
+		                        				    				
+							$this->getOnepage()->getQuote()->setTotalsCollectedFlag(false);
 		                	$this->getOnepage()->getQuote()->collectTotals();                	
 						}
 					}
@@ -535,6 +553,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			break;
 			case('get_payment_methods'):
 				$billing_address_data = $this->getRequest()->getPost('billing');
+				$billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
+				
 				$address = $this->getOnepage()->getQuote()->getBillingAddress();
 				$address->addData($billing_address_data);
 				$address->implodeStreetAddress();
@@ -548,16 +568,28 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			case('save_payment_methods'):
                 
                 $billing_address_data = $this->getRequest()->getPost('billing');
+                $billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
+                
                 $address = $this->getOnepage()->getQuote()->getBillingAddress();
 				$address->addData($billing_address_data);
-				$address->implodeStreetAddress();				
+				$address->implodeStreetAddress();
+
+                if(!isset($billing_address_data['use_for_shipping']) || !intval($billing_address_data['use_for_shipping'])){
+        			$shipping_address_data = $this->getRequest()->getPost('shipping');
+        		}else{
+        			$shipping_address_data = $billing_address_data;
+        		}
+        		$address = $this->getOnepage()->getQuote()->getShippingAddress();
+        		$address->addData($shipping_address_data);
+        		$address->implodeStreetAddress();
+
 				$this->getOnepage()->getQuote()->collectTotals()->save();
                 
 			    $result->section	= 'centinel';
 			    $data = $this->getRequest()->getPost('payment', array());
         		if (empty($data)){                    
                     $result->error	= true;
-					$result->message = $this->__('Invalid payment data');
+					$result->message = $this->__('Please select payment method');
                 }else{
                     $payment = $this->getOnepage()->getQuote()->getPayment();
                     $payment->importData($data);            
@@ -581,6 +613,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 				    $paymentMethod = $this->getOnepage()->getQuote()->getPayment()->getMethod();
 				    
 					$billing_address_data = $this->getRequest()->getPost('billing');
+					$billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
 					
 					if(!isset($billing_address_data['use_for_shipping']) || !intval($billing_address_data['use_for_shipping'])){
 						
@@ -663,6 +696,15 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 		
                 	}
             	}
+            	
+            	if (isset($payment['use_customer_balance'])){
+					try{
+	            		$this->getOnepage()->getQuote()->getPayment()->importData($payment);
+	            		$this->getOnepage()->getQuote()->save();
+					}catch(Exception $e){	
+                	}	
+            	}
+            	
             	
             	if ($this->getOnepage()->getQuote()->getUseRewardPoints() && !isset($payment['use_reward_points'])){
             	      $this->getOnepage()->getQuote()->setUseRewardPoints(false);
@@ -840,6 +882,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			    $result->message = array();
 			    
 		        $billing_address_data = $this->getRequest()->getPost('billing');
+		        $billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
         		
         		if(isset($billing_address_data['day']) && $billing_address_data['month'] && $billing_address_data['year']){
 	        		try{
@@ -1005,7 +1048,25 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         		   $result->message = implode('\n', (array)$result->message);         		   
         		}   
 
-			break;    
+			break;  
+			
+			case('find_exists_customer'):
+				
+				$result->exists = false;
+				
+				if ($this->getOnepage()->getCheckoutMode() != 2 && !Mage::getSingleton('customer/session')->isLoggedIn()){
+				
+					$email = $this->getRequest()->getPost('email');
+					
+					$customer = Mage::getModel('customer/customer');
+			        $customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+			        $customer->loadByEmail($email);		        
+			        if ($customer->getId()) {
+			            $result->exists = true;
+			        }
+				}
+				
+			break;	  
 			
 		endswitch;
 		
@@ -1038,7 +1099,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 	    
 		$helper = Mage::helper('gomage_checkout');
 		
-		$result = array('error'=>0, 'message'=>array());
+		$result = array('error'=>false, 'success' => true, 'message'=>array());
 					
 		if((bool)$helper->getConfigData('general/enabled') == false){			
 			$result['redirect'] = Mage::getUrl('checkout/onepage'); 
@@ -1063,6 +1124,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }    
         		                
         		$billing_address_data = $this->getRequest()->getPost('billing');
+        		$billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
         		
         		if(isset($billing_address_data['day']) && $billing_address_data['month'] && $billing_address_data['year']){
 	        		try{
@@ -1081,6 +1143,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		        	}catch(Exception $e){
 		        			
 		        			$result['error'] = true;
+		        			$result['success'] = false;
 							$result['message'][] = $this->__('Incorrect date of birdhday');
 		        			
 	        		}
@@ -1137,6 +1200,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 						if(isset($shiping_address_result['error']) && intval($shiping_address_result['error'])){
 					
 							$result['error'] = true;
+							$result['success'] = false;
 							$messages = array();
 							
 							foreach((array) $shiping_address_result['message'] as $message){
@@ -1158,6 +1222,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 				if(isset($billing_address_result['error']) && intval($billing_address_result['error'])){
 					
 					$result['error'] = true;
+					$result['success'] = false;
 					$messages = array();
 					
 					foreach((array)$billing_address_result['message'] as $message){
@@ -1194,6 +1259,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             	if($helper->getConfigData('general/termsandconditions') && !intval($this->getRequest()->getPost('accept_terms', 0))){
             		
             		$result['error'] = true;
+            		$result['success'] = false;
             		$result['message'][] = $this->__('Your must accept Terms and Conditions.');
             		
             	}
@@ -1281,7 +1347,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         	
             try {
                 $session->login($login['username'], $login['password']);
-                
+                if (method_exists($session, 'renewSession')){
+                    $session->renewSession();
+                }
+                                
 				$this->getOnepage()->initCheckout();
 				
 		        $layout = Mage::getModel('core/layout');
@@ -1289,11 +1358,16 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		        $layout->generateXml()->generateBlocks();
 		        
 		        $layout->getBlock('checkout.onepage')->setTemplate('gomage/checkout/form.phtml');
-		        
-		        if($block = $layout->getBlock('top.links')){
-		        
-		        $result['links']   = $block->toHtml();
-		        
+
+		        if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 8)){		        				        
+		        	if($block = $layout->getBlock('header')){
+		        		$block->unsetChild('welcome');		        					        
+			        	$result['header'] = $block->toHtml();			        
+			        }
+		        }else{
+		        	if($block = $layout->getBlock('top.links')){			        
+			        	$result['links']   = $block->toHtml();			        
+			        }
 		        }
 		        
 		        $layout->removeOutputBlock('root');
@@ -1328,6 +1402,48 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		
 		
         $this->getResponse()->setBody(Zend_Json::encode($result));
+	}
+	
+	public function forgotPasswordAction(){
+		$result = array('error'=>false);
+		
+	 	$email = (string) $this->getRequest()->getPost('email');
+        if ($email) {
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                $result['error'] = true;
+                $result['message'] = $this->__('Invalid email address.');                
+            }
+
+            if (!$result['error']){
+	            $customer = Mage::getModel('customer/customer')
+	                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+	                ->loadByEmail($email);
+	
+	            if ($customer->getId()) {
+	                try {
+	                    $newResetPasswordLinkToken = Mage::helper('customer')->generateResetPasswordLinkToken();
+	                    $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+	                    $customer->sendPasswordResetConfirmationEmail();
+	                } catch (Exception $exception) {
+	                    $result['error'] = true;
+	                	$result['message'] = $exception->getMessage();
+	                }
+	            }else{
+	            	$result['error'] = true;
+                	$result['message'] = $this->__('No found customer with email %s.', Mage::helper('customer')->htmlEscape($email));
+	            }
+            }
+            if (!$result['error']){
+            	$result['message'] = Mage::helper('customer')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('customer')->htmlEscape($email));
+            }
+            
+                
+        } else {
+        	$result['error'] = true;
+            $result['message'] = $this->__('Please enter your email.');
+        }
+		
+		$this->getResponse()->setBody(Zend_Json::encode($result));
 	}
 	
 	protected function _getShippingMethodsHtml()
@@ -1374,14 +1490,32 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     protected function _getTopLinksHtml(){
 	    $layout = Mage::getSingleton('core/layout');
 	    
-	    $top_links = $layout->createBlock('page/template_links', 'glc.top.links');
-        $checkout_cart_link = $layout->createBlock('checkout/links', 'checkout_cart_link');            
-        $top_links->setChild('checkout_cart_link', $checkout_cart_link);
-        if (method_exists($top_links, 'addLinkBlock')){
-            $top_links->addLinkBlock('checkout_cart_link');
-        }
-        $checkout_cart_link->addCartLink();             
+	    if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 8)){
+	    	$top_links = $layout->createBlock('checkout/cart_sidebar', 'glc.top.links');
+        	$top_links->setTemplate('checkout/cart/cartheader.phtml');
+	    }else{
+		    $top_links = $layout->createBlock('page/template_links', 'glc.top.links');
+	        $checkout_cart_link = $layout->createBlock('checkout/links', 'checkout_cart_link');            
+	        $top_links->setChild('checkout_cart_link', $checkout_cart_link);
+	        if (method_exists($top_links, 'addLinkBlock')){
+	            $top_links->addLinkBlock('checkout_cart_link');
+	        }
+	        $checkout_cart_link->addCartLink();
+	    }  
+
         return $top_links->renderView(); 
-	} 
+	}
+
+	protected function _prepareBillingAddressData($billing_address_data){
+		$params = array('customer_password', 'confirm_password');
+		
+		foreach ($params as $param){
+			if (isset($billing_address_data[$param])){
+				$billing_address_data[$param] = urldecode($billing_address_data[$param]);
+			}
+		}		
+		
+		return $billing_address_data;
+	}
     
 }
