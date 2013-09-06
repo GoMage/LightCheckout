@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 	
@@ -45,6 +45,35 @@ class GoMage_DeliveryDate_Model_Adminhtml_System_Config_Source_Hour{
             array('value' => '21', 'label'=>'21:00'),
             array('value' => '22', 'label'=>'22:00'),
             array('value' => '23', 'label'=>'23:00'),
+        );
+    }
+    
+    public function toOptionHash(){ 
+    	return array(
+            '0'=>'00:00',
+            '1'=>'01:00',
+            '2'=>'02:00',
+            '3'=>'03:00',
+            '4'=>'04:00',
+            '5'=>'05:00',
+            '6'=>'06:00',
+            '7'=>'07:00',
+            '8'=>'08:00',
+            '9'=>'09:00',
+            '10'=>'10:00',
+            '11'=>'11:00',
+			'12'=>'12:00',
+			'13'=>'13:00',
+			'14'=>'14:00',
+			'15'=>'15:00',
+			'16'=>'16:00',
+			'17'=>'17:00',
+			'18'=>'18:00',
+			'19'=>'19:00',
+			'20'=>'20:00',
+			'21'=>'21:00',
+			'22'=>'22:00',
+			'23'=>'23:00',
         );
     }
 

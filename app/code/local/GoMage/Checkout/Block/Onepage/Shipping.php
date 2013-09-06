@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */ 
 
@@ -97,7 +97,7 @@ class GoMage_Checkout_Block_Onepage_Shipping extends GoMage_Checkout_Block_Onepa
             ->setName($type.'[country_id]')
             ->setId($type.'_country_id')
             ->setTitle(Mage::helper('checkout')->__('Country'))
-            ->setClass('validate[required]')
+            ->setClass('required-entry absolute-advice')
             ->setValue($countryId)
             ->setOptions($options);
         

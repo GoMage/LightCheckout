@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 
@@ -477,12 +477,12 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 				$this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
 			}
 			
-        }
-        
+        }                
+
         if(!$this->getQuote()->isVirtual()){
-        
+
         if(!$this->getQuote()->getShippingAddress()->getShippingMethod() && ($shippingMethod = $this->helper->getDefaultShippingMethod())){
-    		
+
     		$this->getQuote()->getShippingAddress()->collectShippingRates();
     		$this->getQuote()->getShippingAddress()->setShippingMethod($shippingMethod);
     		$this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
@@ -517,13 +517,15 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
     	catch (Exception $_e)
     	{
     	}
-    	
-    	$this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
-	    $this->getQuote()->getShippingAddress()->collectShippingRates();
-	    $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
-    	
-    	$this->getQuote()->collectTotals()->save();
-    	
+
+    	if(!$this->getQuote()->getShippingAddress()->getShippingMethod()){
+            $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
+            $this->getQuote()->getShippingAddress()->collectShippingRates();
+            $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
+        }
+        
+        $this->getQuote()->setTotalsCollectedFlag(false);
+    	$this->getQuote()->collectTotals()->save();        
         
         return $this;
     }

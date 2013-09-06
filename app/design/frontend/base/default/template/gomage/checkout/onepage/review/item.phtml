@@ -159,9 +159,15 @@
     <?php endif; ?>
     <?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_change_qty')>0):?>
     <td class="a-center light-chechout-remove-td" style="white-space:nowrap;">
-    	<strong class="glc-qtybtn glc-minus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartminus');return false;"><span><span>-</span></span></strong>
-    	<span class="gcheckout-qty"><?php echo $_item->getQty() ?></span>
-		<strong class="glc-qtybtn glc-plus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartplus');return false;"><span><span>+</span></span></strong>
+    	<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?>
+    		<strong class="glc-qtybtn glc-plus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartplus');return false;"><span><span>+</span></span></strong>    		
+	    	<span class="gcheckout-qty"><?php echo $_item->getQty() ?></span>
+			<strong class="glc-qtybtn glc-minus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartminus');return false;"><span><span>-</span></span></strong>
+    	<?php else: ?>
+	    	<strong class="glc-qtybtn glc-minus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartminus');return false;"><span><span>-</span></span></strong>
+	    	<span class="gcheckout-qty"><?php echo $_item->getQty() ?></span>
+			<strong class="glc-qtybtn glc-plus" onclick="checkout.submit({id:<?php echo $_item->getId();?>}, 'cartplus');return false;"><span><span>+</span></span></strong>
+		<?php endif; ?>
     </td>
     <?php else:?>
     <td class="a-center">

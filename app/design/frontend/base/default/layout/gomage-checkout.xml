@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -40,6 +40,8 @@
             
             <action method="addJs"><script>mage/centinel.js</script></action>
             <action method="addJs"><file>gomage/directpost.js</file></action>
+            <action method="addJs"><file>varien/accordion.js</file></action>
+                        
         </reference>
         
         <reference name="content" >
@@ -95,6 +97,7 @@
 			                <block type="gomage_checkout/authorizenet_directpost_form" name="payment.form.directpost" template="authorizenet/directpost/form.phtml">
 				                <action method="setMethodInfo"></action>
 				            </block>
+				            <block type="paypal/iframe" name="paypal.iframe" />
 			            </block>			            
 			        </block>			        
 			        <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="gomage/checkout/onepage/agreements.phtml"/>
@@ -123,6 +126,7 @@
                 <block type="gomage_checkout/authorizenet_directpost_form" name="payment.form.directpost" template="authorizenet/directpost/form.phtml">
 	                <action method="setMethodInfo"></action>
 	            </block>
+	            <block type="paypal/iframe" name="paypal.iframe" />
             </block>
         </block>
        	
@@ -142,9 +146,26 @@
         <remove name="left"/>
         <block type="centinel/authentication" output="toHtml" name="centinel.frame" template="centinel/authentication.phtml">
             <action method="addRelatedBlock"><blockId>checkout-review-submit</blockId></action>
-            <action method="addRelatedBlock"><blockId>gcheckout-payment-methods-available</blockId></action>                        
+            <action method="addRelatedBlock"><blockId>gcheckout-payment-methods-available</blockId></action>
+            <action method="addRelatedBlock"><blockId>gcheckout-payment-centinel</blockId></action>                        
             <action method="setAuthenticationStartMode"><mode>instant</mode></action>
         </block>
     </gomage_checkout_onepage_centinel>
+    
+    <checkout_onepage_success> 
+     	<reference name="checkout.success">
+     		<block type="gomage_checkout/checkout_success_summary" name="gomage.checkout.success.summary">
+                <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
+                </block>
+            </block> 
+     	</reference> 
+    </checkout_onepage_success>
 
 </layout>

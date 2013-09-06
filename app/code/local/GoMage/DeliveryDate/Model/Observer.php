@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 	
@@ -50,8 +50,11 @@
 			
 			$request	= Mage::app()->getRequest();
 			$quote		= $event->getQuote();
-			
-			if(($deliverydate = $request->getPost('deliverydate', false)) && $quote){
+			$helper = Mage::helper('gomage_deliverydate');
+
+			if(($deliverydate = $request->getPost('deliverydate', false)) && $quote &&
+				$helper->isEnableDeliveryDate() && 
+				in_array($request->getPost('shipping_method', false), Mage::helper('gomage_deliverydate')->getShippingMethods())){
 				
 				if(is_array($deliverydate)){
 					
@@ -80,7 +83,7 @@
                         }					    
 						
 						$mysql_date = implode('', $date);
-						if(isset($deliverydate['time'])){
+						if(isset($deliverydate['time']) && $deliverydate['time']){
 							$time = explode(':', strval($deliverydate['time']));
 							if(count($time)){
 								$mysql_time = sprintf('%02d%02d00', $time[0], (isset($time[1]) ? $time[1] : 0) );

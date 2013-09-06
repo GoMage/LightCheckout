@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
  
@@ -37,14 +37,24 @@
  
 ?>
 <?php if($this->getContent()):?>
-<div class="glc-content">
+<div class="glc-content<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 	<?php echo $this->getContent();?>
 </div>
 <?php endif ?>
 
 <script type="text/javascript">
 	//<![CDATA[
-	
+
+	<?php 
+	    $translator = array(
+	        'This is a required field.' => $this->__('This is a required field.'),
+	        'Please select one of the options.' => $this->__('Please select one of the options.')
+	    );
+	?>
+
+	if (typeof(Translator) != 'undefined'){
+		Translator.add(<?php echo Zend_Json::encode($translator) ?>);
+	}		
 	
 	Validation.addAllThese([
 	    ['validate-taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', function(v) {
@@ -111,7 +121,7 @@
 	
 	
 	
-	var loginFormHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="login-form" style="display:none;">'+
+	var loginFormHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="login-form" style="display:none;">'+
 		'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
 		'<div class="glc-popup-content"><div class="glc-popup-content-in">'+
 		'<a class="close" onclick="checkout.hideLoginForm();"></a>'+
@@ -122,13 +132,13 @@
                 '<li>'+
                     '<label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>'+
                     '<div class="input-box">'+
-                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="text" title="Email Address" class="input-text required-entry" id="email" value="" name="login[username]" />'+
+                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="text" title="<?php echo $this->__("Email Address");?>" class="input-text required-entry" id="email" value="" name="login[username]" />'+
                     '</div>'+
                 '</li>'+
                 '<li>'+
                     '<label class="required" for="pass"><em>*</em><?php echo $this->__("Password");?></label>'+
                     '<div class="input-box">'+
-                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="password" title="Password" id="pass" class="input-text required-entry validate-password" name="login[password]" />'+
+                        '<input onkeydown="if(event.keyCode == 13 ){ checkoutloginform.submit(); return false;}" type="password" title="<?php echo $this->__("Password");?>" id="pass" class="input-text required-entry validate-password" name="login[password]" />'+
                     '</div>'+
                 '</li>'+
             '</ul>'+
@@ -146,7 +156,7 @@
 	
 	<?php if($this->getConfigData('termsandconditions/enabled')):?>
 	
-	var termsHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
+	var termsHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
 	'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
 	'<div class="glc-popup-content"><div class="glc-popup-content-in" style="width:<?php $tacwidth=intval($this->getConfigData('termsandconditions/width'))-48; echo $tacwidth; ?>px;height:<?php intval($tacheight=$this->getConfigData('termsandconditions/height'))-25; echo $tacheight; ?>px;">'+
 		'<a class="close" onclick="checkout.hideTerms();return false;"></a>'+
@@ -161,19 +171,58 @@
 	'</div>';
 	
 	<?php endif;?>
-	
+
+   	var centinelHtml = '<div class="simple_overlay <?php echo $buttons_skin, ' ', $checkout_popup_skin, ' ', $buttons;?>" id="gcheckout-payment-centinel" style="display:none;width:600px;height:500px;">'+
+	'<div class="glc-popup-head"><div class="glc-popup-head-in"></div></div>'+
+	'<div class="glc-popup-content"><div class="glc-popup-content-in" style="width:552;px;height:475px;">'+
+		'<a class="close" onclick="checkout.hideCentinel();return false;"></a>'+
+		'<div class="details">'+
+			'<div class="popup-content" id="gcheckout-payment-centinel-html">'+
+			'</div>'+
+		'</div>'+
+		'</div>'+
+		'</div>'+
+		'<div class="glc-popup-bottom"><div class="glc-popup-bottom-in"></div></div>'+
+	'</div>';
+
+    CentinelAuthenticate.prototype.cancel = function() {
+
+        if (this._isAuthenticationStarted) {
+            if (this._isRelatedBlocksLoaded()) {
+                this._showRelatedBlocks();
+            }
+            if (this._isCentinelBlocksLoaded()) {
+                $(this.centinelBlockId).hide();
+                $(this.iframeId).src = '';
+            }
+            this._isAuthenticationStarted = false;
+        }
+        checkout.hideCentinel();
+    }
+
+    CentinelAuthenticate.prototype.success = function() {
+
+        if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
+            this._showRelatedBlocks();
+            $(this.centinelBlockId).hide();
+            this._isAuthenticationStarted = false;
+            checkout.hideCentinel();
+            checkout.saveorder();
+        }
+        
+    }
+
 	//]]>
-	
 </script>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
 <?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2 && Mage::getStoreConfig('gomage_checkout/address_fields/paypal')): ?>
-<div class="glc-login-and-paypal">
+<div class="glc-login-and-paypal<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 <?php endif; ?>
 
 	<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
 		
-		<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?>">
+		<div id="gcheckout-login-link" class="<?php echo $checkout_skin, ' ', $buttons_skin;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 			<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
 			<?php if(Mage::getStoreConfig('customer/facebook/enabled')): ?>
 		    		<span><?php echo $this->__('or');?></span>
@@ -202,7 +251,7 @@
 		
 	}
 	
-	if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')){
+	if(!Mage::helper('gomage_deliverydate')->isEnableDeliveryDate()){
 		
 		$class_mode .= ' not_deliverydate_mode ';
 		
@@ -223,7 +272,7 @@
 	}
 	
 ?>
-<div class="glc gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin, ' ', $buttons, ' ', $round;?>">
+<div class="glc gcheckout-onepage-wrap <?php echo $class_mode, ' ', $checkout_skin, ' ', $buttons_skin, ' ', $buttons, ' ', $round;?><?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 	
 	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">
 	
@@ -247,7 +296,9 @@
 	    <?php endif;?>
 	    
 		
-		var checkout = new Lightcheckout({url:"<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>", billing_taxvat_enabled:<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
+		var checkout = new Lightcheckout({url:"<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>", 
+										  save_order_url:"<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",	
+										  billing_taxvat_enabled:<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
 		
 		function changeAddressMode(flag){
 			

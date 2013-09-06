@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 2.0
  */ 
 
@@ -23,16 +23,11 @@ class GoMage_Checkout_CartController extends Mage_Checkout_CartController
 			
 			$quote = Mage::getSingleton('gomage_checkout/type_onestep')->getQuote();
 			
-			if ($quote->hasItems() && !$quote->getHasError()) {
-				if ($quote->validateMinimumAmount()) {
-	            $this->_redirect('*/onepage');
-	            }
-	            return;
+			if ($quote->hasItems()){				
+	            $this->_redirect('*/onepage');	            	            
 	        }
-			
-		}
-		
-		return parent::indexAction();
-		
+	        			
+		}		
+		return parent::indexAction();		
 	}
 }

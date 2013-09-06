@@ -1,24 +1,3 @@
-
-Object.extend(Validation.prototype, {
-	onSubmit :  function(ev){
-		
-        if(!this.validate()){
-        	Event.stop(ev);
-			$$('div.validation-advice').each(function(e){
-				if(e.style.display != 'none'){
-					e.scrollTo();
-					throw $break;
-				}
-			});
-			
-        }else{
-        
-        $('submit-btn').addClassName('disabled').disabled = true;
-        
-        }
-    }
-});
-
 Object.extend(Validation, {
 	defaultOptions:{
     onSubmit : true,
@@ -28,9 +7,23 @@ Object.extend(Validation, {
     useTitles : false,
     addClassNameToContainer: false,
     containerClassName: '.input-box',
-    onFormValidate : function(result, form) {},
+    onFormValidate :  function(result, form) {Validation.AfterFormValidate(result, form)},
     onElementValidate : function(result, elm) {}
 	},
+	
+	AfterFormValidate: function(result, form){		
+        if(!result){
+			$$('div.validation-advice,div.validation-advice-rtl').each(function(e){
+				if(e.style.display != 'none'){
+					e.scrollTo();
+					throw $break;
+				}
+			});			
+        }else{        
+        	$('submit-btn').addClassName('disabled').disabled = true;        
+        }
+    },
+	
 	createAdvice : function(name, elm, useTitle, customError) {
 		
         var v = Validation.get(name);
@@ -45,8 +38,12 @@ Object.extend(Validation, {
         }
         catch(e){}
 
-        advice = '<div class="validation-advice" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none;"><div class="validation-advice-container">' + errorMsg + '</div></div>'
+        var useRtl = false;
+        if (typeof $(elm).up('div.glc-rtl') != 'undefined'){
+			useRtl = true;
+        }
 
+        advice = '<div class="validation-advice'+(useRtl?'-rtl':'')+'" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none;"><div class="validation-advice-container">' + errorMsg + '</div></div>'
 
         Validation.insertAdvice(elm, advice);
         advice = Validation.getAdvice(name, elm);
@@ -55,7 +52,11 @@ Object.extend(Validation, {
             var originalPosition = Position.cumulativeOffset(elm);
 			
             advice._adviceTop = (originalPosition[1]);
-            advice._adviceLeft = (originalPosition[0]+(elm.offsetWidth > 40 ? elm.offsetWidth-40: -21));
+            if (useRtl){
+            	advice._adviceLeft = (originalPosition[0]-100+(elm.offsetWidth > 40 ? 0: -21));
+            }else{
+            	advice._adviceLeft = (originalPosition[0]+(elm.offsetWidth > 40 ? elm.offsetWidth-40: -21));
+            }
             advice._adviceWidth = (dimensions.width);
             advice._adviceAbsolutize = true;
         //}
@@ -72,12 +73,21 @@ Object.extend(Validation, {
                     advice = this.createAdvice(name, elm, useTitle);
                 }else{
                 	
+	                	var useRtl = false;
+	                    if (typeof $(elm).up('div.glc-rtl') != 'undefined'){
+	            			useRtl = true;
+	                    }
+                	
                 	//if($(elm).hasClassName('absolute-advice')) {
 			            var dimensions = $(elm).getDimensions();
 			            var originalPosition = Position.cumulativeOffset(elm);
 						
 			            advice._adviceTop = (originalPosition[1]);
-            			advice._adviceLeft = (originalPosition[0] + (elm.offsetWidth > 40 ? elm.offsetWidth-40: -21));
+			            if (useRtl){
+			            	advice._adviceLeft = (originalPosition[0] - 100 + (elm.offsetWidth > 40 ? 0: -21));
+			            }else{
+			            	advice._adviceLeft = (originalPosition[0] + (elm.offsetWidth > 40 ? elm.offsetWidth-40: -21));
+			            }
 			        //}
 			        
                 }
@@ -147,8 +157,8 @@ Object.extend(Validation, {
             elm.advices = new Hash();
         }
         else{
-            elm.advices.each(function(pair){
-                this.hideAdvice(elm, pair.value);
+            elm.advices.each(function(pair){                
+                pair.value.hide();
             }.bind(this));
         }
         
@@ -167,8 +177,6 @@ Object.extend(Validation, {
                 new Effect.Appear(advice, {duration : 1 });
             } else {
             	
-            	
-            	
                 Position.absolutize(advice);
                 advice.show();
                 
@@ -177,7 +185,8 @@ Object.extend(Validation, {
                     'left': advice._adviceLeft + 'px',
                     'width': 'auto',
                     'height':'auto',
-                    'z-index': 1000
+                    'z-index': 1000,
+                    'opacity': 1
                 });
                 
                 
@@ -194,7 +203,9 @@ Object.extend(Validation, {
                 
                 	advice.insert(arrowhtml);
                 
-                	Event.observe(advice, 'click', function(e){this.hide();});
+                	Event.observe(advice, 'click', function(){
+            			Validation.hideAdvice(this.elm,this.advice);
+            		}.bind({elm:elm,advice:advice}));
                 }else{
                 	
                 	advice.select('.arrow')[0].top = (advice.offsetHeight-2)+'px';

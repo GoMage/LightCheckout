@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 	
@@ -25,10 +25,12 @@
     			$requestPath = trim($request->getPathInfo(), '/');
     			
     			if($requestPath == 'checkout/onepage' || $requestPath == 'checkout/onepage/index'){
-    			    if(in_array(Mage::app()->getStore()->getWebsiteId(), $h->getAvailavelWebsites())){
-    			        $request->setAlias(self::REWRITE_REQUEST_PATH_ALIAS, $this->getRequestPath());
-        				$request->setPathInfo('gomage_checkout/onepage');
-        				return true;
+    			    if(in_array(Mage::app()->getStore()->getWebsiteId(), $h->getAvailavelWebsites())){    			    	
+    			    	if (!($h->isMobileDevice() && (bool)$h->getConfigData('general/disable_mobile'))){
+	    			        $request->setAlias(self::REWRITE_REQUEST_PATH_ALIAS, $this->getRequestPath());
+	        				$request->setPathInfo('gomage_checkout/onepage');
+	        				return true;
+    			    	}
     			    }    				
     			}				
 				

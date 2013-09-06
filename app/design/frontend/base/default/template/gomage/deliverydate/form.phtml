@@ -7,34 +7,41 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 
- if(Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')):?>
+ if(Mage::helper('gomage_deliverydate')->isEnableDeliveryDate()):?>
 
-<h2 class="glc-title"><span><span><?php echo $this->__('Time of Delivery');?></span></span></h2>
-	<div class="glc-col">
+<h2 class="glc-title"><span><span></span><?php echo $this->__('Time of Delivery');?></span></h2>
+<div class="glc-col">
 	<div class="glc-col-in">
-<div class="delivery-date">
-		
-	<?php foreach($this->getFields() as $field): ?>
-	    <div class="delivery-date-<?php echo $field->getId()?> left">
-	        
-			<?php echo $field->getHtml() ?>
+		<div class="delivery-date">
+				
+			<?php foreach($this->getFields() as $field): ?>
+			    <div class="delivery-date-<?php echo $field->getId()?> left">
+			        
+					<?php echo $field->getHtml() ?>
+				</div>
+			<?php endforeach?>
+			
+			<input id="dilivery-date-customeroffset-input" name="deliverydate[customer_offset]" type="hidden" class="hidden" />
 		</div>
-	<?php endforeach?>
-	
-	<input id="dilivery-date-customeroffset-input" name="deliverydate[customer_offset]" type="hidden" class="hidden" />
-</div>
-</div>
+		<?php if (Mage::getStoreConfig('gomage_checkout/deliverydate/display_datetext') &&
+				  Mage::getStoreConfig('gomage_checkout/deliverydate/datetext')): ?>
+			<div class="delivery-date-text"><?php echo Mage::getStoreConfig('gomage_checkout/deliverydate/datetext') ?></div>
+		<?php endif; ?>
+	</div>	
 </div>
 <script type="text/javascript">
+	//<![CDATA[
 	
 	var _date	= new Date();
-	var offset	= (_date.getTimezoneOffset()*60);
-		
+	var offset	= (_date.getTimezoneOffset()*60);		
 	$('dilivery-date-customeroffset-input').value = offset;
+
+	var glc_dilivery_date_shipping_methods = <?php echo Zend_Json::encode(Mage::helper('gomage_deliverydate')->getShippingMethods()) ?>;
 	
+	//]]>
 </script>
 <?php endif;

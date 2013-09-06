@@ -3,10 +3,10 @@
 /* Reset */
 .glc form,
 #login-form form{
-    display:inline;
+  display:inline;
 }
 #login-form .form-list .input-box{
-    clear:both;
+  clear:both;
 }
 .glc input,.glc select,.glc textarea,.glc button,
 #login-form input,#login-form select,#login-form textarea,#login-form button{
@@ -167,6 +167,10 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	margin:0;
 	text-align:left;
 }
+#checkout-review-table-wrapper{
+  overflow:auto;
+  width:100%;  
+}
 .glc #payment_form_authorizenet_directpost .input-box select{
 	width:100%;
 }
@@ -229,7 +233,7 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 }
 .glc-paypal-express p{
 	text-align:right;
-	margin:0 14px;
+	margin:0 14px 0 4px;
 }
 .glc-paypal-express p .paypal-or{
 	display:none;
@@ -662,16 +666,18 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 
 /* Nubmers */
 .glc-skin-default .glc-title{
-	background-repeat:no-repeat;
-	background-position:2px 2px;
+	background:none !important;
 	color:#404040;
 	font-size:15px;
 	font-weight:700;
 	height:28px;
 	line-height:20px;
 	margin:0 0 7px;
-	padding:6px 0 0 35px;
+	padding:6px 0 0 0;
 	text-transform:uppercase;
+}
+.glc-skin-default .glc-title span{
+  background:none;
 }
 .glc-skin-default .shipping-address .glc-title{
 	margin-top:20px;
@@ -975,7 +981,7 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	border:1px solid #eaeaea;
 	border-top:0;
 	border-bottom:0;
-	padding:12px 0 12px 16px;
+	padding:12px 16px;
 }
 .discount-bottom .lightcheckout-discount-form{
 	border-bottom:1px solid #eaeaea;
@@ -1108,7 +1114,7 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 .glc-skin-default .glc-col,
 .glc-skin-default .glc-col-in{
 	background:none;
-	padding:0;
+	padding:0 !important;
 }
 .glc-col{
 	background:url("../../images/gomage/lightcheckout/col-bg.png") no-repeat 0 100%;
@@ -1126,145 +1132,145 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	text-transform:uppercase;
 	background-image:url("../../images/gomage/lightcheckout/title_bg.png");
 }
-.glc-bskin-round-black .glc-title{
+.glc-bskin-round-black .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/rn-black.png) !important;
 }
-.glc-bskin-round-blue .glc-title{
+.glc-bskin-round-blue .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/rn-blue.png) !important;
 }
-.glc-bskin-round-green .glc-title{
+.glc-bskin-round-green .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/rn-green.png) !important;
 }
-.glc-bskin-round-gray .glc-title{
+.glc-bskin-round-gray .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/rn-gray.png) !important;
 }
-.glc-bskin-round-orange .glc-title{
+.glc-bskin-round-orange .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/rn-orange.png) !important;
 }
-.glc-bskin-round-red .glc-title{
+.glc-bskin-round-red .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/rn-red.png) !important;
 }
-.glc-bskin-square-black .glc-title{
+.glc-bskin-square-black .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-black.png) !important;
 }
-.glc-bskin-square-blue .glc-title{
+.glc-bskin-square-blue .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-blue.png) !important;
 }
-.glc-bskin-square-brown .glc-title{
+.glc-bskin-square-brown .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-brown.png) !important;
 }
-.glc-bskin-square-grey .glc-title{
+.glc-bskin-square-grey .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-gray.png) !important;
 }
-.glc-bskin-square-green .glc-title{
+.glc-bskin-square-green .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-green.png) !important;
 }
-.glc-bskin-square-light-blue .glc-title{
+.glc-bskin-square-light-blue .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-lblue.png) !important;
 }
-.glc-bskin-square-light-green .glc-title{
+.glc-bskin-square-light-green .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-lgreen.png) !important;
 }
-.glc-bskin-square-orange .glc-title{
+.glc-bskin-square-orange .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-orange.png) !important;
 }
-.glc-bskin-square-red .glc-title{
+.glc-bskin-square-red .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-red.png) !important;
 }
-.glc-bskin-square-pink .glc-title{
+.glc-bskin-square-pink .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-rose.png) !important;
 }
-.glc-bskin-square-violet .glc-title{
+.glc-bskin-square-violet .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-violet.png) !important;
 }
-.glc-bskin-square-yellow .glc-title{
+.glc-bskin-square-yellow .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/numbers/sn-yellow.png) !important;
 }
-.glc .address .billing-address .glc-title{
+.glc .address .billing-address .glc-title span span{
 	background-position:0 -130px;
 }
-.glc .shipping-methods .glc-title{
+.glc .shipping-methods .glc-title span span{
 	background-position:-21px -104px;
 }
-.glc .shipping-methods .shipping-advanced .glc-title{
+.glc .shipping-methods .shipping-advanced .glc-title span span{
 	background-position:-42px -78px;
 }
-.glc .gcheckout-payment-methods .glc-title{
+.glc .gcheckout-payment-methods .glc-title span span{
 	background-position:-63px -52px;
 }
-.glc .review .glc-title{
+.glc .review .glc-title span span{
 	background-position:-105px 0;
 }
-.not_shipping_mode .gcheckout-payment-methods .glc-title{
+.not_shipping_mode .gcheckout-payment-methods .glc-title span span{
 	background-position:-21px -104px !important;
 }
-.diferent_shipping_address .address .billing-address .glc-title{
+.diferent_shipping_address .address .billing-address .glc-title span span{
 	background-position:0 -130px;
 }
-.diferent_shipping_address .shipping-methods .glc-title{
+.diferent_shipping_address .shipping-methods .glc-title span span{
 	background-position:-42px -78px;
 }
-.diferent_shipping_address .shipping-methods .shipping-advanced .glc-title{
+.diferent_shipping_address .shipping-methods .shipping-advanced .glc-title span span{
 	background-position:-63px -52px;
 }
-.diferent_shipping_address .gcheckout-payment-methods .glc-title{
+.diferent_shipping_address .gcheckout-payment-methods .glc-title span span{
 	background-position:-84px -26px;
 }
-.diferent_shipping_address .shipping-address .glc-title{
+.diferent_shipping_address .shipping-address .glc-title span span{
 	background-position:-21px -104px;
 }
-.not_deliverydate_mode .gcheckout-payment-methods .glc-title{
+.not_deliverydate_mode .gcheckout-payment-methods .glc-title span span{
 	background-position:-42px -78px;
 }
-.notddate_diferent_shipping_address .gcheckout-payment-methods .glc-title{
+.notddate_diferent_shipping_address .gcheckout-payment-methods .glc-title span span{
 	background-position:-63px -52px;
 }
-.notddate_diferent_shipping_address .shipping-address .glc-title{
+.notddate_diferent_shipping_address .shipping-address .glc-title span span{
 	background-position:-21px -104px;
 }
-.notddate_diferent_shipping_address .shipping-methods .glc-title{
+.notddate_diferent_shipping_address .shipping-methods .glc-title span span{
 	background-position:-42px -78px;
 }
-.glc.glc-bskin-round .address .billing-address .glc-title{
+.glc.glc-bskin-round .address .billing-address .glc-title span span{
 	background-position:0 -141px;
 }
-.glc.glc-bskin-round .shipping-methods .glc-title{
+.glc.glc-bskin-round .shipping-methods .glc-title span span{
 	background-position:-23px -113px;
 }
-.glc.glc-bskin-round .shipping-methods .shipping-advanced .glc-title{
+.glc.glc-bskin-round .shipping-methods .shipping-advanced .glc-title span span{
 	background-position:-46px -85px;
 }
-.glc.glc-bskin-round .gcheckout-payment-methods .glc-title{
+.glc.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
 	background-position:-69px -57px;
 }
-.glc.glc-bskin-round .review .glc-title{
+.glc.glc-bskin-round .review .glc-title span span{
 	background-position:-115px -1px;
 }
-.not_shipping_mode.glc-bskin-round .gcheckout-payment-methods .glc-title{
+.not_shipping_mode.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
 	background-position:-23px -113px !important;
 }
-.diferent_shipping_address.glc-bskin-round .shipping-methods .glc-title{
+.diferent_shipping_address.glc-bskin-round .shipping-methods .glc-title span span{
 	background-position:-46px -85px;
 }
-.diferent_shipping_address.glc-bskin-round .shipping-methods .shipping-advanced .glc-title{
+.diferent_shipping_address.glc-bskin-round .shipping-methods .shipping-advanced .glc-title span span{
 	background-position:-69px -57px;
 }
-.diferent_shipping_address.glc-bskin-round .gcheckout-payment-methods .glc-title{
+.diferent_shipping_address.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
 	background-position:-92px -29px;
 }
-.diferent_shipping_address.glc-bskin-round .shipping-address .glc-title{
+.diferent_shipping_address.glc-bskin-round .shipping-address .glc-title span span{
 	background-position:-23px -113px;
 }
-.not_deliverydate_mode.glc-bskin-round .gcheckout-payment-methods .glc-title{
+.not_deliverydate_mode.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
 	background-position:-46px -85px;
 }
-.notddate_diferent_shipping_address.glc-bskin-round .gcheckout-payment-methods .glc-title{
+.notddate_diferent_shipping_address.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
 	background-position:-69px -57px;
 }
-.notddate_diferent_shipping_address.glc-bskin-round .shipping-address .glc-title{
+.notddate_diferent_shipping_address.glc-bskin-round .shipping-address .glc-title span span{
 	background-position:-23px -113px;
 }
-.notddate_diferent_shipping_address.glc-bskin-round .shipping-methods .glc-title{
+.notddate_diferent_shipping_address.glc-bskin-round .shipping-methods .glc-title span span{
 	background-position:-46px -85px;
 }
 .glc-title span{
@@ -1273,7 +1279,10 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 }
 .glc-title span span{
 	background-image:url(../../images/gomage/lightcheckout/sn.png) !important;
-	padding:1px 0 0 29px;
+	padding:1px 0 0;
+  width:21px;
+  margin:0 8px 0 0;
+  float:left;
 	background-repeat:repeat-y;
 	height:29px;
 }
@@ -1361,7 +1370,37 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 .glc.glc-bskin-square-pink .glc-title,
 .glc.glc-bskin-square-violet .glc-title,
 .glc.glc-bskin-square-yellow .glc-title{
-	padding:5px 0 0 26px;
+	padding:5px 0 0;
+}
+.glc.glc-bskin-square-black .glc-title span span,
+.glc.glc-bskin-square-blue .glc-title span span,
+.glc.glc-bskin-square-brown .glc-title span span,
+.glc.glc-bskin-square-grey .glc-title span span,
+.glc.glc-bskin-square-green .glc-title span span,
+.glc.glc-bskin-square-light-blue .glc-title span span,
+.glc.glc-bskin-square-light-green .glc-title span span,
+.glc.glc-bskin-square-orange .glc-title span span,
+.glc.glc-bskin-square-red .glc-title span span,
+.glc.glc-bskin-square-pink .glc-title span span,
+.glc.glc-bskin-square-violet .glc-title span span,
+.glc.glc-bskin-square-yellow .glc-title span span{
+	width:26px;
+  margin-right:0 !important;
+}
+.glc-rtl.glc-bskin-square-black .glc-title span span,
+.glc-rtl.glc-bskin-square-blue .glc-title span span,
+.glc-rtl.glc-bskin-square-brown .glc-title span span,
+.glc-rtl.glc-bskin-square-grey .glc-title span span,
+.glc-rtl.glc-bskin-square-green .glc-title span span,
+.glc-rtl.glc-bskin-square-light-blue .glc-title span span,
+.glc-rtl.glc-bskin-square-light-green .glc-title span span,
+.glc-rtl.glc-bskin-square-orange .glc-title span span,
+.glc-rtl.glc-bskin-square-red .glc-title span span,
+.glc-rtl.glc-bskin-square-pink .glc-title span span,
+.glc-rtl.glc-bskin-square-violet .glc-title span span,
+.glc-rtl.glc-bskin-square-yellow .glc-title span span{
+	margin-left:5px !important;
+  width:21px;
 }
 .glc .address .billing-address .glc-title span span{
 	background-position:0 -130px;
@@ -1819,9 +1858,9 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	width:100%;
 	padding:0;
 	margin:0;
-    border-spacing:0;
-    empty-cells:show;
-    font-size:100%;
+  border-spacing:0;
+  empty-cells:show;
+  font-size:100%;
 }
 .glc .data-table tfoot th{
 	font-weight:normal;
@@ -1842,6 +1881,13 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	font-weight:700;
 	vertical-align:middle;
 	white-space:nowrap;
+}
+.glc .data-table thead tr.last th{
+  background:#f3f3f3;
+}
+.glc .data-table thead tr.first th{
+  border-bottom:1px solid #E4E4E4;
+  background:url("../../images/gomage/lightcheckout/bkg_th2.gif") repeat-x 0 0 #f0f0f0;
 }
 .glc .data-table tfoot tr,.glc .data-table tfoot tr.first td{
 	background:none !important;
@@ -1886,7 +1932,7 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	border-bottom:0 !important;
 }
 .glc-skin-default .data-table thead th{
-	background:url("../../images/gomage/lightcheckout/bkg_th.gif") repeat-x 0 100% #D9E5EE;
+	background:url("../../images/gomage/lightcheckout/bkg_th.gif") repeat-x 0 100% #D9E5EE !important;
 }
 .glc .data-table thead th{
 	padding:2px 8px;
@@ -1897,6 +1943,9 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	font-weight:700;
 	vertical-align:middle;
 	white-space:nowrap;
+}
+.glc.glc-skin-default .data-table thead tr.first th{
+  border-bottom:0;
 }
 .glc-skin-default .data-table tfoot tr{
 	background-color:#DEE5E8 !important;
@@ -1934,6 +1983,25 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 	font-size:15px;
 	color:#2f2f2f;
 	font-weight:700;
+}
+.glc .data-table tr.summary-details-first td{
+  border-top:0;
+  background:#F2F2F2;
+  color:#1C1C1C;
+  font-size:11px;
+}
+.glc .data-table tr.summary-total .summary-collapse {
+  background:url("../../images/gomage/lightcheckout/bkg_collapse.gif") no-repeat 0 5px;
+  cursor:pointer;
+  float:right;
+  padding-left:20px;
+  text-align:right;
+}
+.glc .data-table tr.show-details .summary-collapse {
+  background-position:0 -52px;
+}
+.glc-skin-default .data-table tr.summary-details-first td{
+  background:#DEE5E8;
 }
 /* Table styles END */
 .glc-popup-head,
@@ -2025,13 +2093,363 @@ html body .not_shipping_mode .methods #gcheckout-payment-methods{
 .glc .delivery-date img{
 	cursor:pointer;
 }
-html body div.glc-skin-default .glc-title span,
-html body div.glc-skin-default .glc-title span span,
-html body div.glc-skin-default.not_shipping_mode .glc-title span span{
-	background:none !important;
+html body div.glc-skin-default .glc-title span{
+/* 	background:none !important;
 	display:inline;
 	padding:0;
+	  float:none;
+	  margin:0; */
 }
+html body div.glc-skin-default .glc-title span span,
+html body div.glc-skin-default.not_shipping_mode .glc-title span span{
+  width:27px;
+  height:27px;
+  padding-top:0;
+  margin-top:-6px;
+}
+
+/* Right to left layout */
+.glc-rtl,
+.glc-rtl *{
+  direction:rtl;
+  text-align:right;
+}
+.glc-rtl.glc-login-and-paypal #gcheckout-login-link{
+  float:right;
+}
+.glc-rtl.glc-login-and-paypal .glc-paypal-express{
+  float:left;
+}
+.glc-rtl.simple_overlay .close{
+  left:-14px;
+  right:auto;
+}
+.glc-rtl.glc .form-list label.required,
+.glc-rtl.glc .form-list label,
+.glc-rtl#login-form .form-list label.required{
+  float:right;
+}
+.glc-rtl.glc .form-list label.required em,
+.glc-rtl#login-form .form-list label.required em{
+  left:-8px;
+  right:auto;
+}
+.glc-rtl#login-form .actions a{
+  float:right;
+}
+.glc-rtl.simple_overlay .actions button.button{
+  float:left;
+}
+.glc-rtl.glc .methods .shipping-methods,
+.glc-rtl.glc .address{
+  float:right;
+  margin-right:0;
+  margin-left:10px;
+}
+.glc-rtl .glc-title{
+  padding:0 17px 0 0;
+  background-image: url("../../images/gomage/lightcheckout/title_bg_rtl.png");
+}
+.glc-rtl.glc-skin-default .glc-title{
+  padding-right:0;
+}
+.glc-rtl .glc-title span {
+  background-image: url("../../images/gomage/lightcheckout/title_bg_rtl.png");
+}
+.glc-rtl .glc-title span span{
+  float:right;
+  margin:0 0 0 8px;
+}
+.glc-rtl.glc .address .billing-address .glc-title span span{
+	background-position:0 -130px;
+}
+.glc-rtl.glc .shipping-methods .glc-title span span{
+	background-position:-21px -104px;
+}
+.glc-rtl.glc .shipping-methods .shipping-advanced .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.glc .gcheckout-payment-methods .glc-title span span{
+	background-position:-63px -52px;
+}
+.glc-rtl.glc .review .glc-title span span{
+	background-position:-105px 0;
+}
+.glc-rtl.not_shipping_mode .gcheckout-payment-methods .glc-title span span{
+	background-position:-21px -104px !important;
+}
+.glc-rtl.diferent_shipping_address .address .billing-address .glc-title span span{
+	background-position:0 -130px;
+}
+.glc-rtl.diferent_shipping_address .shipping-methods .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.diferent_shipping_address .shipping-methods .shipping-advanced .glc-title span span{
+	background-position:-63px -52px;
+}
+.glc-rtl.diferent_shipping_address .gcheckout-payment-methods .glc-title span span{
+	background-position:-84px -26px;
+}
+.glc-rtl.diferent_shipping_address .shipping-address .glc-title span span{
+	background-position:-21px -104px;
+}
+.glc-rtl.not_deliverydate_mode .gcheckout-payment-methods .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.notddate_diferent_shipping_address .gcheckout-payment-methods .glc-title span span{
+	background-position:-63px -52px;
+}
+.glc-rtl.notddate_diferent_shipping_address .shipping-address .glc-title span span{
+	background-position:-21px -104px;
+}
+.glc-rtl.notddate_diferent_shipping_address .shipping-methods .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.glc.glc-bskin-round .address .billing-address .glc-title span span{
+	background-position:0 -141px;
+}
+.glc-rtl.glc.glc-bskin-round .shipping-methods .glc-title span span{
+	background-position:-23px -113px;
+}
+.glc-rtl.glc.glc-bskin-round .shipping-methods .shipping-advanced .glc-title span span{
+	background-position:-46px -85px;
+}
+.glc-rtl.glc.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
+	background-position:-69px -57px;
+}
+.glc-rtl.glc.glc-bskin-round .review .glc-title span span{
+	background-position:-115px -1px;
+}
+.glc-rtl.not_shipping_mode.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
+	background-position:-23px -113px !important;
+}
+.glc-rtl.diferent_shipping_address.glc-bskin-round .shipping-methods .glc-title span span{
+	background-position:-46px -85px;
+}
+.glc-rtl.diferent_shipping_address.glc-bskin-round .shipping-methods .shipping-advanced .glc-title span span{
+	background-position:-69px -57px;
+}
+.glc-rtl.diferent_shipping_address.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
+	background-position:-92px -29px;
+}
+.glc-rtl.diferent_shipping_address.glc-bskin-round .shipping-address .glc-title span span{
+	background-position:-23px -113px;
+}
+.glc-rtl.not_deliverydate_mode.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
+	background-position:-46px -85px;
+}
+.glc-rtl.notddate_diferent_shipping_address.glc-bskin-round .gcheckout-payment-methods .glc-title span span{
+	background-position:-69px -57px;
+}
+.glc-rtl.notddate_diferent_shipping_address.glc-bskin-round .shipping-address .glc-title span span{
+	background-position:-23px -113px;
+}
+.glc-rtl.notddate_diferent_shipping_address.glc-bskin-round .shipping-methods .glc-title span span{
+	background-position:-46px -85px;
+}
+.glc-rtl.glc-skin-black .glc-title{
+	background-position:100% 0 !important;
+}
+.glc-rtl.glc-skin-black .glc-title span{
+	background-position:0 -360px;
+}
+.glc-rtl.glc-skin-blue .glc-title{
+	background-position:100% -30px !important;
+}
+.glc-rtl.glc-skin-blue .glc-title span{
+	background-position:0 -390px;
+}
+.glc-rtl.glc-skin-brown .glc-title{
+	background-position:100% -60px !important;
+}
+.glc-rtl.glc-skin-brown .glc-title span{
+	background-position:0 -420px;
+}
+.glc-rtl.glc-skin-gray .glc-title{
+	background-position:100% -90px !important;
+}
+.glc-rtl.glc-skin-gray .glc-title span{
+	background-position:0 -450px;
+}
+.glc-rtl.glc-skin-green .glc-title{
+	background-position:100% -120px !important;
+}
+.glc-rtl.glc-skin-green .glc-title span{
+	background-position:0 -480px;
+}
+.glc-rtl.glc-skin-light-blue .glc-title{
+	background-position:100% -150px !important;
+}
+.glc-rtl.glc-skin-light-blue .glc-title span{
+	background-position:0 -510px;
+}
+.glc-rtl.glc-skin-light-green .glc-title{
+	background-position:100% -180px !important;
+}
+.glc-rtl.glc-skin-light-green .glc-title span{
+	background-position:0 -540px;
+}
+.glc-rtl.glc-skin-orange .glc-title{
+	background-position:100% -210px !important;
+}
+.glc-rtl.glc-skin-orange .glc-title span{
+	background-position:0 -570px;
+}
+.glc-rtl.glc-skin-red .glc-title{
+	background-position:100% -270px !important;
+}
+.glc-rtl.glc-skin-red .glc-title span{
+	background-position:0 -630px;
+}
+.glc-rtl.glc-skin-pink .glc-title{
+	background-position:100% -240px !important;
+}
+.glc-rtl.glc-skin-pink .glc-title span{
+	background-position:0 -600px;
+}
+.glc-rtl.glc-skin-violet .glc-title{
+	background-position:100% -300px !important;
+}
+.glc-rtl.glc-skin-violet .glc-title span{
+	background-position:0 -660px;
+}
+.glc-rtl.glc-skin-yellow .glc-title{
+	background-position:100% -330px !important;
+}
+.glc-rtl.glc-skin-yellow .glc-title span{
+	background-position:0 -690px;
+}
+.glc-rtl.glc .address .billing-address .glc-title span span{
+	background-position:0 -130px;
+}
+.glc-rtl.glc .shipping-methods .glc-title span span{
+	background-position:-21px -104px;
+}
+.glc-rtl.glc .shipping-methods .shipping-advanced .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.glc .gcheckout-payment-methods .glc-title span span{
+	background-position:-63px -52px;
+}
+.glc-rtl.glc .review .glc-title span span{
+	background-position:-105px 0;
+}
+.glc-rtl.not_shipping_mode .gcheckout-payment-methods .glc-title span span{
+	background-position:-21px -104px !important;
+}
+.glc-rtl.diferent_shipping_address .shipping-methods .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.diferent_shipping_address .shipping-methods .shipping-advanced .glc-title span span{
+	background-position:-63px -52px;
+}
+.glc-rtl.diferent_shipping_address .gcheckout-payment-methods .glc-title span span{
+	background-position:-84px -26px;
+}
+.glc-rtl.diferent_shipping_address .shipping-address .glc-title span span{
+	background-position:-21px -104px;
+}
+.glc-rtl.not_deliverydate_mode .gcheckout-payment-methods .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl.notddate_diferent_shipping_address .gcheckout-payment-methods .glc-title span span{
+	background-position:-63px -52px;
+}
+.glc-rtl.notddate_diferent_shipping_address .shipping-address .glc-title span span{
+	background-position:-21px -104px;
+}
+.glc-rtl.notddate_diferent_shipping_address .shipping-methods .glc-title span span{
+	background-position:-42px -78px;
+}
+.glc-rtl .glc-col-in{
+  padding-left:0;
+  padding-right:17px;
+}
+.glc-rtl input.radio{
+  margin-right:0;
+  margin-left:3px;
+}
+.glc-rtl .form-list .fields .field,
+.glc-rtl .form-list li.customer-dob-gender .field{
+  float:right;
+}
+.glc-rtl .loadinfo{
+  padding: 8px 35px 8px 8px;
+  background-position:264px 50%;
+}
+.glc-rtl .delivery-date-delivery_date.left,
+.glc-rtl .delivery-date-delivery_time.left{
+  float:right !important;
+}
+.glc-rtl .delivery-date-delivery_date label,
+.glc-rtl .delivery-date #delivery_date{
+  float:right;
+}
+.glc-rtl .delivery-date-delivery_date{
+  padding:0 0 0 7px;
+}
+.glc-rtl .lc-calendar-ctrl .lc-calendar-but-title{
+  text-align:center;
+}
+.glc-rtl .v-fix{
+  float:right;
+}
+.glc-rtl .a-right{
+  text-align:left !important;
+}
+.glc-rtl .a-left{
+  text-align:right !important;
+}
+.glc-rtl .summary-collapse{
+  text-align:left;
+}
+.glc-rtl .sp-methods select.month{
+  margin-right:0;
+  margin-left:10px;
+}
+.glc-rtl .gift-messages-form li.fields .gift-from{
+  margin-right:0 !important;
+  margin-left:5% !important;
+}
+.glc-rtl .gift-messages-form .item .product-img-box{
+  float:right;
+}
+.glc-rtl .gift-messages-form .item .details{
+  margin-left:0;
+  margin-right:90px;
+}
+.glc-rtl input.checkbox{
+  margin-right:0;
+  margin-left:3px;
+}
+.glc-rtl .methods .shipping-methods .sp-methods,
+.glc-rtl .methods #gcheckout-payment-methods .sp-methods{
+  padding-right:0;
+  padding-left:5px;
+}
+.glc-rtl#login-form .loadinfo{
+  padding:5px 35px 5px 5px;
+  background-position:236px 50%;
+}
+.glc-rtl .form-list .fields .field .customer-dob .input-box,
+.glc-rtl .form-list .fields .field .customer-dob .dob-month,
+.glc-rtl .form-list .fields .field .customer-dob .dob-day, .glc .form-list .fields .field .customer-dob .dob-year{
+  float:right;
+}
+.glc-rtl.glc-skin-default .methods .shipping-methods,
+.glc-rtl.glc-skin-default .address{
+  background-position:0 0;
+}
+.glc.glc-rtl .button-set,
+.glc.glc-rtl .button-set p.control{
+  text-align:left;
+}
+.validation-advice-rtl .arrow{
+  left:auto;
+  right:20px;
+}
+/* Right to left layout END */
+
 /* Clears */
 .glc:after,
 .glc .methods:after,

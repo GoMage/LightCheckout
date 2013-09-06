@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 	
@@ -54,22 +54,15 @@
 	        $element->setId('delivery_date');
 	        
 	        $interval = intval(Mage::helper('gomage_checkout')->getConfigData('deliverydate/interval_days'));
-	        $available_hour_from = Mage::helper('gomage_checkout')->getConfigData('deliverydate/available_hour_from');
-	        $available_hour_to = Mage::helper('gomage_checkout')->getConfigData('deliverydate/available_hour_to');
+	        	        
+	        $available_days = Mage::helper('gomage_deliverydate')->getDeliveryDays();
+			$available_days = array_keys($available_days);
 	        
-	        
-	        if($interval == 0 && Mage::app()->getLocale()->date()->toString('H')>$available_hour_to){
-	        	$interval++;
-	        }
-	        
-	        $available_days = explode(',', Mage::helper('gomage_checkout')->getConfigData('deliverydate/available_days'));
 	        $shift = 0;
-	        if(in_array('selected', $available_days)){
 	        
-	        unset($available_days[array_search('selected', $available_days)]);
-	        
-	        $w = date('w', time()+($interval*60*60*24));
-	        
+	        $date_value = time()+($interval*60*60*24);
+	        $w = date('w', $date_value);
+	        	        
 	        if(!in_array($w, $available_days)){
 	        	
 	        	if($w > max($available_days)){
@@ -84,21 +77,25 @@
 	        		}
 	        	}
 	        }
+	        
+	        $date_value = time()+(($interval+$shift)*(60*60*24));
+
+	        while($this->isNonWorkingDay($date_value) || !in_array(date('w', $date_value), $available_days)){
+	        	$date_value += 60*60*24;
 	        }
-	        	        		    	        	        
-	        $element->setValue(date('d.m.Y', time()+(($interval+$shift)*(60*60*24))));
+	        	        	        		    	        	        
+	        $element->setValue(date('d.m.Y', $date_value));
 	        
 	        $form->addElement($element, false);
 	        
 	        $values = array();
 	        
-	        
-	        foreach(Mage::getModel('gomage_deliverydate/adminhtml_system_config_source_hour')->toOptionArray() as $option){
-	        	
-	        	if($option['value'] >= $available_hour_from && $option['value'] <= $available_hour_to){
-	        		$values[$option['value']] = $option['label'];
-	        	}
-	        	
+	        $delivery_days = Mage::helper('gomage_deliverydate')->getDeliveryDays();
+	        if (isset($delivery_days[date('w', $date_value)])){
+	        	$values_options = Mage::getModel('gomage_deliverydate/adminhtml_system_config_source_hour')->toOptionHash();
+	        	foreach($delivery_days[date('w', $date_value)] as $value){
+	        		$values[$value] = $values_options[$value]; 
+	        	} 
 	        }
 	        
 	        $form->addField('delivery_time', 'select', array(
@@ -109,6 +106,22 @@
 	        ));
 	        	        
 	        return $form->getElements();
+	    }
+	    
+	    public function isNonWorkingDay($value){
+	    	
+	    	$result = false;
+	    	$nonworking_days = Mage::helper('gomage_deliverydate')->getNonWorkingDays();
+	    	
+	    	foreach ($nonworking_days as $day){	    		
+	    		if ((intval(date('d', $value)) == intval($day['day'])) && 
+	    			((intval(date('m', $value)) - 1) == intval($day['month']))){
+	    			$result = true;
+	    			break;
+	    		}
+	    	}
+	    		    	
+	    	return $result;
 	    }
 		
 	}

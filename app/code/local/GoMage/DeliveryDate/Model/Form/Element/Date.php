@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 2.0
  */
 
@@ -31,35 +31,32 @@ class GoMage_DeliveryDate_Model_Form_Element_Date extends Varien_Data_Form_Eleme
         }
         $displayFormat = Varien_Date::convertZendToStrFtime($outputFormat, true, (bool)$this->getTime());
         		
-		$available_days = explode(',', Mage::helper('gomage_checkout')->getConfigData('deliverydate/available_days'));
+		$available_days = Mage::helper('gomage_deliverydate')->getDeliveryDays();
+		$available_days = array_keys($available_days);
 		
 		$interval = intval(Mage::helper('gomage_checkout')->getConfigData('deliverydate/interval_days'));
-		$available_hour_to = Mage::helper('gomage_checkout')->getConfigData('deliverydate/available_hour_to');
-		
-		if($interval == 0 && Mage::app()->getLocale()->date()->toString('H')>$available_hour_to){
-        	$interval++;
-        }
-		
-		$mode = array_shift($available_days);
-		
+				
 		$disabled_dates_conf = '';
-		
-		if($mode == 'selected'){
-			$disabled_dates = array_diff(array(0,1,2,3,4,5,6), $available_days);
-			
-			if(!empty($disabled_dates)){
-			
-				$_disabled_dates_conf = array();
+		$_disabled_dates_conf = array('false');
 				
-				foreach($disabled_dates as $day){
+		$disabled_dates = array_diff(array(0,1,2,3,4,5,6), $available_days);
+					
+		if(!empty($disabled_dates)){
+										
+			foreach($disabled_dates as $day){
 				
-					$_disabled_dates_conf[] = sprintf('date.getDay() == %d', $day);
+				$_disabled_dates_conf[] = sprintf('(date.getDay() == %d)', $day);
 				
-				}
 			}
+		}
+		
+		$nonworking_days = Mage::helper('gomage_deliverydate')->getNonWorkingDays();		
+		foreach ($nonworking_days as $_value){			
+			$_disabled_dates_conf[] = sprintf('(date.getDate() == %d && date.getMonth() == %d)', $_value['day'], $_value['month']);
+		} 
 			
-			$disabled_dates_conf = 'disabled: function(date) {
-                    	
+		$disabled_dates_conf = 'disabled: function(date) {
+		
 				        if ('.implode('||', $_disabled_dates_conf).') {
 				            return true;
 				        } else {
@@ -67,7 +64,7 @@ class GoMage_DeliveryDate_Model_Form_Element_Date extends Varien_Data_Form_Eleme
 				        }
 				    }';
 			
-		}
+		
 		
         switch (intval(Mage::helper('gomage_checkout')->getConfigData('deliverydate/dateformat')))
         {
@@ -94,12 +91,16 @@ class GoMage_DeliveryDate_Model_Form_Element_Date extends Varien_Data_Form_Eleme
                     bottomBar: false,
                     min:"'.date($value_format, time()+($interval*60*60*24)).'",
                     singleClick : true'.($disabled_dates_conf ? ','.$disabled_dates_conf : '').',
-                    onSelect   : function() { this.hide() }
+                    onSelect   : function() { this.hide() },
+                    addelClass : "'.(Mage::helper('gomage_checkout')->isLefttoRightWrite() ? "glc-rtl" : "").'"
                 });
                 
     			}
-    			
     			initDeliveryDateCallendar();
+    			
+    			var glc_delivery_days = ' . Zend_Json::encode(Mage::helper('gomage_deliverydate')->getDeliveryDays()) . ';
+    			var glc_time_values = ' . Zend_Json::encode(Mage::getModel('gomage_deliverydate/adminhtml_system_config_source_hour')->toOptionHash()) . ';
+    			
             //]]>
             </script>',
             $this->getHtmlId(), $displayFormat,

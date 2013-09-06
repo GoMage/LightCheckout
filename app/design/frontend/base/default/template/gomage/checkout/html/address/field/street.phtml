@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 	
@@ -38,6 +38,6 @@
 </div>
 <?php for ($_i=2, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++): ?>
 <div class="input-box">
-	<input type="text" title="<?php echo $this->__('Street Address '.$_i) ?>" name="<?php echo $this->getPrefix();?>[street][]" id="<?php echo $this->getPrefix();?>_street<?php echo $_i?>" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet($_i)) ?>" class="input-text" />
+	<input type="text" title="<?php echo $this->__('Street Address %s', $_i) ?>" name="<?php echo $this->getPrefix();?>[street][]" id="<?php echo $this->getPrefix();?>_street<?php echo $_i?>" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet($_i)) ?>" class="input-text" />
 </div>
 <?php endfor;?>

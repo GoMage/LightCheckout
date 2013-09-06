@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 
@@ -386,6 +386,26 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract{
         { 
            return false;
         }                                
+    }
+    
+    public function isMobileDevice(){
+
+    	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+    	if (!$user_agent || strpos($user_agent, 'ipad')) return false;
+    	
+		$regex_match="/(nokia|iphone|android|motorola|^mot-|softbank|foma|docomo|kddi|up.browser|up.link|";
+		$regex_match.="htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|";
+		$regex_match.="blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|";	
+		$regex_match.="symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte-|longcos|pantech|gionee|^sie-|portalmmm|";
+		$regex_match.="jigs browser|hiptop|^ucweb|^benq|haier|^lct|operas*mobi|opera*mini|320x320|240x320|176x220";
+		$regex_match.=")/i";		
+		return preg_match($regex_match, strtolower($user_agent));
+		
+    }
+    
+    public function isLefttoRightWrite(){
+    	return in_array(Mage::app()->getLocale()->getLocaleCode(), array('ar_DZ','ar_EG','ar_KW','ar_MA',
+    																	 'ar_SA','he_IL','fa_IR'));    	
     }
 	
 }

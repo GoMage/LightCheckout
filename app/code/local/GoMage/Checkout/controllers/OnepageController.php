@@ -9,7 +9,7 @@
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 
@@ -45,15 +45,20 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     	}
         $quote = $this->getOnepage()->getQuote();
         
-        if (!$quote->hasItems() || $quote->getHasError()) {
+        if (!$quote->hasItems()) {
             $this->_redirect('checkout/cart');
             return;
         }
+        
         if (!$quote->validateMinimumAmount()) {
             $error = Mage::getStoreConfig('sales/minimum_order/error_message');
-            Mage::getSingleton('checkout/session')->addError($error);
-            $this->_redirect('checkout/cart');
-            return;
+            Mage::getSingleton('checkout/session')->addError($error);             
+            if(!$helper->getConfigData('general/disable_cart')){
+	            $this->_redirect('checkout/cart');
+	            return;
+            }
+            $warning = Mage::getStoreConfig('sales/minimum_order/description');
+            Mage::getSingleton('checkout/session')->addNotice($warning);
         }
         
         Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
@@ -68,6 +73,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getLayout()->getBlock('head')->setTitle($title ? $title : $this->__('Checkout'));
         $this->renderLayout();
     }
+    
 	public function ajaxAction(){
 		$action = $this->getRequest()->getParam('action');
 		
@@ -78,7 +84,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			
 			case('discount'):
 				
-				$couponCode = $this->getRequest()->getParam('coupon_code');
+				$couponCode = urldecode($this->getRequest()->getParam('coupon_code'));
 				
 				try{
 				    $ugiftcert_cert = Mage::getModel('ugiftcert/cert');				
@@ -794,6 +800,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		        			
 		        		$this->getOnepage()->getQuote()->setCustomerDob($dob);
 		        		
+	        			if ($this->getSession()->getCustomer()->getId()){
+		        			$this->getOnepage()->getQuote()->getCustomer()->setDob($dob);
+		        		}
+		        		
 		        		$billing_address_data['dob'] = $dob;
 		        		
 		        	}catch(Exception $e){
@@ -958,23 +968,36 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 			
 		}
 		
+		$quote = $this->getOnepage()->getQuote();		
+        if (!$quote->validateMinimumAmount()) {        	
+        	$messages_block = Mage::getSingleton('core/layout')->getMessagesBlock();        	
+        	if ($error = Mage::getStoreConfig('sales/minimum_order/error_message')){
+        		$messages_block->addError($error);        	
+        	}
+            if ($warning = Mage::getStoreConfig('sales/minimum_order/description')){
+            	$messages_block->addNotice($warning);                         
+            }            
+            $result->messages_block = $messages_block->getGroupedHtml();            
+        }
+
 		$this->getResponse()->setBody(json_encode($result));
 	}
 	
 	public function saveAction(){
-		
+
+	    
 		$helper = Mage::helper('gomage_checkout');
-			
-		if((bool)$helper->getConfigData('general/enabled') == false){
-			return $this->_redirect('checkout/onepage');
+		
+		$result = array('error'=>0, 'message'=>array());
+					
+		if((bool)$helper->getConfigData('general/enabled') == false){			
+			$result['redirect'] = Mage::getUrl('checkout/onepage'); 
 		}
 		
 		if ($this->getRequest()->isPost() && $post = $this->getRequest()->getPost()) {
 			
         	try {
-        		
-        		$result = array('error'=>0, 'message'=>array());
-        		
+        		        		        		
         		$pollId = intval($this->getRequest()->getPost('poll_id'));
                 $answerId = intval($this->getRequest()->getPost('poll_vote'));
                 if ($pollId && $answerId){       
@@ -998,6 +1021,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 		        		$dob = Mage::app()->getLocale()->date($dob, null, null, false)->toString('yyyy-MM-dd');
 		        			
 		        		$this->getOnepage()->getQuote()->setCustomerDob($dob);
+		        		
+		        		if ($this->getSession()->getCustomer()->getId()){
+		        			$this->getOnepage()->getQuote()->getCustomer()->setDob($dob);
+		        		}
 		        		
 		        		$billing_address_data['dob'] = $dob;
 		        		
@@ -1098,9 +1125,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 					$this->getOnepage()->savePaymentMethod($payment_data);
 					
 					if($redirect = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl()){
-						
-						return $this->_redirectUrl($redirect);
-						
+												
+						$result['redirect'] = $redirect;
+						$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+						return;
 					}
 					
             	}
@@ -1121,9 +1149,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             	}
         		
         		if(isset($result['error']) && intval($result['error'])){
-        			
-        			
-        			
+	
 					throw new Mage_Core_Exception(implode('<br/>', (array)$result['message']));
 				}
 				
@@ -1162,11 +1188,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 				$redirect = $this->getOnepage()->getCheckout()->getRedirectUrl();
 					
 				if($redirect){
-					$this->_redirectUrl($redirect);
+					$result['redirect'] = $redirect;
 				}else{
-					$this->_redirect('checkout/onepage/success');
+					$result['redirect'] = Mage::getUrl('checkout/onepage/success');															
 				}
-		        //$this->_redirect('gomage_checkout/onepage/place');
             	
         	}catch(Mage_Core_Exception $e) {
         		Mage::logException($e);
@@ -1174,20 +1199,22 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             	
             	$this->getOnepage()->getQuote()->save();
             	$this->getSession()->addError($e->getMessage());
-            	$this->_redirect('checkout/onepage');
+            	$result['redirect'] = Mage::getUrl('checkout/onepage');
             	
         	}catch(Exception $e) {
         		Mage::logException($e);
             	Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
         		$this->getOnepage()->getQuote()->save();
         		$this->getSession()->addError($this->__('There was an error processing your order. Please contact us or try again later.'));
-        		$this->_redirect('checkout/onepage');
+        		$result['redirect'] = Mage::getUrl('checkout/onepage');
         		
         	}
 			
 		}else{
-			$this->_redirect('checkout/onepage');
+			$result['redirect'] = Mage::getUrl('checkout/onepage');
 		}
+		
+		$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
 		
 	}
 	

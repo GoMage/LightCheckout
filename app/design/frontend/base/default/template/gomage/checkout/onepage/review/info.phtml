@@ -63,7 +63,7 @@
         <thead>
             <tr>
     			<?php if(Mage::helper('gomage_checkout')->getConfigData('general/allow_remove')>0):?>
-			    <th></th>
+			    <th rowspan="<?php echo $rowspan ?>"></th>
 			    <?php endif;?>
                 <th rowspan="<?php echo $rowspan ?>"><span class="nobr"><?php echo $this->__('Product Name') ?></span></th>
                 <?php if(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/enable')>0):?>

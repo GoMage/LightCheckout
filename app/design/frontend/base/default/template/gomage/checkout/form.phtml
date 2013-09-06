@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 2.0
  */
 ?>
@@ -24,8 +24,6 @@
 	<?php echo $this->getChildHtml('methods');?>
 	
 </div>
-
-<div id="gcheckout-payment-centinel"></div>
 
 <div class="review checkout-step" id="gcheckout-onepage-review">
 	
@@ -55,8 +53,11 @@
 			<?php echo $this->getChildHtml('poll'); ?>
 		<?php endif;?>
 	</div>
+	<div id="checkout-update-section"></div>
 	<div class="button-set" id="checkout-review-submit">
-		<button onclick="checkout.LightcheckoutSubmit()" id="submit-btn" type="button" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+		<button <?php if(!$this->getQuote()->validateMinimumAmount()): ?>disabled="disabled"<?php endif; ?> onclick="checkout.LightcheckoutSubmit()" id="submit-btn" type="button" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout <?php if(!$this->getQuote()->validateMinimumAmount()): ?>disabled<?php endif; ?>">
+			<span><span><?php echo $this->__('Place Order') ?></span></span>
+		</button>
 	<?php if($this->isEnabled('newsletter')):?>
 		<?php if(!$this->isCustomerLoggedIn() || Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer())->getStatus() != 1):?>
 		

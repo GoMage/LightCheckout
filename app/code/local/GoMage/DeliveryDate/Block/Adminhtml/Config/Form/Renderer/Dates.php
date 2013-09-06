@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 2.0
  */
 
@@ -47,7 +47,16 @@ class GoMage_DeliveryDate_Block_Adminhtml_Config_Form_Renderer_Dates extends Mag
         $element->setClass('select');
         $element->setStyle('margin-top:10px;height:160px;'.($mode_value != 'selected' ? 'display:none;' : ''));
         $element->setName($nameprefix . '[]');
-        $element->setValues(array(
+        $element->setValues($this->toOptionArray());
+        $element->setValue($value);
+        $html .= $element->getElementHtml();
+        
+        return $html;
+    }
+    
+ 	public function toOptionArray()
+    {
+        return array(
         		array('value'=> 0, 'label' => $this->__('Sunday')),
         		array('value'=> 1, 'label' => $this->__('Monday')),
         		array('value'=> 2, 'label' => $this->__('Tuesday')),
@@ -55,10 +64,6 @@ class GoMage_DeliveryDate_Block_Adminhtml_Config_Form_Renderer_Dates extends Mag
         		array('value'=> 4, 'label' => $this->__('Thursday')),
         		array('value'=> 5, 'label' => $this->__('Friday')),
         		array('value'=> 6, 'label' => $this->__('Saturday')),
-        	));
-        $element->setValue($value);
-        $html .= $element->getElementHtml();
-        
-        return $html;
+        	);
     }
 }

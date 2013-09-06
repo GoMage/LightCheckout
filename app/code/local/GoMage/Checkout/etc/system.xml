@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  */ 
  -->
 <config>
@@ -23,7 +23,7 @@
             <show_in_store>1</show_in_store>
             <groups>
 				<lightcheckout translate="label">
-					<label>GoMage LightCheckout</label>
+					<label>GoMage LightCheckout v.3.0</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
@@ -299,6 +299,16 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</allow_remove>
+												
+						<disable_cart translate="label">
+							<label>Disable Cart</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</disable_cart>
 						
 						<enable_discount translate="label">
 							<label>Enable Discount Codes</label>
@@ -310,17 +320,26 @@
 							<show_in_store>1</show_in_store>
 						</enable_discount>
 						
-						
-						<disable_cart translate="label">
-							<label>Disable Cart</label>
+						<order_summary translate="label">
+							<label>Show Order Summary on Success Page</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>90</sort_order>
+							<sort_order>110</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</disable_cart>
+						</order_summary>
 						
+						<disable_mobile translate="label">
+							<label>Disable LightCheckout on Mobile Devices</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</disable_mobile>
+												 						
 					</fields>
 				</general>
 				
@@ -338,34 +357,47 @@
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
 							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
-							<sort_order>70</sort_order>
+							<sort_order>10</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</geoip_enabled>
+
+						<geoip_post_enabled translate="label">
+							<label>Enable GeoIP for Zip/Postcode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</geoip_post_enabled>
 						
 						<geoip_city_enabled translate="label">
 							<label>Enable GeoIP for City</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
 							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
-							<sort_order>72</sort_order>
+							<sort_order>30</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</geoip_city_enabled>
-						
-						<geoip_post_enabled translate="label">
-							<label>Enable GeoIP for Zip/Postcode</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<frontend_model>gomage_checkout/form_element_geoip</frontend_model>
-							<sort_order>71</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</geoip_post_enabled>
-						
+						<!--  
+						<import translate="label">
+                            <label>Import</label>
+                            <frontend_type>import</frontend_type>
+                            <backend_model>gomage_checkout/adminhtml_system_config_source_import</backend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+								<![CDATA[To use GeoIP you need to upload GeoliteCity.dat file to folder /media/geoip. Read more in the <a target="_blank" href="http://www.gomage.com/media/extensions/lightcheckout/GoMage_LightCheckout_Installation_Guide.pdf">Installation Guide</a>]]>
+							</comment> 
+                        </import> 
+						-->
 					</fields>
 				</geoip>
 				

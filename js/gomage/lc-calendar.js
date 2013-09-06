@@ -36,6 +36,7 @@ LightCheckoutCalendar.setup = function(e) {
 		}
 		b = LightCheckoutCalendar.parseDate(e.max, a)
 	}
+	var addelClass = e.addelClass;
 	if (f) {
 		var h = new LightCheckoutCalendar.CalendarPopup( {
 			triggerEl : f,
@@ -44,7 +45,8 @@ LightCheckoutCalendar.setup = function(e) {
 			firstDayOfWeek : e.firstDayOfWeek,
 			disabled : e.disabled,
 			min : g,
-			max : b
+			max : b,
+			addelClass : addelClass
 		});
 		h.render();
 		return h
@@ -81,13 +83,14 @@ LightCheckoutCalendar.Calendar.prototype = {
 	lang : null,
 	el : null,
 	elClass : "lc-calendar",
+	addelClass: "",
 	ctrl : null,
 	pane : null,
 	value : null,
 	disabledFn : null,
 	render : function() {
-		var a = this.el;
-		a.className = this.elClass;
+		var a = this.el;		
+		a.className = this.elClass + (this.addelClass ? ' ' + this.addelClass : '');
 		var c = a.ownerDocument.createElement("DIV");
 		a.appendChild(c);
 		var b = new LightCheckoutCalendar.Ctrl( {
@@ -168,6 +171,7 @@ LightCheckoutCalendar.CalendarPopup = function(a) {
 			this.value = LightCheckoutCalendar.parseDate(b, this.dateFormat)
 		}
 	}
+	this.addelClass = a.addelClass;
 };
 LightCheckoutCalendar.CalendarPopup.prototype = {
 	triggerEl : null,
@@ -182,6 +186,7 @@ LightCheckoutCalendar.CalendarPopup.prototype = {
 	min : null,
 	max : null,
 	value : null,
+	addelClass : "",
 	render : function() {
 		this.initEvents()
 	},
@@ -229,6 +234,7 @@ LightCheckoutCalendar.CalendarPopup.prototype = {
 			if (this.value) {
 				this.calendar.setValue(this.value)
 			}
+			this.calendar.addelClass = this.addelClass;
 			LightCheckoutCalendar.Event.subscribe(this.calendar,
 					"dateSelected", this.onDateSelected, this);
 			this.calendar.render();
@@ -249,9 +255,28 @@ LightCheckoutCalendar.CalendarPopup.prototype = {
 		if (this.inputField) {
 			this.inputField.value = LightCheckoutCalendar.serializeDate(a,
 					this.dateFormat)
-		}
-		this.setPopupHidden(true)
+		}		
+		this.setPopupHidden(true);
+		this.reloadTime(a);
 	},
+	
+	reloadTime: function(a){		
+		var day = a.getDay();
+		if ($('delivery_time')){
+			var times = glc_delivery_days[day];
+			var value = $('delivery_time').value;
+			var selected = false;
+			$('delivery_time').options.length = 0;
+			for (var i = 0; i < times.length; i++) {
+				selected = false;
+				if (times[i] == value){
+					selected = true;
+				}
+				$('delivery_time').options[$('delivery_time').options.length] = new Option(glc_time_values[times[i]], times[i], false, selected);
+			}
+		}
+	},
+	
 	onBodyClick : function(a) {
 		if (!this.popupDisplayed) {
 			return

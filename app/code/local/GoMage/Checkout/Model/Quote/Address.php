@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 
@@ -42,12 +42,14 @@ class GoMage_Checkout_Model_Quote_Address extends Mage_Sales_Model_Quote_Address
 	}
 	
 	public function validate(){
-		
-		if((bool)Mage::helper('gomage_checkout')->getConfigData('general/enabled')){
+        
+		$request = Mage::app()->getFrontController()->getRequest();
+		if((bool)Mage::helper('gomage_checkout')->getConfigData('general/enabled') && $request->getModulename()!="admin"){
 		
         $errors = array();
         $helper = Mage::helper('customer');
         $this->implodeStreetAddress();
+
         
         foreach($this->required_fields as $fieldName=>$method){
         	

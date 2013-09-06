@@ -7,12 +7,12 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */
 ?>
 <div class="billing-address" id="gcheckout-billing-address">
-	<h2 class="glc-title"><span><span><?php echo $this->__('Billing address');?></span></span></h2>
+	<h2 class="glc-title"><span><span></span><?php echo $this->__('Billing address');?></span></h2>
 	<div class="glc-col">
 	<div class="glc-col-in">
 	<ul class="form-list">
@@ -67,32 +67,38 @@
 			                    <?php echo $_taxvat->setTaxvat($this->getQuote()->getCustomerTaxvat())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
 			                </li>
 			        <?php endif ?>
-			        
-			        <?php if(!$this->isCustomerLoggedIn()): ?>
-			        
-	                <?php
-	                	
+			        			        
+			        <?php	                	
 	                	if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 0))
 	                		$_dob = $this->getLayout()->createBlock('customer/widget_dob')->setTemplate('gomage/checkout/html/dob13.phtml');
 	                	else
 	                		$_dob = $this->getLayout()->createBlock('customer/widget_dob')->setTemplate('gomage/checkout/html/dob.phtml');
 	                ?>
 		     	 	<?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
-		            <?php if ($_dob && $_dob->isEnabled() || $_gender && $_gender->isEnabled()): ?>
-		                <li class="fields customer-dob <?php if ($_gender && $_gender->isEnabled()): ?>customer-dob-gender<?php endif;?>">
+		     	 	
+		     	 	<?php 
+		     	 		$_show_dob = !$this->isCustomerLoggedIn() || ($this->isCustomerLoggedIn() && !$this->getQuote()->getCustomerDob());
+		     	 		$_show_gender = !$this->isCustomerLoggedIn() || ($this->isCustomerLoggedIn() && !$this->getQuote()->getCustomerGender());
+		     	 	?>
+		     	 	
+		            <?php if (($_dob && $_dob->isEnabled() && $_show_dob) || 
+		            		  ($_gender && $_gender->isEnabled() && $_show_gender)): ?>
+		                <li class="fields customer-dob <?php if ($_gender && $_gender->isEnabled() && $_show_gender): ?>customer-dob-gender<?php endif;?>">
 		                <?php if ($_dob->isEnabled()): ?>
 		                    <div class="field">
 		                        <?php echo $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
 		                    </div>
 		                <?php endif; ?>
-		                <?php if ($_gender && $_gender->isEnabled()): ?>
+		                <?php if ($_gender && $_gender->isEnabled() && $_show_gender): ?>
 		                    <div class="field">
 		                        <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
 		                    </div>
 		                <?php endif ?>
 		                </li>
 		            <?php endif ?>
-	                	
+			        
+			        
+			        <?php if(!$this->isCustomerLoggedIn()): ?>	
 						<?php if(!$this->isCustomerLoggedIn() && ( $this->getCheckoutMode() == 0 || $this->getCheckoutMode() == 1 ) ):?>
 							<?php if($this->getCheckoutMode() == 0):?>
 							<li class="control control-register">

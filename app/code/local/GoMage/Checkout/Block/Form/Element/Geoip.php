@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 2.0
  */ 
 	
@@ -18,17 +18,15 @@
     		if(!file_exists(Mage::getBaseDir('media')."/geoip/GeoLiteCity.dat")){
     		
     			$element->setDisabled(true);
-    		
-	    		if($element->getId() == 'gomage_checkout_geoip_geoip_enabled'){
+    			
+    			if($element->getId() == 'gomage_checkout_geoip_geoip_enabled'){
 	    		
-	    		$element->setComment($this->__('To use GeoIP you need to upload GeoliteCity.dat file to folder /media/geoip. Read more in the <a target="_blank" href="%s">Installation Guide</a>', 'http://www.gomage.com/media/extensions/lightcheckout/GoMage_LightCheckout_Installation_Guide.pdf'));
+	    			$element->setComment($this->__('To use GeoIP you need to upload GeoliteCity.dat file to folder /media/geoip. Read more in the <a target="_blank" href="%s">Installation Guide</a>', 'http://www.gomage.com/media/extensions/lightcheckout/GoMage_LightCheckout_Installation_Guide.pdf'));
 	    		
 	    		}
-    		
+    			
     		}
-    		
-    		
-    		
+
     		return parent::_getElementHtml($element);
     		
     	}

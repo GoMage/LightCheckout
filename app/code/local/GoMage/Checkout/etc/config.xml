@@ -8,13 +8,13 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  */ 
  -->
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.2.4</version>
+            <version>0.0.3.0</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -28,6 +28,8 @@
 	        <sales>
 		        <rewrite>
 	                <order_totals>GoMage_Checkout_Block_Sales_Order_Totals</order_totals>
+	                <order_info>GoMage_Checkout_Block_Sales_Order_Info</order_info>
+	                <order_print>GoMage_Checkout_Block_Sales_Order_Print</order_print>
 		        </rewrite>
 	        </sales>	        			
 	    </blocks>
@@ -209,7 +211,14 @@
                     </collect_totals_after>
                 </observers>
             </sales_order_load_after>
-            
+            <controller_action_postdispatch_gomage_checkout_onepage_save>
+                <observers>
+                    <payflowlink_save_order_onepage>
+                        <class>paypal/observer</class>
+                        <method>setResponseAfterSaveOrder</method>
+                    </payflowlink_save_order_onepage>
+                </observers>
+            </controller_action_postdispatch_gomage_checkout_onepage_save>
         </events>
         <translate>
 			<modules>
@@ -308,6 +317,7 @@
 				<deliverydate>1</deliverydate>
 				<skin>orange</skin>
 				<button_skin>default</button_skin>
+				<disable_mobile>1</disable_mobile>
 			</general>
 			<address_fields>
 				

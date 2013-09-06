@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.4
+ * @version      Release: 3.0
  * @since        Class available since Release 1.0
  */ 
  -->
@@ -52,6 +52,9 @@
     			<gomage_deliverydate_formated><to_order>gomage_deliverydate_formated</to_order></gomage_deliverydate_formated>
     		</sales_convert_quote>
     	</fieldsets>
+    	<helpers>
+			<gomage_deliverydate><class>GoMage_DeliveryDate_Helper</class></gomage_deliverydate>
+		</helpers>
 	</global>
 	<adminhtml>
 		<layout>
@@ -109,9 +112,7 @@
 			</general>
 		</gomage_deliverydate>
 		<gomage_checkout>
-			<deliverydate>
-				<available_hour_from>0</available_hour_from>
-				<available_hour_to>23</available_hour_to>
+			<deliverydate>				
 				<dateformat>0</dateformat>
 			</deliverydate>
 		</gomage_checkout>
