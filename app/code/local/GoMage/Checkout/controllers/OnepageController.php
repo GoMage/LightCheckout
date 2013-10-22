@@ -1022,7 +1022,11 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 			$result['redirect'] = Mage::getUrl('checkout/onepage');
 		}
 
-		if ($this->getRequest()->isPost() && $post = $this->getRequest()->getPost()) {
+        if (!$this->getOnepage()->getQuote()->getItemsQty()) {
+            $result['redirect'] = Mage::getUrl('checkout/cart');
+        }
+
+		if ($this->getRequest()->isPost() && $post = $this->getRequest()->getPost() && !isset($result['redirect'])) {
 
 			try {
 
@@ -1241,7 +1245,9 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 
 		}
 		else {
-			$result['redirect'] = Mage::getUrl('checkout/onepage');
+            if (!isset($result['redirect'])){
+			    $result['redirect'] = Mage::getUrl('checkout/onepage');
+            }
 		}
 
 		$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
