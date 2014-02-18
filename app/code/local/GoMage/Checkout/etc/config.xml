@@ -113,7 +113,7 @@
         		<totals>
         			<gomage_gift_wrap>
                         <class>gomage_checkout/order_invoice_total_giftwrap</class>
-                        <after>subtotal,shipping</after>
+                        <after>subtotal,shipping,weee,msrp</after>
                         <before>grand_total</before>
                     </gomage_gift_wrap>
         		</totals>	
@@ -129,7 +129,7 @@
                 <totals>                    
                     <gomage_gift_wrap>
                         <class>gomage_checkout/quote_giftwrap</class>
-                        <after>subtotal,shipping</after>
+                        <after>subtotal,shipping,weee,msrp</after>
                         <before>grand_total</before>
                         <renderer>gomage_checkout/checkout_giftwrap</renderer>
                         <admin_renderer>gomage_checkout/adminhtml_sales_order_create_totals_giftwrap</admin_renderer>
