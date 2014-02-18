@@ -174,7 +174,7 @@ class GoMage_Checkout_Model_Type_Onestep_Calculator extends Varien_Object
         }
 
         foreach ($this->getCacheBlocks() as $block) {
-            $block_html = $this->result->{$block};
+            $block_html = isset($this->result->{$block}) ? $this->result->{$block} : null;
             if ($block_html) {
                 $cache_block_html = Mage::app()->getCache()->load(self::CACHE_PREFIX . $block);
                 if ($cache_block_html == $block_html) {
