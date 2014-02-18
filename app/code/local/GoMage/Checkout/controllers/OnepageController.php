@@ -467,7 +467,12 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action 
 
 						$billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
 
-						if ($helper->getConfigData('ajax/email')) {
+                        if (isset($billing_address_data['taxvat'])) {
+                            $this->getOnepage()->getQuote()->setCustomerTaxvat($billing_address_data['taxvat']);
+                            $billing_address_data['customer_taxvat'] = $billing_address_data['taxvat'];
+                        }
+
+                        if ($helper->getConfigData('ajax/email')) {
 							$this->getOnepage()->getQuote()->setCustomerEmail($billing_address_data['email']);
 						}
 
