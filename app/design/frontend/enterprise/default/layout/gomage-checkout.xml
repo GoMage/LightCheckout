@@ -55,7 +55,10 @@
         		<block type="paypal/express_shortcut" name="gomage.methods.paypal_express" template="paypal/express/shortcut.phtml">
 	                <action method="setIsQuoteAllowed"><value>1</value></action>
 	            </block>
-	            <block type="googlecheckout/link" name="gomage.methods.google_checkout" template="googlecheckout/link.phtml" />
+                <block type="gomage_checkout/config_block" name="gomage.methods.google_checkout">
+                    <action method="setConfigBlock"><config_block>googlecheckout/link</config_block></action>
+                    <action method="setCallMethod"><method>setTemplate</method><params><template>googlecheckout/link.phtml</template></params></action>
+                </block>
         		<block type="core/template" name="checkout.onepage.address" as="address" template="gomage/checkout/onepage/address.phtml">
 	        		<block type="gomage_checkout/onepage_billing" name="checkout.onepage.address.billing" as="billing" template="gomage/checkout/html/address-billing.phtml">
 	        			<action method="setCountryIdTemplate"><template>gomage/checkout/html/address/field/country.phtml</template></action>
