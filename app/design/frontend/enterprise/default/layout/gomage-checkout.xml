@@ -129,14 +129,14 @@
 					    	<action method="setConfigBlock"><config_block>rewards/checkout_cart</config_block></action>
 					    	<action method="setIfConfig"><ifconfig>rewards/general/layoutsactive</ifconfig></action>
 					    	<action method="setCallMethod"><method>setTemplate</method><params><template>rewards/checkout/cartmini.phtml</template></params></action>
-					    </block>
-					    <block type="core/template" name="points_cart_box.js" as="minicart_js">
-					    	<action method="setTemplate" ifconfig="rewards/general/layoutsactive"><template>gomage/checkout/rewards/minicart_js.phtml</template></action>
-					    </block>
-					    <block type="gomage_checkout/config_block" name="points_cart_box.slider" as="points_slider">
-					    	<action method="setConfigBlock"><config_block>rewards/checkout_cart_slider</config_block></action>
-					    	<action method="setIfConfig"><ifconfig>rewards/general/layoutsactive</ifconfig></action>
-					    	<action method="setCallMethod"><method>setTemplate</method><params><template>rewards/checkout/cart/slider.phtml</template></params></action>
+                            <block type="core/template" name="points_cart_box.js" as="minicart_js">
+                                <action method="setTemplate" ifconfig="rewards/general/layoutsactive"><template>gomage/checkout/rewards/minicart_js.phtml</template></action>
+                            </block>
+                            <block type="gomage_checkout/config_block" name="points_cart_box.slider" as="points_slider">
+                                <action method="setConfigBlock"><config_block>rewards/checkout_cart_slider</config_block></action>
+                                <action method="setIfConfig"><ifconfig>rewards/general/layoutsactive</ifconfig></action>
+                                <action method="setCallMethod"><method>setTemplate</method><params><template>rewards/checkout/cart/slider.phtml</template></params></action>
+                            </block>
 					    </block>
 					</block>			        			        
         		</block>
