@@ -1,5 +1,5 @@
 <?php
- /**
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -9,30 +9,26 @@
  * @terms of use http://www.gomage.com/terms-of-use
  * @version      Release: 5.0
  * @since        Class available since Release 1.0
- */ 
+ */
 
-class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepage_Abstract{
-	
-	protected $prefix = 'billing';
-	
-	
-	public function customerHasAddresses(){
-		
-		if(intval($this->helper->getConfigData('address_fields/address_book'))){
-			
-			return parent::customerHasAddresses();
-			
-		}
-		return false;
-		
-	}
-	
-	protected function _prepareLayout(){
-		
-		return parent::_prepareLayout();
-		
-	}
-	
+class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepage_Abstract
+{
+
+    protected $prefix = 'billing';
+
+    public function customerHasAddresses()
+    {
+        if (intval($this->helper->getConfigData('address_fields/address_book'))) {
+            return parent::customerHasAddresses();
+        }
+        return false;
+    }
+
+    protected function _prepareLayout()
+    {
+        return parent::_prepareLayout();
+    }
+
     public function getCountries()
     {
         return Mage::getResourceModel('directory/country_collection')->loadByStore();
@@ -43,7 +39,8 @@ class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepag
         return $this->getQuote()->getCheckoutMethod();
     }
 
-    function getAddress() {
+    function getAddress()
+    {
         return $this->getQuote()->getBillingAddress();
     }
 
@@ -64,63 +61,62 @@ class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepag
         }
         return $lastname;
     }
-    
-    public function shippingAsBilling(){
-    	
-    	if(null === $this->getCheckout()->getShippingSameAsBilling()){
-    		return true;
-    	}
-    	
-    	return (bool)$this->getCheckout()->getShippingSameAsBilling();
-    	
+
+    public function shippingAsBilling()
+    {
+        if (null === $this->getCheckout()->getShippingSameAsBilling()) {
+            return true;
+        }
+        return (bool)$this->getCheckout()->getShippingSameAsBilling();
     }
 
     public function canShip()
     {
-    	
-        if(!$this->getQuote()->isVirtual()){
-        	
-        	if(intval($this->getConfigData('general/different_shipping_enabled'))){
-        		
-        		return true;
-        		
-        	}
-        	
+        if (!$this->getQuote()->isVirtual()) {
+            if (intval($this->getConfigData('general/different_shipping_enabled'))) {
+                return true;
+            }
+
         }
         return false;
     }
-    
+
     public function getCountryHtmlSelect($type)
     {
         $countryId = $this->getAddress()->getCountryId();
-        
+
         if (is_null($countryId)) {
-        	$countryId = $this->getConfigData('general/default_country');
+            $countryId = $this->getConfigData('general/default_country');
         }
-        
+
         if (is_null($countryId)) {
             $countryId = Mage::getStoreConfig('general/country/default');
         }
-        
-        
+
         $options = $this->getCountryOptions();
-        
-        $options[0] = array('value'=>'', 'label'=>$this->__('--Please Select--'));
-        
+
+        $options[0] = array('value' => '', 'label' => $this->__('--Please Select--'));
+
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type.'[country_id]')
-            ->setId($type.'_country_id')
+            ->setName($type . '[country_id]')
+            ->setId($type . '_country_id')
             ->setTitle(Mage::helper('checkout')->__('Country'))
             ->setClass('required-entry absolute-advice')
             ->setValue($countryId)
             ->setOptions($options);
 
-
         return $select->getHtml();
     }
-    
-    
-    public function getAutoRegistration(){
-		return intval($this->getConfigData('registration/auto'));
-    }	
+
+
+    public function getAutoRegistration()
+    {
+        return intval($this->getConfigData('registration/auto'));
+    }
+
+    public function isRewardsActive()
+    {
+        return Mage::getStoreConfig('rewards/general/layoutsactive');
+    }
+
 }

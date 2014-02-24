@@ -31,7 +31,7 @@
             <fieldset>
                 <ul>
                     <li class="fields"><?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
-					<?php $this->getSortedFields();?>
+					<?php echo $this->getSortedFields();?>
                 </ul>
             </fieldset>
         </li>

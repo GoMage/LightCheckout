@@ -15,7 +15,7 @@
 	<h2 class="glc-title"><span class="glc-number">1</span><strong><?php echo $this->__('Billing address');?></strong></h2>
 	<div class="glc-col">
 	<ul class="form-list">
-		
+
 		<?php if ($this->customerHasAddresses()): ?>
 	        <li class="wide">
 	            <label for="billing-address-select"><?php echo $this->__('Select a billing address') ?></label>
@@ -24,16 +24,16 @@
 	            </div>
 	        </li>
 	    <?php endif; ?>
-		
+
 	    <li id="billing-new-address-form">
 	        <fieldset>
 	            <ul>
-					
+
 					<li class="fields">
 	                <?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
 					</li>
-					
-					
+
+
 	        		<?php if(!$this->isCustomerLoggedIn()): ?>
 	                <li>
                         <label for="billing_email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
@@ -42,45 +42,41 @@
                         </div>
 	                </li>
 	        		<?php endif ?>
-	        		
-					
-					<?php $this->getSortedFields();?>
-	                
+
+
+					<?php echo $this->getSortedFields();?>
+
 	                <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat')->setTemplate('gomage/checkout/html/taxvat.phtml') ?>
-			        <?php if ($_taxvat->isEnabled()): 
-			        	
+			        <?php if ($_taxvat->isEnabled()):
+
 			        	if($this->getAddress()->getIsValidVat()){
 			        		$_taxvat->setIsValidVat(true);
 			        	}
-			        	
-			        	if($this->isCustomerLoggedIn()){
-			        		//$_taxvat->setIsReadonly(true);
-			        	}
-			        	
+
 			        	if($this->getAddress()->getBuyWithoutVat()){
 			        		$_taxvat->setCheckedWithoutVat(true);
 			        	}
-			        	
+
 			        ?>
 			                <li>
 			                    <?php echo $_taxvat->setTaxvat($this->getQuote()->getCustomerTaxvat())->setFieldIdFormat('billing_%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
 			                </li>
 			        <?php endif ?>
-			        			        
-			        <?php	                	
+
+			        <?php
 	                	if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 0))
 	                		$_dob = $this->getLayout()->createBlock('customer/widget_dob')->setTemplate('gomage/checkout/html/dob13.phtml');
 	                	else
 	                		$_dob = $this->getLayout()->createBlock('customer/widget_dob')->setTemplate('gomage/checkout/html/dob.phtml');
 	                ?>
 		     	 	<?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
-		     	 	
-		     	 	<?php 
+
+		     	 	<?php
 		     	 		$_show_dob = !$this->isCustomerLoggedIn() || ($this->isCustomerLoggedIn() && !$this->getQuote()->getCustomerDob());
 		     	 		$_show_gender = !$this->isCustomerLoggedIn() || ($this->isCustomerLoggedIn() && !$this->getQuote()->getCustomerGender());
 		     	 	?>
-		     	 	
-		            <?php if (($_dob && $_dob->isEnabled() && $_show_dob) || 
+
+		            <?php if (($_dob && $_dob->isEnabled() && $_show_dob) ||
 		            		  ($_gender && $_gender->isEnabled() && $_show_gender)): ?>
 		                <li class="fields customer-dob <?php if ($_gender && $_gender->isEnabled() && $_show_gender): ?>customer-dob-gender<?php endif;?>">
 		                <?php if ($_dob->isEnabled()): ?>
@@ -95,9 +91,9 @@
 		                <?php endif ?>
 		                </li>
 		            <?php endif ?>
-			        
-			        
-			        <?php if(!$this->isCustomerLoggedIn() && !$this->getAutoRegistration()): ?>	
+
+
+			        <?php if(!$this->isCustomerLoggedIn() && !$this->getAutoRegistration()): ?>
 						<?php if(!$this->isCustomerLoggedIn() && in_array($this->getCheckoutMode(), array(0, 1))):?>
 							<?php if($this->getCheckoutMode() == 0):?>
 								<li class="control control-register">
@@ -118,6 +114,14 @@
 			                            <input type="password" name="billing[confirm_password]" title="<?php echo $this->__('Confirm Password') ?>" id="billing_confirm_password" class="input-text validate-cpassword" />
 			                        </div>
 			                    </div>
+                                <?php if ($this->isRewardsActive()): ?>
+                                    <div class="input-box">
+                                        <label for="billing_rewards_referral"><?php echo $this->__('Referral E-mail or Code') ?></label>
+                                        <div class="input-box">
+                                            <input type="text" title="<?php echo $this->__('Referral E-mail or Code') ?>" class="input-text" id="billing_rewards_referral" name="billing[rewards_referral]" />
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
 			                </li>
 		            	<?php endif; ?>
 	                <?php endif; ?>
