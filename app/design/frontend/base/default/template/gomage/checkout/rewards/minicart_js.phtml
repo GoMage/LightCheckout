@@ -18,24 +18,27 @@
     var last_slider_ajax_request = false;
     var changePointsSpendingUri = '<?php echo $this->getUrl('rewards/cart_redeem/changePointsSpending', array('_forced_secure' => $this->getRequest()->isSecure())) ?>';
     function updateTotalsDueToSpendings(new_spending_amount) {
-    	      
+
         if(last_slider_ajax_request) {
-            last_slider_ajax_request.options.onSuccess = function(t) { /* do nothing because a new request has started */}
+            last_slider_ajax_request.options.onSuccess = function(t) {
+                /* do nothing because a new request has started */
+                checkout.hideLoadinfo();
+            }
         }
 
-        checkout.showLoadinfo(); 
+        checkout.showLoadinfo();
+
         last_slider_ajax_request = new Ajax.Request(
-            changePointsSpendingUri, 
+            changePointsSpendingUri,
             {
                 parameters: { points_spending: new_spending_amount  },
                 onSuccess: function(t) {
-                    var result = t.responseJSON;
                     checkout.hideLoadinfo();
                     checkout.submit(checkout.getFormData(), 'get_totals');
                 },
                 onFailure: function(){
                 	checkout.hideLoadinfo();
-    		    } 
+    		    }
             }
         );
     }
@@ -75,12 +78,12 @@
             rSlider.slider.setValue(0);
         }
     }
-        
-    document.observe("dom:loaded", function() {        
+
+    document.observe("dom:loaded", function() {
         if($('payment-please-wait')) { $('payment-please-wait').hide(); }
-	    
+
     });
-	
+
     function toggleCartRule(checkbox_elem) {
         var add_rule_url = '<?php echo $this->getUrl("rewards/cart_redeem/cartadd"); ?>';
         var remove_rule_url = '<?php echo $this->getUrl("rewards/cart_redeem/cartremove"); ?>';
