@@ -165,6 +165,29 @@ class GoMage_Checkout_Model_Type_Onestep_Calculator extends Varien_Object
 
     }
 
+    public function calcPayments($quote)
+    {
+        if ($current_method = $quote->getPayment()->getMethod()) {
+            $payment_methods = Mage::helper('payment')->getStoreMethods($quote->getStoreId(), $quote);
+            if (count($payment_methods)) {
+                $payment_methods = array_map(function ($method) {
+                        return $method->getCode();
+                    }, $payment_methods
+                );
+
+                if (!in_array($current_method, $payment_methods)) {
+                    try {
+                        if ($quote->getPayment()->hasData('method_instance')) {
+                            $quote->getPayment()->unsetData('method_instance');
+                        }
+                        $quote->getPayment()->importData(array('method' => reset($payment_methods)));
+                    } catch (Exception $_e) {
+                    }
+                }
+            }
+        }
+    }
+
     public function prepareResult()
     {
 
