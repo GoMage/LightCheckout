@@ -22,7 +22,7 @@
             <input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" />
         </div>
 
-		<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('<?php echo $this->__('Please, enter a coupon code') ?>')}else{checkout.applyDisocunt(false);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
+		<button type="button" title="<?php echo $this->__('Apply Coupon') ?>" class="button" onclick="if(!$('coupon_code').value){alert('<?php echo $this->__('Enter your coupon code if you have one.') ?>')}else{checkout.applyDisocunt(false);}" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
 		<?php if(strlen($this->getCouponCode())): ?>
 			&nbsp; <button type="button" title="<?php echo $this->__('Cancel Coupon') ?>" class="button" onclick="checkout.applyDisocunt(true)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><span><?php echo $this->__('Cancel Coupon') ?></span></span></button>
 		<?php endif;?>
