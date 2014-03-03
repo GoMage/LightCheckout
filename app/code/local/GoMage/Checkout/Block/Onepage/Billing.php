@@ -114,9 +114,9 @@ class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepag
         return intval($this->getConfigData('registration/auto'));
     }
 
-    public function isRewardsActive()
+    public function isReferralBlockShow()
     {
-        return Mage::getStoreConfig('rewards/general/layoutsactive');
+        return Mage::getStoreConfig('rewards/general/layoutsactive') && Mage::getStoreConfig('rewards/referral/show_in_onepage_checkout');
     }
 
 }
