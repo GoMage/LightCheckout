@@ -12,26 +12,26 @@
  */
 ?>
 <?php if(Mage::helper('gomage_deliverydate')->isEnableDeliveryDate()): ?>
-<h2 class="glc-title"><span id="glc-deliverydate-number" class="glc-number"><?php echo (Mage::getSingleton('checkout/session')->getShippingSameAsBilling() ? '3' : '4'); ?></span><strong><?php echo $this->__('Time of Delivery');?></strong></h2>
-<div class="glc-col">
-	<div class="delivery-date">
-		<?php foreach($this->getFields() as $field): ?>
-		    <div class="delivery-date-<?php echo $field->getId()?> left">			        
-				<?php echo $field->getHtml() ?>
-			</div>
-		<?php endforeach?>			
-		<input id="dilivery-date-customeroffset-input" name="deliverydate[customer_offset]" type="hidden" class="hidden" />
-	</div>
-	<?php if (Mage::getStoreConfig('gomage_checkout/deliverydate/display_datetext') && Mage::getStoreConfig('gomage_checkout/deliverydate/datetext')): ?>
-		<div class="delivery-date-text"><?php echo Mage::getStoreConfig('gomage_checkout/deliverydate/datetext') ?></div>
-	<?php endif; ?>
-</div>
-<script type="text/javascript">
-//<![CDATA[	
-	var _date	= new Date();
-	var offset	= (_date.getTimezoneOffset()*60);		
-	$('dilivery-date-customeroffset-input').value = offset;
-	var glc_dilivery_date_shipping_methods = <?php echo Zend_Json::encode(Mage::helper('gomage_deliverydate')->getShippingMethods()) ?>;	
-//]]>
-</script>
+    <h2 class="glc-title"><span id="glc-deliverydate-number" class="glc-number"><?php echo (Mage::getSingleton('checkout/session')->getShippingSameAsBilling() ? '3' : '4'); ?></span><strong><?php echo $this->__('Time of Delivery');?></strong></h2>
+    <div class="glc-col">
+        <div class="delivery-date">
+            <?php foreach($this->getFields() as $field): ?>
+                <div class="delivery-date-<?php echo $field->getId()?> left">
+                    <?php echo $field->getHtml() ?>
+                </div>
+            <?php endforeach?>
+            <input id="dilivery-date-customeroffset-input" name="deliverydate[customer_offset]" type="hidden" class="hidden" />
+        </div>
+        <?php if (Mage::getStoreConfig('gomage_checkout/deliverydate/display_datetext') && Mage::getStoreConfig('gomage_checkout/deliverydate/datetext')): ?>
+            <div class="delivery-date-text"><?php echo Mage::getStoreConfig('gomage_checkout/deliverydate/datetext') ?></div>
+        <?php endif; ?>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        var _date	= new Date();
+        var offset	= (_date.getTimezoneOffset()*60);
+        $('dilivery-date-customeroffset-input').value = offset;
+        var glc_dilivery_date_shipping_methods = <?php echo Zend_Json::encode(Mage::helper('gomage_deliverydate')->getShippingMethods()) ?>;
+    //]]>
+    </script>
 <?php endif; ?>

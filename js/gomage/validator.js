@@ -23,6 +23,19 @@ function(v) {
 	return true;
 });
 
+function glcValidateTaxvat(v) {
+    if ($('billing_country_id')){
+        if(vat_required_countries.indexOf($('billing_country_id').value) !== -1){
+            if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.billing_taxvat_verified_flag){
+                return false;
+            }else if(v && !checkout.billing_taxvat_verified_flag){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 Object.extend(Validation, {
 	defaultOptions:{
     onSubmit : true,

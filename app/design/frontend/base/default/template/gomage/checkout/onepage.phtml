@@ -34,26 +34,8 @@
 	}		
 	
 	Validation.addAllThese([
-	    ['validate-taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', function(v) {
-
-		if ($('billing_country_id')){    
-    	    if(vat_required_countries.indexOf($('billing_country_id').value) !== -1){
-    	    	
-    	    	if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.billing_taxvat_verified_flag){
-    	    		
-    	    		return false;
-    	    	
-    	    	}else if(v && !checkout.billing_taxvat_verified_flag){
-    	    		
-    	    		return false;
-    	    		
-    	    	}
-    	    	
-    	    }
-		}
-	    
-	    return true;
-	}]]);
+	    ['validate-taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', glcValidateTaxvat]
+    ]);
 	
 	var countryRegions			= <?php echo $this->helper('directory')->getRegionJson(); ?>;
 	var glc_regions_required    = <?php echo Mage::helper('gomage_checkout')->getCountriesStatesRequired(); ?>;
@@ -67,8 +49,7 @@
 	var loadinfo_text = "<?php echo $this->__('Updating information, please wait...')?>";
 	
 	var vat_required_countries = new Array(<?php printf('"%s"', implode('","', Mage::helper('gomage_checkout')->getTaxCountries()));?>);
-	
-	
+
 	<?php
 		
 		$observe_billing_items	= array('#buy_without_vat');
@@ -97,8 +78,7 @@
 		if($this->helper('gomage_checkout')->getConfigData('ajax/email')){
         	$observe_billing_items[] = '#billing_email';
         }
-		
-		
+
 	?>
 		
 	var observe_billing_items	= '<?php echo implode(',', $observe_billing_items);?>';
@@ -107,58 +87,10 @@
 	var loginFormHtml = <?php echo json_encode($this->getLoginForm()); ?>;
 	
 	<?php if($this->getConfigData('termsandconditions/enabled')):?>
-	
-	var termsHtml = '<div class="simple_overlay<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>" id="terms-block" style="display:none;width:<?php echo intval($this->getConfigData('termsandconditions/width'))?>px;height:<?php echo intval($this->getConfigData('termsandconditions/height'))?>px;">'+
-	'<div class="glc-popup-content">'+
-		'<a class="close" onclick="checkout.hideTerms();return false;">&#x2715;</a>'+
-		'<div class="details">'+
-			'<div class="popup-content">'+
-				'<?php echo preg_replace("/'/", "&#39;", preg_replace('/[\n\r]/', '', (preg_replace('/\<script.*?\\/script>/si', '', $this->getConfigData('termsandconditions/content')))));?>'+
-			'</div>'+
-		'</div>'+
-		'</div>'+
-	'</div>';
-	
+        var termsHtml = <?php echo json_encode($this->getTermsHtml()); ?>;
 	<?php endif;?>
 
-   	var centinelHtml = '<div class="simple_overlay" id="gcheckout-payment-centinel" style="display:none;width:<?php echo intval($this->getConfigData('address_fields/secure_window_width')) ?>px;height:<?php echo intval($this->getConfigData('address_fields/secure_window_height')) ?>px;">'+
-	'<div class="glc-popup-content" style="width:552;px;height:475px;">'+
-		'<a class="close" onclick="checkout.hideCentinel();return false;">&#x2715;</a>'+
-		'<div class="details">'+
-			'<div class="popup-content" id="gcheckout-payment-centinel-html">'+
-			'</div>'+
-		'</div>'+
-		'</div>'+
-	'</div>';
-
-   	if (typeof(CentinelAuthenticate) != 'undefined'){
-	    CentinelAuthenticate.prototype.cancel = function() {
-	
-	        if (this._isAuthenticationStarted) {
-	            if (this._isRelatedBlocksLoaded()) {
-	                this._showRelatedBlocks();
-	            }
-	            if (this._isCentinelBlocksLoaded()) {
-	                $(this.centinelBlockId).hide();
-	                $(this.iframeId).src = '';
-	            }
-	            this._isAuthenticationStarted = false;
-	        }
-	        checkout.hideCentinel();
-	    }
-	
-	    CentinelAuthenticate.prototype.success = function() {
-	
-	        if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
-	            this._showRelatedBlocks();
-	            $(this.centinelBlockId).hide();
-	            this._isAuthenticationStarted = false;
-	            checkout.hideCentinel();
-	            checkout.saveorder();
-	        }
-	        
-	    }
-   	}
+   	var centinelHtml = <?php echo json_encode($this->getCentinelHtml()); ?>;
 
 	//]]>
 </script>
@@ -204,76 +136,33 @@
 	<script type="text/javascript">
 	//<![CDATA[
 		var checkoutForm = new VarienForm('gcheckout-onepage-form');
-		var checkoutloginform = new LightcheckoutLogin({url:"<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>", url_forgot:"<?php echo $this->getUrl("gomage_checkout/onepage/forgotPassword");?>"});
-		
-		<?php if($this->isCustomerLoggedIn()):?>
-	    	
-	    	checkoutloginform.customerIsCustomerLoggedIn = true;
-	    	
-	    <?php else:?>
-	    	
-	    	checkoutloginform.customerIsCustomerLoggedIn = false;
-	    	
-	    <?php endif;?>
-	    
-		
-		var checkout = new Lightcheckout({url:"<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>", 
-										  save_order_url:"<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",	
-										  billing_taxvat_enabled:<?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
-		
-		function changeAddressMode(flag){
-			
-			if(flag){
-				
-				$('gcheckout-shipping-address').style.display = 'none';
-				
-				<?php if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')):?>
-				$$('div.gcheckout-onepage-wrap')[0].removeClassName('notddate_diferent_shipping_address');
-				<?php else:?>
-				$$('div.gcheckout-onepage-wrap')[0].removeClassName('diferent_shipping_address');
-				<?php endif;?>
-				
-			}else{
-				$('gcheckout-shipping-address').style.display = 'block';
-				
-				<?php if(!Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate')):?>
-				$$('div.gcheckout-onepage-wrap')[0].addClassName('notddate_diferent_shipping_address');
-				<?php else:?>
-				$$('div.gcheckout-onepage-wrap')[0].addClassName('diferent_shipping_address');
-				<?php endif;?>
-				
-			};
-			
-			
-		}
-		
-	    
-	    function initAddresses(){
-	    <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
-	    billingRegionUpdater = new RegionUpdater('billing_country_id', 'billing_region', 'billing_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"billing_postcode"' : 'undefined';?>);
 
-	    <?php if($this->getChild('address')->getChild('billing')->canShip()):?>
-	    
-			<?php if( $this->getChild('address')->getChild('shipping')->isEnabled('country_id') && $this->getChild('address')->getChild('shipping')->isEnabled('region')):?>
-		    shippingRegionUpdater = new RegionUpdater('shipping_country_id', 'shipping_region', 'shipping_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"shipping_postcode"' : 'undefined';?>);
-		   	<?php endif;?>
-	   	
-	   	<?php endif;?>
-	   	
-	   	<?php endif;?>	
-	   	
+		var checkoutloginform = new LightcheckoutLogin({url: "<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>",
+            url_forgot: "<?php echo $this->getUrl("gomage_checkout/onepage/forgotPassword");?>",
+            logged_in: <?php if($this->isCustomerLoggedIn()):?>true<?php else: ?>false<?php endif; ?> });
+		
+		var checkout = new Lightcheckout({url: "<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>",
+										  save_order_url: "<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",
+										  billing_taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
+
+	    function initAddresses(){
+            <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
+                billingRegionUpdater = new RegionUpdater('billing_country_id', 'billing_region', 'billing_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"billing_postcode"' : 'undefined';?>);
+                <?php if($this->getChild('address')->getChild('billing')->canShip()):?>
+                    <?php if( $this->getChild('address')->getChild('shipping')->isEnabled('country_id') && $this->getChild('address')->getChild('shipping')->isEnabled('region')):?>
+                    shippingRegionUpdater = new RegionUpdater('shipping_country_id', 'shipping_region', 'shipping_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"shipping_postcode"' : 'undefined';?>);
+                    <?php endif;?>
+                <?php endif;?>
+            <?php endif;?>
 	   	}
 	   	
 	   	initAddresses();
 	   	
 	   	<?php if(Mage::getSingleton('checkout/type_onepage')->getQuote()->getBillingAddress()->getIsValidVat()):?>
-	   	
-	   	checkout.billing_taxvat_verified_flag = true;
-	   	
+	   	    checkout.billing_taxvat_verified_flag = true;
 	   	<?php endif;?>
 
 	   	<?php if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled()): ?>
-	   	
     	   	var review = new LightcheckoutReview('<?php echo $this->getUrl('gomage_checkout/onepage/save') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
     		SageServer = new EbizmartsSagePaySuite.Checkout
     					(
@@ -283,7 +172,6 @@
     	                        'payment':   payment	                        
     		                }
     	        		);
-	   	
 		<?php endif; ?>
 	   	
 		//]]>

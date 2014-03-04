@@ -1,0 +1,13 @@
+<div class="simple_overlay<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>"
+     id="terms-block"
+     style="display:none;width:<?php echo intval(Mage::getStoreConfig('gomage_checkout/termsandconditions/width')) ?>px;height:<?php echo intval(Mage::getStoreConfig('gomage_checkout/termsandconditions/height')) ?>px;">
+    <div class="glc-popup-content">
+        <a class="close" onclick="checkout.hideTerms();return false;">&#x2715;</a>
+
+        <div class="details">
+            <div class="popup-content">
+                <?php echo preg_replace("/'/", "&#39;", preg_replace('/[\n\r]/', '', (preg_replace('/\<script.*?\\/script>/si', '', Mage::getStoreConfig('gomage_checkout/termsandconditions/content'))))); ?>
+            </div>
+        </div>
+    </div>
+</div>
