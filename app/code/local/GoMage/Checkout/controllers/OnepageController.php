@@ -1345,6 +1345,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             }
         }
 
+        if (isset($billing_address_data['taxvat'])) {
+            $billing_address_data['vat_id'] = $billing_address_data['taxvat'];
+        }
+
         return $billing_address_data;
     }
 
