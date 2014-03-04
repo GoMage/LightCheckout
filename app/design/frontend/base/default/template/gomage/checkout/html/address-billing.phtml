@@ -112,9 +112,9 @@
 			                    </div>
                                 <?php if ($this->isReferralBlockShow()): ?>
                                     <div class="input-box">
-                                        <label for="billing_rewards_referral"><?php echo $this->__('Referral E-mail or Code') ?></label>
+                                        <label for="rewards_referral"><?php echo $this->getReferralLabel() ?></label>
                                         <div class="input-box">
-                                            <input type="text" title="<?php echo $this->__('Referral E-mail or Code') ?>" class="input-text" id="billing_rewards_referral" name="billing[rewards_referral]" />
+                                            <input type="text" title="<?php echo $this->getReferralLabel() ?>" class="input-text" id="rewards_referral" name="billing[rewards_referral]" />
                                         </div>
                                     </div>
                                 <?php endif; ?>

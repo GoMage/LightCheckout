@@ -116,7 +116,20 @@ class GoMage_Checkout_Block_Onepage_Billing extends GoMage_Checkout_Block_Onepag
 
     public function isReferralBlockShow()
     {
-        return Mage::getStoreConfig('rewards/general/layoutsactive') && Mage::getStoreConfig('rewards/referral/show_in_onepage_checkout');
+        return Mage::getStoreConfig('rewards/general/layoutsactive') &&
+        Mage::getStoreConfig('rewards/referral/show_in_onepage_checkout') &&
+        (Mage::getStoreConfig('rewards/referral/show_referral_email') || Mage::getStoreConfig('rewards/referral/show_referral_code'));
+    }
+
+    public function getReferralLabel()
+    {
+        if (Mage::getStoreConfig('rewards/referral/show_referral_email') && !Mage::getStoreConfig('rewards/referral/show_referral_code')) {
+            return $this->__('Referral E-mail');
+        } elseif (!Mage::getStoreConfig('rewards/referral/show_referral_email') && Mage::getStoreConfig('rewards/referral/show_referral_code')) {
+            return $this->__('Referral Code');
+        }
+
+        return $this->__('Referral E-mail or Code');
     }
 
 }
