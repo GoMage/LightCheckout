@@ -1005,11 +1005,17 @@ LightcheckoutLogin = Class.create({
 
                         $('gcheckout-login-link').hide();
 
+                        Event.stopObserving(document, "dom:loaded");
                         for (var i = 0; i < js_scripts.length; i++) {
                             if (typeof(js_scripts[i]) != 'undefined') {
                                 LightcheckoutglobalEval(js_scripts[i]);
                             }
                         }
+                        try {
+                            Event.fire(document, "dom:loaded");
+                        } catch (e) {
+                        }
+
 
                         checkout.billing_taxvat_verified_flag = response.vatstatus;
                         checkout.hideLoginForm();
