@@ -26,7 +26,6 @@
                 	<sales_order_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
                 	<sales_order_invoice_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
           			<sales_order_creditmemo_totals>GoMage_Checkout_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
-          			<sales_order_view_info>GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
           			<sales_items_column_name>GoMage_Checkout_Block_Adminhtml_Sales_Items_Column_Name</sales_items_column_name>          			
 	        	</rewrite>
 	        </adminhtml>
@@ -298,6 +297,14 @@
                     </gomage_checkout_notify>
                 </observers>
             </controller_action_predispatch>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <gomage_checkout_order_view_info>
+                        <class>gomage_checkout/observer</class>
+                        <method>getSalesOrderViewInfo</method>
+                    </gomage_checkout_order_view_info>
+                </observers>
+            </core_block_abstract_to_html_after>
         </events>
 		<translate>
 			<modules>
