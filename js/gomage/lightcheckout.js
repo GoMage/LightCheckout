@@ -164,7 +164,7 @@ Lightcheckout = Class.create({
                     show = true;
                 } else {
                     for (key in glc_dilivery_date_shipping_methods) {
-                        if (method.indexOf(glc_dilivery_date_shipping_methods[key]) == 0) {
+                        if (glc_dilivery_date_shipping_methods[key] && method.indexOf(glc_dilivery_date_shipping_methods[key]) == 0) {
                             show = true;
                             break;
                         }
