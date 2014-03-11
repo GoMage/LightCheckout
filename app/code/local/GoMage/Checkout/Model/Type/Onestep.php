@@ -254,13 +254,11 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function shippingAsBilling()
     {
-
-        if (null == $this->getCheckout()->getShippingSameAsBilling()) {
+        if (null === $this->getCheckout()->getShippingSameAsBilling()) {
             return true;
         }
 
-        return ( bool )$this->getCheckout()->getShippingSameAsBilling();
-
+        return (bool)$this->getCheckout()->getShippingSameAsBilling();
     }
 
     public function initCheckout()
@@ -271,31 +269,21 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
         }
 
         if (is_null(Mage::getSingleton('customer/session')->getCreateAccount())) {
-
             Mage::getSingleton('customer/session')->setCreateAccount(( bool )$this->helper->getConfigData('registration/account_checkbox'));
-
         }
 
         if ($shipping_address = $this->getQuote()->getShippingAddress()) {
-
             $shipping_address_mode = Mage::getSingleton('checkout/session')->getShippingSameAsBilling();
-
             if (is_null($shipping_address_mode)) {
-
-                switch (Mage::helper('gomage_checkout')->getConfigData('general/different_shipping_enabled')) :
-
+                switch (Mage::helper('gomage_checkout')->getConfigData('general/different_shipping_enabled')) {
                     default:
                         Mage::getSingleton('checkout/session')->setShippingSameAsBilling(true);
                         break;
-
                     case (2):
                         Mage::getSingleton('checkout/session')->setShippingSameAsBilling(false);
                         break;
-
-                endswitch;
-
+                }
             }
-
         }
 
         $checkout = $this->getCheckout();

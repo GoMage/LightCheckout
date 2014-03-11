@@ -1349,12 +1349,13 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $billing_address_data['vat_id'] = $billing_address_data['taxvat'];
         }
 
+        $this->getCheckout()->setShippingSameAsBilling(isset($billing_address_data['use_for_shipping']) && (bool)$billing_address_data['use_for_shipping']);
+
         return $billing_address_data;
     }
 
     protected function subscribeToNewsletter()
     {
-
         $subscribe = false;
 
         switch (Mage::helper('gomage_checkout')->getConfigData('address_fields/newsletter')) {
@@ -1368,7 +1369,6 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             case 4:
                 $subscribe = $this->getSession()->getCreateAccount() || $this->getSession()->isLoggedIn();
                 break;
-
         }
 
         if ($subscribe) {
