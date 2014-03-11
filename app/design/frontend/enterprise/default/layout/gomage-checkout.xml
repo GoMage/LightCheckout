@@ -255,11 +255,11 @@
                 <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
                     <label>Form Fields Before</label>
                 </block>
-                <block type="core/text_list" name="form.additional.info">
-                	<block type="core/template" template="gomage/checkout/success/register.phtml" /> 
+                <block type="core/text_list" name="gomage.checkout.success.additional.info">
+                    <block type="core/template" template="gomage/checkout/success/register.phtml" />
                 </block>
-            </block>              
-     	</reference> 
+            </block>
+        </reference>
     </checkout_onepage_success>
     
 </layout>

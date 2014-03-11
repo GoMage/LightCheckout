@@ -271,7 +271,15 @@
                         <method>prepareCustomerOrder</method>
                     </gomage_checkout_customer_register_success>
                 </observers> 
-            </customer_register_success> 
+            </customer_register_success>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <gomage_checkout_success>
+                        <class>gomage_checkout/observer</class>
+                        <method>prepareCheckoutSuccess</method>
+                    </gomage_checkout_success>
+                </observers>
+            </core_block_abstract_to_html_after>
         </events>
         <translate>
 			<modules>

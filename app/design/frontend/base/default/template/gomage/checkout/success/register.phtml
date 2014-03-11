@@ -11,21 +11,29 @@
  * @since        Class available since Release 5.0
  */
 ?>
-<input type="hidden" name="glc_order_id" value="<?php echo Mage::getSingleton('checkout/session')->getLastOrderId(); ?>" />
 <script type="text/javascript">
-//<![CDATA[
-	Event.observe(document, 'dom:loaded', function() {
-		if ($$('.account-create').length){
-			$$('.back-link').each(function(e){
-				e.hide();
-			});
-			$$('.account-create .fieldset').each(function(fieldset){
-				var password = fieldset.down('input[type=password]');
-				if (typeof password == 'undefined'){
-					fieldset.hide();
-				}
-			});
-		}
-	});		
-//]]>
+    //<![CDATA[
+    var glc_order_id = "<?php echo Mage::getSingleton('checkout/session')->getLastOrderId(); ?>";
+    Event.observe(document, 'dom:loaded', function () {
+        if ($$('.account-create').length) {
+
+            var form = $$('.account-create #form-validate')[0];
+            var input = document.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', 'glc_order_id');
+            input.setAttribute('value', glc_order_id);
+            form.appendChild(input)
+
+            $$('.back-link').each(function (e) {
+                e.hide();
+            });
+            $$('.account-create .fieldset').each(function (fieldset) {
+                var password = fieldset.down('input[type=password]');
+                if (typeof password == 'undefined') {
+                    fieldset.hide();
+                }
+            });
+        }
+    });
+    //]]>
 </script>	
