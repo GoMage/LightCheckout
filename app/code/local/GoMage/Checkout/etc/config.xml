@@ -48,6 +48,11 @@
 		               <checkout_total>GoMage_Checkout_Block_CustomerBalance_Checkout_Total</checkout_total>
 		        </rewrite>
 		    </enterprise_customerbalance>
+            <bundle>
+                <rewrite>
+                    <adminhtml_sales_order_view_items_renderer>GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Items_Bundle_Renderer</adminhtml_sales_order_view_items_renderer>
+                </rewrite>
+            </bundle>
 	    </blocks>
 	    <models>
             <gomage_checkout><class>GoMage_Checkout_Model</class></gomage_checkout>
