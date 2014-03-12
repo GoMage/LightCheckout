@@ -51,6 +51,7 @@
             <bundle>
                 <rewrite>
                     <adminhtml_sales_order_view_items_renderer>GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Items_Bundle_Renderer</adminhtml_sales_order_view_items_renderer>
+                    <sales_order_items_renderer>GoMage_Checkout_Block_Bundle_Sales_Order_Items_Renderer</sales_order_items_renderer>
                 </rewrite>
             </bundle>
 	    </blocks>

@@ -232,6 +232,7 @@
     
     <checkout_onepage_success> 
      	<reference name="checkout.success">
+            <block type="gomage_checkout/checkout_success_additional" template="gomage/checkout/success/additional.phtml" name="additional.product.info" />
      		<action method="setTemplate"><template>gomage/checkout/success.phtml</template></action>
      		<block type="gomage_checkout/checkout_success_summary" name="gomage.checkout.success.summary">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
@@ -261,5 +262,13 @@
             </block>
         </reference>
     </checkout_onepage_success>
+
+    <sales_order_view>
+        <block type="gomage_checkout/checkout_success_additional" template="gomage/checkout/success/additional.phtml" name="additional.product.info" />
+    </sales_order_view>
+
+    <sales_order_print>
+        <block type="gomage_checkout/checkout_success_additional" template="gomage/checkout/success/additional.phtml" name="additional.product.info" />
+    </sales_order_print>
     
 </layout>
