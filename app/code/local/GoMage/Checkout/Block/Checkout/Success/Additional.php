@@ -22,9 +22,20 @@ class GoMage_Checkout_Block_Checkout_Success_Additional extends Mage_Core_Block_
         return $this;
     }
 
+    public function getItem()
+    {
+        if (is_null($this->item)) {
+            if ($parent = $this->getParentBlock()) {
+                $this->item = $parent->getItem();
+            }
+        }
+        return $this->item;
+    }
+
     public function isGiftWrap()
     {
-        return $this->item && $this->item->getData('gomage_gift_wrap');
+        $item = $this->getItem();
+        return $item && $item->getData('gomage_gift_wrap');
     }
 
 }
