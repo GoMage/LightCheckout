@@ -32,68 +32,6 @@ Lightcheckout = Class.create({
         (data && data.url) ? this.url = data.url : '';
         (data && data.save_order_url) ? this.save_order_url = data.save_order_url : '';
 
-        if (typeof observe_billing_items != 'undefined') {
-            $$(observe_billing_items).each(function (e) {
-
-                if (e.type == 'radio' || e.type == 'checkbox') {
-
-                    e.observe('click', function () {
-                        this.submit(this.getFormData(), 'get_methods');
-                    }.bind(this));
-
-                } else {
-
-                    e.observe('change', function () {
-                        this.submit(this.getFormData(), 'get_methods');
-                    }.bind(this));
-
-                }
-            }.bind(this));
-
-        }
-
-        if (typeof observe_shipping_items != 'undefined') {
-            $$(observe_shipping_items).each(function (e) {
-
-                if (e.type == 'radio' || e.type == 'checkbox') {
-
-                    e.observe('click', function () {
-                        this.submit(this.getFormData(), 'get_shipping_methods');
-                    }.bind(this));
-
-                } else {
-
-                    e.observe('change', function () {
-                        this.submit(this.getFormData(), 'get_shipping_methods');
-                    }.bind(this));
-
-                }
-
-
-            }.bind(this));
-
-        }
-
-        if ($('billing_use_for_shipping_yes')) {
-            $('billing_use_for_shipping_yes').observe('click', function (e) {
-                this.submit(this.getFormData(), 'get_shipping_methods');
-            }.bind(this));
-        }
-
-        $$('#billing_email, #customer_account_create').each(function (e) {
-            e.observe('change', function (e) {
-                this.obj.findExistsCustomer();
-            }.bind({obj: this}));
-        }.bind(this));
-
-        $('gcheckout-onepage-address').select('select, input, textarea').each(function (e) {
-            if (e.hasClassName('required-entry') && !e.hasClassName('validate-taxvat')) {
-                e.observe('blur', function () {
-                    Validation.validate(this, {useTitle: checkoutForm.validator.options.useTitles, onElementValidate: checkoutForm.validator.options.onElementValidate});
-                });
-            }
-        });
-
         if ($('use_reward_points')) {
             $('use_reward_points').observe('click', function (e) {
                 this.submit(this.getFormData(), 'get_totals');
@@ -473,6 +411,7 @@ Lightcheckout = Class.create({
                             }
 
                             if (response.content_billing || response.content_shipping) {
+                                this.observeAddresses();
                                 initAddresses();
                             }
 
@@ -835,27 +774,80 @@ Lightcheckout = Class.create({
         }
 
     },
+
     observeAddresses: function () {
 
+        if (typeof observe_billing_items != 'undefined') {
+            $$(observe_billing_items).each(function (e) {
+                if (e.type == 'radio' || e.type == 'checkbox') {
+                    e.stopObserving('click');
+                    e.observe('click', function () {
+                        this.submit(this.getFormData(), 'get_methods');
+                    }.bind(this));
+                } else {
+                    e.stopObserving('change');
+                    e.observe('change', function () {
+                        this.submit(this.getFormData(), 'get_methods');
+                    }.bind(this));
+                }
+            }.bind(this));
+        }
+
+        if (typeof observe_shipping_items != 'undefined') {
+            $$(observe_shipping_items).each(function (e) {
+                if (e.type == 'radio' || e.type == 'checkbox') {
+                    e.stopObserving('click');
+                    e.observe('click', function () {
+                        this.submit(this.getFormData(), 'get_shipping_methods');
+                    }.bind(this));
+                } else {
+                    e.stopObserving('change');
+                    e.observe('change', function () {
+                        this.submit(this.getFormData(), 'get_shipping_methods');
+                    }.bind(this));
+                }
+            }.bind(this));
+        }
+
+        if ($('billing_use_for_shipping_yes')) {
+            $('billing_use_for_shipping_yes').stopObserving('click');
+            $('billing_use_for_shipping_yes').observe('click', function (e) {
+                this.submit(this.getFormData(), 'get_shipping_methods');
+            }.bind(this));
+        }
+
+        $$('#billing_email, #customer_account_create').each(function (e) {
+            e.stopObserving('change');
+            e.observe('change', function (e) {
+                this.obj.findExistsCustomer();
+            }.bind({obj: this}));
+        }.bind(this));
+
+        $('gcheckout-onepage-address').select('select, input, textarea').each(function (e) {
+            if (e.hasClassName('required-entry') && !e.hasClassName('validate-taxvat')) {
+                e.stopObserving('blur');
+                e.observe('blur', function () {
+                    Validation.validate(this, {useTitle: checkoutForm.validator.options.useTitles, onElementValidate: checkoutForm.validator.options.onElementValidate});
+                });
+            }
+        });
+
         if (this.billing_taxvat_enabled) {
-
             if ($('billing_taxvat')) {
-
+                $('billing_taxvat').stopObserving('change');
                 $('billing_taxvat').observe('change', function () {
                     if (vat_required_countries.indexOf($('billing_country_id').value) !== -1) {
                         checkout.submit(checkout.getFormData(), 'varify_taxvat')
                     }
                 });
-
             }
-
         }
 
         if (checkoutloginform.isLoggedIn()) {
             $('gcheckout-billing-address').select('select, input').each(function (element) {
 
                 if (element.name == 'billing_address_id') {
-
+                    element.stopObserving('change');
                     element.observe('change', function (e) {
                         if (!this.value) {
                             $('billing_address_book').show();
@@ -863,20 +855,18 @@ Lightcheckout = Class.create({
                     });
 
                 } else if (element.id != 'billing_use_for_shipping_yes' && element.id != 'billing_taxvat' && element.id != 'buy_without_vat') {
-
+                    element.stopObserving('change');
                     element.observe('change', function (e) {
                         $('billing_address_book').show();
                     });
-
                 }
-
             });
 
             if (shipping_address_block = $('gcheckout-shipping-address')) {
                 shipping_address_block.select('select, input').each(function (element) {
 
                     if (element.name == 'shipping_address_id') {
-
+                        element.stopObserving('change');
                         element.observe('change', function (e) {
                             if (!this.value) {
                                 $('shipping_address_book').show();
@@ -884,13 +874,11 @@ Lightcheckout = Class.create({
                         });
 
                     } else {
-
+                        element.stopObserving('change');
                         element.observe('change', function (e) {
                             $('shipping_address_book').show();
                         });
-
                     }
-
                 });
             }
 
