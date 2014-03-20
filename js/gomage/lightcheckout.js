@@ -431,6 +431,7 @@ Lightcheckout = Class.create({
                                     if (response.verify_result.billing) {
                                         if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
                                             label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
+                                            $('billing_taxvat').removeClassName('validation-failed');
                                         }
                                     } else if ($('billing_taxvat').value) {
                                         if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
@@ -443,6 +444,7 @@ Lightcheckout = Class.create({
                                     if (response.verify_result.shipping) {
                                         if (label = $('shipping_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
                                             label.innerHTML += '<strong id="shipping_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
+                                            $('shipping_taxvat').removeClassName('validation-failed');
                                         }
                                     } else if ($('shipping_taxvat').value) {
                                         if (label = $('shipping_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
@@ -854,17 +856,13 @@ Lightcheckout = Class.create({
             if ($('billing_taxvat')) {
                 $('billing_taxvat').stopObserving('change');
                 $('billing_taxvat').observe('change', function () {
-                    if (vat_required_countries.indexOf($('billing_country_id').value) !== -1) {
-                        checkout.submit(checkout.getFormData(), 'varify_taxvat')
-                    }
+                    checkout.submit(checkout.getFormData(), 'varify_taxvat');
                 });
             }
             if ($('shipping_taxvat')) {
                 $('shipping_taxvat').stopObserving('change');
                 $('shipping_taxvat').observe('change', function () {
-                    if (vat_required_countries.indexOf($('shipping_country_id').value) !== -1) {
-                        checkout.submit(checkout.getFormData(), 'varify_taxvat')
-                    }
+                    checkout.submit(checkout.getFormData(), 'varify_taxvat');
                 });
             }
         }
