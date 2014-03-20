@@ -818,12 +818,12 @@ Lightcheckout = Class.create({
                 if (e.type == 'radio' || e.type == 'checkbox') {
                     e.stopObserving('click');
                     e.observe('click', function () {
-                        this.submit(this.getFormData(), 'get_shipping_methods');
+                        this.submit(this.getFormData(), 'get_methods');
                     }.bind(this));
                 } else {
                     e.stopObserving('change');
                     e.observe('change', function () {
-                        this.submit(this.getFormData(), 'get_shipping_methods');
+                        this.submit(this.getFormData(), 'get_methods');
                     }.bind(this));
                 }
             }.bind(this));
@@ -832,7 +832,7 @@ Lightcheckout = Class.create({
         if ($('billing_use_for_shipping_yes')) {
             $('billing_use_for_shipping_yes').stopObserving('click');
             $('billing_use_for_shipping_yes').observe('click', function (e) {
-                this.submit(this.getFormData(), 'get_shipping_methods');
+                this.submit(this.getFormData(), 'get_methods');
             }.bind(this));
         }
 

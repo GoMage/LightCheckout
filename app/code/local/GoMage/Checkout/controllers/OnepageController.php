@@ -653,60 +653,6 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     }
 
                     break;
-                case ('get_shipping_methods'):
-                    if (!$this->getOnepage()->getQuote()->isVirtual()) {
-
-                        $paymentMethod = $this->getOnepage()->getQuote()->getPayment()->getMethod();
-                        if (!$paymentMethod) {
-                            if (($payment = $this->getRequest()->getPost('payment', false)) && is_array($payment) && count($payment)) {
-                                $paymentMethod = (isset($payment['method']) && $payment['method'] ? $payment['method'] : false);
-                            }
-                        }
-                        if ($paymentMethod) {
-                            $paymentMethod = array('method' => $paymentMethod);
-                        } else {
-                            $paymentMethod = array();
-                        }
-                        if ($this->getOnepage()->getQuote()->getUseCustomerBalance()) {
-                            $paymentMethod['use_customer_balance'] = 1;
-                        }
-
-                        $billing_address_data = $this->getRequest()->getPost('billing');
-                        $billing_address_data = $this->_prepareBillingAddressData($billing_address_data);
-
-                        if (!isset($billing_address_data['use_for_shipping']) || !intval($billing_address_data['use_for_shipping'])) {
-
-                            $shipping_address_data = $this->getRequest()->getPost('shipping');
-
-                        } else {
-
-                            $shipping_address_data = $billing_address_data;
-
-                        }
-
-                        $address = $this->getOnepage()->getQuote()->getShippingAddress();
-                        $address->addData($shipping_address_data);
-                        $address->implodeStreetAddress();
-                        $address->setCollectShippingRates(true)->collectShippingRates()->save();
-
-                        if ($shippingMethod = $this->getRequest()->getPost('shipping_method', false)) {
-                            $this->getOnepage()->getQuote()->getShippingAddress()->setShippingMethod($shippingMethod);
-                        }
-                        try {
-                            if (!empty($paymentMethod)) {
-                                $this->getOnepage()->getQuote()->getPayment()->importData($paymentMethod);
-                            }
-                        } catch (Exception $_e) {
-                        }
-
-                        $this->getOnepage()->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
-
-                        $calculator->calcShippings($this->getOnepage()->getQuote());
-
-                        $calculator->generateResult(array('shippings', 'review', 'payments'));
-
-                    }
-                    break;
                 case ('load_address'):
 
                     $customerAddressId = $this->getRequest()->getParam('id');
