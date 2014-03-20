@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 5.3
+ * @version      Release: 5.4
  * @since Class available since Release 1.0
  */ 
  -->
@@ -30,7 +30,7 @@
             <show_in_store>1</show_in_store>
             <groups>
 				<lightcheckout translate="label">
-					<label>GoMage LightCheckout v.5.3</label>
+					<label>GoMage LightCheckout v.5.4</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>10</sort_order>
 					<show_in_default>1</show_in_default>
