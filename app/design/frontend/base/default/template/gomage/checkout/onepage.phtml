@@ -34,7 +34,8 @@
 	}		
 	
 	Validation.addAllThese([
-	    ['validate-taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', glcValidateTaxvat]
+	    ['billing_validate_taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', glcValidateTaxvatBilling],
+        ['shipping_validate_taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', glcValidateTaxvatShipping]
     ]);
 	
 	var countryRegions			= <?php echo $this->helper('directory')->getRegionJson(); ?>;
@@ -143,7 +144,7 @@
 		
 		var checkout = new Lightcheckout({url: "<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>",
 										  save_order_url: "<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",
-										  billing_taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
+										  taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
 
 	    function initAddresses(){
             <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
@@ -157,10 +158,6 @@
 	   	}
 	   	
 	   	initAddresses();
-	   	
-	   	<?php if(Mage::getSingleton('checkout/type_onepage')->getQuote()->getBillingAddress()->getIsValidVat()):?>
-	   	    checkout.billing_taxvat_verified_flag = true;
-	   	<?php endif;?>
 
 	   	<?php if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled()): ?>
     	   	var review = new LightcheckoutReview('<?php echo $this->getUrl('gomage_checkout/onepage/save') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));

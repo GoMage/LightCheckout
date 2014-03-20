@@ -16,6 +16,9 @@
 class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 {
 
+    /**
+     * @return GoMage_Checkout_Model_Type_Onestep
+     */
     public function getOnepage()
     {
         if (empty($this->_onepage)) {
@@ -1259,8 +1262,11 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $layout->removeOutputBlock('root');
                 $layout->addOutputBlock('checkout.onepage');
 
-                $result['content']    = $layout->getOutput();
-                $result['vatstatus']  = $this->getOnepage()->getQuote()->getBillingAddress()->getIsValidVat();
+                $result['content'] = $layout->getOutput();
+                if (Mage::helper('gomage_checkout')->getConfigData('vat/enabled')) {
+                    $result['verify_result'] = $this->getOnepage()->verifyCustomerVat();
+                }
+
                 $result['is_virtual'] = $this->getOnepage()->getQuote()->isVirtual();
 
             } catch (Mage_Core_Exception $e) {

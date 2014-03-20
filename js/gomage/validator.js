@@ -23,12 +23,25 @@ function(v) {
 	return true;
 });
 
-function glcValidateTaxvat(v) {
-    if ($('billing_country_id')){
+function glcValidateTaxvatBilling(v) {
+    if ($('billing_country_id') && (checkout.taxvat_verify_result != null)){
         if(vat_required_countries.indexOf($('billing_country_id').value) !== -1){
-            if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.billing_taxvat_verified_flag){
+            if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.taxvat_verify_result.billing){
                 return false;
-            }else if(v && !checkout.billing_taxvat_verified_flag){
+            }else if(v && !checkout.taxvat_verify_result.billing){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function glcValidateTaxvatShipping(v) {
+    if ($('shipping_country_id') && $('shipping_country_id').visible() && (checkout.taxvat_verify_result != null)){
+        if(vat_required_countries.indexOf($('shipping_country_id').value) !== -1){
+            if($('buy_without_vat') && $('buy_without_vat').checked && !checkout.taxvat_verify_result.shipping){
+                return false;
+            }else if(v && !checkout.taxvat_verify_result.shipping){
                 return false;
             }
         }

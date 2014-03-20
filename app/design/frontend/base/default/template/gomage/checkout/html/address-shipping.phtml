@@ -32,6 +32,28 @@
                 <ul>
                     <li class="fields"><?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
 					<?php echo $this->getSortedFields();?>
+
+                    <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat')->setTemplate('gomage/checkout/html/taxvat.phtml') ?>
+                    <?php if ($_taxvat->isEnabled()): ?>
+                        <?php
+
+                            $_taxvat->setIsValidVat($this->getAddress()->getIsValidVat());
+
+                            $taxvat_value = '';
+
+                            if ($this->getAddress()->getTaxvat()){
+                                $taxvat_value = $this->getAddress()->getTaxvat();
+                            } elseif ($this->getAddress()->getVatId()){
+                                $taxvat_value = $this->getAddress()->getVatId();
+                            } elseif ($this->getQuote()->getCustomerTaxvat()){
+                                $taxvat_value = $this->getQuote()->getCustomerTaxvat();
+                            }
+
+                        ?>
+                        <li>
+                            <?php echo $_taxvat->setTaxvat($taxvat_value)->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?>
+                        </li>
+                    <?php endif ?>
                 </ul>
             </fieldset>
         </li>

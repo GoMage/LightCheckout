@@ -11,8 +11,8 @@
  */
 
 Lightcheckout = Class.create({
-    billing_taxvat_enabled: false,
-    billing_taxvat_verified_flag: false,
+    taxvat_enabled: false,
+    taxvat_verify_result: null,
     url: '',
     save_order_url: '',
     existsreview: false,
@@ -25,8 +25,8 @@ Lightcheckout = Class.create({
             this.accordion = new Accordion('checkout-review-submit', '.step-title', true);
         }
 
-        if (data && (typeof data.billing_taxvat_enabled != 'undefined')) {
-            this.billing_taxvat_enabled = data.billing_taxvat_enabled;
+        if (data && (typeof data.taxvat_enabled != 'undefined')) {
+            this.taxvat_enabled = data.taxvat_enabled;
         }
 
         (data && data.url) ? this.url = data.url : '';
@@ -421,15 +421,33 @@ Lightcheckout = Class.create({
                                     $('billing_taxvat_verified').remove();
                                 }
 
-                                checkout.billing_taxvat_verified_flag = response.verify_result;
+                                if ($('shipping_taxvat_verified')) {
+                                    $('shipping_taxvat_verified').remove();
+                                }
 
-                                if (response.verify_result) {
-                                    if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
-                                        label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
+                                this.taxvat_verify_result = response.verify_result;
+
+                                if ($('billing_taxvat')) {
+                                    if (response.verify_result.billing) {
+                                        if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
+                                            label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
+                                        }
+                                    } else if ($('billing_taxvat').value) {
+                                        if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
+                                            label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:red;">Not Verified</span>)</strong>';
+                                        }
                                     }
-                                } else if ($('billing_taxvat') && $('billing_taxvat').value) {
-                                    if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
-                                        label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:red;">Not Verified</span>)</strong>';
+                                }
+
+                                if ($('shipping_taxvat')) {
+                                    if (response.verify_result.shipping) {
+                                        if (label = $('shipping_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
+                                            label.innerHTML += '<strong id="shipping_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
+                                        }
+                                    } else if ($('shipping_taxvat').value) {
+                                        if (label = $('shipping_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
+                                            label.innerHTML += '<strong id="shipping_taxvat_verified" style="margin-left:5px;">(<span style="color:red;">Not Verified</span>)</strong>';
+                                        }
                                     }
                                 }
 
@@ -832,11 +850,19 @@ Lightcheckout = Class.create({
             }
         });
 
-        if (this.billing_taxvat_enabled) {
+        if (this.taxvat_enabled) {
             if ($('billing_taxvat')) {
                 $('billing_taxvat').stopObserving('change');
                 $('billing_taxvat').observe('change', function () {
                     if (vat_required_countries.indexOf($('billing_country_id').value) !== -1) {
+                        checkout.submit(checkout.getFormData(), 'varify_taxvat')
+                    }
+                });
+            }
+            if ($('shipping_taxvat')) {
+                $('shipping_taxvat').stopObserving('change');
+                $('shipping_taxvat').observe('change', function () {
+                    if (vat_required_countries.indexOf($('shipping_country_id').value) !== -1) {
                         checkout.submit(checkout.getFormData(), 'varify_taxvat')
                     }
                 });
@@ -1004,8 +1030,12 @@ LightcheckoutLogin = Class.create({
                         } catch (e) {
                         }
 
+                        if (typeof response.verify_result != 'undefined') {
+                            checkout.taxvat_verify_result = response.verify_result;
+                        } else {
+                            checkout.taxvat_verify_result = null;
+                        }
 
-                        checkout.billing_taxvat_verified_flag = response.vatstatus;
                         checkout.hideLoginForm();
 
                         initAddresses();

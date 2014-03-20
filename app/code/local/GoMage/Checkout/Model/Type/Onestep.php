@@ -546,33 +546,47 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function verifyCustomerVat()
     {
+        return array(
+            'billing'  => $this->vatVerification($this->getQuote()->getBillingAddress()),
+            'shipping' => $this->vatVerification($this->getQuote()->getShippingAddress()),
+        );
+    }
 
-        $is_valid_vat = null;
+    protected function vatVerification(&$address)
+    {
+        $is_valid_vat     = null;
+        $cache_validation = Mage::getSingleton('core/session')->getVatValidation();
 
-        $vat_number = trim($this->getQuote()->getBillingAddress()->getTaxvat() !== null ? $this->getQuote()->getBillingAddress()->getTaxvat() : $this->getQuote()->getCustomerTaxvat());
+        $vat_number = '';
+
+        if ($address->getTaxvat()) {
+            $vat_number = $address->getTaxvat();
+        } elseif ($address->getVatId()) {
+            $vat_number = $address->getVatId();
+        } elseif ($this->getQuote()->getCustomerTaxvat()) {
+            $vat_number = $this->getQuote()->getCustomerTaxvat();
+        }
+
+        $vat_number = trim($vat_number);
 
         if ($vat_number) {
 
-            $this->getQuote()->getBillingAddress()->setTaxvat($vat_number);
-            $this->getQuote()->getShippingAddress()->setTaxvat($vat_number);
+            $address->setTaxvat($vat_number);
+            $address->setVatId($vat_number);
 
             $vat_number = preg_replace('/^\D{0,2}/', '', $vat_number);
 
-            $country = $this->getQuote()->getBillingAddress()->getCountry();
+            $country = $address->getCountry();
             if ($country == "GR") {
                 $country = "EL";
             }
 
             $vat_verification = $this->helper->getConfigData('vat/vat_verification');
 
-            $cache_validation = Mage::getSingleton('core/session')->getVatValidation();
-
-            if (!is_null($cache_validation) && is_array($cache_validation)) {
-                if (($cache_validation['country'] == $country) &&
-                    ($cache_validation['vat_number'] == $vat_number) &&
-                    ($cache_validation['vat_verification'] == $vat_verification)
-                ) {
-                    $is_valid_vat = $cache_validation['is_valid_vat'];
+            if (is_array($cache_validation)) {
+                $cache_key = sprintf('%s_%s_%s', $country, $vat_number, $vat_verification);
+                if (isset($cache_validation[$cache_key])) {
+                    $is_valid_vat = $cache_validation[$cache_key];
                 }
             }
 
@@ -600,17 +614,18 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
             }
         }
 
-        $this->getQuote()->getBillingAddress()->setIsValidVat($is_valid_vat);
-        $this->getQuote()->getShippingAddress()->setIsValidVat($is_valid_vat);
-
         if (!is_null($is_valid_vat)) {
-            Mage::getSingleton('core/session')->setVatValidation(array(
-                    'country'          => $country,
-                    'vat_number'       => $vat_number,
-                    'vat_verification' => $vat_verification,
-                    'is_valid_vat'     => $is_valid_vat)
-            );
+            if (!is_array($cache_validation)) {
+                $cache_validation = array();
+            }
+            $cache_key = sprintf('%s_%s_%s', $country, $vat_number, $vat_verification);
+            if (!isset($cache_validation[$cache_key])) {
+                $cache_validation[$cache_key] = $is_valid_vat;
+            }
+            Mage::getSingleton('core/session')->setVatValidation($cache_validation);
         }
+
+        $address->setIsValidVat($is_valid_vat);
 
         return $is_valid_vat === true;
 
