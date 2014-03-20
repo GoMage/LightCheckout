@@ -12,7 +12,7 @@
  */
 ?>
 
-<?php if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 0)):?>
+<?php if(!Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 4, 1)):?>
 
 <dl class="sp-methods" id="checkout-payment-method-load">
     
@@ -32,7 +32,12 @@
         <?php endif; ?>
     <?php endforeach; ?>
 </dl>
-<script type="text/javascript">payment.init();</script>
+<script type="text/javascript">
+    payment.init();
+    if ((payment.currentMethod == '') && ('<?php echo $this->getSelectedMethodCode(); ?>' != '')){
+        payment.switchMethod('<?php echo $this->getSelectedMethodCode(); ?>');
+    }
+</script>
 
 <?php else:?>
 

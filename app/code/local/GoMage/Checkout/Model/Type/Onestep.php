@@ -537,7 +537,6 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function saveShippingMethod($method)
     {
-
         if (!empty($method)) {
             $this->getQuote()->getShippingAddress()->setShippingMethod($method);
         }
@@ -546,9 +545,12 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function verifyCustomerVat()
     {
+        $billing_address  = $this->getQuote()->getBillingAddress();
+        $shipping_address = $this->getQuote()->getBillingAddress();
+
         return array(
-            'billing'  => $this->vatVerification($this->getQuote()->getBillingAddress()),
-            'shipping' => $this->vatVerification($this->getQuote()->getShippingAddress()),
+            'billing'  => is_object($billing_address) ? $this->vatVerification($billing_address) : false,
+            'shipping' => is_object($shipping_address) ? $this->vatVerification($shipping_address) : false,
         );
     }
 
@@ -638,7 +640,6 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     private function prepareRegion($record)
     {
-
         if ($record->country_code && $record->region) {
             $country = Mage::getModel('directory/country')->loadByCode($record->country_code);
             if ($country && $country->getId()) {
@@ -648,9 +649,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                 }
             }
         }
-
         return $record->region;
-
     }
 
 }

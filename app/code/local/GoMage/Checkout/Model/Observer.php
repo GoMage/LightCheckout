@@ -143,9 +143,11 @@ class GoMage_Checkout_Model_Observer
         $block = $observer->getBlock();
         if (($block->getNameInLayout() == 'order_info') && ($child = $block->getChild('gomage.checkout.order.info'))) {
             $transport = $observer->getTransport();
-            $html      = $transport->getHtml();
-            $html .= $child->toHtml();
-            $transport->setHtml($html);
+            if ($transport) {
+                $html = $transport->getHtml();
+                $html .= $child->toHtml();
+                $transport->setHtml($html);
+            }
         }
     }
 
@@ -154,11 +156,13 @@ class GoMage_Checkout_Model_Observer
         $block = $observer->getBlock();
         if ($block->getNameInLayout() == 'gomage.checkout.success.register') {
             $transport = $observer->getTransport();
-            $html      = $transport->getHtml();
-            if ($html) {
-                $child = $block->getChild('gomage.checkout.success.additional.info');
-                $html .= $child->toHtml();
-                $transport->setHtml($html);
+            if ($transport) {
+                $html = $transport->getHtml();
+                if ($html) {
+                    $child = $block->getChild('gomage.checkout.success.additional.info');
+                    $html .= $child->toHtml();
+                    $transport->setHtml($html);
+                }
             }
         }
     }
