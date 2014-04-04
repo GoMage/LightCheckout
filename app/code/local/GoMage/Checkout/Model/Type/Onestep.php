@@ -576,12 +576,12 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
             $address->setTaxvat($vat_number);
             $address->setVatId($vat_number);
 
-            $vat_number = preg_replace('/^\D{0,2}/', '', $vat_number);
-
             $country = $address->getCountry();
             if ($country == "GR") {
                 $country = "EL";
             }
+
+            $vat_number = preg_replace('/^' . $country . '/', '', strtoupper($vat_number));
 
             $vat_verification = $this->helper->getConfigData('vat/vat_verification');
 
