@@ -427,7 +427,7 @@ Lightcheckout = Class.create({
 
                                 this.taxvat_verify_result = response.verify_result;
 
-                                if ($('billing_taxvat')) {
+                                if ($('billing_taxvat') && $('billing_taxvat').value) {
                                     if (response.verify_result.billing) {
                                         if (label = $('billing_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
                                             label.innerHTML += '<strong id="billing_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
@@ -440,7 +440,7 @@ Lightcheckout = Class.create({
                                     }
                                 }
 
-                                if ($('shipping_taxvat')) {
+                                if ($('shipping_taxvat') && $('shipping_taxvat').value) {
                                     if (response.verify_result.shipping) {
                                         if (label = $('shipping_taxvat').parentNode.parentNode.getElementsByTagName('label')[0]) {
                                             label.innerHTML += '<strong id="shipping_taxvat_verified" style="margin-left:5px;">(<span style="color:green;">Verified</span>)</strong>';
