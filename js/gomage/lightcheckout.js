@@ -19,6 +19,7 @@ Lightcheckout = Class.create({
     disable_place_order: false,
     accordion: null,
     exists_customer: false,
+    display_vat: 3,
     initialize: function (data) {
 
         if (typeof Accordion != 'undefined') {
@@ -27,6 +28,10 @@ Lightcheckout = Class.create({
 
         if (data && (typeof data.taxvat_enabled != 'undefined')) {
             this.taxvat_enabled = data.taxvat_enabled;
+        }
+
+        if (data && (typeof data.display_vat != 'undefined')) {
+            this.display_vat = data.display_vat;
         }
 
         (data && data.url) ? this.url = data.url : '';
@@ -48,6 +53,30 @@ Lightcheckout = Class.create({
         this.observeAddresses();
         this.findExistsCustomer();
         this.setBlocksNumber();
+        this.initDisplayVat();
+    },
+
+    initDisplayVat: function () {
+        //billing and shipping
+        if (this.display_vat == 3) {
+            return;
+        }
+
+        //billing
+        if (this.display_vat == 1 && $('shipping_taxvat')) {
+            $('shipping_taxvat').up('li').hide();
+        }
+
+        //shipping
+        if (this.display_vat == 2 && $('shipping_taxvat') && $('billing_taxvat')) {
+            if ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').checked) {
+                $('billing_taxvat').up('li').show();
+                $('billing_taxvat').value = $('shipping_taxvat').value;
+            } else {
+                $('billing_taxvat').up('li').hide();
+                $('shipping_taxvat').value = $('billing_taxvat').value;
+            }
+        }
     },
 
     findExistsCustomer: function () {
@@ -929,6 +958,7 @@ Lightcheckout = Class.create({
                 $$('div.gcheckout-onepage-wrap')[0].addClassName('diferent_shipping_address');
             }
         }
+        this.initDisplayVat();
     }
 
 });

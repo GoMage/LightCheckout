@@ -15,7 +15,7 @@
 <config>
     <modules>
         <GoMage_Checkout>
-            <version>0.0.5.4</version>
+            <version>0.0.5.5</version>
         </GoMage_Checkout>
     </modules>
     <global>
@@ -489,6 +489,7 @@
 			</address_sort>
 			<vat>
 				<vat_verification>0</vat_verification>
+                <display_vat>2</display_vat>
 				<show_checkbox>3</show_checkbox>
 				<text_under>Buy without VAT (for EU only)</text_under>
 			</vat>

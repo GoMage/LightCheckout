@@ -21,7 +21,7 @@
 <script type="text/javascript">
 	//<![CDATA[
 
-	<?php 
+	<?php
 	    $translator = array(
 	        'This is a required field.' => $this->__('This is a required field.'),
 	        'Please select one of the options.' => $this->__('Please select one of the options.'),
@@ -31,62 +31,62 @@
 
 	if (typeof(Translator) != 'undefined'){
 		Translator.add(<?php echo Zend_Json::encode($translator) ?>);
-	}		
-	
+	}
+
 	Validation.addAllThese([
 	    ['billing_validate_taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', glcValidateTaxvatBilling],
         ['shipping_validate_taxvat', '<?php echo $this->__('Please enter a valid VAT.');?>', glcValidateTaxvatShipping]
     ]);
-	
+
 	var countryRegions			= <?php echo $this->helper('directory')->getRegionJson(); ?>;
 	var glc_regions_required    = <?php echo Mage::helper('gomage_checkout')->getCountriesStatesRequired(); ?>;
-	if (typeof countryRegions.config != 'undefined'){		
+	if (typeof countryRegions.config != 'undefined'){
 		countryRegions.config.regions_required = glc_regions_required;
-	} 
+	}
 	var default_shipping_method	= '<?php echo $this->getDefaultShippingMethod()?>';
 	var default_payment_method	= '<?php echo $this->getDefaultPaymentMethod()?>';
-	
+
 	var shippingMethod = false;
 	var loadinfo_text = "<?php echo $this->__('Updating information, please wait...')?>";
-	
+
 	var vat_required_countries = new Array(<?php printf('"%s"', implode('","', Mage::helper('gomage_checkout')->getTaxCountries()));?>);
 
 	<?php
-		
+
 		$observe_billing_items	= array('#buy_without_vat');
 		$observe_shipping_items	= array();
-		
+
 		if($this->helper('gomage_checkout')->getConfigData('ajax/country')){
 			$observe_billing_items[] = '#gcheckout-onepage-address .billing-country select';
 			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping-country select';
 		}
-		
+
 		if($this->helper('gomage_checkout')->getConfigData('ajax/region')){
 			$observe_billing_items[] = '#gcheckout-onepage-address .billing-region select, #gcheckout-onepage-address .billing-region input';
 			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping-region input, #gcheckout-onepage-address .shipping-region select';
 		}
-		
+
 		if($this->helper('gomage_checkout')->getConfigData('ajax/postcode')){
 			$observe_billing_items[] = '#gcheckout-onepage-address .billing_postcode input';
 			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping_postcode input';
 		}
-		
+
 		if($this->helper('gomage_checkout')->getConfigData('ajax/city')){
 			$observe_billing_items[] = '#gcheckout-onepage-address .billing_city input';
 			$observe_shipping_items[] = '#gcheckout-onepage-address .shipping_city input';
 		}
-		
+
 		if($this->helper('gomage_checkout')->getConfigData('ajax/email')){
         	$observe_billing_items[] = '#billing_email';
         }
 
 	?>
-		
+
 	var observe_billing_items	= '<?php echo implode(',', $observe_billing_items);?>';
 	var observe_shipping_items	= '<?php echo implode(',', $observe_shipping_items);?>';
-	
+
 	var loginFormHtml = <?php echo json_encode($this->getLoginForm()); ?>;
-	
+
 	<?php if($this->getConfigData('termsandconditions/enabled')):?>
         var termsHtml = <?php echo json_encode($this->getTermsHtml()); ?>;
 	<?php endif;?>
@@ -100,22 +100,22 @@
 <?php if((!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2) || Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?>
 <div class="glc-login-and-paypal<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
 
-		<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>		
+		<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
 			<div id="gcheckout-login-link" class="glc-login-link<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
-				<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>			
-			</div>	
-			<?php echo $this->getChildHtml('login_before')?> 	
+				<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in here');?></a>
+			</div>
+			<?php echo $this->getChildHtml('login_before')?>
 		<?php endif;?>
-		
+
 		<?php $payments_buttons = explode(',', Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')); ?>
-		
-		<?php if(Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?> 				
-		    <?php if(in_array(GoMage_Checkout_Model_Adminhtml_System_Config_Source_Payment_Buttons::GOOGLE_CHECKOUT, $payments_buttons)): ?>	
+
+		<?php if(Mage::getStoreConfig('gomage_checkout/address_fields/payments_buttons')): ?>
+		    <?php if(in_array(GoMage_Checkout_Model_Adminhtml_System_Config_Source_Payment_Buttons::GOOGLE_CHECKOUT, $payments_buttons)): ?>
 		    	<div class="glc-paypal-express">
 		    	    <?php echo $this->getChildHtml('gomage.methods.google_checkout'); ?>
 		    	</div>
 		    <?php endif;?>
-		    <?php if(in_array(GoMage_Checkout_Model_Adminhtml_System_Config_Source_Payment_Buttons::PAYPAL, $payments_buttons)): ?>	
+		    <?php if(in_array(GoMage_Checkout_Model_Adminhtml_System_Config_Source_Payment_Buttons::PAYPAL, $payments_buttons)): ?>
 		    	<div class="glc-paypal-express">
 		    	    <?php echo $this->getChildHtml('gomage.methods.paypal_express'); ?>
 		    	</div>
@@ -125,15 +125,15 @@
 <?php endif; ?>
 
 <div class="glc gcheckout-onepage-wrap <?php echo $this->getContentCssClasses(); ?>">
-	
-	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">	
-		<?php 
+
+	<form action="<?php echo $this->getUrl('gomage_checkout/onepage/save');?>" method="post" id="gcheckout-onepage-form">
+		<?php
 			$form_block = clone $this;
 			$form_block->setTemplate('gomage/checkout/form.phtml');
 			echo $form_block->toHtml();
-		?>		
+		?>
 	</form>
-	
+
 	<script type="text/javascript">
 	//<![CDATA[
 		var checkoutForm = new VarienForm('gcheckout-onepage-form');
@@ -141,10 +141,13 @@
 		var checkoutloginform = new LightcheckoutLogin({url: "<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>",
             url_forgot: "<?php echo $this->getUrl("gomage_checkout/onepage/forgotPassword");?>",
             logged_in: <?php if($this->isCustomerLoggedIn()):?>true<?php else: ?>false<?php endif; ?> });
-		
-		var checkout = new Lightcheckout({url: "<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>",
-										  save_order_url: "<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",
-										  taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>});
+
+		var checkout = new Lightcheckout({
+            url: "<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>",
+			save_order_url: "<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",
+			taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>,
+            display_vat: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/display_vat'); ?>
+        });
 
 	    function initAddresses(){
             <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
@@ -156,7 +159,7 @@
                 <?php endif;?>
             <?php endif;?>
 	   	}
-	   	
+
 	   	initAddresses();
 
 	   	<?php if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled()): ?>
@@ -166,13 +169,13 @@
     		                {
     	                        'checkout':  checkout,
     	                        'review':    review,
-    	                        'payment':   payment	                        
+    	                        'payment':   payment
     		                }
     	        		);
 		<?php endif; ?>
-	   	
+
 		//]]>
-	</script>		 
-	
+	</script>
+
 </div>
 	

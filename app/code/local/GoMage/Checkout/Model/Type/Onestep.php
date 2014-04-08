@@ -546,7 +546,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
     public function verifyCustomerVat()
     {
         $billing_address  = $this->getQuote()->getBillingAddress();
-        $shipping_address = $this->getQuote()->getBillingAddress();
+        $shipping_address = $this->getQuote()->getShippingAddress();
 
         return array(
             'billing'  => is_object($billing_address) ? $this->vatVerification($billing_address) : false,
