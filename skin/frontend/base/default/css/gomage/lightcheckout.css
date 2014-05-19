@@ -396,6 +396,7 @@
   font-family: Arial,Helvetica,sans-serif;
 }
 .glc li.control input.radio,
+.glc li.control input.checkbox,
 .glc .control input,
 .glc p.control input.checkbox,
 .glc p.control input.radio{
