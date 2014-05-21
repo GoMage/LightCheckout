@@ -26,6 +26,16 @@ class GoMage_Checkout_Block_Config_Block extends Mage_Core_Block_Template
                     return null;
                 }
             }
+
+            if (is_string($this->config_block)) {
+                if (strpos($this->config_block, '/') !== false) {
+                    $block_class = Mage::getConfig()->getBlockClassName($this->config_block);
+                    if (!(class_exists($block_class, false) || mageFindClassFile($block_class))) {
+                        return null;
+                    }
+                }
+            }
+
             try {
                 $block = $this->getLayout()->createBlock($this->config_block);
                 foreach ($this->call_methods as $method) {
