@@ -20,7 +20,8 @@
 		<div class="details" id="gcheckout-login-wrapper">
 			<h2><?php echo $this->__("Customer Login")?></h2>
 			<form id="gcheckout-login-form" action="<?php echo $this->getUrl('customer/account/loginPost'); ?>" method="post" onsubmit="return checkoutloginform.submit(<?php echo $ajax_login ?>);">
-				<ul class="form-list">
+                <?php echo $this->getBlockHtml('formkey'); ?>
+                <ul class="form-list">
 	                <li>
 	                    <label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>
 	                    <div class="input-box">
