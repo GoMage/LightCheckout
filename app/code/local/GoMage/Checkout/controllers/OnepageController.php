@@ -10,7 +10,7 @@
  * @author       GoMage.com
  * @license      http://www.gomage.com/licensing  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 5.6
+ * @version      Release: 5.7
  * @since        Class available since Release 1.0
  */
 class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
