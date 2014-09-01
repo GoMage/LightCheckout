@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage.com
  *
@@ -12,7 +13,6 @@
  * @version      Release: 5.6
  * @since        Class available since Release 1.0
  */
-
 class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 {
 
@@ -189,8 +189,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         Mage::dispatchEvent('enterprise_giftcardaccount_add', array('status' => 'fail', 'code' => $giftcard_code));
                         $calculator->result->error   = true;
                         $calculator->result->message = $e->getMessage();
-                    }
-                    catch (Exception $e) {
+                    } catch (Exception $e) {
                         $calculator->result->error = true;
                         if ($remove) {
                             $calculator->result->message = $this->__('Cannot remove gift card.');
@@ -228,9 +227,9 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                             $paymentMethod['use_customer_balance'] = 1;
                         }
 
-                        $qty = intval($item->getQty() + 1);
-
                         $_product = Mage::getModel('catalog/product')->load($item->getProductId());
+
+                        $qty = $item->getQty() + ($_product->getStockItem()->getQtyIncrements() ? : 1);
 
                         if ($_product->getStockItem()->getManageStock()) {
                             $maximumQty = intval($_product->getStockItem()->getMaxSaleQty());
@@ -303,9 +302,9 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                             $paymentMethod['use_customer_balance'] = 1;
                         }
 
-                        $qty = intval($item->getQty() - 1);
-
                         $_product = Mage::getModel('catalog/product')->load($item->getProductId());
+                        
+                        $qty = $item->getQty() - ($_product->getStockItem()->getQtyIncrements() ? : 1);
 
                         if ($_product->getStockItem()->getManageStock()) {
 
@@ -913,8 +912,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $calculator->result->error   = true;
             $calculator->result->message = $e->getMessage();
 
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
 
         }
 
@@ -1149,8 +1147,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $this->getSession()->addError($e->getMessage());
                 $result['redirect'] = Mage::getUrl('checkout/onepage');
 
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::logException($e);
                 Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
                 $this->getOnepage()->getQuote()->save();
@@ -1228,8 +1225,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }
                 $result['error']   = true;
                 $result['message'] = $message;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $result['error']   = true;
                 $result['message'] = ( string )$e->getMessage();
             }
