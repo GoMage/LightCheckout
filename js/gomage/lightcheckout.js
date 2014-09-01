@@ -6,7 +6,7 @@
  * @author GoMage
  * @license http://www.gomage.com/license-agreement/ Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version Release: 5.5
+ * @version Release: 5.7
  * @since Class available since Release 1.0
  */
 
@@ -910,6 +910,7 @@ Lightcheckout = Class.create({
                 } else if (element.id != 'billing_use_for_shipping_yes' && element.id != 'billing_taxvat' && element.id != 'buy_without_vat') {
                     element.stopObserving('change');
                     element.observe('change', function (e) {
+                        checkout.submit(checkout.getFormData(), 'get_methods');
                         $('billing_address_book').show();
                     });
                 }
@@ -929,6 +930,7 @@ Lightcheckout = Class.create({
                     } else {
                         element.stopObserving('change');
                         element.observe('change', function (e) {
+                            checkout.submit(checkout.getFormData(), 'get_methods');
                             $('shipping_address_book').show();
                         });
                     }
