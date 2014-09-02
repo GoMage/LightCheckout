@@ -419,6 +419,10 @@ Lightcheckout = Class.create({
                                 this.replaceTopLinks(response.toplinks);
                             }
 
+                            if (response.minicart) {
+                                this.replaceMiniCart(response);
+                            }
+
                             if (response.cart_sidebar && typeof(GomageProcartConfig) != 'undefined') {
                                 GomageProcartConfig._replaceEnterpriseTopCart(response.cart_sidebar, ($('topCartContent') && $('topCartContent').visible()));
                             }
@@ -533,7 +537,7 @@ Lightcheckout = Class.create({
 
     replaceTopLinks: function (toplinks) {
 
-        var link = $$('ul.links a.top-link-cart')[0];
+        var link = $$('ul.links a.top-link-cart, div.links ul a.top-link-cart')[0];
         var link_class = '';
         if (link) {
             link_class = 'top-link-cart';
@@ -567,7 +571,20 @@ Lightcheckout = Class.create({
                 }
             }
         }
+    },
 
+    replaceMiniCart: function (response) {
+        if (typeof(Minicart) != 'undefined' && response.minicart) {
+            var Mini = new Minicart({});
+            Mini.updateCartQty(response.total_qty);
+            Mini.updateContentOnUpdate({content: response.minicart});
+            if ($$('div.header-minicart a.no-count')[0]) {
+                $$('div.header-minicart a.no-count')[0].removeClassName('no-count');
+            }
+            if (typeof truncateOptions == 'function') {
+                truncateOptions();
+            }
+        }
     },
 
     showLoadinfo: function () {
@@ -656,61 +673,44 @@ Lightcheckout = Class.create({
         loginForm.style.marginLeft = '-' + left + 'px';
         loginForm.style.top = top + 'px';
     },
+
     hideLoginForm: function () {
         this.hideOverlay();
-
         var loginForm = $('login-form');
-
         if (loginForm) {
-
             loginForm.hide();
         }
-
     },
+
     showTerms: function () {
         var overlay = this.showOverlay();
-
         overlay.onclick = function () {
             this.hideTerms();
         }.bind(this);
-
-
         var termsBlock = $('terms-block');
-
-
         if (!termsBlock) {
-
             $$('body')[0].insert(termsHtml);
-
             var termsBlock = $('terms-block');
         }
 
         termsBlock.style.position = 'fixed';
         termsBlock.style.display = 'block';
 
-        // var scrolloffset = document.body.cumulativeScrollOffset();
-
         var left = termsBlock.offsetWidth / 2;
-
         var contentHeight = document.documentElement ? document.documentElement.clientHeight : document.body.clientHeigh;
-
         var top = contentHeight / 2 - termsBlock.offsetHeight / 2;
-
 
         termsBlock.style.left = '50%';
         termsBlock.style.marginLeft = '-' + left + 'px';
         termsBlock.style.top = top + 'px';
     },
+
     hideTerms: function () {
         this.hideOverlay();
-
-        var loginForm = $('terms-block');
-
-        if (loginForm) {
-
-            loginForm.hide();
+        var termsForm = $('terms-block');
+        if (termsForm) {
+            termsForm.hide();
         }
-
     },
 
     showCentinel: function (html) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage LightCheckout Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 5.7
  * @since        Class available since Release 5.0
  */
-
 class GoMage_Checkout_Model_Type_Onestep_Calculator extends Varien_Object
 {
 
@@ -70,6 +70,11 @@ class GoMage_Checkout_Model_Type_Onestep_Calculator extends Varien_Object
                     $block_html = $this->_getLayoutHrml('gomage_checkout_onepage_methods');
                     break;
                 case 'toplinks':
+                    $minicart_html = $this->_getMinicartHtml();
+                    if ($minicart_html) {
+                        $this->setResultParam('minicart', $minicart_html);
+                        $this->setResultParam('total_qty', Mage::getSingleton('checkout/cart')->getSummaryQty());
+                    }
                     $block_html = $this->_getTopLinksHtml();
                     break;
                 case 'content_billing':
@@ -100,7 +105,7 @@ class GoMage_Checkout_Model_Type_Onestep_Calculator extends Varien_Object
     {
         $layout = Mage::getSingleton('core/layout');
 
-        if (Mage::helper('gomage_checkout')->getIsAnymoreVersion(1, 8)) {
+        if (Mage::helper('gomage_checkout')->isEnterprise()) {
             $top_links = $layout->createBlock('checkout/cart_sidebar', 'glc.top.links');
             $top_links->setTemplate('checkout/cart/cartheader.phtml');
         } else {
@@ -114,6 +119,19 @@ class GoMage_Checkout_Model_Type_Onestep_Calculator extends Varien_Object
         }
 
         return $top_links->renderView();
+    }
+
+    protected function _getMinicartHtml()
+    {
+        $layout = Mage::getSingleton('core/layout');
+        $layout->getUpdate()->load('default');
+        $layout->generateXml()->generateBlocks();
+
+        $minicart = $layout->getBlock('minicart_content');
+        if ($minicart) {
+            return $minicart->toHtml();
+        }
+        return '';
     }
 
     protected function _getContentBilling()

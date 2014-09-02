@@ -303,7 +303,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         }
 
                         $_product = Mage::getModel('catalog/product')->load($item->getProductId());
-                        
+
                         $qty = $item->getQty() - ($_product->getStockItem()->getQtyIncrements() ? : 1);
 
                         if ($_product->getStockItem()->getManageStock()) {
@@ -1119,7 +1119,6 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $customer = $this->getSession()->getCustomer();
 
                 if ($this->getSession()->isLoggedIn() && $customer->getTaxvat() != $this->getOnepage()->getQuote()->getBillingAddress()->getTaxvat()) {
-
                     $customer->setTaxvat($this->getOnepage()->getQuote()->getBillingAddress()->getTaxvat());
                     $customer->save();
                 }
