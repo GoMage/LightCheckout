@@ -82,7 +82,12 @@
             	<rewrite>
             		<quote_address>GoMage_Checkout_Model_Quote_Address</quote_address>            		
             	</rewrite>
-            </sales>                                      
+            </sales>
+            <persistent>
+                <rewrite>
+                    <observer>GoMage_Checkout_Model_Persistent_Observer</observer>
+                </rewrite>
+            </persistent>
         </models>
         <resources>
             <gomage_checkout_setup>
