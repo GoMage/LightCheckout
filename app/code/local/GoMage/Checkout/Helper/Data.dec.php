@@ -353,6 +353,12 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         return false;
     }
 
+    public function isEnterprise()
+    {
+        $modules = array_keys((array)Mage::getConfig()->getNode('modules')->children());
+        return in_array('Enterprise_Enterprise', $modules);
+    }
+
     public function isCompatibleDevice()
     {
 
