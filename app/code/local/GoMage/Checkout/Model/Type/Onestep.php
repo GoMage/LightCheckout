@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage LightCheckout Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 5.7
  * @since        Class available since Release 1.0
  */
-
 class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepage
 {
 
@@ -20,7 +20,6 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function __construct()
     {
-
         $this->helper = Mage::helper('gomage_checkout');
 
         if ($this->helper->getIsAnymoreVersion(1, 4)) {
@@ -35,13 +34,10 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function getCheckoutMode()
     {
-
         if (is_null($this->mode)) {
             $this->mode = $this->helper->getConfigData('general/mode');
         }
-
         return $this->mode;
-
     }
 
     public function getConfigData($node)
@@ -51,9 +47,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
     public function getDefaultCountryId()
     {
-
         return $this->helper->getDefaultCountryId();
-
     }
 
     /**
@@ -89,8 +83,18 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
             $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
 
             // validate customer
-            foreach (array('firstname' => 'firstname', 'lastname' => 'lastname', 'email' => 'email', 'password' => 'customer_password', 'confirmation' => 'confirm_password', 'taxvat' => 'taxvat', 'gender' => 'gender') as $key => $dataKey) {
-                $customer->setData($key, $address->getData($dataKey));
+            $fields = array(
+                'firstname'             => 'firstname',
+                'lastname'              => 'lastname',
+                'email'                 => 'email',
+                'password'              => 'customer_password',
+                'confirmation'          => 'confirm_password',
+                'password_confirmation' => 'confirm_password',
+                'taxvat'                => 'taxvat',
+                'gender'                => 'gender'
+            );
+            foreach ($fields as $key => $value) {
+                $customer->setData($key, $address->getData($value));
             }
             if ($dob) {
                 $customer->setDob($dob);
