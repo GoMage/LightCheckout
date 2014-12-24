@@ -753,9 +753,10 @@ Lightcheckout = Class.create({
 
         if (id) {
             this.showLoadinfo();
-
-            var use_for_shipping = ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').checked);
-
+            var use_for_shipping = true;
+            if ($('billing_use_for_shipping_yes')) {
+                use_for_shipping = $('billing_use_for_shipping_yes').checked;
+            }
             var request = new Ajax.Request(url,
                 {
                     method: 'post',
