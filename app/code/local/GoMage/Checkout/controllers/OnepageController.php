@@ -54,7 +54,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $quote = $this->getOnepage()->getQuote();
 
         if (!$quote->hasItems()) {
-            $this->_redirect('checkout/cart');
+            $this->_redirect($this->getCartPath());
             return;
         }
 
@@ -322,7 +322,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         }
 
                         if (!$this->getOnepage()->getQuote()->hasItems()) {
-                            $calculator->result->url = Mage::app()->getStore()->getUrl('checkout/cart');
+                            $calculator->result->url = Mage::app()->getStore()->getUrl($this->getCartPath());
                         }
 
                         $this->getOnepage()->getQuote()->getShippingAddress()->setCollectShippingRates(true)->collectShippingRates()->save();
@@ -385,7 +385,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         $this->getOnepage()->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
 
                         if (!$this->getOnepage()->getQuote()->hasItems()) {
-                            $calculator->result->url = Mage::app()->getStore()->getUrl('checkout/cart');
+                            $calculator->result->url = Mage::app()->getStore()->getUrl($this->getCartPath());
                         } else {
 
                             $calculator->calcShippings($this->getOnepage()->getQuote());
@@ -943,7 +943,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
 
         if (!$this->getOnepage()->getQuote()->getItemsQty()) {
-            $result['redirect'] = Mage::getUrl('checkout/cart');
+            $result['redirect'] = Mage::getUrl($this->getCartPath());
         }
 
         if ($this->getRequest()->isPost() && $post = $this->getRequest()->getPost() && !isset($result['redirect'])) {
@@ -1328,6 +1328,14 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 Mage::getModel('newsletter/subscriber')->subscribe($email);
             }
         }
+    }
+
+    protected function getCartPath()
+    {
+        if (Mage::getStoreConfig('gomage_checkout/general/disable_cart') || Mage::getStoreConfig('gomage_procart/general/disable_cart')) {
+            return '';
+        }
+        return 'checkout/cart';
     }
 
 }
