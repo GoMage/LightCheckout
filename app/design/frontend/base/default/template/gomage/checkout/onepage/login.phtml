@@ -45,6 +45,7 @@
 		<div class="details" id="gcheckout-forgot-wrapper" style="display:none;">
 			<h2><?php echo $this->__("Forgot Your Password?")?></h2>
 			<form id="gcheckout-forgot-form" action="" method="post" onsubmit="checkoutloginform.submitForgot();return false;">
+                <?php echo $this->getBlockHtml('formkey'); ?>
 				<ul class="form-list">
 	                <li>
 	                    <label class="required" for="email"><em>*</em><?php echo $this->__("Email Address");?></label>
