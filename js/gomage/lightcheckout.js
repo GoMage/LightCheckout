@@ -16,7 +16,6 @@ Lightcheckout = Class.create({
     url: '',
     save_order_url: '',
     existsreview: false,
-    disable_place_order: false,
     accordion: null,
     exists_customer: false,
     display_vat: 3,
@@ -357,9 +356,6 @@ Lightcheckout = Class.create({
                         if (gcheckout_onepage_wrap) {
                             new Insertion.Before(gcheckout_onepage_wrap, response.messages_block);
                         }
-                        this.disable_place_order = true;
-                    } else {
-                        this.disable_place_order = false;
                     }
 
                     if (response.url) {
@@ -609,11 +605,13 @@ Lightcheckout = Class.create({
     },
     hideLoadinfo: function () {
 
-        var e = $$('div.gcheckout-onepage-wrap .loadinfo')[0];
+        var loaders = $$('div.gcheckout-onepage-wrap .loadinfo');
+        if (loaders.length > 0) {
+            var loader = loaders[0];
+            loader.parentNode.removeChild(loader);
+        }
 
-        e.parentNode.removeChild(e);
-
-        if (!this.disable_place_order) {
+        if (loaders.length <= 1) {
             $('submit-btn').disabled = false;
             $('submit-btn').removeClassName('disabled');
         }
