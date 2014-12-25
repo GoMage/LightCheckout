@@ -134,48 +134,5 @@
 		?>
 	</form>
 
-	<script type="text/javascript">
-	//<![CDATA[
-		var checkoutForm = new VarienForm('gcheckout-onepage-form');
-
-		var checkoutloginform = new LightcheckoutLogin({url: "<?php echo $this->getUrl("gomage_checkout/onepage/customerLogin");?>",
-            url_forgot: "<?php echo $this->getUrl("gomage_checkout/onepage/forgotPassword");?>",
-            logged_in: <?php if($this->isCustomerLoggedIn()):?>true<?php else: ?>false<?php endif; ?> });
-
-		var checkout = new Lightcheckout({
-            url: "<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>",
-			save_order_url: "<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",
-			taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>,
-            display_vat: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/display_vat'); ?>
-        });
-
-	    function initAddresses(){
-            <?php if($this->isEnabled('country_id') && $this->isEnabled('region')):?>
-                billingRegionUpdater = new RegionUpdater('billing_country_id', 'billing_region', 'billing_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"billing_postcode"' : 'undefined';?>);
-                <?php if($this->getChild('address')->getChild('billing')->canShip()):?>
-                    <?php if( $this->getChild('address')->getChild('shipping')->isEnabled('country_id') && $this->getChild('address')->getChild('shipping')->isEnabled('region')):?>
-                    shippingRegionUpdater = new RegionUpdater('shipping_country_id', 'shipping_region', 'shipping_region_id', countryRegions, undefined, <?php echo $this->getConfigData('address_fields/postcode') == 'req'  ? '"shipping_postcode"' : 'undefined';?>);
-                    <?php endif;?>
-                <?php endif;?>
-            <?php endif;?>
-	   	}
-
-	   	initAddresses();
-
-	   	<?php if(Mage::helper('gomage_sagepay')->isGoMage_SagePayEnabled()): ?>
-    	   	var review = new LightcheckoutReview('<?php echo $this->getUrl('gomage_checkout/onepage/save') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
-    		SageServer = new EbizmartsSagePaySuite.Checkout
-    					(
-    		                {
-    	                        'checkout':  checkout,
-    	                        'review':    review,
-    	                        'payment':   payment
-    		                }
-    	        		);
-		<?php endif; ?>
-
-		//]]>
-	</script>
-
 </div>
 	

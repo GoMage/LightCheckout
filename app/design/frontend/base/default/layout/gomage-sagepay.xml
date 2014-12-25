@@ -17,8 +17,8 @@
 		<reference name="head">
 			<block type="gomage_sagepay/head" name="gomage.sagepay.head" />		  
 	  	</reference>		  	
-	  	<reference name="content">
-            <block before="checkout.onepage" type="gomage_checkout/config_block" name="sagepaysuite.js.vars">
+	  	<reference name="checkout.onepage">
+            <block type="gomage_checkout/config_block" name="sagepaysuite.js.vars">
                 <action method="setConfigBlock"><config_block>sagepaysuite/javascriptVars</config_block></action>
                 <action method="setIfConfig"><ifconfig>sagepayreporting/account/vendor</ifconfig></action>
                 <action method="setCallMethod"><method>setTemplate</method><params><template>sagepaysuite/payment/SagePaySuiteVars.phtml</template></params></action>
