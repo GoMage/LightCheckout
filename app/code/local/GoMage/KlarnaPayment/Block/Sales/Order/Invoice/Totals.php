@@ -12,7 +12,7 @@
  */
 
 if(Mage::helper('gomage_klarnapayment')->isGoMage_KlarnaPaymentEnabled()) {	
-	abstract class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract extends Klarna_KlarnaPaymentModule_Block_Invoice_Totals_Fee{		
+	abstract class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract extends Vaimo_Klarna_Block_Adminhtml_Sales_Invoice_Totals{
 		public function _initTotals()
 	    {        
 	        parent::_initTotals();

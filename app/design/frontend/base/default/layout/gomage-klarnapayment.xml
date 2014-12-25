@@ -16,6 +16,9 @@
     <gomage_checkout_onepage_index>
 		<reference name="head">
 			<block type="gomage_klarnapayment/head" name="gomage.klarnapayment.head" />		  
-	  	</reference>		  		  		
+	  	</reference>
+        <reference name="content">
+            <block type="klarna/checkout_top" after="-" name="klarna_checkout_top" as="klarna_checkout_top" template="vaimo/klarna/checkout/top.phtml" />
+        </reference>
 	</gomage_checkout_onepage_index>	
 </layout>

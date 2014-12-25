@@ -22,8 +22,8 @@ class GoMage_KlarnaPayment_Helper_Data extends Mage_Core_Helper_Abstract{
 	   if(!isset($_modulesArray['GoMage_KlarnaPayment'])) return false;
 	   if (!$_modulesArray['GoMage_KlarnaPayment']->is('active')) return false;
 
-       if(!isset($_modulesArray['Klarna_KlarnaPaymentModule'])) return false;	   
-	   if (!$_modulesArray['Klarna_KlarnaPaymentModule']->is('active')) return false;
+       if(!isset($_modulesArray['Vaimo_Klarna'])) return false;
+	   if (!$_modulesArray['Vaimo_Klarna']->is('active')) return false;
 
 	   return true;	   
     }	

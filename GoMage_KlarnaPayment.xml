@@ -19,7 +19,7 @@
             <codePool>local</codePool>
             <depends>            	          
             	<GoMage_Checkout />  	
-            	<Klarna_KlarnaPaymentModule />            	        		
+            	<Vaimo_Klarna />
         	</depends>
         </GoMage_KlarnaPayment>
 	</modules>

@@ -12,7 +12,7 @@
  */
 
 if(Mage::helper('gomage_klarnapayment')->isGoMage_KlarnaPaymentEnabled()) {	
-	abstract class GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_Creditmemo_TotalsAbstract extends Klarna_KlarnaPaymentModule_Block_Creditmemo_Totals{		
+	abstract class GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_Creditmemo_TotalsAbstract extends Vaimo_Klarna_Block_Adminhtml_Sales_Creditmemo_Totals{
 		protected function _initTotals()
 	    {        
 	        parent::_initTotals();
