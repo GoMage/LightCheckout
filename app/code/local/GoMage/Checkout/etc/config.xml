@@ -480,7 +480,8 @@
 				
 				<secure_window_width>600</secure_window_width>
 				<secure_window_height>500</secure_window_height>
-				
+
+                <email_confirmation>0</email_confirmation>
 			</address_fields>
 			<address_sort>	
 				<company_order>1</company_order>
