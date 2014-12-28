@@ -75,6 +75,7 @@ Lightcheckout = Class.create({
                 $('billing_taxvat').up('li').hide();
                 $('shipping_taxvat').value = $('billing_taxvat').value;
             }
+            this.submit(this.getFormData(), 'varify_taxvat');
         }
     },
 
