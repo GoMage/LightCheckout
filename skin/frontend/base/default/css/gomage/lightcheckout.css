@@ -815,7 +815,8 @@
 	-webkit-border-radius: 3px;
 	-moz-border-radius   : 3px;
 	border-radius        : 3px;
-	background:url('../../images/gomage/lightcheckout/loadinfo.gif') 5px 50% no-repeat #fff;
+	background:url('../../images/gomage/lightcheckout/loadinfo.svg') 5px 50% no-repeat #fff;
+  background-size: 24px;
   -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   -moz-box-shadow   : 2px 2px 3px rgba(0, 0, 0, 0.5);
   box-shadow        : 2px 2px 3px rgba(0, 0, 0, 0.5);
