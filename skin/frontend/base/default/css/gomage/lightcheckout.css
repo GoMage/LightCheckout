@@ -431,6 +431,9 @@
 #gcheckout-payment-methods dl dt input,
 #gcheckout-payment-methods dl dt label{
 	line-height:16px;
+  min-width: none;
+  float: none;
+  margin: 0;
 }
 /* input labels */
 .glc .form-list label.required,
