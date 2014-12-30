@@ -743,9 +743,22 @@
 	background:none !important;
 }
 .glc #gcheckout-payment-methods dl dt.gcheckout-onepage-sagepay label{
-	padding:0 0 1px 65px !important;
-	background:url(../../images/gomage/lightcheckout/sagepay.png) no-repeat 0 2px !important;
+	padding:9px 0 1px 92px !important;
+  display: inline-block !important;
+  min-height: 34px !important;
+	background:url(../../images/gomage/lightcheckout/sagepay.jpg) no-repeat 0 2px !important;
+  background-size: 86px auto !important;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box;
 }
+.glc .payment-methods .form-list{
+  border: 1px solid #ccc;
+  background: #f4f4f4;
+  padding: 5px 15px 15px;
+  display: block;
+  margin-bottom: 5px;
+  }
 
 /* Captcha */
 .glc #captcha-input-box-gcheckout_onepage input.input-text{
