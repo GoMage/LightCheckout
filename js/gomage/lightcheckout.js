@@ -68,16 +68,12 @@ Lightcheckout = Class.create({
 
         //shipping
         if (this.display_vat == 2 && $('shipping_taxvat') && $('billing_taxvat')) {
-            if ($('billing_taxvat').value != $('shipping_taxvat').value) {
-                if ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').checked) {
-                    $('billing_taxvat').up('li').show();
-                    $('billing_taxvat').value = $('shipping_taxvat').value;
-                } else {
-                    $('billing_taxvat').up('li').hide();
-                    $('shipping_taxvat').value = $('billing_taxvat').value;
-                }
-                this.submit(this.getFormData(), 'varify_taxvat');
+            if ($('billing_use_for_shipping_yes') && $('billing_use_for_shipping_yes').checked) {
+                $('billing_taxvat').up('li').show();
+            } else {
+                $('billing_taxvat').up('li').hide();
             }
+            this.submit(this.getFormData(), 'varify_taxvat');
         }
     },
 
