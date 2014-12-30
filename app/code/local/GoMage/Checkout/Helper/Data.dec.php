@@ -111,7 +111,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=lightcheckout&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('5.7'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=lightcheckout&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('5.8'));
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -452,7 +452,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=lightcheckout&timestamp=' . $timestamp . '&ver=' . urlencode('5.7'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=lightcheckout&timestamp=' . $timestamp . '&ver=' . urlencode('5.8'));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
