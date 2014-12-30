@@ -22,7 +22,7 @@ class GoMage_Checkout_Model_Persistent_Observer extends Mage_Persistent_Model_Ob
     public function emulateQuote($observer)
     {
         parent::emulateQuote($observer);
-        if ($this->_isShoppingCartPersist() && !Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if (Mage::helper('persistent')->isEnabled() && $this->_isShoppingCartPersist() && !Mage::getSingleton('customer/session')->isLoggedIn()) {
             /** @var $checkoutSession Mage_Checkout_Model_Session */
             $checkoutSession = Mage::getSingleton('checkout/session');
             $customer        = Mage::getModel('customer/customer');
