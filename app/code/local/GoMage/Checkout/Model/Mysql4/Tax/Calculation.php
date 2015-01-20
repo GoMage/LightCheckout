@@ -25,9 +25,9 @@ class GoMage_Checkout_Model_Mysql4_Tax_Calculation extends Mage_Tax_Model_Mysql4
         if ($request->getProductClassId()) {
             $select->where('product_tax_class_id IN (?)', $request->getProductClassId());
         }
-		
+
 		if($ruleIds = $request->getDisableByRule()){
-		
+
         $select->join(
             array('rule'=>$this->getTable('tax/tax_calculation_rule')),
             sprintf('rule.tax_calculation_rule_id = main_table.tax_calculation_rule_id AND rule.tax_calculation_rule_id not in (%s)', $ruleIds),

@@ -1,5 +1,5 @@
 <?php
- /**
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -11,31 +11,35 @@
  * @since        Class available since Release 2.5
  */
 
-function DeliveryDateNonworkingOrderBy($data, $field) { 
-	$code = "return strnatcmp(\$a['$field'], \$b['$field']);"; 
-	usort($data, create_function('$a,$b', $code)); 
-	return $data; 
-} 
+function DeliveryDateNonworkingOrderBy($data, $field)
+{
+    $code = "return strnatcmp(\$a['$field'], \$b['$field']);";
+    usort($data, create_function('$a,$b', $code));
+    return $data;
+}
 
 class GoMage_DeliveryDate_Model_Adminhtml_System_Config_Backend_Design_Nonworking extends Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array
-{    
- 	protected function _beforeSave()
+{
+    protected function _beforeSave()
     {
         $value = $this->getValue();
+
         if (is_array($value)) {
             unset($value['__empty']);
-            if (count($value)){            	            	
-            	$value = DeliveryDateNonworkingOrderBy($value, 'sort');
-            	$keys = array();
-            	for($i=0; $i < count($value); $i++){
-            		$keys[] = 'nonworking_' . uniqid();
-            	}   
-				$value = array_combine($keys, array_values($value));            	
+
+            if (count($value)) {
+                $value = DeliveryDateNonworkingOrderBy($value, 'sort');
+                $keys  = array();
+
+                for ($i = 0; $i < count($value); $i++) {
+                    $keys[] = 'nonworking_' . uniqid(mt_rand());
+                }
+
+                $value = array_combine($keys, array_values($value));
             }
         }
-        $this->setValue($value);
 
+        $this->setValue($value);
         parent::_beforeSave();
     }
-    
 }
