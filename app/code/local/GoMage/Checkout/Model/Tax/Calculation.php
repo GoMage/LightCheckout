@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage LightCheckout Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 5.8
  * @since        Class available since Release 1.0
  */
-
 class GoMage_Checkout_Model_Tax_Calculation extends Mage_Tax_Model_Calculation
 {
 
@@ -100,13 +100,9 @@ class GoMage_Checkout_Model_Tax_Calculation extends Mage_Tax_Model_Calculation
             }
 
             if ($mode) {
-
                 $rule_ids = Mage::helper('gomage_checkout')->getConfigData('vat/rule');
-
                 if ($rule_ids) {
-
                     switch ($mode) {
-
                         case (1):
                             if ($address->getIsValidVat() > 0) {
                                 $request->setDisableByRule($rule_ids);
@@ -117,14 +113,27 @@ class GoMage_Checkout_Model_Tax_Calculation extends Mage_Tax_Model_Calculation
                             break;
 
                     }
-
                 }
             }
-
         }
 
         $request->setCountryId($address->getCountryId())->setRegionId($address->getRegionId())->setPostcode($address->getPostcode())->setStore($store)->setCustomerClassId($customerTaxClass);
         return $request;
+    }
+
+    /**
+     * Get cache key value for specific tax rate request
+     *
+     * @param   $request
+     * @return  string
+     */
+    protected function _getRequestCacheKey($request)
+    {
+        $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
+        $key .= $request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
+            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode() . '|'
+            . $request->getDisableByRule();
+        return $key;
     }
 
 }
