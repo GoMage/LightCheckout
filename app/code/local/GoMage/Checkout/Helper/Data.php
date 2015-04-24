@@ -11,7 +11,7 @@
  * @since        Class available since Release 1.0
  */
 
-require_once(Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'MobileDetect' . DS . 'Mobile_Detect.php');
+require_once(Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'MobileDetect' . DS . 'Checkout_Mobile_Detect.php');
 
 class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -111,7 +111,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=lightcheckout&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('5.8'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=lightcheckout&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('5.9'));
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -362,7 +362,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function isCompatibleDevice()
     {
 
-        $detect = new Mobile_Detect();
+        $detect = new Checkout_Mobile_Detect();
         if (!$detect->isMobile()) {
             return (bool)$this->getConfigData('device/desktop');
         }
@@ -452,7 +452,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=lightcheckout&timestamp=' . $timestamp . '&ver=' . urlencode('5.8'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=lightcheckout&timestamp=' . $timestamp . '&ver=' . urlencode('5.9'));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
