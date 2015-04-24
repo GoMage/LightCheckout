@@ -318,9 +318,9 @@ Lightcheckout = Class.create({
                             alert(response.message);
                         }
                     } else if (response.update_section) {
+                        this.hideLoadinfo();
                         this.accordion.currentSection = 'opc-review';
                         this.innerHTMLwithScripts($('checkout-update-section'), response.update_section.html);
-
                     }
                     this.hideLoadinfo();
 
