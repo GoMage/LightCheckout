@@ -1,5 +1,5 @@
 <?php
- /**
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -11,39 +11,28 @@
  * @since        Class available since Release 3.1
  */
 
-if(Mage::helper('gomage_klarnapayment')->isGoMage_KlarnaPaymentEnabled()) {	
-	abstract class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract extends Vaimo_Klarna_Block_Adminhtml_Sales_Invoice_Totals{
-		public function _initTotals()
-	    {        
-	        parent::_initTotals();
-	        
-	        $add_giftwrap = false;
-	        $items = $this->getSource()->getAllItems();                
-	        foreach ($items as $item) {
-	            if ($item->getData('gomage_gift_wrap')) {
-	                $add_giftwrap = true;
-	                break;
-	            }
-	        }            
-	        if ($add_giftwrap){                
-	                $gift_wrap_totals = new Varien_Object(array(
-	                    'code'      => 'gomage_gift_wrap',
-	                    'value'     => $this->getSource()->getGomageGiftWrapAmount(),
-	                    'base_value'=> $this->getSource()->getBaseGomageGiftWrapAmount(),
-	                    'label'     => Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title')
-	                ));
-	                
-	                $this->addTotalBefore($gift_wrap_totals, 'grand_total');
-	                
-	        } 
-	    } 		
-	}		 	
-}else {
-	abstract class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract extends GoMage_Checkout_Block_Sales_Order_Invoice_Totals{
-		
-	}
+if (Mage::helper('gomage_klarnapayment')->isGoMage_KlarnaPaymentEnabled()) {
+    abstract class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract extends Vaimo_Klarna_Block_Adminhtml_Sales_Invoice_Totals
+    {
+        public function _initTotals()
+        {
+            parent::_initTotals();
+            $source = $this->getSource();
+            $totals = Mage::helper('gomage_checkout/giftwrap')->getTotals($source);
+            foreach ($totals as $total) {
+                $this->addTotalBefore(new Varien_Object($total), 'tax');
+            }
+            return $this;
+        }
+    }
+} else {
+    abstract class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract extends GoMage_Checkout_Block_Sales_Order_Invoice_Totals
+    {
+
+    }
 }
 
-class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_Totals extends GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract{
+class GoMage_KlarnaPayment_Block_Sales_Order_Invoice_Totals extends GoMage_KlarnaPayment_Block_Sales_Order_Invoice_TotalsAbstract
+{
 
 }

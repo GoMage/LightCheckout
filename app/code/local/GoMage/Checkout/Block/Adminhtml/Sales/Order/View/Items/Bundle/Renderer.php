@@ -23,7 +23,7 @@ class GoMage_Checkout_Block_Adminhtml_Sales_Order_View_Items_Bundle_Renderer ext
         }
 
         if ($item && $item->getData('gomage_gift_wrap')) {
-            $title    = Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title');
+            $title = Mage::helper('gomage_checkout/giftwrap')->getTitle();
             $result[] = array("value" => $this->__("Yes"), "label" => $title);
         }
         return $result;

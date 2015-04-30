@@ -17,7 +17,7 @@ class GoMage_Checkout_Block_Adminhtml_Sales_Items_Column_Name extends Mage_Admin
 		$result = parent::getOrderOptions();
 		if ($item = $this->getItem()) {
 			if ($item->getData('gomage_gift_wrap')) {
-				$title = Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title');
+				$title = Mage::helper('gomage_checkout/giftwrap')->getTitle();
 				$result[] = array("value" => $this->__("Yes"), "label" => $title);
 			}
 		}

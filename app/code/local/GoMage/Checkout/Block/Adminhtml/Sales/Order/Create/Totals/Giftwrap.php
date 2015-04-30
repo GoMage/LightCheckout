@@ -1,5 +1,6 @@
 <?php
- /**
+
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -10,11 +11,10 @@
  * @version      Release: 5.8
  * @since        Class available since Release 2.4
  */
-
 class GoMage_Checkout_Block_Adminhtml_Sales_Order_Create_Totals_Giftwrap extends Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default
 {
     public function displayBoth()
     {
-        return Mage::getSingleton('tax/config')->displayCartSubtotalBoth();
+        return Mage::helper('gomage_checkout/giftwrap')->displayBoth();
     }
 }

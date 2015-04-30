@@ -1,5 +1,6 @@
 <?php
- /**
+
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -10,11 +11,27 @@
  * @version      Release: 5.8
  * @since        Class available since Release 2.4
  */
-
 class GoMage_Checkout_Block_Checkout_Giftwrap extends Mage_Checkout_Block_Total_Default
 {
+
+    protected $_template = 'gomage/checkout/giftwrap/totals.phtml';
+
     public function displayBoth()
     {
-        return Mage::getSingleton('tax/config')->displayCartShippingBoth(); 
+        return Mage::helper('gomage_checkout/giftwrap')->displayBoth();
     }
+
+    public function getValues()
+    {
+        $values = array();
+        $total  = $this->getTotal();
+
+        $totals = Mage::helper('gomage_checkout/giftwrap')->getTotals($total);
+        foreach ($totals as $total) {
+            $values[$total['label']] = $total['value'];
+        }
+
+        return $values;
+    }
+
 }

@@ -393,21 +393,6 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         );
     }
 
-    public function getGiftWrapTaxAmount(Mage_Sales_Model_Quote_Address $address, $amount)
-    {
-
-        if (!intval($this->getConfigData('gift_wrapping/tax_class'))) {
-            return $amount;
-        }
-        $calculation = Mage::getModel('tax/calculation');
-        $request     = $calculation->getRateRequest($address, null, null, Mage::app()->getStore());
-        $request->setProductClassId(intval($this->getConfigData('gift_wrapping/tax_class')));
-
-        $taxRate = $calculation->getRate($request);
-
-        return ($amount + $calculation->calcTaxAmount($amount, $taxRate));
-    }
-
     public function getCountriesStatesRequired()
     {
         $result = array();

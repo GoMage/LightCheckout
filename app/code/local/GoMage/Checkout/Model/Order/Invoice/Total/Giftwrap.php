@@ -1,5 +1,6 @@
 <?php
- /**
+
+/**
  * GoMage LightCheckout Extension
  *
  * @category     Extension
@@ -10,46 +11,39 @@
  * @version      Release: 5.8
  * @since        Class available since Release 2.4
  */
-
 class GoMage_Checkout_Model_Order_Invoice_Total_Giftwrap extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
-        $invoice->setGomageGiftWrapAmount(0);
-        $invoice->setBaseGomageGiftWrapAmount(0);
+        $order = $invoice->getOrder();
 
-        $totalGomageGiftWrapAmount     = 0;
-        $baseTotalGomageGiftWrapAmount = 0;
-
-        foreach ($invoice->getAllItems() as $item) {            
-            $orderItem = $item->getOrderItem();
-            $orderItemGomageGiftWrap      = (float) $orderItem->getGomageGiftWrapAmount();
-            $baseOrderItemGomageGiftWrap  = (float) $orderItem->getBaseGomageGiftWrapAmount();
-            $orderItemQty       = $orderItem->getQtyOrdered();
-
-            if ($orderItemGomageGiftWrap && $orderItemQty) {
-                
-                $GomageGiftWrap = $orderItemGomageGiftWrap*$item->getQty()/$orderItemQty;
-                $baseGomageGiftWrap = $baseOrderItemGomageGiftWrap*$item->getQty()/$orderItemQty;
-
-                $GomageGiftWrap = $invoice->getStore()->roundPrice($GomageGiftWrap);
-                $baseGomageGiftWrap = $invoice->getStore()->roundPrice($baseGomageGiftWrap);
-                
-
-                $item->setGomageGiftWrapAmount($GomageGiftWrap);
-                $item->setBaseGomageGiftWrapAmount($baseGomageGiftWrap);
-
-                $totalGomageGiftWrapAmount += $GomageGiftWrap;
-                $baseTotalGomageGiftWrapAmount += $baseGomageGiftWrap;
+        $invoiced     = 0;
+        $baseInvoiced = 0;
+        foreach ($invoice->getAllItems() as $invoiceItem) {
+            if (!$invoiceItem->getQty() || $invoiceItem->getQty() == 0) {
+                continue;
+            }
+            $orderItem = $invoiceItem->getOrderItem();
+            if ($orderItem->getData('gomage_gift_wrap') && $orderItem->getBaseGomageGiftWrapAmount()
+                && $orderItem->getBaseGomageGiftWrapAmount() != $orderItem->getBaseGomageGiftWrapInvoiced()
+            ) {
+                $orderItem->setBaseGomageGiftWrapInvoiced($orderItem->getBaseGomageGiftWrapAmount());
+                $orderItem->setGomageGiftWrapInvoiced($orderItem->getGomageGiftWrapAmount());
+                $baseInvoiced += $orderItem->getBaseGomageGiftWrapAmount() * $invoiceItem->getQty() / $orderItem->getQtyOrdered();
+                $invoiced += $orderItem->getGomageGiftWrapAmount() * $invoiceItem->getQty() / $orderItem->getQtyOrdered();
             }
         }
+        if ($invoiced > 0 || $baseInvoiced > 0) {
+            $order->setBaseGomageGiftWrapInvoiced($order->getBaseGomageGiftWrapInvoiced() + $baseInvoiced);
+            $order->setGomageGiftWrapInvoiced($order->getGomageGiftWrapInvoiced() + $invoiced);
+            $invoice->setBaseGomageGiftWrapAmount($baseInvoiced);
+            $invoice->setGomageGiftWrapAmount($invoiced);
+        }
 
+        $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $invoice->getBaseGomageGiftWrapAmount());
+        $invoice->setGrandTotal($invoice->getGrandTotal() + $invoice->getGomageGiftWrapAmount());
 
-        $invoice->setGomageGiftWrapAmount($totalGomageGiftWrapAmount);
-        $invoice->setBaseGomageGiftWrapAmount($baseTotalGomageGiftWrapAmount);
-
-        $invoice->setGrandTotal($invoice->getGrandTotal() + $totalGomageGiftWrapAmount);
-        $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $baseTotalGomageGiftWrapAmount);
         return $this;
+
     }
 }

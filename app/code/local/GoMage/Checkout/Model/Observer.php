@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage LightCheckout Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 5.8
  * @since        Class available since Release 1.0
  */
-
 class GoMage_Checkout_Model_Observer
 {
 
@@ -82,7 +82,7 @@ class GoMage_Checkout_Model_Observer
                 $gift_wrap_amount = 0;
                 $salesEntity      = $cart->getSalesEntity();
                 foreach ($salesEntity->getAllItems() as $item) {
-                    $gift_wrap_amount += $item->getBaseGomageGiftWrapAmount();
+                    $gift_wrap_amount += $item->getGomageGiftWrapAmount() + $item->getGomageTaxGiftWrapAmount();
                 }
                 if ($gift_wrap_amount) {
                     $cart->addItem(Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title'), 1, $gift_wrap_amount);
@@ -165,6 +165,18 @@ class GoMage_Checkout_Model_Observer
                 }
             }
         }
+    }
+
+    /**
+     * Set the flag is it new collecting totals
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
+    {
+        $quote = $observer->getEvent()->getQuote();
+        $quote->setIsNewGomageGiftWrapCollecting(true);
+        $quote->setIsNewGomagTaxeGiftWrapCollecting(true);
     }
 
 }

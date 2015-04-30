@@ -21,7 +21,7 @@ class GoMage_Checkout_Block_Bundle_Sales_Order_Items_Renderer extends Mage_Bundl
         $item = $this->getOrderItem();
 
         if ($item && $item->getData('gomage_gift_wrap')) {
-            $title    = Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title');
+            $title = Mage::helper('gomage_checkout/giftwrap')->getTitle();
             $result[] = array("value" => $this->__("Yes"), "label" => $title);
         }
         return $result;

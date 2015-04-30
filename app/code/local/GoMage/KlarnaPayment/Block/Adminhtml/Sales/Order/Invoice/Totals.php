@@ -14,26 +14,14 @@
 if(Mage::helper('gomage_klarnapayment')->isGoMage_KlarnaPaymentEnabled()) {	
 	abstract class GoMage_KlarnaPayment_Block_Adminhtml_Sales_Order_Invoice_TotalsAbstract extends Vaimo_Klarna_Block_Adminhtml_Sales_Invoice_Totals{
 		protected function _initTotals()
-	    {        
-	        parent::_initTotals();
-	        
-	        $add_giftwrap = false;
-	        $items = $this->getSource()->getAllItems();                
-	        foreach ($items as $item) {
-	            if ($item->getData('gomage_gift_wrap')) {
-	                $add_giftwrap = true;
-	                break;
-	            }
-	        }            
-	        if ($add_giftwrap){                
-	                $this->_totals['gomage_gift_wrap'] = new Varien_Object(array(
-	                    'code'      => 'gomage_gift_wrap',
-	                    'value'     => $this->getSource()->getGomageGiftWrapAmount(),
-	                    'base_value'=> $this->getSource()->getBaseGomageGiftWrapAmount(),
-	                    'label'     => Mage::helper('gomage_checkout')->getConfigData('gift_wrapping/title')
-	                ));
-	        }	        
-	        return $this;
+	    {
+            parent::_initTotals();
+            $source = $this->getSource();
+            $totals = Mage::helper('gomage_checkout/giftwrap')->getTotals($source);
+            foreach ($totals as $total) {
+                $this->addTotalBefore(new Varien_Object($total), 'tax');
+            }
+            return $this;
 	    } 		
 	}		 	
 }else {
