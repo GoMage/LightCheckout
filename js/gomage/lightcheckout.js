@@ -251,12 +251,16 @@ Lightcheckout = Class.create({
     applyDisocunt: function (flag) {
         if (flag) {
             $('remove_coupone').value = 1;
-            this.submit({coupon_code: GlcUrl.encode($('coupon_code').value),
-                remove: $('remove_coupone').value}, 'discount');
+            this.submit({
+                coupon_code: GlcUrl.encode($('coupon_code').value),
+                remove: $('remove_coupone').value
+            }, 'discount');
         } else {
             $('remove_coupone').value = 0;
-            this.submit({coupon_code: GlcUrl.encode($('coupon_code').value),
-                remove: $('remove_coupone').value}, 'discount');
+            this.submit({
+                coupon_code: GlcUrl.encode($('coupon_code').value),
+                remove: $('remove_coupone').value
+            }, 'discount');
         }
     },
 
@@ -759,7 +763,8 @@ Lightcheckout = Class.create({
             var request = new Ajax.Request(url,
                 {
                     method: 'post',
-                    parameters: {'id': id,
+                    parameters: {
+                        'id': id,
                         'type': type,
                         'use_for_shipping': use_for_shipping
                     },
@@ -874,7 +879,10 @@ Lightcheckout = Class.create({
             if (e.hasClassName('required-entry') && !e.hasClassName('validate-taxvat')) {
                 e.stopObserving('blur');
                 e.observe('blur', function () {
-                    Validation.validate(this, {useTitle: checkoutForm.validator.options.useTitles, onElementValidate: checkoutForm.validator.options.onElementValidate});
+                    Validation.validate(this, {
+                        useTitle: checkoutForm.validator.options.useTitles,
+                        onElementValidate: checkoutForm.validator.options.onElementValidate
+                    });
                 });
             }
         });
@@ -992,7 +1000,10 @@ LightcheckoutLogin = Class.create({
         var request = new Ajax.Request(this.url,
             {
                 method: 'post',
-                parameters: {'login[username]': $$('#gcheckout-login-form #email')[0].value, 'login[password]': $$('#gcheckout-login-form #pass')[0].value},
+                parameters: {
+                    'login[username]': $$('#gcheckout-login-form #email')[0].value,
+                    'login[password]': $$('#gcheckout-login-form #pass')[0].value
+                },
                 onSuccess: function (transport) {
                     try {
                         eval('var response = ' + transport.responseText);
@@ -1296,6 +1307,7 @@ LightcheckoutReview.prototype = {
 
     resetLoadWaiting: function (transport) {
         checkout.hideLoadinfo();
+        $('gcheckout-onepage-form').disable();
     },
 
     nextStep: function (transport) {
@@ -1316,6 +1328,7 @@ LightcheckoutReview.prototype = {
                 window.location = this.successUrl;
             }
             else {
+                $('gcheckout-onepage-form').enable();
                 var msg = response.error_messages;
                 if (typeof(msg) == 'object') {
                     msg = msg.join("\n");
