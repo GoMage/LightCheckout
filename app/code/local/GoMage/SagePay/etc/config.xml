@@ -21,6 +21,11 @@
     <global>
     	<blocks>
 	        <gomage_sagepay><class>GoMage_SagePay_Block</class></gomage_sagepay>
+            <sagepaysuite>
+                <rewrite>
+                    <checkout_serverfail>GoMage_SagePay_Block_Checkout_Serverfail</checkout_serverfail>
+                </rewrite>
+            </sagepaysuite>
 	    </blocks>
         <models>
             <gomage_sagepay>
@@ -48,7 +53,7 @@
                         <method>checkoutEventAfterSave</method>
                     </gomagesagepaysave>
                 </observers>
-            </checkout_type_onepage_save_order_after>            
+            </checkout_type_onepage_save_order_after>
         </events>              
 	</frontend>	
 </config>
