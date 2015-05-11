@@ -53,6 +53,7 @@ Lightcheckout = Class.create({
         this.findExistsCustomer();
         this.setBlocksNumber();
         this.initDisplayVat();
+        this.initCraftyClicks();
     },
 
     initDisplayVat: function () {
@@ -967,6 +968,47 @@ Lightcheckout = Class.create({
             }
         }
         this.initDisplayVat();
+    },
+
+    initCraftyClicks: function () {
+        if (!_cp_integrate) return;
+        if (typeof CraftyClicksMagentoClass == 'undefined') return;
+
+        if ($("billing_postcode")) {
+            var cc1 = new CraftyClicksMagentoClass();
+            cc1.add_lookup({
+                "prefix": "billing",
+                "fields": {
+                    "postcode_id": "billing_postcode",
+                    "company_id": "billing_company",
+                    "street1_id": "billing_street1",
+                    "street2_id": "billing_street2",
+                    "street3_id": "billing_street3",
+                    "street4_id": "billing_street4",
+                    "town_id": "billing_city",
+                    "county_id": "billing_region",
+                    "country_id": "billing_country_id"
+                }
+            });
+        }
+
+        if ($("shipping_postcode")) {
+            var cc2 = new CraftyClicksMagentoClass();
+            cc2.add_lookup({
+                "prefix": "shipping",
+                "fields": {
+                    "postcode_id": "shipping_postcode",
+                    "company_id": "shipping_company",
+                    "street1_id": "shipping_street1",
+                    "street2_id": "shipping_street2",
+                    "street3_id": "shipping_street3",
+                    "street4_id": "shipping_street4",
+                    "town_id": "shipping_city",
+                    "county_id": "shipping_region",
+                    "country_id": "shipping_country_id"
+                }
+            });
+        }
     }
 
 });
