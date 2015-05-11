@@ -817,13 +817,11 @@ Lightcheckout = Class.create({
                 });
 
         } else {
-
             $(type + '-new-address-form').select('input[type=text], select, textarea').each(function (e) {
-
                 e.value = '';
-
             });
-
+            initAddresses();
+            checkout.initialize();
         }
 
     },
