@@ -599,8 +599,10 @@ Lightcheckout = Class.create({
         msgs = $$('ul.messages');
 
         if (msgs.length) {
-
             for (i = 0; i < msgs.length; i++) {
+                if (msgs[i].up('#gcheckout-shipping-method-available')) {
+                    continue;
+                }
                 msgs[i].remove();
             }
         }
