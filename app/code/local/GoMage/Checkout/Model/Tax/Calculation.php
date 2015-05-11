@@ -101,6 +101,8 @@ class GoMage_Checkout_Model_Tax_Calculation extends Mage_Tax_Model_Calculation
 
             if ($mode) {
                 $rule_ids = Mage::helper('gomage_checkout')->getConfigData('vat/rule');
+                $rule_ids = implode(',', array_filter(explode(',', $rule_ids)));
+
                 if ($rule_ids) {
                     switch ($mode) {
                         case (1):
