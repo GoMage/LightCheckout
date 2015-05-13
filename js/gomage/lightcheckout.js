@@ -971,8 +971,9 @@ Lightcheckout = Class.create({
     },
 
     initCraftyClicks: function () {
-        if (!_cp_integrate) return;
         if (typeof CraftyClicksMagentoClass == 'undefined') return;
+        if (typeof _cp_integrate == 'undefined') return;
+        if (!_cp_integrate) return;
 
         if ($("billing_postcode")) {
             var cc1 = new CraftyClicksMagentoClass();
