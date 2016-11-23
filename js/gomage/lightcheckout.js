@@ -892,12 +892,19 @@ Lightcheckout = Class.create({
             if ($('billing_taxvat')) {
                 $('billing_taxvat').stopObserving('change');
                 $('billing_taxvat').observe('change', function () {
+                    if ($('shipping_taxvat')) {
+                        $('shipping_taxvat').value = $('billing_taxvat').value;
+                    }
                     checkout.submit(checkout.getFormData(), 'varify_taxvat');
                 });
             }
             if ($('shipping_taxvat')) {
                 $('shipping_taxvat').stopObserving('change');
                 $('shipping_taxvat').observe('change', function () {
+                    if ($('billing_taxvat')) {
+                        $('billing_taxvat').value = $('shipping_taxvat').value;
+                    }
+
                     checkout.submit(checkout.getFormData(), 'varify_taxvat');
                 });
             }
@@ -934,7 +941,7 @@ Lightcheckout = Class.create({
                             }
                         });
 
-                    } else {
+                    } else if (element.id != 'billing_use_for_shipping_yes' && element.id != 'shipping_taxvat' && element.id != 'buy_without_vat') {
                         element.stopObserving('change');
                         element.observe('change', function (e) {
                             checkout.submit(checkout.getFormData(), 'get_methods');
