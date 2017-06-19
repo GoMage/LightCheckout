@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      https://www.gomage.com/license-agreement/  Single domain license
  * @terms of use https://www.gomage.com/terms-of-use
- * @version      Release: 5.9.1
+ * @version      Release: 5.9.2
  * @since        Class available since Release 1.0
  */
 class GoMage_Checkout_Model_Mysql4_Tax_Calculation extends Mage_Tax_Model_Mysql4_Calculation
