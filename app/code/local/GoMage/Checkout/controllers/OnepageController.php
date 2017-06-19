@@ -95,6 +95,11 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $action = $this->getRequest()->getParam('action');
 
         try {
+
+            if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
+                Mage::throwException('Invalid form key');
+            }
+
             switch ($action) :
 
                 case ('discount'):
@@ -951,6 +956,10 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
             try {
 
+                if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
+                    Mage::throwException('Invalid form key');
+                }
+
                 $pollId   = intval($this->getRequest()->getPost('poll_id'));
                 $answerId = intval($this->getRequest()->getPost('poll_vote'));
                 if ($pollId && $answerId) {
@@ -1336,6 +1345,16 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return '';
         }
         return 'checkout/cart';
+    }
+
+    /**
+     * Check if form_key validation enabled on checkout process
+     *
+     * @return bool
+     */
+    protected function isFormkeyValidationOnCheckoutEnabled()
+    {
+        return Mage::getStoreConfigFlag('admin/security/validate_formkey_checkout');
     }
 
 }
