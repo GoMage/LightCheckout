@@ -57,32 +57,40 @@ class GoMage_DeliveryDate_Helper_Data extends Mage_Core_Helper_Abstract{
 		}		
 		return  $this->nonworking_days;
 	}
-	
-	public function getTimeRange($from, $to){
-				
-		if (!$to) $to = 24;
-		
-		$hours = array();
-		if ($from > $to)
-		{
-		    for($i = $from; $i <= 23; $i++)
-		        $hours[] = $i;
-		    for($i = 0; $i <= $to; $i++)
-		        $hours[] = $i;    
-		}           			         
-		else
-		{
-		    for($i = $from; $i <= $to; $i++)
-		    {
-		        if ($i == 24)
-		            $hours[] = 0;
-		        else
-		            $hours[] = $i;
-		    }        
-		}
 
-		return $hours;		
-	}
+    /**
+     * @param $from
+     * @param $to
+     *
+     * @return array
+     */
+    private function getTimeRange($from, $to)
+    {
+        if (!$to) {
+            $to = 24;
+        }
+
+        $hours = array();
+        if ($from > $to) {
+            for ($i = $from; $i != $to; $i++) {
+                if ($i == 24) {
+                    $i = 0;
+                }
+                $hours[] = $i;
+            }
+            $hours[] = $i;
+        } else {
+            for ($i = $from; $i <= $to; $i++) {
+                if ($i == 24) {
+                    $hours[] = 0;
+                } else {
+                    $hours[] = $i;
+                }
+            }
+        }
+
+        return $hours;
+    }
 	
 	public function isEnableDeliveryDate(){
 		return (Mage::getStoreConfig('gomage_checkout/deliverydate/deliverydate') &&
