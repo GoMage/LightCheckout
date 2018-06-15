@@ -346,6 +346,7 @@ Lightcheckout = Class.create({
 
         this.showLoadinfo();
 
+        params.form_key = this.getFormData()['form_key'];
         params.action = action;
 
         var request = new Ajax.Request(this.url,
