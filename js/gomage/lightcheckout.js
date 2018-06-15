@@ -83,6 +83,7 @@ Lightcheckout = Class.create({
         if (!$('billing_email') ||
             ($('customer_account_create') && !$('customer_account_create').checked)) {
             this.exists_customer = false;
+            Validation.validate(document.getElementById('billing_email'));
             return false;
         }
 
@@ -91,16 +92,16 @@ Lightcheckout = Class.create({
         if (email) {
             var params = {email: email};
             params.action = 'find_exists_customer';
-            var request = new Ajax.Request(this.url,
+            new Ajax.Request(this.url,
                 {
                     method: 'post',
                     parameters: params,
                     onSuccess: function (transport) {
                         eval('var response = ' + transport.responseText);
                         glc_self.exists_customer = response.exists;
+                        Validation.validate(document.getElementById('billing_email'));
                     }
                 });
-
         }
     },
 
