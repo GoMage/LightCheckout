@@ -939,7 +939,6 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     public function saveAction()
     {
-
         $helper = Mage::helper('gomage_checkout');
 
         $result = array('error' => false, 'success' => true, 'message' => array());
@@ -948,7 +947,9 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['redirect'] = Mage::getUrl('checkout/onepage');
         }
 
-        if (!$this->getOnepage()->getQuote()->getItemsQty()) {
+        if (!$this->getOnepage()->getQuote()->getItemsQty()
+            || !$this->getOnepage()->getQuote()->validateMinimumAmount()
+        ) {
             $result['redirect'] = Mage::getUrl($this->getCartPath());
         }
 
