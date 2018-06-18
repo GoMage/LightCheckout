@@ -27,7 +27,7 @@ class GoMage_Checkout_Block_Adminhtml_System_Config_Fieldset_Help
             $html .= '<input id="'.$element->getHtmlId() . '-state" name="config_state[' . $element->getId()
                 . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
             $html .= '<fieldset class="' . $this->_getFieldsetCss($element) . '" id="' . $element->getHtmlId() . '">';
-            $html.= '<button style="margin-right:25px; margin-top:-33px;  float: right;" onclick="window.open(\'http://wiki.gomage.com/display/lc/Home\')" class="scalable go" type="button" id="glc_help"><span>'.$this->__('GoMage LightCheckout Wiki').'</span></button>';
+            $html.= '<button style="margin-right:25px; margin-top:-33px;  float: right;" onclick="window.open(\'https://wiki.gomage.com/hc/en-us/categories/115000271131-LightCheckout\')" class="scalable go" type="button" id="glc_help"><span>'.$this->__('GoMage LightCheckout Wiki').'</span></button>';
 
             $html .= '<legend>' . $element->getLegend() . '</legend>';
 
@@ -42,7 +42,7 @@ class GoMage_Checkout_Block_Adminhtml_System_Config_Fieldset_Help
         }else{
             $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
             $html = '<div  class="entry-edit-head collapseable" >';
-            $html.= '<button style="margin-right:25px;float: right;" onclick="window.open(\'http://wiki.gomage.com/display/lc/Home\')" class="scalable go" type="button" id="glc_help"><span>'.$this->__('GoMage LightCheckout Wiki').'</span></button>';
+            $html.= '<button style="margin-right:25px;float: right;" onclick="window.open(\'https://wiki.gomage.com/hc/en-us/categories/115000271131-LightCheckout\')" class="scalable go" type="button" id="glc_help"><span>'.$this->__('GoMage LightCheckout Wiki').'</span></button>';
             $html.= '<a id="'.$element->getHtmlId().'-head" href="#" onclick="Fieldset.toggleCollapse(\''.$element->getHtmlId().'\', \''.$this->getUrl('*/*/state').'\'); return false;">'.$element->getLegend().'</a></div>';
             $html.= '<input id="'.$element->getHtmlId().'-state" name="config_state['.$element->getId().']" type="hidden" value="'.(int)$this->_getCollapseState($element).'" />';
             $html.= '<fieldset class="'.$this->_getFieldsetCss().'" id="'.$element->getHtmlId().'">';
