@@ -79,11 +79,13 @@ Lightcheckout = Class.create({
     },
 
     findExistsCustomer: function () {
-
         if (!$('billing_email') ||
             ($('customer_account_create') && !$('customer_account_create').checked)) {
             this.exists_customer = false;
-            Validation.validate(document.getElementById('billing_email'));
+            var email = document.getElementById('billing_email');
+            if (email) {
+                Validation.validate(email);
+            }
             return false;
         }
 
