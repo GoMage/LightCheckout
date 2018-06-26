@@ -1281,7 +1281,14 @@ paymentForm.prototype = {
         for (var j = 0; j < this.all_payment_methods.length; j++) {
             if (this.all_payment_methods[j] && $('payment_form_' + this.all_payment_methods[j])) {
                 var form = $('payment_form_' + this.all_payment_methods[j]);
-                form.style.display = 'none';
+
+                if (form  !== null && form.getOffsetParent().hasClassName('form-list') === true) {
+                    form.getOffsetParent().style.display = 'none';
+                } else {
+                    form.style.display = 'none';
+                }
+
+                //form.style.display = 'none';
                 var elements = form.getElementsByTagName('input');
                 for (var i = 0; i < elements.length; i++) elements[i].disabled = true;
                 var elements = form.getElementsByTagName('select');
@@ -1290,7 +1297,23 @@ paymentForm.prototype = {
         }
 
         if (this.currentMethod && $('payment_form_' + this.currentMethod)) {
-            var form = $('payment_form_' + this.currentMethod);
+            var form = $('payment_form_' + this.currentMethod),
+                needToShow = false;
+
+            if (form  !== null && form.getOffsetParent().hasClassName('form-list') === true) {
+                var childLi = form.childElements()[0].childElements();
+                for (var i = 0; i < childLi.length; i++) {
+                    if (childLi[i].type !== 'hidden') {
+                        needToShow = true;
+                        break;
+                    }
+                }
+
+                if (needToShow) {
+                    form.getOffsetParent().style.display = '';
+                }
+            }
+
             form.style.display = '';
             var elements = form.getElementsByTagName('input');
             for (var i = 0; i < elements.length; i++) elements[i].disabled = false;
