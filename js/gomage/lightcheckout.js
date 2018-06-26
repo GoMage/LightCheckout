@@ -1288,7 +1288,6 @@ paymentForm.prototype = {
                     form.style.display = 'none';
                 }
 
-                //form.style.display = 'none';
                 var elements = form.getElementsByTagName('input');
                 for (var i = 0; i < elements.length; i++) elements[i].disabled = true;
                 var elements = form.getElementsByTagName('select');
