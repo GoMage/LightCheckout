@@ -880,7 +880,10 @@ Lightcheckout = Class.create({
         }.bind(this));
 
         $('gcheckout-onepage-address').select('select, input, textarea').each(function (e) {
-            if (e.hasClassName('required-entry') && !e.hasClassName('validate-taxvat')) {
+            if (e.hasClassName('required-entry')
+                && !e.hasClassName('validate-taxvat')
+                && !e.hasClassName('validate-email')
+            ) {
                 e.stopObserving('blur');
                 e.observe('blur', function () {
                     Validation.validate(this, {
