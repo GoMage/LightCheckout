@@ -292,8 +292,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
         $checkout = $this->getCheckout();
         $customer = $this->getCustomerSession()->getCustomer();
-
-        if ($customer->getId() > 0 && !$checkout->getCustomerAssignedQuote()) {
+        if ((int) $customer->getId() > 0 && !$checkout->getCustomerAssignedQuote()) {
 
             $this->getQuote()->assignCustomer($customer);
 
@@ -309,7 +308,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                 $address->setSuffix($customer->getSuffix());
                 $address->setCountryId($countryId);
 
-                if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')) {
+                if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring') && Mage::getStoreConfig('gomage_checkout/geoip/geoip_enabled')) {
 
                     $record = $this->helper->getGeoipRecord();
                     if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled')) {
@@ -321,6 +320,8 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                     if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
                         $address->setRegionId($this->prepareRegion($record));
                     }
+
+                    $address->setCountryId($record->country_code);
                 }
 
                 $this->getQuote()->setBillingAddress($address);
@@ -332,7 +333,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
                     if (!$this->getQuote()->getBillingAddress()->getCity()) {
 
-                        if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')) {
+                        if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring') && Mage::getStoreConfig('gomage_checkout/geoip/geoip_enabled')) {
 
                             $record = $this->helper->getGeoipRecord();
                             if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled')) {
@@ -344,6 +345,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                             if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
                                 $this->getQuote()->getBillingAddress()->setRegionId($this->prepareRegion($record));
                             }
+                            $this->getQuote()->getBillingAddress()->setCountryId($record->country_code);
 
                         }
 
@@ -369,7 +371,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                         $address->setSuffix($customer->getSuffix());
                         $address->setCountryId($countryId);
 
-                        if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')) {
+                        if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring') &&  Mage::getStoreConfig('gomage_checkout/geoip/geoip_enabled')) {
 
                             $record = $this->helper->getGeoipRecord();
                             if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled')) {
@@ -381,6 +383,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                             if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
                                 $address->setRegionId($this->prepareRegion($record));
                             }
+                            $address->setCountryId($record->country_code);
                         }
                         $this->getQuote()->setShippingAddress($address);
                     }
@@ -403,7 +406,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
                     if (!$this->getQuote()->getBillingAddress()->getCity()) {
 
-                        if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')) {
+                        if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring') &&  Mage::getStoreConfig('gomage_checkout/geoip/geoip_enabled')) {
 
                             $record = $this->helper->getGeoipRecord();
                             if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled')) {
@@ -415,6 +418,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                             if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
                                 $this->getQuote()->getBillingAddress()->setRegionId($this->prepareRegion($record));
                             }
+                            $this->getQuote()->getBillingAddress()->setCountryId($record->country_code);
 
                         }
 
@@ -430,7 +434,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
 
                         if (!$this->getQuote()->getShippingAddress()->getCity()) {
 
-                            if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring')) {
+                            if ((Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_post_enabled') || Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) && file_exists(Mage::getBaseDir('media') . "/geoip/GeoLiteCity.dat") && extension_loaded('mbstring') && Mage::getStoreConfig('gomage_checkout/geoip/geoip_enabled')) {
 
                                 $record = $this->helper->getGeoipRecord();
                                 if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_city_enabled')) {
@@ -442,7 +446,7 @@ class GoMage_Checkout_Model_Type_Onestep extends Mage_Checkout_Model_Type_Onepag
                                 if (Mage::getStoreConfig('gomage_checkout/geoip/geoip_state_enabled')) {
                                     $this->getQuote()->getShippingAddress()->setRegionId($this->prepareRegion($record));
                                 }
-
+                                $this->getQuote()->getShippingAddress()->setCountryId($record->country_code);
                             }
 
                         }
