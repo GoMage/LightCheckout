@@ -307,12 +307,35 @@ Lightcheckout = Class.create({
     },
 
     saveorder: function () {
-
-        this.showLoadinfo();
-
         var params = this.getFormData();
+        if (payment.saveUrl.indexOf('payone') !== -1) {
+            self = this;
+            new Ajax.Request(
+                payment.saveUrl,
+                {
+                    method: 'post',
+                    parameters: params,
+                    onSuccess: function (result) {
+                        var response = result.responseJSON || result.responseText.evalJSON(true) || {};
+                        if (response.update_section && response.update_section.name == 'payment-method') {
+                            $('checkout-' + response.update_section.name + '-load').update(response.update_section.html);
 
-        var request = new Ajax.Request(this.save_order_url,
+                            self.hideLoadinfo();
+                            return;
+                        }
+                        self.saveOrderAjax(params);
+                    },
+                    onFailure: function () {
+                    }
+                }
+            );
+        } else {
+            this.saveOrderAjax(params);
+        }
+    },
+
+    saveOrderAjax: function (params) {
+        new Ajax.Request(this.save_order_url,
             {
                 method: 'post',
                 parameters: params,
@@ -331,13 +354,10 @@ Lightcheckout = Class.create({
                         this.innerHTMLwithScripts($('checkout-update-section'), response.update_section.html);
                     }
                     this.hideLoadinfo();
-
                 }.bind(this),
                 onFailure: function () {
-
                 }
             });
-
     },
 
     setLoadWaiting: function (step, keepDisabled) {

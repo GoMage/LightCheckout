@@ -25,7 +25,7 @@
 
         <reference name="head">
             <action method="addJs"><script>mage/centinel.js</script></action>
-
+			<action method="addJs"><script>payone/core/sepa_input.js</script></action>
 			<action method="addJs"><script>gomage/validator.js</script></action>
         	<action method="addJs"><script>gomage/lightcheckout.js</script></action>
             <action method="addItem"><type>skin_css</type><name>css/gomage/lightcheckout.css</name><params/></action>
