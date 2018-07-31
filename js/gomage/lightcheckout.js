@@ -308,7 +308,7 @@ Lightcheckout = Class.create({
 
     saveorder: function () {
         var params = this.getFormData();
-        if (payment.saveUrl.indexOf('payone') !== -1) {
+        if (payment.saveUrl && payment.saveUrl.indexOf('payone') !== -1) {
             self = this;
             new Ajax.Request(
                 payment.saveUrl,
