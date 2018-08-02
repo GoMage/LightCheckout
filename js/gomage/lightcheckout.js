@@ -1318,7 +1318,9 @@ paymentForm.prototype = {
             }
         }
 
-        if (this.currentMethod && $('payment_form_' + this.currentMethod)) {
+        if (this.currentMethod && this.currentMethod != 'payone_online_bank_transfer_pfc'
+            && $('payment_form_' + this.currentMethod)
+        ) {
             var form = $('payment_form_' + this.currentMethod),
                 needToShow = false;
 
