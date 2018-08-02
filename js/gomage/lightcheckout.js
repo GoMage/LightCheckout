@@ -1556,4 +1556,4 @@ if (typeof(CentinelAuthenticate) != 'undefined') {
 }
 //to avoid exception from payone side.
 var Billing = Class.create();
-var billing = new Billing('co-billing-form', '','');
+var billing = new Billing();
