@@ -97,7 +97,8 @@
         url: "<?php echo $this->getUrl('gomage_checkout/onepage/ajax');?>",
         save_order_url: "<?php echo $this->getUrl('gomage_checkout/onepage/save');?>",
         taxvat_enabled: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/enabled') ? 'true' : 'false';?>,
-        display_vat: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/display_vat'); ?>
+        display_vat: <?php echo Mage::helper('gomage_checkout')->getConfigData('vat/display_vat'); ?>,
+        registration_mode: <?php echo Mage::helper('gomage_checkout')->getCheckoutMode(); ?>
     });
 
     function initAddresses() {

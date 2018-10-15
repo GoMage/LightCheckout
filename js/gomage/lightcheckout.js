@@ -15,6 +15,7 @@ Lightcheckout = Class.create({
     taxvat_verify_result: null,
     url: '',
     save_order_url: '',
+    registration_mode: null,
     existsreview: false,
     accordion: null,
     exists_customer: false,
@@ -31,6 +32,10 @@ Lightcheckout = Class.create({
 
         if (data && (typeof data.display_vat != 'undefined')) {
             this.display_vat = data.display_vat;
+        }
+
+        if (data && (typeof data.registration_mode != 'undefined')) {
+            this.registration_mode = data.registration_mode;
         }
 
         (data && data.url) ? this.url = data.url : '';

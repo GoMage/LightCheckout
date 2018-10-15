@@ -11,17 +11,30 @@
  */
 
 var glc_exists_customer_msg = 'There is already a customer registered using this email address. Please login using this email address or enter a different email address.';
+var glc_only_registered_msg = 'Customer with this email does not exist. Please register before placing order.';
+
 if (typeof Translator != 'undefined') {
     glc_exists_customer_msg = Translator.translate(glc_exists_customer_msg);
+    glc_only_registered_msg = Translator.translate(glc_only_registered_msg);
 }
 
-Validation.add('glc-exists-customer', glc_exists_customer_msg,
+Validation.add('glc-only-registered-customer', glc_only_registered_msg,
     function (v) {
-        if (typeof checkout != 'undefined') {
-            return !checkout.exists_customer;
+        if (typeof checkout != 'undefined' && checkout.registration_mode === 1) {
+            return checkout.exists_customer;
         }
         return true;
     });
+
+Validation.add('glc-exists-customer', glc_exists_customer_msg,
+    function (v) {
+        if (typeof checkout != 'undefined' && checkout.registration_mode !== 1) {
+            return !checkout.exists_customer;
+        }
+        return true;
+
+    });
+
 
 function glcValidateTaxvatBilling(v) {
     if ($('billing_country_id') && (checkout.taxvat_verify_result != null)) {
