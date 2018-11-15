@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      https://www.gomage.com/license-agreement/  Single domain license
  * @terms of use https://www.gomage.com/terms-of-use
- * @version      Release: 5.9.3
+ * @version      Release: 5.9.4
  * @since Class available since Release 5.9
  */
 class GoMage_SagePay_Block_Checkout_Serverfail extends Ebizmarts_SagePaySuite_Block_Checkout_Serverfail
